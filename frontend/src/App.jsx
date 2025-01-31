@@ -1,7 +1,14 @@
-import { BrowserRouter, Route, Routes } from "react-router";
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import "./App.css";
 import SignIn from '../components/Authentication/SignIn/SignIn'
 import SignUp from "../components/Authentication/SignUp/SignUp";
-import './App.css'
+import Books from "./Books";
+import Rating from "./Rating";
+import Home from './Pages/Home/Home';
+import AdminDashboard from './Pages/Admin/AdminDashboard';
+import NotFound from './Pages/NotFound404/NotFound';
+
+
 function App() {
   return (
     <>
@@ -20,4 +27,4 @@ function App() {
   );
 }
 
-export default App
+export default App;
