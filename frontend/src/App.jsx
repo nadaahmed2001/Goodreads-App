@@ -5,7 +5,7 @@ import SignUp from "../components/Authentication/SignUp/SignUp";
 import Books from "./Books";
 import Rating from "./Rating";
 import Home from './Pages/Home/Home';
-import AdminDashboard from './Pages/Admin/AdminDashboard';
+import AdminLogin from './Pages/Admin/AdminLogin';
 import NotFound from './Pages/NotFound404/NotFound';
 import Categories from './Pages/Admin/Categories';
 import ManageBooks from './Pages/Admin/ManageBooks';
@@ -20,14 +20,14 @@ function App() {
       <Router>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/Admin" element={<AdminDashboard />} />
+          <Route path="/AdminLogin" element={<AdminLogin />} />
           <Route path="/Books" element={<Books />} />
           <Route path="/Rating" element={<Rating />} />
           <Route path="/Categories" element={<Categories />} />
           <Route path="/ManageBooks" element={<ManageBooks />} />
           <Route path="/Authors" element={<Authors />} />
-          <Route path="/sign-up" element={<SignUp/>} />
-          <Route path="/sign-in" element={<SignIn/>} /> 
+          <Route path="/sign-up" element={<SignUp />} />
+          <Route path="/sign-in" element={<SignIn />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Router>
