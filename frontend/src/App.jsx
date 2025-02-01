@@ -6,6 +6,8 @@ import Books from "./Books";
 import Rating from "./Rating";
 import Home from './Pages/Home/Home';
 import AdminLogin from './Pages/Admin/AdminLogin';
+import AdminDashboard from './Pages/Admin/AdminDashboard';
+// import HomePage from './Pages/Home/HomePage'; //testing
 import NotFound from './Pages/NotFound404/NotFound';
 import Categories from './Pages/Admin/Categories';
 import ManageBooks from './Pages/Admin/ManageBooks';
@@ -21,6 +23,8 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/AdminLogin" element={<AdminLogin />} />
+          {/* <Route path = "/" element = {<HomePage />} /> //testing */}
+          <Route path="/Admin" element={<AdminDashboard />} />
           <Route path="/Books" element={<Books />} />
           <Route path="/Rating" element={<Rating />} />
           <Route path="/Categories" element={<Categories />} />
