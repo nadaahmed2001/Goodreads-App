@@ -5,17 +5,25 @@ import Rating from "./Rating";
 import Home from './Pages/Home/Home';
 import AdminDashboard from './Pages/Admin/AdminDashboard';
 import NotFound from './Pages/NotFound404/NotFound';
+import Categories from './Pages/Admin/Categories';
+import ManageBooks from './Pages/Admin/ManageBooks';
+import Authors from './Pages/Admin/Authors';
+
 
 
 function App() {
   return (
     <>
+
       <Router>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/Admin" element={<AdminDashboard />} />
           <Route path="/Books" element={<Books />} />
           <Route path="/Rating" element={<Rating />} />
+          <Route path="/Categories" element={<Categories />} />
+          <Route path="/ManageBooks" element={<ManageBooks />} />
+          <Route path="/Authors" element={<Authors />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Router>
