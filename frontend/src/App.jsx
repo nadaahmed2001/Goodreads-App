@@ -12,6 +12,7 @@ import NotFound from './Pages/NotFound404/NotFound';
 import Categories from './Pages/Admin/Categories';
 import ManageBooks from './Pages/Admin/ManageBooks';
 import Authors from './Pages/Admin/Authors';
+import AuthorsBook from '../components/Authors-Book/AuthorsBook';
 
 
 
@@ -35,6 +36,7 @@ function App() {
           <Route path="/sign-up" element={<SignUp />} />
           <Route path="/sign-in" element={<SignIn />} />
           <Route path="*" element={<NotFound />} />
+          <Route path="/AuthorsBook" element={<AuthorsBook />} />
         </Routes>
       </Router>
     </>
