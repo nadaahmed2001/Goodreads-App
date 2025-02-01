@@ -1,5 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import "./App.css";
+import SignIn from '../components/Authentication/SignIn/SignIn'
+import SignUp from "../components/Authentication/SignUp/SignUp";
 import Books from "./Books";
 import Rating from "./Rating";
 import Home from './Pages/Home/Home';
@@ -24,6 +26,8 @@ function App() {
           <Route path="/Categories" element={<Categories />} />
           <Route path="/ManageBooks" element={<ManageBooks />} />
           <Route path="/Authors" element={<Authors />} />
+          <Route path="/sign-up" element={<SignUp/>} />
+          <Route path="/sign-in" element={<SignIn/>} /> 
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Router>
