@@ -1,0 +1,66 @@
+/* .homepage {
+    min-height: 100vh;
+  } */
+  
+  /* Navigation */
+  .search-input {
+    max-width: 500px;
+    width: 100%;
+  }
+  
+  /* Hero Section */
+  /* .hero-image {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+  } */
+  
+  /* Categories */
+  .category-card {
+    background-color: #f8f9fa;
+    transition: all 0.3s ease;
+  }
+  
+  .category-card:hover {
+    background-color: #e9ecef;
+    transform: translateY(-5px);
+  }
+  
+  /* Books Section */
+  .categories-scroll {
+    overflow-x: auto;
+    white-space: nowrap;
+    padding-bottom: 10px;
+  }
+  
+  .book-card {
+    transition: all 0.3s ease;
+  }
+  
+  .book-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  }
+  
+  .book-card img {
+    height: 250px;
+    object-fit: cover;
+  }
+  
+  /* Social Icons */
+  .social-icons span {
+    font-size: 1.5rem;
+    cursor: pointer;
+  }
+  
+  /* Responsive Adjustments */
+  @media (max-width: 768px) {
+    .navbar .search-input {
+      max-width: 100%;
+    }
+    
+    /* .hero-image {
+      height: 300px;
+      margin-bottom: 2rem;
+    } */
+  }
