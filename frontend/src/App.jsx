@@ -4,6 +4,7 @@ import Books from "./Books";
 import Rating from "./Rating";
 import Home from './Pages/Home/Home';
 import AdminDashboard from './Pages/Admin/AdminDashboard';
+// import HomePage from './Pages/Home/HomePage'; //testing
 import NotFound from './Pages/NotFound404/NotFound';
 
 
@@ -13,6 +14,7 @@ function App() {
       <Router>
         <Routes>
           <Route path="/" element={<Home />} />
+          {/* <Route path = "/" element = {<HomePage />} /> //testing */}
           <Route path="/Admin" element={<AdminDashboard />} />
           <Route path="/Books" element={<Books />} />
           <Route path="/Rating" element={<Rating />} />
