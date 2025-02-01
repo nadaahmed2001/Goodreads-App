@@ -32,6 +32,44 @@ app.get("/", async (req, res) => {
   }
 });
 
+// Author endpoint to get all authors in books
+app.get("/authors", async (req, res) => {
+  console.log("I entered the server.js file to fetch authors");
+  try {
+    const books = await Book.find();
+
+    const authors = books.map(book => book.author);
+    const uniqueAuthors = authors.filter((value, index, self) =>
+      index === self.findIndex((t) => (
+        t.id === value.id 
+      ))
+    );
+    res.json(uniqueAuthors); 
+    console.log("Authors fetched successfully from server.js");
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+
+// Endpoint to get all books by a specific author ID
+app.get("/authors/:authorId", async (req, res) => {
+  const authorId = parseInt(req.params.authorId); 
+  console.log(`Looking for author with ID: ${authorId}`);
+  
+  try {
+    const books = await Book.find({ "author.id": authorId });
+    if (books.length === 0) {
+      return res.status(404).json({ message: "Author not found" });
+    }
+    const author = books[0].author;
+    res.json(author);
+    console.log("Author fetched successfully from server.js");
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
 
 // Start the server
 // const PORT = process.env.PORT || 5000;
