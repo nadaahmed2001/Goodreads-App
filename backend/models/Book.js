@@ -1,16 +1,9 @@
 const mongoose = require("mongoose");
-const mongooseSequence = require("mongoose-sequence")(mongoose);
 
 const bookSchema = new mongoose.Schema({
   title: String,
   category: { type: mongoose.Schema.Types.ObjectId, ref: "Category" },
-  author: { 
-    id: { type: Number, unique: true },
-    name: String,
-    image: String,
-    aboutAuthor: String,
-    birthDate: Date
-  },
+  author: { type: mongoose.Schema.Types.ObjectId, ref: "Author" },
   description: String,
   coverImage: String,
   price: Number,
@@ -19,7 +12,6 @@ const bookSchema = new mongoose.Schema({
   trending: Boolean,
 });
 
-bookSchema.plugin(mongooseSequence, { inc_field: 'author.id' });
 
 const Book = mongoose.model("Book", bookSchema);
 module.exports = Book;
