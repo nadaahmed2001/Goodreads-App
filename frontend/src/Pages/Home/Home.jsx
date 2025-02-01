@@ -3,6 +3,7 @@ import './Home.css';
 import Navbar from './../../../components/navbar';
 import React, { useEffect, useState } from "react";
 import { fetchBooks } from "../../services/api"; // Import API function
+import { Link } from "react-router-dom";
 
 const HomePage = () => {
 
@@ -48,7 +49,7 @@ const [books, setBooks] = useState([]); // useState used to set the state of the
       <div className="bg-light py-5 mt-5">
         <div className="container">
           <div className="d-flex justify-content-between align-items-center mb-4">
-            <h2 className="fw-bold">Most Popular Authors</h2>
+            <h2 className="fw-bold"><Link to="/AuthorsBook">Most Popular Authors</Link></h2>
             <div>
               <button className="btn btn-light rounded-circle me-2">
                 <ChevronLeft size={20} />
