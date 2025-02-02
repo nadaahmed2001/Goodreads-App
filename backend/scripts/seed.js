@@ -30,52 +30,21 @@ const seedData = async () => {
 
     const dramacategory = await Category.findOne({ name: "Drama" });
     const fictioncategory = await Category.findOne({ name: "Fiction" });
-    const sciencefictioncategory = await Category.findOne({
-      name: "Science Fiction",
-    });
 
-    if (!dramacategory || !fictioncategory) {
-      console.error("❌ Category not found! Check database.");
-      return;
-    }
-
-    console.log("✅ Categories found:", dramacategory, fictioncategory);
-
-    const williamShakespeare = await Author.findOne({
-      name: "William Shakespeare",
-    });
-    const janeAusten = await Author.findOne({ name: "Jane Austen" });
-    const fScottFitzgerald = await Author.findOne({
-      name: "F. Scott Fitzgerald",
-    });
-    const georgeOrwell = await Author.findOne({ name: "George Orwell" });
-
-    if (!williamShakespeare) console.error("❌ William Shakespeare not found!");
-    if (!janeAusten) console.error("❌ Jane Austen not found!");
-    if (!fScottFitzgerald) console.error("❌ F. Scott Fitzgerald not found!");
-    if (!georgeOrwell) console.error("❌ George Orwell not found!");
-
-    if (
-      !williamShakespeare ||
-      !janeAusten ||
-      !fScottFitzgerald ||
-      !georgeOrwell
-    ) {
-      console.error("❌ One or more authors are missing. Stopping script.");
-      return;
-    }
-
-    console.log(
-      "✅ Authors found:",
-      williamShakespeare,
-      janeAusten,
-      fScottFitzgerald,
-      georgeOrwell
-    );
+    await Category.create([
+      {
+        name: "Action",
+        description:
+          "Action is the specific mode of fiction represented in performance.",
+      },
+    ]);
 
     await Book.create([
       {
-        title: "Romeo and Juliet",
+        title: "Hamlet",
+        author: "William Shakespeare",
+        coverImage:
+          "https://images-na.ssl-images-amazon.com/images/I/51L8YwJ0yPL._SX331_BO1,204,203,200_.jpg",
         category: dramacategory._id,
         author: williamShakespeare._id,
         description: "A tragedy about two young star-crossed lovers.",
@@ -85,9 +54,14 @@ const seedData = async () => {
         rating: 5,
         featured: true,
         trending: true,
+        description:
+          "The Tragedy of Hamlet, Prince of Denmark, often shortened to Hamlet, is a tragedy written by William Shakespeare sometime between 1599 and 1601.",
       },
       {
         title: "Pride and Prejudice",
+        author: "Jane Austen",
+        coverImage:
+          "https://images-na.ssl-images-amazon.com/images/I/51b-JoVjFRL._SX331_BO1,204,203,200_.jpg",
         category: fictioncategory._id,
         author: janeAusten._id,
         description: "A romantic novel of manners.",
@@ -97,9 +71,14 @@ const seedData = async () => {
         rating: 4,
         featured: true,
         trending: true,
+        description:
+          "Pride and Prejudice is a romantic novel of manners written by Jane Austen in 1813.",
       },
       {
         title: "The Great Gatsby",
+        author: "F. Scott Fitzgerald",
+        coverImage:
+          "https://images-na.ssl-images-amazon.com/images/I/51b-JoVjFRL._SX331_BO1,204,203,200_.jpg",
         category: fictioncategory._id,
         author: fScottFitzgerald._id,
         description: "A novel set in the Jazz Age.",
@@ -109,9 +88,14 @@ const seedData = async () => {
         rating: 4,
         featured: true,
         trending: true,
+        description:
+          "The Great Gatsby is a novel by American writer F. Scott Fitzgerald. Set in the Jazz Age on Long Island, the novel depicts narrator Nick Carraway's interactions with mysterious millionaire Jay Gatsby.",
       },
       {
         title: "1984",
+        author: "George Orwell",
+        coverImage:
+          "https://images-na.ssl-images-amazon.com/images/I/51b-JoVjFRL._SX331_BO1,204,203,200_.jpg",
         category: fictioncategory._id,
         author: georgeOrwell._id,
         description: "A dystopian social science fiction novel.",
@@ -121,6 +105,8 @@ const seedData = async () => {
         rating: 5,
         featured: true,
         trending: true,
+        description:
+          "Nineteen Eighty-Four: A Novel, often referred to as 1984, is a dystopian social science fiction novel by English novelist George Orwell.",
       },
     ]);
 
