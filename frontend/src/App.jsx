@@ -28,6 +28,11 @@ function App() {
 
           {/* <Route path = "/" element = {<HomePage />} /> //testing */}
           <Route path='/AdminLogin' element={<AdminLogin />} />
+          <Route path='/Register' element={<Register />} />
+          <Route path='/Categories' element={<Categories />} />
+          <Route path='/ManageBooks' element={<ManageBooks />} />
+          <Route path='/Register' element={<Register />} />
+          <Route path='/Authors' element={<Authors />} />
           {/* <Route path = "/" element = {<HomePage />} /> //testing */}
           {/* <Route path="/Admin" element={<AdminLogin />} /> */}
           <Route path='/books' element={<BookList />} />
