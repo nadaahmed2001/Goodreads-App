@@ -39,6 +39,7 @@ function App() {
           <Route path='/books/:bookId' element={<BookDetails />} />
           <Route path='/sign-up' element={<SignUp />} />
           <Route path='/sign-in' element={<SignIn />} />
+          <Route path='/login' element={<Login />} />
           <Route path='*' element={<NotFound />} />
           <Route path='/AuthorsBook' element={<AuthorsBook />} />
         </Routes>
