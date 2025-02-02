@@ -8,8 +8,6 @@ export const fetchBooks = () => axios.get(`${API_BASE_URL}/`);
 // export const fetchTrendingBooks = () => axios.get(`${API_BASE_URL}/books/trending`);
 // export const fetchBooksByCategory = (categoryId) => axios.get(`${API_BASE_URL}/books/category/${categoryId}`);
 
-
-
 // // Authors API
 // export const fetchAuthors = () => axios.get(`${API_BASE_URL}/authors`);
 // export const fetchAuthorDetails = (authorId) => axios.get(`${API_BASE_URL}/authors/${authorId}`);
