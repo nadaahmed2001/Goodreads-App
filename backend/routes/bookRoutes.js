@@ -2,10 +2,7 @@ const express = require("express");
 
 const router = express.Router();
 
-
-
 // Get All Books
-
 
 // Get Featured Books
 // router.get("/featured", async (req, res) => {
