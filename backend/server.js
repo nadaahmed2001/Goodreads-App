@@ -25,7 +25,10 @@ connectDB();
 app.get("/", async (req, res) => {
   console.log("I entered the server.js file to fetch books");
   try {
-    const books = await Book.find();
+    const books = await Book.find().populate("author", "name");  //Populate the author field with the name field from the Author model
+    
+    // return just the first 6 books
+    // books=books.slice(0, 6);
     res.json(books);
     console.log("Books fetched successfully from server.js" + books);
   } catch (error) {
