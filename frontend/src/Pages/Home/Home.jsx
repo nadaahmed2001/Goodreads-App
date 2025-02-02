@@ -101,16 +101,6 @@ const [books, setBooks] = useState([]); // useState used to set the state of the
       {/* Best-Selling Books Section */}
       <div className="container mt-5">
         <h2 className="fw-bold mb-4">Best-Selling Books</h2>
-        <div className="categories-scroll mb-4">
-          {['All Categories', 'HTML Design', 'WP Themes', 'CMS Themes', 'eCommerce', 'Blogging', 'UI Templates'].map((category, index) => (
-            <button
-              key={index}
-              className={`btn me-2 ${index === 0 ? 'btn-primary' : 'btn-light'}`}
-            >
-              {category}
-            </button>
-          ))}
-        </div>
         
         <div className="row g-4">
           {books.map((book, index) => (
@@ -136,7 +126,7 @@ const [books, setBooks] = useState([]); // useState used to set the state of the
         </div>
         
         <div className="text-center mt-5">
-          <button className="btn btn-primary btn-lg"style={{color: 'white'}}>
+          <button className="btn btn-primary btn-lg">
             <Link to="/Books">View All Books</Link>
           </button>
         </div>
