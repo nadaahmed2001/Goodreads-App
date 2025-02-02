@@ -4,9 +4,9 @@ import SignIn from "../components/Authentication/SignIn/SignIn";
 import SignUp from "../components/Authentication/SignUp/SignUp";
 import Register from "../components/Authentication/SignUp/Register";
 import Logged from "../components/Authentication/Logged";
-import Books from "./Books";
-import Rating from "./Rating";
 import Home from "./Pages/Home/Home";
+import BookList from "./Pages/Books/BookList";
+import BookDetails from "./Pages/Books/BookDetails";
 
 // import HomePage from './Pages/Home/HomePage'; //testing
 import AdminLogin from "./Pages/Admin/AdminLogin";
@@ -30,8 +30,8 @@ function App() {
           <Route path='/AdminLogin' element={<AdminLogin />} />
           {/* <Route path = "/" element = {<HomePage />} /> //testing */}
           {/* <Route path="/Admin" element={<AdminLogin />} /> */}
-          <Route path='/Books' element={<Books />} />
-          <Route path='/Rating' element={<Rating />} />
+          <Route path='/books' element={<BookList />} />
+          <Route path='/books/:bookId' element={<BookDetails />} />
           <Route path='/sign-up' element={<SignUp />} />
           <Route path='/sign-in' element={<SignIn />} />
           <Route path='*' element={<NotFound />} />
