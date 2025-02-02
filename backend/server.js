@@ -25,8 +25,8 @@ connectDB();
 app.get("/", async (req, res) => {
   console.log("I entered the server.js file to fetch books");
   try {
-    const books = await Book.find().populate("author", "name");  //Populate the author field with the name field from the Author model
-    
+    const books = await Book.find().populate("author", "name"); //Populate the author field with the name field from the Author model
+
     // return just the first 6 books
     // books=books.slice(0, 6);
     res.json(books);
@@ -41,28 +41,26 @@ app.get("/authors", async (req, res) => {
   console.log("I entered the server.js file to fetch authors");
   try {
     const books = await Author.find();
-    res.json(books); 
+    res.json(books);
     console.log("Authors fetched successfully from server.js");
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 });
 
-
 // Endpoint to get all books by a specific author ID
 app.get("/authors/:authorId", async (req, res) => {
-  const authorId = req.params.authorId; 
+  const authorId = req.params.authorId;
   console.log(`Looking for author with ID: ${authorId}`);
-  
+
   try {
-    const author = await Author.find({ "_id": authorId });
+    const author = await Author.find({ _id: authorId });
     res.json(author);
     console.log("Author fetched successfully from server.js");
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 });
-
 
 // Start the server
 // const PORT = process.env.PORT || 5000;
