@@ -9,12 +9,14 @@ const BookDetails = () => {
   useEffect(() => {
     const getBook = async () => {
       try {
-        const data = await fetchBookById(bookId);
-        setBook(data);
+        const response = await fetchBookById(bookId);
+        console.log("Fetched Book Response:", response); // ✅ Log response
+        setBook(response.data);
       } catch (error) {
-        console.error("Error fetching book details:", error);
+        console.error("Error fetching book details:", error.response || error);
       }
     };
+    
 
     getBook();
   }, [bookId]);
@@ -24,11 +26,12 @@ const BookDetails = () => {
   return (
     <div>
       <h1>{book.title}</h1>
-      <p>By {book.author}</p>
+      <p>By {book.author.name}</p>
+      <p>Category: {book.category.name}</p>
       <img src={book.coverImage} alt={book.title} width='200px' />
       <p>{book.description}</p>
       <p>Price: ${book.price}</p>
-      <p>Rating: {book.rating} ⭐</p>
+      <p>Rating: {book.rating} ⭐⭐⭐⭐</p>
     </div>
   );
 };

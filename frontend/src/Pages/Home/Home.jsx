@@ -116,7 +116,11 @@ const [books, setBooks] = useState([]); // useState used to set the state of the
                   </div>
                   <div className="d-grid">
                     <button className="btn btn-primary">Add to Cart</button>
-                    <button className="btn btn-outline-primary mt-2">View Details</button>
+                    <button className="btn btn-outline-primary mt-2">
+                      <Link to={`/books/${book._id}`}>
+                      View Details
+                      </Link>
+                      </button>
                     </div>
 
                 </div>
@@ -127,7 +131,7 @@ const [books, setBooks] = useState([]); // useState used to set the state of the
         
         <div className="text-center mt-5">
           <button className="btn btn-primary btn-lg">
-            <Link to="/Books">View All Books</Link>
+            <Link to="/books">View All Books</Link>
           </button>
         </div>
       </div>

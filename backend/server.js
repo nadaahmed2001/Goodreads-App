@@ -1,10 +1,12 @@
 const express = require("express");
+// import Categories from './../frontend/src/Pages/Admin/Categories';
 const cors = require("cors");
 const connectDB = require("./config/db");
 require("dotenv").config(); // Load environment variables from .env file
-const Book = require("./models/Book"); // Ensure the correct path to the Book model
+const Book = require("./models/Book");
 const Author = require("./models/Author");
 const UserModel = require("./models/User");
+const Category = require("./models/Category");
 
 
 const app = express();
@@ -28,6 +30,7 @@ connectDB();
 app.get("/", async (req, res) => {
   console.log("I entered the server.js file to fetch books");
   try {
+    // const books = await Book.find();
     const books = await Book.find().populate("author", "name"); //Populate the author field with the name field from the Author model
 
     // return just the first 6 books
@@ -71,7 +74,11 @@ app.get("/books/:bookId", async (req, res) => {
 
   try {
     // Populate the author field with the name field from the Author model and populate categoru name
-    const book = await Book.findById(bookId).populate("author", "name").populate("category", "name");
+
+    const book = await Book .findById(bookId)
+    .populate("author", "name")
+    .populate("category", "name");
+
     res.json(book);
     console.log("Book fetched successfully from server.js");
   } catch (error) {
