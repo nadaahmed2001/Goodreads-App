@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { fetchBookById } from "../../services/api";
+// import { fetchBookById } from "../../servisces/api";
 
 const BookDetails = () => {
   const { bookId } = useParams();
