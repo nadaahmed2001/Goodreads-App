@@ -51,7 +51,7 @@ export default function Books() {
                                             src={book.photo}
                                             alt="Book"
                                             width="50"
-                                            height="60"
+                                            hei/*  */ ght="60"
                                             style={{ cursor: "pointer" }}
                                             onClick={() => window.open(book.photo, "_blank")}
                                         />
