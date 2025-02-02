@@ -4,6 +4,8 @@ const connectDB = require("./config/db");
 require("dotenv").config(); // Load environment variables from .env file
 const Book = require("./models/Book"); // Ensure the correct path to the Book model
 const Author = require("./models/Author");
+const UserModel = require("./models/User");
+
 
 const app = express();
 
@@ -77,7 +79,49 @@ app.get("/books/:bookId", async (req, res) => {
   }
 });
 
+
+//register and login 
+app.post('/login',(req,res) => {
+  const {email , password} = req.body
+  UserModel.findOne({ email: email})
+  .then((user) => {
+   if(user)
+   {
+       if(user.password === password){
+           res.json("success")
+       }
+       else {
+           res.json("Incorrect password")
+       }
+   }
+   else {
+       res.json("User not found")
+   }
+
+  }) 
+
+   })
+   
+   app.post('/register', (req, res) => {
+       // Check if user already exists (by email in this case)
+       UserModel.findOne({ email: req.body.email })
+         .then(existingUser => {
+           if (existingUser) {
+             // If user exists, return an error message
+             return res.json("Email Already Exist");
+           }
+     
+           // If user doesn't exist, create a new user
+           UserModel.create(req.body) //creation in database 
+             .then(user => res.json(user))  // Respond with the created user to the frontend 
+             .catch(err => res.status(500).json({ error: err.message }));  // Handle any errors
+         })
+         .catch(err => res.status(500).json({ error: err.message }));  // Handle errors in finding the user
+     });
+     
+
 // Start the server
 // const PORT = process.env.PORT || 5000;
 const PORT = 5000;
-app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
+app.listen(PORT, () => {console.log(`🚀 Server running on port ${PORT}`)
+console.log(`➡ Local: http://localhost:${PORT}`);});
