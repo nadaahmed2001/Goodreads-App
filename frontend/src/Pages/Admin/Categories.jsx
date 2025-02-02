@@ -6,9 +6,9 @@ import ModalBtn from '../../assets/Reusable';
 
 export default function Categories() {
 
-    const handleSaveCategory = () => {
+    // const handleSaveCategory = () => {
 
-    }
+    // }
     return (
         <div className='d-flex'>
             <Sidebar />
@@ -16,7 +16,13 @@ export default function Categories() {
                 <div className='d-flex justify-content-between'>
                     <h1>Manage Categories</h1>
                     {/* <Button variant="dark">Add Category</Button> */}
-                    {<ModalBtn title={"Category"} label={"Enter Category"} onSave={handleSaveCategory} />}
+                    <ModalBtn
+                        title="User"
+                        fields={[
+                            { name: "name", label: "Category", type: "text" },
+                        ]}
+                        onSave={(data) => console.log("Saving User:", data)}
+                    />
                 </div>
                 <Table striped bordered hover>
                     <thead >
