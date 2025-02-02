@@ -21,6 +21,7 @@ app.use(express.json());
 connectDB();
 
 // Routes
+
 // Home page
 app.get("/", async (req, res) => {
   console.log("I entered the server.js file to fetch books");
