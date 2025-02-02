@@ -120,7 +120,7 @@ const [books, setBooks] = useState([]); // useState used to set the state of the
                 <div className="card-body">
                   <h4 className="card-title">{book.title}</h4>
                   <p className="card-text text-primary fw-bold">{book.price}$</p>
-                  <p className="card-text text-muted">Author: {book.author}</p>
+                  <p className="card-text text-muted">Author: {book.author.name}</p>
                   <div className="d-flex justify-content-between mt-2">
                       <span className="text-muted">⭐⭐⭐⭐⭐</span>
                   </div>
@@ -136,7 +136,9 @@ const [books, setBooks] = useState([]); // useState used to set the state of the
         </div>
         
         <div className="text-center mt-5">
-          <button className="btn btn-primary btn-lg">View All Books</button>
+          <button className="btn btn-primary btn-lg">
+            <Link to="/Books">View All Books</Link>
+          </button>
         </div>
       </div>
 
