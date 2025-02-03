@@ -42,6 +42,9 @@ function App() {
           <Route path='/login' element={<Login />} />
           <Route path='*' element={<NotFound />} />
           <Route path='/AuthorsBook' element={<AuthorsBook />} />
+          <Route path='{`/AuthorDetails/${author._id}`}' element={<AuthorsBook />} />
+          <Route path='*' element={<NotFound />} />
+          
         </Routes>
       </Router>
     </>
