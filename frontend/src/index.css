@@ -1,7 +1,11 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 981e3461dbb0e1ee26f253951bd39917619fd818
+.btn-custom {
+  color: white;
+  transition: all 0.3s ease;
+}
+
+.btn-custom:hover {
+  color: white;
+}
 /* :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -70,8 +74,7 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 } */
-<<<<<<< HEAD
-=======
+
 /* :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -140,8 +143,7 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 } */
->>>>>>> Nada
-=======
+
 /* :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -210,4 +212,3 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 } */
->>>>>>> 981e3461dbb0e1ee26f253951bd39917619fd818

@@ -4,6 +4,8 @@ const API_BASE_URL = "http://localhost:5000";
 
 // Fetch all books
 export const fetchBooks = () => axios.get(`${API_BASE_URL}/`);
+export const fetchBookById = (bookId) => axios.get(`${API_BASE_URL}/books/${bookId}`);
+
 // export const fetchFeaturedBooks = () => axios.get(`${API_BASE_URL}/books/featured`);
 // export const fetchTrendingBooks = () => axios.get(`${API_BASE_URL}/books/trending`);
 // export const fetchBooksByCategory = (categoryId) => axios.get(`${API_BASE_URL}/books/category/${categoryId}`);

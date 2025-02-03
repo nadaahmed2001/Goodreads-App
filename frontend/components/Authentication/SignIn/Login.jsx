@@ -9,12 +9,11 @@ export default function Register() {
     const [email , setEmail] = useState()
     const [password , setPassword] = useState()
     const [errorMessage, setErrorMessage] = useState('');  // New state for error message
-    
     const navigate = useNavigate();
 
 const handelSubmit = (e) => {
    e.preventDefault();
-   axios.post('http://localhost:3001/login',{email,password})
+   axios.post('http://localhost:5000/login',{email,password})
    .then(result => {console.log(result)
     if(result.data === "success"){
         alert("logged in successfully")
