@@ -54,6 +54,7 @@ export default function AuthorsBook() {
     <>
       <Navbar />
       <Author authors={authors} /> {/* Pass authors array as props */}
+     
     </>
   );
 }
