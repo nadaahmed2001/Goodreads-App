@@ -109,7 +109,6 @@ const [books, setBooks] = useState([]); // useState used to set the state of the
                 <img src={book.coverImage} className="card-img-top" alt={book.title} />
                 <div className="card-body">
                   <h4 className="card-title">{book.title}</h4>
-                  <p className="card-text text-primary fw-bold">{book.price}$</p>
                   <p className="card-text text-muted">Author: {book.author.name}</p>
                   <div className="d-flex justify-content-between mt-2">
                       <span className="text-muted">⭐⭐⭐⭐⭐</span>
