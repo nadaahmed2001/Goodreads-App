@@ -13,21 +13,21 @@ export default function Register() {
 
 const handelSubmit = (e) => {
    e.preventDefault();
-   axios.post('http://localhost:5000/login',{email,password})
-   .then(result => {console.log(result)
-    if(result.data === "success"){
-        alert("logged in successfully")
-        navigate('/')
-    }else if( result.data === "User not found"){
-        setErrorMessage('Invalid Email');
-    }
-    else if (result.data === "Incorrect password")
-    {
-        setErrorMessage('Incorrect password');
 
+  axios.post('http://localhost:5000/login', { email, password })
+  .then(result => {
+    if (result.data.message === "success") {
+      // Store the token
+      localStorage.setItem('token', result.data.token);
+      alert("Logged in successfully");
+      navigate('/');
+    } else {
+      setErrorMessage(result.data.message); // Show the error message from the backend
     }
-   })
-   .catch(error => console.log(error))
+  })
+  .catch(error => console.log(error));
+
+
 }
     
   return (
