@@ -139,7 +139,7 @@ const [user, setUser] = useState(null); // State for user data from backend
                 <img src={book.coverImage} className="card-img-top" alt={book.title} />
                 <div className="card-body">
                   <h4 className="card-title">{book.title}</h4>
-                  <p className="card-text text-muted">Author: {book.author.name}</p>
+                  <p className="card-text text-muted">Author</p>
                   <div className="d-flex justify-content-between mt-2">
                       <span className="text-muted">⭐⭐⭐⭐⭐</span>
                   </div>
