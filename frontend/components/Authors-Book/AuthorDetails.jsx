@@ -45,23 +45,6 @@ export default function AuthorDetails() {
   if (!author) {
     return <div>Author not found.</div>;
   }
-  //fetch author books
-  // const fetchAuthorBooks = async () => {
-  //   try {
-  //     const response = await fetch(`http://localhost:5000/authors/${authorId}`);
-  //     if (!response.ok) {
-  //       throw new Error('Failed to fetch author books');
-  //     }
-  //     const data = await response.json();
-  //     setAuthor(data);
-  //   } catch (error) {
-  //     setError(error.message);
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // };
-
-
 
   return (
     <>
