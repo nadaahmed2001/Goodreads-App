@@ -1,7 +1,7 @@
-import React, {useState} from 'react';
-import {Form, Button, Container, Row, Col} from 'react-bootstrap';
-import {Link} from 'react-router';
-import {useNavigate} from 'react-router-dom';
+import React, { useState } from 'react';
+import { Form, Button, Container, Row, Col } from 'react-bootstrap';
+import { Link } from 'react-router';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 export default function Register() {
@@ -24,7 +24,7 @@ export default function Register() {
     }
 
     axios
-      .post('http://localhost:5000/register', {first_name,last_name, email, password,role:"user",create_at:{ currentTime: new Date().toLocaleString() }})
+      .post('http://localhost:5000/register', { first_name, last_name, email, password, role: "user", create_at: { currentTime: new Date().toLocaleString() } })
       .then((result) => {
         console.log(result);
         if (result.data === 'Email Already Exist') {
