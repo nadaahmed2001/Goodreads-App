@@ -9,6 +9,7 @@ const UserModel = require("./models/User");
 const Category = require("./models/Category");
 const jwt = require("jsonwebtoken");
 const TempBooks = require("./models/TempBooks");
+const nodemailer = require("nodemailer");
 
 const app = express();
 
@@ -86,21 +87,7 @@ app.get("/authors/:authorId", async (req, res) => {
   }
 });
 
-// app.get("/authors/:authorId", async (req, res) => {
-//   const authorId = req.params.authorId;
-//   console.log(`Looking for author with ID: ${authorId}`);
 
-//   try {
-//     const author = await Author.findById(authorId); // Use findById instead of find
-//     if (!author) {
-//       return res.status(404).json({ message: "Author not found" });
-//     }
-//     res.json(author);
-//     console.log("Author fetched successfully from server.js");
-//   } catch (error) {
-//     res.status(500).json({ message: error.message });
-//   }
-// });
 
 app.get("/books/:bookId", async (req, res) => {
   const bookId = req.params.bookId;
@@ -118,10 +105,41 @@ app.get("/books/:bookId", async (req, res) => {
   }
 });
 
+// Set up Nodemailer transporter
+const transporter = nodemailer.createTransport({
+  service: "gmail",  // You can use another SMTP service, Gmail is just an example
+  auth: {
+    user: process.env.EMAIL_USER,
+    pass: process.env.EMAIL_PASS,
+  },
+});
+const sendWelcomeEmail = (userEmail) => {
+  const mailOptions = {
+    from: "your-email@gmail.com",
+    to: userEmail,
+    subject: "Welcome to Shelf-Sphere!",
+    text: `Hello,
+
+Your account has been successfully created at Shelf-Sphere!
+
+You can now log in to your account by clicking the link below:
+http://localhost:5173/sign-in
+
+Best regards,
+Shelf-Sphere Team`,
+  };
+
+  transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+      console.log("Error sending email:", error);
+    } else {
+      console.log("Email sent: " + info.response);
+    }
+  });
+};
+
+
 //register and login 
-
-
-
 // Middleware to verify token
 function verifyToken(req, res, next) {
 
@@ -171,10 +189,15 @@ app.post('/login', (req, res) => {
              // If user exists, return an error message
              return res.json("Email Already Exist");
            }
-     
            // If user doesn't exist, create a new user
-           UserModel.create(req.body) //creation in database 
-             .then(user => res.json(user))  // Respond with the created user to the frontend 
+        
+      UserModel.create(req.body) // Create user in the database
+        .then((user) => {
+          // Send the welcome email after user is created
+          sendWelcomeEmail(user.email);
+
+          res.json(user);  // Respond with the created user object
+        })
              .catch(err => res.status(500).json({ error: err.message }));  // Handle any errors
          })
          .catch(err => res.status(500).json({ error: err.message }));  // Handle errors in finding the user
@@ -192,39 +215,6 @@ app.post('/login', (req, res) => {
  
 
 // Start the server
-//register and login
-app.post("/login", (req, res) => {
-  const { email, password } = req.body;
-  UserModel.findOne({ email: email }).then((user) => {
-    if (user) {
-      if (user.password === password) {
-        res.json("success");
-      } else {
-        res.json("Incorrect password");
-      }
-    } else {
-      res.json("User not found");
-    }
-  });
-});
-
-app.post("/register", (req, res) => {
-  // Check if user already exists (by email in this case)
-  UserModel.findOne({ email: req.body.email })
-    .then((existingUser) => {
-      if (existingUser) {
-        // If user exists, return an error message
-        return res.json("Email Already Exist");
-      }
-
-      // If user doesn't exist, create a new user
-      UserModel.create(req.body) //creation in database
-        .then((user) => res.json(user)) // Respond with the created user to the frontend
-        .catch((err) => res.status(500).json({ error: err.message })); // Handle any errors
-    })
-    .catch((err) => res.status(500).json({ error: err.message })); // Handle errors in finding the user
-});
-
 // ================ Admin Operations ================
 
 // Add Category through Admin Panel

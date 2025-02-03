@@ -23,7 +23,7 @@ const [user, setUser] = useState(null); // State for user data from backend
       .catch((error) => console.error("Error fetching books:", error));
   //after login
   // Fetch user profile if token exists
-  const token = localStorage.getItem('token');
+  const token = localStorage.getItem('token') || sessionStorage.getItem('token');
   if (token) {
     axios.get('http://localhost:5000/profile', {
       headers: { Authorization: `Bearer ${token}` }
@@ -37,7 +37,8 @@ const [user, setUser] = useState(null); // State for user data from backend
 
   const logout = () => {
     localStorage.removeItem('token');
-    navigate('/login');
+    sessionStorage.removeItem('token');
+    navigate('/sign-in');
   };
 
   return (

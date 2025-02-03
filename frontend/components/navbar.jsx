@@ -3,8 +3,17 @@ import { ChevronLeft, ChevronRight, Globe, Moon, ShoppingCart } from 'lucide-rea
 
 import { Link } from "react-router-dom";
 // import "./Navbar.css";
+import { useNavigate } from 'react-router-dom';
 
 const Navbar = () => {
+  const navigate = useNavigate();
+  
+  const login = () => {
+    navigate('/sign-in');
+  };
+  const signup = () => {
+    navigate('/sign-up');
+  };
     return (
 
 <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
@@ -26,8 +35,8 @@ const Navbar = () => {
             <button className="btn text-white"><Globe size={20} /></button>
             <button className="btn text-white"><Moon size={20} /></button>
             <button className="btn text-white"><ShoppingCart size={20} /></button>
-            <button className="btn btn-light text-primary ms-2">Sign up</button>
-            <button className="btn btn-outline-light ms-2">Log in</button>
+            <button className="btn btn-light text-primary ms-2" onClick={signup}>Sign up</button>
+            <button className="btn btn-outline-light ms-2" onClick={login}>Log in</button>
           </div>
         </div>
       </nav>
