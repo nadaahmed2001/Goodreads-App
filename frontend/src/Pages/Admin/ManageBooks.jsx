@@ -1,17 +1,35 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Sidebar from "./Sidebar";
 import Table from "react-bootstrap/Table";
 import ModalBtn from "../../assets/Reusable";
+import axios from 'axios';
 
-export default function Books() {
+export default function Books({ category }) {
     const [books, setBooks] = useState([]);
 
-    const handleSave = (data) => {
-        // Convert file to URL if it's present
-        const imageUrl = data.photo ? URL.createObjectURL(data.photo) : null;
+    useEffect(() => {
+        axios.get("http://localhost:5000/books")
+            .then((response) => {
+                setBooks(response.data);
+            })
+            .catch((err) => console.error("Unable to fetch books:", err));
+    }, []);
 
-        setBooks([...books, { ...data, photo: imageUrl }]);
+    const handleSaveBook = (formData) => {
+        axios
+            .post(`http://localhost:5000/temp`, {
+                title: formData.name,
+                author: formData.authorId, // ObjectId reference to Author
+                category: formData.categoryId, // ObjectId reference to Category
+            })
+            .then((response) => {
+                console.log("Book added:", response.data);
+                alert("Book added successfully!");
+                setBooks((prevBooks) => [...prevBooks, response.data]); // Update the list of books
+            })
+            .catch((err) => console.error("Unable to add book:", err));
     };
+    console.log(books);
 
     return (
         <div className="d-flex">
@@ -21,13 +39,13 @@ export default function Books() {
                     <h1>Manage Books</h1>
                     <ModalBtn
                         title="Book"
+                        category={category}
                         fields={[
                             { name: "name", label: "Book Name", type: "text" },
-                            { name: "AuthorId", label: "Author Id", type: "number" },
-                            { name: "CategoryId", label: "Category Id", type: "number" },
-                            { name: "photo", label: "Upload Photo", type: "file" }
+                            { name: "author", label: "Choose Author", type: "dropdown" },
+                            { name: "category", label: "Choose Category", type: "dropdown" }
                         ]}
-                        onSave={handleSave}
+                        onSave={handleSaveBook}
                     />
                 </div>
                 <Table striped bordered hover>
@@ -43,33 +61,32 @@ export default function Books() {
                     </thead>
                     <tbody>
                         {books.map((book, index) => (
-                            <tr key={index}>
+                            <tr key={book._id}>
                                 <td>{index + 1}</td>
                                 <td>
-                                    {book.photo ? (
+                                    {book.coverImage ? (
                                         <img
-                                            src={book.photo}
+                                            src={book.coverImage}
                                             alt="Book"
                                             width="50"
-                                            hei/*  */ ght="60"
+                                            height="60"
                                             style={{ cursor: "pointer" }}
-                                            onClick={() => window.open(book.photo, "_blank")}
+                                            onClick={() => window.open(book.coverImage, "_blank")}
                                         />
                                     ) : (
                                         "No Image"
                                     )}
                                 </td>
                                 <td>{book.name}</td>
-                                <td>{book.CategoryId}</td>
-                                <td>{book.AuthorId}</td>
+                                <td>{book.categoryId}</td>
+                                <td>{book.authorId}</td>
                                 <td>
                                     <button>✏️</button>
-                                    <button onClick={() => setBooks(books.filter(b => b !== book))}>❌</button>
+                                    <button onClick={() => setBooks(books.filter(b => b._id !== book._id))}>❌</button>
                                 </td>
                             </tr>
                         ))}
                     </tbody>
-
                 </Table>
             </div>
         </div>
