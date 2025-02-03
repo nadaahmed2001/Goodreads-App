@@ -1,19 +1,36 @@
 import React from "react";
+import Button from "react-bootstrap/Button";
 
 const CustomButton = ({ color = "blue", icon, children, onClick }) => {
-  const colors = {
-    blue: "bg-[#3F8FC0] hover:bg-[#3578A0] text-white",
-    gray: "bg-[#828089] hover:bg-[#6E6C73] text-white",
+  const buttonStyles = {
+    blue: {
+      backgroundColor: "#3F8FC0",
+      borderColor: "#3F8FC0",
+      ":hover": {
+        backgroundColor: "#3578A0",
+        borderColor: "#3578A0",
+      },
+    },
+    gray: {
+      backgroundColor: "#828089",
+      borderColor: "#828089",
+      ":hover": {
+        backgroundColor: "#6E6C73",
+        borderColor: "#6E6C73",
+      },
+    },
   };
 
   return (
-    <button
+    <Button
+      variant='custom'
       onClick={onClick}
-      className={`flex items-center justify-center gap-2 py-2 px-4 rounded-lg text-sm transition ${colors[color]}`}
+      style={buttonStyles[color]}
+      className='d-inline-flex align-items-center gap-2 rounded-2 px-4 py-2'
     >
-      {icon && <span className='text-lg'>{icon}</span>}
-      {children}
-    </button>
+      {icon && <span style={{ fontSize: "1.1rem" }}>{icon}</span>}
+      <span>{children}</span>
+    </Button>
   );
 };
 
