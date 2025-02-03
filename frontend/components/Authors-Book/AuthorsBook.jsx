@@ -1,15 +1,3 @@
-// import React from 'react'
-// import './Authors-Book.css';
-// import Author from './Author';
-// import Navbar from '../navbar';
-// export default function AuthorsBook() {
-//   return (
-//     <>
-//     <Navbar/>
-//     <Author />
-//     </>
-//   )
-// }
 import React, { useEffect, useState } from 'react';
 import './Authors-Book.css';
 import Author from './Author';
@@ -21,7 +9,7 @@ export default function AuthorsBook() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    // Replace with your API URL
+    
     const apiUrl = 'http://localhost:5000/authors';
 
     const fetchAuthors = async () => {
@@ -31,7 +19,7 @@ export default function AuthorsBook() {
           throw new Error('Network response was not ok');
         }
         const data = await response.json();
-        setAuthors(data); // Assuming the API returns an array of authors
+        setAuthors(data); 
       } catch (error) {
         setError(error.message);
       } finally {
@@ -54,6 +42,8 @@ export default function AuthorsBook() {
     <>
       <Navbar />
       <Author authors={authors} /> {/* Pass authors array as props */}
+      
+     
     </>
   );
 }
