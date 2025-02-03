@@ -1,4 +1,4 @@
-import { ChevronLeft, ChevronRight, Globe, Moon, ShoppingCart } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Globe, Moon } from 'lucide-react';
 import './Home.css';
 import Navbar from './../../../components/navbar';
 import React, { useEffect, useState } from "react";
@@ -9,9 +9,9 @@ import { useNavigate } from 'react-router-dom';
 
 
 const HomePage = () => {
-const navigate = useNavigate();
-const [books, setBooks] = useState([]); // useState used to set the state of the books
-const [user, setUser] = useState(null); // State for user data from backend
+  const navigate = useNavigate();
+  const [books, setBooks] = useState([]); // useState used to set the state of the books
+  const [user, setUser] = useState(null); // State for user data from backend
 
   useEffect(() => {
     // Fetch books from the API
@@ -21,18 +21,18 @@ const [user, setUser] = useState(null); // State for user data from backend
         setBooks(response.data); // Set books from API response
       })
       .catch((error) => console.error("Error fetching books:", error));
-  //after login
-  // Fetch user profile if token exists
-  const token = localStorage.getItem('token');
-  if (token) {
-    axios.get('http://localhost:5000/profile', {
-      headers: { Authorization: `Bearer ${token}` }
-    })
-    .then(result => {
-      setUser(result.data); // Set user data
-    })
-    .catch(error => console.log(error));
-  }
+    //after login
+    // Fetch user profile if token exists
+    const token = localStorage.getItem('token');
+    if (token) {
+      axios.get('http://localhost:5000/profile', {
+        headers: { Authorization: `Bearer ${token}` }
+      })
+        .then(result => {
+          setUser(result.data); // Set user data
+        })
+        .catch(error => console.log(error));
+    }
   }, []);
 
   const logout = () => {
@@ -42,16 +42,9 @@ const [user, setUser] = useState(null); // State for user data from backend
 
   return (
     <div className="homepage">
-      {/* NavBar */}
-      
-      {user ? (
-              <>
-                <span className="me-3 fw-medium">Welcome, {user.first_name}!</span>
-                <button className="btn btn-outline-danger" onClick={logout}>Logout</button>
-              </>
-            ) : (
-              < Navbar />
-            )}
+      <Navbar />
+
+
       {/* Hero Section */}
       <div className="container mt-5">
         <div className="row align-items-center">
@@ -60,7 +53,7 @@ const [user, setUser] = useState(null); // State for user data from backend
               src="https://i.pinimg.com/736x/7a/11/f5/7a11f5274c6de6f11292725c5a7458a7.jpg"
               alt="Library"
               className="img-fluid rounded hero-image"
-              style={{ width: '90rem' ,height: '25rem' }}
+              style={{ width: '90rem', height: '25rem' }}
             />
           </div>
           <div className="col-md-6">
@@ -88,7 +81,7 @@ const [user, setUser] = useState(null); // State for user data from backend
               </button>
             </div>
           </div>
-          
+
           <div className="card">
             <div className="card-body d-flex align-items-center">
               <img
@@ -130,7 +123,7 @@ const [user, setUser] = useState(null); // State for user data from backend
       {/* Best-Selling Books Section */}
       <div className="container mt-5">
         <h2 className="fw-bold mb-4">Best-Selling Books</h2>
-        
+
         <div className="row g-4">
           {books.map((book, index) => (
             <div key={index} className="col-md-3">
@@ -138,30 +131,29 @@ const [user, setUser] = useState(null); // State for user data from backend
                 <img src={book.coverImage} className="card-img-top" alt={book.title} />
                 <div className="card-body">
                   <h4 className="card-title">{book.title}</h4>
-                  <p className="card-text text-muted">Author: {book.author.name}</p>
+                  {/* <p className="card-text text-muted">Author: {book.author.name}</p> */}
                   <div className="d-flex justify-content-between mt-2">
-                      <span className="text-muted">⭐⭐⭐⭐⭐</span>
+                    <span className="text-muted">⭐⭐⭐⭐⭐</span>
                   </div>
                   <div className="d-grid">
-                    <button className="btn btn-primary">Add to Cart</button>
-                    <button className="btn btn-outline-primary mt-2">
-                      <Link to={`/books/${book._id}`}>
-                      View Details
-                      </Link>
+                    <Link to={`/books/${book._id}`}>
+                      <button className="btn btn-outline-primary mt-2">
+                        View Details
                       </button>
+                    </Link>
 
-                    </div>
+                  </div>
 
                 </div>
               </div>
             </div>
           ))}
         </div>
-        
+
         <div className="text-center mt-5">
-          <button className="btn btn-primary btn-lg">
-            <Link to="/books">View All Books</Link>
-          </button>
+
+          <Link to="/books"><button className="btn btn-primary btn-lg">View All Books</button></Link>
+
         </div>
       </div>
 
@@ -175,7 +167,7 @@ const [user, setUser] = useState(null); // State for user data from backend
                 <div className="card h-100">
                   <div className="card-body">
                     <p className="card-text text-muted">
-                      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam adipiscing 
+                      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam adipiscing
                       venenatis quam at tempor. Ut auctor urna ut pellentesque volutpat."
                     </p>
                     <p className="fw-bold mb-0">Client Name</p>
@@ -225,7 +217,7 @@ const [user, setUser] = useState(null); // State for user data from backend
               </div>
             </div>
           </div>
-          
+
           <div className="text-center mt-5">
             <img src="/api/placeholder/40/40" alt="Logo" className="mb-3" />
             <p className="mb-0">Goodreads</p>
