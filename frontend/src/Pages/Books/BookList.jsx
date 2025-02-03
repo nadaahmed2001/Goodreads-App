@@ -22,11 +22,6 @@ const BooksList = () => {
     fetchBooksData();
   }, []);
 
-  const handleAddToCart = (book) => {
-    // Handle add to cart logic here
-    console.log("Added to cart:", book);
-  };
-
   if (loading) return <div className='text-center my-5'>Loading...</div>;
 
   return (
@@ -35,7 +30,7 @@ const BooksList = () => {
       <Row xs={1} md={2} lg={3} xl={4} className='g-4'>
         {books.map((book) => (
           <Col key={book._id}>
-            <BookCard book={book} onAddToCart={handleAddToCart} />
+            <BookCard book={book} />
           </Col>
         ))}
       </Row>
