@@ -1,7 +1,11 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+.btn-custom {
+  color: white;
+  transition: all 0.3s ease;
+}
 
+.btn-custom:hover {
+  color: white;
+}
 /* :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
