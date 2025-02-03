@@ -13,8 +13,8 @@ import {
   Form,
 } from "react-bootstrap";
 import CustomButton from "../../../components/CustomButton";
- import { v4 as uuidv4 } from "uuid";
- import { FaHeart } from "react-icons/fa";
+import { v4 as uuidv4 } from "uuid";
+import { FaHeart } from "react-icons/fa";
 
 const BookDetails = () => {
   const dummyReviews = [
@@ -80,12 +80,11 @@ const BookDetails = () => {
           </Badge>
           <p className='text-secondary fs-5 mb-4'>{book.description}</p>
 
-          <Stack direction='horizontal' gap={3} className='mt-4'>
-            <CustomButton color='gray' icon={<FaHeart />}>
+          <Stack direction='horizontal' className='mt-4'>
+            <CustomButton color='blue' icon={<FaHeart />}>
               Add to Wishlist
             </CustomButton>
-
-</Stack>
+          </Stack>
         </Col>
       </Row>
 
@@ -128,6 +127,7 @@ const BookDetails = () => {
         <Modal.Header closeButton>
           <Modal.Title>Write a Review</Modal.Title>
         </Modal.Header>
+
         <Modal.Body>
           <Form>
             <Form.Group className='mb-3'>
@@ -140,6 +140,7 @@ const BookDetails = () => {
                 }
               />
             </Form.Group>
+
             <Form.Group className='mb-3'>
               <Form.Label>Rating</Form.Label>
               <Form.Control
@@ -152,6 +153,7 @@ const BookDetails = () => {
                 }
               />
             </Form.Group>
+
             <Form.Group className='mb-3'>
               <Form.Label>Comment</Form.Label>
               <Form.Control
@@ -165,6 +167,7 @@ const BookDetails = () => {
             </Form.Group>
           </Form>
         </Modal.Body>
+
         <Modal.Footer>
           <Button variant='secondary' onClick={() => setShowModal(false)}>
             Cancel
