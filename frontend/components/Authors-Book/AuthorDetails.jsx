@@ -1,6 +1,8 @@
 
+
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import Navbar from '../navbar';
 import './Authors-Book.css';
 
 export default function AuthorDetails() {
@@ -20,7 +22,7 @@ export default function AuthorDetails() {
         }
         const data = await response.json();
         
-        // If you receive an array, take the first element
+        // If you receive an array, take the first element (in case the response is an array)
         setAuthor(data[0] || data);  // If data is an array, select the first element
       } catch (error) {
         setError(error.message);
@@ -43,15 +45,53 @@ export default function AuthorDetails() {
   if (!author) {
     return <div>Author not found.</div>;
   }
+  //fetch author books
+  // const fetchAuthorBooks = async () => {
+  //   try {
+  //     const response = await fetch(`http://localhost:5000/authors/${authorId}`);
+  //     if (!response.ok) {
+  //       throw new Error('Failed to fetch author books');
+  //     }
+  //     const data = await response.json();
+  //     setAuthor(data);
+  //   } catch (error) {
+  //     setError(error.message);
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
+
+
 
   return (
-    <section className="cards">
-      <div className="card">
-        <h3>{author.name}</h3>
-        <h4>{author.data}</h4> {/* Make sure this field exists or replace with the correct one */}
-        <img src={author.image} alt={author.name} />
-        <p>{author.bio}</p>
-      </div>
-    </section>
+    <>
+      <Navbar />
+      <section className="cards">
+        <div className="card">
+          <h3>{author.name}</h3>
+          <h4>{author.bio}</h4> {/* Display bio or any other relevant field */}
+          <img src={author.image} alt={author.name} />
+          <p>{author.bio}</p>
+        </div>
+      </section>
+
+      {/* Section to display books by the author */}
+      <section className="books">
+        <h2>Books by {author.name}</h2>
+        {author.books && author.books.length > 0 ? (
+          <ul>
+            {author.books.map((book) => (
+              <li key={book._id}>
+                <img src={book.image} alt={book.title} />
+                <h3>{book.title}</h3>
+                <p>{book.description}</p>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p>No books available for this author.</p>
+        )}
+      </section>
+    </>
   );
 }
