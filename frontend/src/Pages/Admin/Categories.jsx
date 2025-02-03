@@ -1,14 +1,26 @@
+import { useState, useEffect } from "react";
 import React from 'react'
 import Sidebar from "./Sidebar";
 import Table from "react-bootstrap/Table";
 import Button from 'react-bootstrap/Button';
 import ModalBtn from '../../assets/Reusable';
+import axios from 'axios';
 
-export default function Categories() {
 
-    // const handleSaveCategory = () => {
+export default function Categories({ category }) {
 
-    // }
+    const handleSaveCategory = (formData) => {
+        axios.post(`http://localhost:5000/category`, { name: formData.name })
+            .then((response) => {
+                console.log("Category added:", response.data);
+                alert("Category added successfully!");
+                setCategory((prev) => [...prev, response.data]); // ✅ Update state to refresh UI
+            })
+            .catch((err) => console.log("unable to add category"));
+    }
+
+    // console.log("Categories in category component:", category);
+
     return (
         <div className='d-flex'>
             <Sidebar />
@@ -17,11 +29,12 @@ export default function Categories() {
                     <h1>Manage Categories</h1>
                     {/* <Button variant="dark">Add Category</Button> */}
                     <ModalBtn
-                        title="User"
+                        title="Category"
+                        category={category}
                         fields={[
                             { name: "name", label: "Category", type: "text" },
                         ]}
-                        onSave={(data) => console.log("Saving User:", data)}
+                        onSave={handleSaveCategory}
                     />
                 </div>
                 <Table striped bordered hover>
