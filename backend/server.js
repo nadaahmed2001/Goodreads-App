@@ -6,8 +6,6 @@ require("dotenv").config(); // Load environment variables from .env file
 const Book = require("./models/Book");
 const Author = require("./models/Author");
 const UserModel = require("./models/User");
-const Category = require("./models/Category");
-
 
 const app = express();
 
@@ -75,10 +73,10 @@ app.get("/authors/:authorId", async (req, res) => {
     const author = await Author.findById(authorId); // findById should return a single author object
 
     if (!author) {
-      return res.status(404).json({ message: 'Author not found' });
+      return res.status(404).json({ message: "Author not found" });
     }
 
-    res.json(author);  // Send back the single author object, not an array
+    res.json(author); // Send back the single author object, not an array
     console.log("Author fetched successfully");
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -101,19 +99,15 @@ app.get("/authors/:authorId", async (req, res) => {
 //   }
 // });
 
-
-
 app.get("/books/:bookId", async (req, res) => {
   const bookId = req.params.bookId;
   console.log(`Looking for book with ID: ${bookId}`);
 
   try {
     // Populate the author field with the name field from the Author model and populate categoru name
-
-    const book = await Book .findById(bookId)
-    .populate("author", "name")
-    .populate("category", "name");
-
+    const book = await Book.findById(bookId)
+      .populate("author", "name")
+      .populate("category", "name");
     res.json(book);
     console.log("Book fetched successfully from server.js");
   } catch (error) {
@@ -121,50 +115,43 @@ app.get("/books/:bookId", async (req, res) => {
   }
 });
 
+//register and login
+app.post("/login", (req, res) => {
+  const { email, password } = req.body;
+  UserModel.findOne({ email: email }).then((user) => {
+    if (user) {
+      if (user.password === password) {
+        res.json("success");
+      } else {
+        res.json("Incorrect password");
+      }
+    } else {
+      res.json("User not found");
+    }
+  });
+});
 
-//register and login 
-app.post('/login',(req,res) => {
-  const {email , password} = req.body
-  UserModel.findOne({ email: email})
-  .then((user) => {
-   if(user)
-   {
-       if(user.password === password){
-           res.json("success")
-       }
-       else {
-           res.json("Incorrect password")
-       }
-   }
-   else {
-       res.json("User not found")
-   }
+app.post("/register", (req, res) => {
+  // Check if user already exists (by email in this case)
+  UserModel.findOne({ email: req.body.email })
+    .then((existingUser) => {
+      if (existingUser) {
+        // If user exists, return an error message
+        return res.json("Email Already Exist");
+      }
 
-  }) 
-
-   })
-   
-   app.post('/register', (req, res) => {
-       // Check if user already exists (by email in this case)
-       UserModel.findOne({ email: req.body.email })
-         .then(existingUser => {
-           if (existingUser) {
-             // If user exists, return an error message
-             return res.json("Email Already Exist");
-           }
-     
-           // If user doesn't exist, create a new user
-           UserModel.create(req.body) //creation in database 
-             .then(user => res.json(user))  // Respond with the created user to the frontend 
-             .catch(err => res.status(500).json({ error: err.message }));  // Handle any errors
-         })
-         .catch(err => res.status(500).json({ error: err.message }));  // Handle errors in finding the user
-     });
-     
- 
+      // If user doesn't exist, create a new user
+      UserModel.create(req.body) //creation in database
+        .then((user) => res.json(user)) // Respond with the created user to the frontend
+        .catch((err) => res.status(500).json({ error: err.message })); // Handle any errors
+    })
+    .catch((err) => res.status(500).json({ error: err.message })); // Handle errors in finding the user
+});
 
 // Start the server
 // const PORT = process.env.PORT || 5000;
 const PORT = 5000;
-app.listen(PORT, () => {console.log(`🚀 Server running on port ${PORT}`)
-console.log(`➡ Local: http://localhost:${PORT}`);});
+app.listen(PORT, () => {
+  console.log(`🚀 Server running on port ${PORT}`);
+  console.log(`➡ Local: http://localhost:${PORT}`);
+});
