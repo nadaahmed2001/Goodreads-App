@@ -11,7 +11,7 @@ import {
   Card,
 } from "react-bootstrap";
 import CustomButton from "../../../components/CustomButton";
-import { FaHeart, FaShoppingCart } from "react-icons/fa";
+import { FaHeart } from "react-icons/fa";
 
 const BookDetails = () => {
   const dummyReviews = [
@@ -82,53 +82,14 @@ const BookDetails = () => {
             </Badge>
           </div>
 
-          <div className='d-flex align-items-center gap-3 mb-4'>
-            {book.discountPrice ? (
-              <>
-                <span className='display-6 fw-bold text-danger'>
-                  ${book.price}
-                </span>
-                <span className='fs-5 text-muted text-decoration-line-through'>
-                  ${book.discountPrice}
-                </span>
-                <Badge bg='danger' className='fs-5'>
-                  -{discountPercentage}%
-                </Badge>
-              </>
-            ) : (
-              <span className='display-6 fw-bold'>${book.price}</span>
-            )}
-          </div>
+
 
           <p className='text-secondary fs-5 mb-4'>{book.description}</p>
-
-          <div className='d-flex align-items-center mb-4'>
-            <div className='border rounded-3 bg-light'>
-              <Button
-                variant='outline-secondary'
-                onClick={decreaseQuantity}
-                className='px-3 py-2'
-              >
-                −
-              </Button>
-              <span className='px-4 fs-4 fw-semibold'>{quantity}</span>
-              <Button
-                variant='outline-secondary'
-                onClick={increaseQuantity}
-                className='px-3 py-2'
-              >
-                +
-              </Button>
-            </div>
-          </div>
 
           <Stack direction='horizontal' gap={3} className='mt-4'>
             <CustomButton color='gray' icon={<FaHeart />}>
               Add to Wishlist
             </CustomButton>
-            <CustomButton color='blue' icon={<FaShoppingCart />}>
-              Add to Cart
-            </CustomButton>{" "}
           </Stack>
         </Col>
       </Row>
