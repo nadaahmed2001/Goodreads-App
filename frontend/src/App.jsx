@@ -17,6 +17,7 @@ import AuthorsBook from "../components/Authors-Book/AuthorsBook";
 import AuthorDetails from "../components/Authors-Book/AuthorDetails";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Login from "../components/Authentication/SignIn/Login";
+import UserList from "./Pages/UserBookLists/UserList";
 import { useState, useEffect } from "react";
 
 function App() {
@@ -44,6 +45,10 @@ function App() {
             path='/ManageBooks'
             element={<ManageBooks category={category} />}
           />
+
+<Route path="/list/:shelf" element={<UserList />} />
+
+
           <Route path='/Authors' element={<Authors />} />
           <Route path='/books' element={<BookList />} />
           <Route path='/books/:bookId' element={<BookDetails />} />
