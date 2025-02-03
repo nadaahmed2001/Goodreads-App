@@ -2,10 +2,22 @@ import React from "react";
 import Sidebar from "./Sidebar";
 import Table from "react-bootstrap/Table";
 import ModalBtn from "../../assets/Reusable";
+import axios from 'axios';
+
 
 export default function Authors() {
-    const handleSaveAuthor = (data) => {
-        console.log("Saving Author:", data);
+    const handleSaveAuthor = (formData) => {
+        axios.post(`http://localhost:5000/author`, {
+            name: formData.name,
+            // image: formData.image,
+            bio: formData.bio,
+            birthDate: formData.birthDate
+        })
+            .then((response) => {
+                console.log("Author added:", response.data);
+                alert("Author added successfully!");
+            })
+            .catch((err) => console.log("unable to add author"));
     };
 
     return (
@@ -17,10 +29,10 @@ export default function Authors() {
                     <ModalBtn
                         title="Author"
                         fields={[
-                            { name: "firstName", label: "First Name", type: "text" },
-                            { name: "lastName", label: "Last Name", type: "text" },
-                            { name: "dob", label: "Date of Birth", type: "date" },
-                            { name: "photo", label: "Upload Photo", type: "file" }
+                            { name: "name", label: "Fullname", type: "text" },
+                            { name: "bio", label: "bio", type: "text" },
+                            { name: "birthDate", label: "Date of Birth", type: "date" },
+                            // { name: "image", label: "Upload Photo", type: "file" }
                         ]}
                         onSave={handleSaveAuthor}
                     />
