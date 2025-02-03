@@ -15,7 +15,7 @@ import Categories from "./Pages/Admin/Categories";
 import ManageBooks from "./Pages/Admin/ManageBooks";
 import Authors from "./Pages/Admin/Authors";
 import AuthorsBook from "../components/Authors-Book/AuthorsBook";
-
+import AuthorDetails from "../components/Authors-Book/AuthorDetails";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Login from "../components/Authentication/SignIn/Login";
 
@@ -41,8 +41,8 @@ function App() {
           <Route path='/sign-in' element={<SignIn />} />
           <Route path='/login' element={<Login />} />
           <Route path='*' element={<NotFound />} />
-          <Route path='/AuthorsBook' element={<AuthorsBook />} />
-          <Route path='{`/AuthorDetails/${author._id}`}' element={<AuthorsBook />} />
+          <Route path="/AuthorsBook" element={<AuthorsBook />} />
+          <Route path="/AuthorDetails/:authorId" element={<AuthorDetails />} />
           <Route path='*' element={<NotFound />} />
           
         </Routes>
