@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { fetchBookById } from "../../services/api";
+import { Container, Row, Col, Button, Badge, Stack } from "react-bootstrap";
 import CustomButton from "../../../components/CustomButton";
 import { FaHeart, FaShoppingCart } from "react-icons/fa";
 
@@ -13,7 +14,6 @@ const BookDetails = () => {
     const getBook = async () => {
       try {
         const response = await fetchBookById(bookId);
-        console.log("Fetched Book Response:", response);
         setBook(response.data);
       } catch (error) {
         console.error("Error fetching book details:", error.response || error);
@@ -23,82 +23,93 @@ const BookDetails = () => {
     getBook();
   }, [bookId]);
 
-  if (!book)
-    return <p className='text-center text-lg font-semibold'>Loading...</p>;
-
   const increaseQuantity = () => setQuantity((prev) => prev + 1);
   const decreaseQuantity = () =>
     setQuantity((prev) => (prev > 1 ? prev - 1 : 1));
 
+  if (!book)
+    return <p className='text-center mt-4 fs-5 fw-semibold'>Loading...</p>;
+
+  const discountPercentage = Math.round(
+    ((book.discountPrice - book.price) / book.discountPrice) * 100
+  );
+
   return (
-    <div className='max-w-5xl mx-auto p-6 bg-white shadow-lg rounded-lg flex flex-col md:flex-row gap-8'>
-      <div className='flex-shrink-0 w-50'>
-        <img
-          src={book.coverImage}
-          alt={book.title}
-          className='w-50 h-auto rounded-lg shadow-md'
-        />
-      </div>
+    <Container className='my-5 max-w-5xl'>
+      <Row className='g-4 bg-white shadow-lg rounded-3 p-4'>
+        <Col
+          md={4}
+          className='d-flex justify-content-center align-items-center'
+        >
+          <img
+            src={book.coverImage}
+            alt={book.title}
+            className='img-fluid rounded-3 shadow'
+            style={{ maxWidth: "250px" }}
+          />
+        </Col>
 
-      <div className='flex flex-col items-start'>
-        <h1 className='text-3xl font-bold text-gray-800'>{book.title}</h1>
-        <p className='text-lg text-gray-600 mt-1'>By {book.author.name}</p>
+        <Col md={8}>
+          <h1 className='display-4 fw-bold mb-3'>{book.title}</h1>
+          <p className='lead text-muted mb-4'>By {book.author.name}</p>
 
-        <p className='mt-2 text-yellow-500 text-lg font-semibold'>
-          ⭐ {book.rating} / 5
-        </p>
-
-        <div className='flex items-center gap-3 mt-3'>
-          <span className='text-2xl font-bold text-gray-900'>
-            ${book.price}
-          </span>
-          {book.discountPrice && (
-            <>
-              <span className='text-lg text-gray-500 line-through'>
-                ${book.discountPrice}
-              </span>
-              <span className='text-lg font-semibold text-red-500'>
-                -
-                {Math.round(
-                  ((book.discountPrice - book.price) / book.discountPrice) * 100
-                )}
-                %
-              </span>
-            </>
-          )}
-        </div>
-
-        <p className='mt-4 text-gray-700 text-sm'>{book.description}</p>
-
-        <div className='flex items-center gap-4 mt-6'>
-          <div className='flex items-center border border-gray-300 rounded-lg px-4 py-2 bg-gray-100'>
-            <button
-              onClick={decreaseQuantity}
-              className='text-lg px-3 py-1 text-gray-700'
-            >
-              −
-            </button>
-            <span className='px-4'>{quantity}</span>
-            <button
-              onClick={increaseQuantity}
-              className='text-lg px-3 py-1 text-gray-700'
-            >
-              +
-            </button>
+          <div className='d-flex align-items-center mb-4'>
+            <Badge bg='warning' className='fs-5 me-2'>
+              ⭐ {book.rating}/5
+            </Badge>
           </div>
-        </div>
 
-        <div className='flex gap-4 mt-4'>
-          <CustomButton color='gray' icon={<FaHeart />}>
-            Add to Wishlist
-          </CustomButton>
+          <div className='d-flex align-items-center gap-3 mb-4'>
+            {book.discountPrice ? (
+              <>
+                <span className='display-6 fw-bold text-danger'>
+                  ${book.price}
+                </span>
+                <span className='fs-5 text-muted text-decoration-line-through'>
+                  ${book.discountPrice}
+                </span>
+                <Badge bg='danger' className='fs-5'>
+                  -{discountPercentage}%
+                </Badge>
+              </>
+            ) : (
+              <span className='display-6 fw-bold'>${book.price}</span>
+            )}
+          </div>
 
-          <CustomButton color='blue' icon={<FaShoppingCart />}>
-            Add to Cart
-          </CustomButton>
-        </div>
-      </div>
-    </div>
+          <p className='text-secondary fs-5 mb-4'>{book.description}</p>
+
+          <div className='d-flex align-items-center mb-4'>
+            <div className='border rounded-3 bg-light'>
+              <Button
+                variant='outline-secondary'
+                onClick={decreaseQuantity}
+                className='px-3 py-2'
+              >
+                −
+              </Button>
+              <span className='px-4 fs-4 fw-semibold'>{quantity}</span>
+              <Button
+                variant='outline-secondary'
+                onClick={increaseQuantity}
+                className='px-3 py-2'
+              >
+                +
+              </Button>
+            </div>
+          </div>
+
+          <Stack direction='horizontal' gap={3} className='mt-4'>
+            <CustomButton color='gray' icon={<FaHeart />}>
+              Add to Wishlist
+            </CustomButton>
+            <CustomButton color='blue' icon={<FaShoppingCart />}>
+              Add to Cart
+            </CustomButton>{" "}
+          </Stack>
+        </Col>
+      </Row>
+    </Container>
   );
 };
 
