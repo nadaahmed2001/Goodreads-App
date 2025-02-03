@@ -1,14 +1,32 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { fetchBookById } from "../../services/api";
-import { Container, Row, Col, Button, Badge, Stack } from "react-bootstrap";
+import {
+  Container,
+  Row,
+  Col,
+  Button,
+  Badge,
+  Stack,
+  Card,
+} from "react-bootstrap";
 import CustomButton from "../../../components/CustomButton";
 import { FaHeart, FaShoppingCart } from "react-icons/fa";
 
 const BookDetails = () => {
+  const dummyReviews = [
+    { _id: "1", user: "fatma", rating: 5, comment: "great book  " },
+    { _id: "2", user: "nada", rating: 4, comment: "very nice" },
+    { _id: "3", user: "rahma", rating: 3, comment: "not good and not bad" },
+    { _id: "4", user: "abdelrahman", rating: 1, comment: "not good" },
+    { _id: "5", user: "hosam", rating: 0, comment: "very bad" },
+  ];
+
   const { bookId } = useParams();
   const [book, setBook] = useState(null);
   const [quantity, setQuantity] = useState(1);
+  const [reviews, setReviews] = useState(dummyReviews);
+  const [visibleReviews, setVisibleReviews] = useState(4);
 
   useEffect(() => {
     const getBook = async () => {
@@ -19,6 +37,10 @@ const BookDetails = () => {
         console.error("Error fetching book details:", error.response || error);
       }
     };
+    // axios
+    //   .get(`/api/books/${bookId}/reviews`)
+    //   .then((response) => setReviews(response.data))
+    //   .catch(() => setError("Failed to fetch reviews"));
 
     getBook();
   }, [bookId]);
@@ -36,6 +58,7 @@ const BookDetails = () => {
 
   return (
     <Container className='my-5 max-w-5xl'>
+      {/* book detailes */}
       <Row className='g-4 bg-white shadow-lg rounded-3 p-4'>
         <Col
           md={4}
@@ -109,8 +132,54 @@ const BookDetails = () => {
           </Stack>
         </Col>
       </Row>
+
+      {/* reviews */}
+      <Row>
+        <div className='mt-5'>
+          <div className='d-flex justify-content-between align-items-center mb-3'>
+            <h3>All Reviews ({reviews.length})</h3>
+
+            <CustomButton
+              color='blue'
+              onClick={() => console.log("Write Review Clicked")}
+            >
+              Write a Review
+            </CustomButton>
+          </div>
+
+          <Row>
+            {Array.isArray(reviews) &&
+              reviews.slice(0, visibleReviews).map((review) => (
+                <Col md={6} key={review._id} className='mb-4'>
+                  <Card>
+                    <Card.Body>
+                      <Card.Title>⭐ {review.rating}</Card.Title>
+                      <Card.Title>{review.user}</Card.Title>
+                      <Card.Text>{review.comment}</Card.Text>
+                      <small className='text-muted'>
+                        {new Date().toLocaleDateString()}
+                      </small>
+                    </Card.Body>
+                  </Card>
+                </Col>
+              ))}
+          </Row>
+
+          {visibleReviews < reviews.length && (
+            <div className='text-center mt-3'>
+              <CustomButton
+                color='blue'
+                onClick={() => setVisibleReviews((prev) => prev + 6)}
+              >
+                Load More Reviews
+              </CustomButton>
+            </div>
+          )}
+        </div>
+      </Row>
     </Container>
   );
 };
 
 export default BookDetails;
+////////////////////////////////////////////////////////////////////////////////
