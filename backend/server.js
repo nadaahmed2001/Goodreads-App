@@ -64,7 +64,7 @@ app.get("/authors/:authorId", async (req, res) => {
     // Fetch the author with the books populated
     const author = await Author.findById(authorId).populate("books");
     // Fetch the author with the books populated
-    const author = await Author.findById(authorId).populate("books");
+   
 
     if (!author) {
       return res.status(404).json({ message: "Author not found" });
