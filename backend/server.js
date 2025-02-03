@@ -63,11 +63,14 @@ app.get("/authors/:authorId", async (req, res) => {
   try {
     // Fetch the author with the books populated
     const author = await Author.findById(authorId).populate("books");
+    // Fetch the author with the books populated
+    const author = await Author.findById(authorId).populate("books");
 
     if (!author) {
       return res.status(404).json({ message: "Author not found" });
     }
 
+    res.json(author);  // Return the author with the populated books
     res.json(author); // Send back the single author object, not an array
     res.json(author);  // Return the author with the populated books
     console.log("Author fetched successfully");
