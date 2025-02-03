@@ -8,7 +8,7 @@ const Author = require("./models/Author");
 const UserModel = require("./models/User");
 const Category = require("./models/Category");
 const jwt = require("jsonwebtoken");
-
+const TempBooks = require("./models/TempBooks");
 
 const app = express();
 
@@ -56,18 +56,51 @@ app.get("/authors", async (req, res) => {
 });
 
 // Endpoint to get all books by a specific author ID
+// app.get("/authors/:authorId", async (req, res) => {
+//   const authorId = req.params.authorId;
+//   console.log(`Looking for author with ID: ${authorId}`);
+
+//   try {
+//     const author = await Author.find({ _id: authorId });
+//     res.json(author);
+//     console.log("Author fetched successfully from server.js");
+//   } catch (error) {
+//     res.status(500).json({ message: error.message });
+//   }
+// });
 app.get("/authors/:authorId", async (req, res) => {
   const authorId = req.params.authorId;
   console.log(`Looking for author with ID: ${authorId}`);
 
   try {
-    const author = await Author.find({ _id: authorId });
-    res.json(author);
-    console.log("Author fetched successfully from server.js");
+    const author = await Author.findById(authorId); // findById should return a single author object
+
+    if (!author) {
+      return res.status(404).json({ message: "Author not found" });
+    }
+
+    res.json(author); // Send back the single author object, not an array
+    console.log("Author fetched successfully");
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 });
+
+// app.get("/authors/:authorId", async (req, res) => {
+//   const authorId = req.params.authorId;
+//   console.log(`Looking for author with ID: ${authorId}`);
+
+//   try {
+//     const author = await Author.findById(authorId); // Use findById instead of find
+//     if (!author) {
+//       return res.status(404).json({ message: "Author not found" });
+//     }
+//     res.json(author);
+//     console.log("Author fetched successfully from server.js");
+//   } catch (error) {
+//     res.status(500).json({ message: error.message });
+//   }
+// });
 
 app.get("/books/:bookId", async (req, res) => {
   const bookId = req.params.bookId;
@@ -75,18 +108,15 @@ app.get("/books/:bookId", async (req, res) => {
 
   try {
     // Populate the author field with the name field from the Author model and populate categoru name
-
-    const book = await Book .findById(bookId)
-    .populate("author", "name")
-    .populate("category", "name");
-
+    const book = await Book.findById(bookId)
+      .populate("author", "name")
+      .populate("category", "name");
     res.json(book);
     console.log("Book fetched successfully from server.js");
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 });
-
 
 //register and login 
 
@@ -162,7 +192,94 @@ app.post('/login', (req, res) => {
  
 
 // Start the server
+//register and login
+app.post("/login", (req, res) => {
+  const { email, password } = req.body;
+  UserModel.findOne({ email: email }).then((user) => {
+    if (user) {
+      if (user.password === password) {
+        res.json("success");
+      } else {
+        res.json("Incorrect password");
+      }
+    } else {
+      res.json("User not found");
+    }
+  });
+});
+
+app.post("/register", (req, res) => {
+  // Check if user already exists (by email in this case)
+  UserModel.findOne({ email: req.body.email })
+    .then((existingUser) => {
+      if (existingUser) {
+        // If user exists, return an error message
+        return res.json("Email Already Exist");
+      }
+
+      // If user doesn't exist, create a new user
+      UserModel.create(req.body) //creation in database
+        .then((user) => res.json(user)) // Respond with the created user to the frontend
+        .catch((err) => res.status(500).json({ error: err.message })); // Handle any errors
+    })
+    .catch((err) => res.status(500).json({ error: err.message })); // Handle errors in finding the user
+});
+
+// ================ Admin Operations ================
+
+// Add Category through Admin Panel
+app.post("/category", (req, res) => {
+  Category.create(req.body)
+    .then((cat) => {
+      console.log("category added:", cat); // Log full book details
+      res.json(cat); // Send full book object to frontend
+    })
+    .catch((err) => res.status(500).json({ error: err.message }));
+});
+
+// Get Category through Admin Panel
+app.get("/categories", async (req, res) => {
+  try {
+    const categories = await Category.find();
+    res.json(categories);
+  } catch (err) {
+    res.status(500).json({ error: "Failed to fetch categories" });
+  }
+});
+
+// Add Book through Admin Panel
+app.post("/book", (req, res) => {
+  Book.create(req.body)
+    .then((book) => {
+      console.log("Book added:", book); // Log full book details
+      res.json(book); // Send full book object to frontend
+    })
+    .catch((err) => res.status(500).json({ error: err.message }));
+});
+
+app.post("/temp", (req, res) => {
+  // console.log("Request Body:", req.body);
+  TempBooks.create(req.body)
+    .then((book) => {
+      console.log("Book added:", book); // Log full book details
+      res.json(book); // Send full book object to frontend
+    })
+    .catch((err) => res.status(500).json({ error: err.message }));
+});
+
+// Add Author through Admin Panel
+app.post("/author", (req, res) => {
+  Author.create(req.body)
+    .then((author) => {
+      console.log("Author added:", author); // Log full book details
+      res.json(author); // Send full book object to frontend
+    })
+    .catch((err) => res.status(500).json({ error: err.message }));
+});
+
 // const PORT = process.env.PORT || 5000;
 const PORT = 5000;
-app.listen(PORT, () => {console.log(`🚀 Server running on port ${PORT}`)
-console.log(`➡ Local: http://localhost:${PORT}`);});
+app.listen(PORT, () => {
+  console.log(`🚀 Server running on port ${PORT}`);
+  console.log(`➡ Local: http://localhost:${PORT}`);
+});
