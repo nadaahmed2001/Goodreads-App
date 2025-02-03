@@ -13,8 +13,8 @@ import {
   Form,
 } from "react-bootstrap";
 import CustomButton from "../../../components/CustomButton";
-import { FaHeart, FaShoppingCart } from "react-icons/fa";
-import { v4 as uuidv4 } from "uuid";
+ import { v4 as uuidv4 } from "uuid";
+ import { FaHeart } from "react-icons/fa";
 
 const BookDetails = () => {
   const dummyReviews = [
@@ -79,14 +79,13 @@ const BookDetails = () => {
             ⭐ {book.rating}/5
           </Badge>
           <p className='text-secondary fs-5 mb-4'>{book.description}</p>
+
           <Stack direction='horizontal' gap={3} className='mt-4'>
             <CustomButton color='gray' icon={<FaHeart />}>
               Add to Wishlist
             </CustomButton>
-            <CustomButton color='blue' icon={<FaShoppingCart />}>
-              Add to Cart
-            </CustomButton>
-          </Stack>
+
+</Stack>
         </Col>
       </Row>
 
