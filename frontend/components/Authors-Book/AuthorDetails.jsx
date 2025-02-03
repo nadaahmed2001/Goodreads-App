@@ -53,7 +53,7 @@ export default function AuthorDetails() {
   //       throw new Error('Failed to fetch author books');
   //     }
   //     const data = await response.json();
-  //     setAuthor(data);
+  //     setAuthor(data
   //   } catch (error) {
   //     setError(error.message);
   //   } finally {
