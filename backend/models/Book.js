@@ -6,7 +6,6 @@ const bookSchema = new mongoose.Schema({
   author: { type: mongoose.Schema.Types.ObjectId, ref: "Author" },
   description: String,
   coverImage: String,
-  price: Number,
   rating: Number,
   featured: Boolean,
   trending: Boolean,
