@@ -54,54 +54,24 @@ app.get("/authors", async (req, res) => {
   }
 });
 
-// Endpoint to get all books by a specific author ID
-// app.get("/authors/:authorId", async (req, res) => {
-//   const authorId = req.params.authorId;
-//   console.log(`Looking for author with ID: ${authorId}`);
-
-//   try {
-//     const author = await Author.find({ _id: authorId });
-//     res.json(author);
-//     console.log("Author fetched successfully from server.js");
-//   } catch (error) {
-//     res.status(500).json({ message: error.message });
-//   }
-// });
 app.get("/authors/:authorId", async (req, res) => {
   const authorId = req.params.authorId;
   console.log(`Looking for author with ID: ${authorId}`);
 
   try {
-    const author = await Author.findById(authorId); // findById should return a single author object
+    // Fetch the author with the books populated
+    const author = await Author.findById(authorId).populate("books");
 
     if (!author) {
       return res.status(404).json({ message: 'Author not found' });
     }
 
-    res.json(author);  // Send back the single author object, not an array
+    res.json(author);  // Return the author with the populated books
     console.log("Author fetched successfully");
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 });
-
-// app.get("/authors/:authorId", async (req, res) => {
-//   const authorId = req.params.authorId;
-//   console.log(`Looking for author with ID: ${authorId}`);
-
-//   try {
-//     const author = await Author.findById(authorId); // Use findById instead of find
-//     if (!author) {
-//       return res.status(404).json({ message: "Author not found" });
-//     }
-//     res.json(author);
-//     console.log("Author fetched successfully from server.js");
-//   } catch (error) {
-//     res.status(500).json({ message: error.message });
-//   }
-// });
-
-
 
 app.get("/books/:bookId", async (req, res) => {
   const bookId = req.params.bookId;
