@@ -7,6 +7,7 @@ const Book = require("./models/Book");
 const Author = require("./models/Author");
 const UserModel = require("./models/User");
 const Category = require("./models/Category");
+const jwt = require("jsonwebtoken");
 
 
 const app = express();
@@ -88,26 +89,49 @@ app.get("/books/:bookId", async (req, res) => {
 
 
 //register and login 
-app.post('/login',(req,res) => {
-  const {email , password} = req.body
-  UserModel.findOne({ email: email})
-  .then((user) => {
-   if(user)
-   {
-       if(user.password === password){
-           res.json("success")
-       }
-       else {
-           res.json("Incorrect password")
-       }
-   }
-   else {
-       res.json("User not found")
-   }
 
-  }) 
 
-   })
+
+// Middleware to verify token
+function verifyToken(req, res, next) {
+
+  const authHeader = req.headers['authorization'];
+
+  if (!authHeader) {
+    return res.status(403).json({ message: "No token provided" });
+  }
+  // Handle case where token might or might not have "Bearer "
+  const token = authHeader.startsWith("Bearer ") ? authHeader.split(" ")[1] : authHeader;
+  jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
+    if (err) {
+      return res.status(401).json({ message: "Unauthorized" });
+    }
+    req.user = decoded;
+    next();
+  });
+
+}
+
+app.post('/login', (req, res) => {
+  const { email, password } = req.body;
+  
+  UserModel.findOne({ email: email })
+    .then((user) => {
+      if (user) {
+        if (user.password === password) {
+          // Issue JWT Token
+          const token = jwt.sign({ id: user._id, email: user.email }, process.env.JWT_SECRET, { expiresIn: '1h' });
+          res.json({ message: "success", token });
+        } else {
+          res.json({ message: "Incorrect password" });
+        }
+      } else {
+        res.json({ message: "User not found" });
+      }
+    })
+    .catch(err => res.status(500).json({ error: err.message }));
+});
+
    
    app.post('/register', (req, res) => {
        // Check if user already exists (by email in this case)
@@ -126,6 +150,16 @@ app.post('/login',(req,res) => {
          .catch(err => res.status(500).json({ error: err.message }));  // Handle errors in finding the user
      });
      
+      
+     //retreive the user data by verifying its token 
+     app.get('/profile', verifyToken, (req, res) => {
+      // Access the user ID from the decoded JWT token
+      UserModel.findById(req.user.id)
+        .then(user => res.json(user))
+        .catch(err => res.status(500).json({ message: err.message }));
+    });
+    
+ 
 
 // Start the server
 // const PORT = process.env.PORT || 5000;

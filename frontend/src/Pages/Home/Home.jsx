@@ -4,10 +4,14 @@ import Navbar from './../../../components/navbar';
 import React, { useEffect, useState } from "react";
 import { fetchBooks } from "../../services/api"; // Import API function
 import { Link } from "react-router-dom";
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+
 
 const HomePage = () => {
-
+const navigate = useNavigate();
 const [books, setBooks] = useState([]); // useState used to set the state of the books
+const [user, setUser] = useState(null); // State for user data from backend
 
   useEffect(() => {
     // Fetch books from the API
@@ -17,12 +21,37 @@ const [books, setBooks] = useState([]); // useState used to set the state of the
         setBooks(response.data); // Set books from API response
       })
       .catch((error) => console.error("Error fetching books:", error));
+  //after login
+  // Fetch user profile if token exists
+  const token = localStorage.getItem('token');
+  if (token) {
+    axios.get('http://localhost:5000/profile', {
+      headers: { Authorization: `Bearer ${token}` }
+    })
+    .then(result => {
+      setUser(result.data); // Set user data
+    })
+    .catch(error => console.log(error));
+  }
   }, []);
+
+  const logout = () => {
+    localStorage.removeItem('token');
+    navigate('/login');
+  };
+
   return (
     <div className="homepage">
       {/* NavBar */}
-      < Navbar />
-
+      
+      {user ? (
+              <>
+                <span className="me-3 fw-medium">Welcome, {user.first_name}!</span>
+                <button className="btn btn-outline-danger" onClick={logout}>Logout</button>
+              </>
+            ) : (
+              < Navbar />
+            )}
       {/* Hero Section */}
       <div className="container mt-5">
         <div className="row align-items-center">
@@ -121,6 +150,7 @@ const [books, setBooks] = useState([]); // useState used to set the state of the
                       View Details
                       </Link>
                       </button>
+
                     </div>
 
                 </div>
