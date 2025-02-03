@@ -40,8 +40,8 @@ app.post('/login',(req,res) => {
             }
       
             // If user doesn't exist, create a new user
-            UserModel.create(req.body)
-              .then(user => res.json(user))  // Respond with the created user
+            UserModel.create(req.body) //creation in database 
+              .then(user => res.json(user))  // Respond with the created user to the frontend 
               .catch(err => res.status(500).json({ error: err.message }));  // Handle any errors
           })
           .catch(err => res.status(500).json({ error: err.message }));  // Handle errors in finding the user

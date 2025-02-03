@@ -5,7 +5,8 @@ import {useNavigate} from 'react-router-dom';
 import axios from 'axios';
 
 export default function Register() {
-  const [name, setName] = useState();
+  const [first_name, setFirst_name] = useState();
+  const [last_name, setLast_name] = useState();
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const [confirmPassword, setConfirmPassword] = useState(); // New state for Confirm Password
@@ -23,7 +24,7 @@ export default function Register() {
     }
 
     axios
-      .post('http://localhost:3001/register', {name, email, password})
+      .post('http://localhost:5000/register', {first_name,last_name, email, password,role:"user",create_at:{ currentTime: new Date().toLocaleString() }})
       .then((result) => {
         console.log(result);
         if (result.data === 'Email Already Exist') {
@@ -44,13 +45,22 @@ export default function Register() {
         <Col md={6}>
           <h2 className="text-center">Sign Up</h2>
           <Form onSubmit={handelSubmit}>
-            <Form.Group className="mb-3" controlId="formBasicName">
-              <Form.Label>Full Name</Form.Label>
+            <Form.Group className="mb-3" controlId="formBasicname">
+              <Form.Label>First Name</Form.Label>
               <Form.Control
                 type="text"
-                placeholder="Enter full name"
+                placeholder="Enter First Name"
                 required
-                onChange={(e) => setName(e.target.value)}
+                onChange={(e) => setFirst_name(e.target.value)}
+              />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="formBasicname">
+              <Form.Label>Last Name</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="Enter Last Name"
+                required
+                onChange={(e) => setLast_name(e.target.value)}
               />
             </Form.Group>
 
