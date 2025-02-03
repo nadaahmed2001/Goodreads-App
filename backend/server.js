@@ -55,18 +55,53 @@ app.get("/authors", async (req, res) => {
 });
 
 // Endpoint to get all books by a specific author ID
+// app.get("/authors/:authorId", async (req, res) => {
+//   const authorId = req.params.authorId;
+//   console.log(`Looking for author with ID: ${authorId}`);
+
+//   try {
+//     const author = await Author.find({ _id: authorId });
+//     res.json(author);
+//     console.log("Author fetched successfully from server.js");
+//   } catch (error) {
+//     res.status(500).json({ message: error.message });
+//   }
+// });
 app.get("/authors/:authorId", async (req, res) => {
   const authorId = req.params.authorId;
   console.log(`Looking for author with ID: ${authorId}`);
 
   try {
-    const author = await Author.find({ _id: authorId });
-    res.json(author);
-    console.log("Author fetched successfully from server.js");
+    const author = await Author.findById(authorId); // findById should return a single author object
+
+    if (!author) {
+      return res.status(404).json({ message: 'Author not found' });
+    }
+
+    res.json(author);  // Send back the single author object, not an array
+    console.log("Author fetched successfully");
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 });
+
+// app.get("/authors/:authorId", async (req, res) => {
+//   const authorId = req.params.authorId;
+//   console.log(`Looking for author with ID: ${authorId}`);
+
+//   try {
+//     const author = await Author.findById(authorId); // Use findById instead of find
+//     if (!author) {
+//       return res.status(404).json({ message: "Author not found" });
+//     }
+//     res.json(author);
+//     console.log("Author fetched successfully from server.js");
+//   } catch (error) {
+//     res.status(500).json({ message: error.message });
+//   }
+// });
+
+
 
 app.get("/books/:bookId", async (req, res) => {
   const bookId = req.params.bookId;
@@ -126,6 +161,7 @@ app.post('/login',(req,res) => {
          .catch(err => res.status(500).json({ error: err.message }));  // Handle errors in finding the user
      });
      
+ 
 
 // Start the server
 // const PORT = process.env.PORT || 5000;
