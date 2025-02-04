@@ -1,8 +1,8 @@
-import { ChevronLeft, ChevronRight, Globe, Moon, ShoppingCart } from "lucide-react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import "./Home.css";
 import Navbar from "./../../../components/navbar";
 import React, { useEffect, useState } from "react";
-import { fetchBooks } from "../../services/api"; // Import API function
+import { fetchBooks } from "../../services/api";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
@@ -12,12 +12,10 @@ const HomePage = () => {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    // Fetch books from the API
     fetchBooks()
       .then((response) => setBooks(response.data))
       .catch((error) => console.error("Error fetching books:", error));
 
-    // Fetch user profile if token exists
     const token = localStorage.getItem("token") || sessionStorage.getItem("token");
     if (token) {
       axios
@@ -53,7 +51,7 @@ const HomePage = () => {
           <div className='col-md-6'>
             <h1 className='display-4 fw-bold'>GoodReads</h1>
             <p className='lead'>
-              A place where book lovers can find, review, and buy books easily. Discover recommendations, keep a reading list, and shop for your next read—all in one place.
+              A place where book lovers can find, review, and buy books easily. Discover recommendations, keep reading lists, and shop for your next read—all in one place.
             </p>
           </div>
         </div>
@@ -87,26 +85,11 @@ const HomePage = () => {
               <div>
                 <h3 className='fw-bold'>William Shakespeare</h3>
                 <p className='text-muted'>
-                  An English playwright, poet, and actor widely regarded as the greatest writer in the English language.
+                  An English playwright, poet, and actor widely regarded as the greatest writer in the English language. Known as the 'Bard of Avon'. His works include 38 plays, 154 sonnets, and two long narrative poems.
                 </p>
               </div>
             </div>
           </div>
-        </div>
-      </div>
-
-      {/* Categories Section */}
-      <div className='container mt-5'>
-        <h2 className='fw-bold mb-4'>Most Popular Categories</h2>
-        <div className='row g-4'>
-          {["Art", "Technology", "Sport", "Economics", "Food", "Health"].map((category, index) => (
-            <div key={index} className='col-2'>
-              <div className='category-card text-center p-3 rounded'>
-                <div className='fs-3 mb-2'>{["🎨", "💻", "⚽", "📈", "🍳", "🏥"][index]}</div>
-                <div className='fw-medium'>{category}</div>
-              </div>
-            </div>
-          ))}
         </div>
       </div>
 
@@ -120,46 +103,32 @@ const HomePage = () => {
                 <img src={book.coverImage} className='card-img-top' alt={book.title} />
                 <div className='card-body'>
                   <h4 className='card-title'>{book.title}</h4>
+                  <p className='text-muted'>Author: {book.author?.name}</p>
                   <div className='d-flex justify-content-between mt-2'>
                     <span className='text-muted'>⭐⭐⭐⭐⭐</span>
                   </div>
                   <div className='d-grid'>
-                    <button className='btn btn-primary'>Add to Cart</button>
-                    <button className='btn btn-outline-primary mt-2'>
-                      <Link to={`/books/${book._id}`}>View Details</Link>
-                    </button>
+                    <Link to={`/books/${book._id}`}>
+                      <button className='btn btn-outline-primary mt-2'>View Details</button>
+                    </Link>
                   </div>
                 </div>
               </div>
             </div>
           ))}
         </div>
+
+        <div className='text-center mt-5'>
+          <Link to='/books'>
+            <button className='btn btn-primary btn-lg'>View All Books</button>
+          </Link>
+        </div>
       </div>
 
       {/* Footer */}
       <footer className='bg-primary text-white py-5'>
-        <div className='container'>
-          <div className='row'>
-            <div className='col-md-3'>
-              <h5 className='fw-bold mb-3'>Company</h5>
-              <ul className='list-unstyled'>
-                <li>About us</li>
-                <li>Careers</li>
-                <li>Blog</li>
-                <li>Privacy</li>
-              </ul>
-            </div>
-            <div className='col-md-3'>
-              <h5 className='fw-bold mb-3'>Customer Service</h5>
-              <ul className='list-unstyled'>
-                <li>FAQ</li>
-                <li>Disclaimer</li>
-              </ul>
-            </div>
-          </div>
-          <div className='text-center mt-5'>
-            <p className='mb-0'>Goodreads</p>
-          </div>
+        <div className='container text-center'>
+          <p className='mb-0'>&copy; 2024 Goodreads. All rights reserved.</p>
         </div>
       </footer>
     </div>
