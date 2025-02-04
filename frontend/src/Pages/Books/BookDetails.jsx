@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-<<<<<<< HEAD
 // import { fetchBookById } from "../../servisces/api";
-=======
 import { fetchBookById } from "../../services/api";
 import {
   Container,
@@ -18,11 +16,7 @@ import {
 import CustomButton from "../../../components/CustomButton";
 import { v4 as uuidv4 } from "uuid";
 import { FaHeart } from "react-icons/fa";
-<<<<<<< HEAD
->>>>>>> 8635f9b936d35c01534ef7c8438c642f22f50a4d
-=======
 import StarRating from "../../../components/StarRating";
->>>>>>> 4b610b10d346eece09f4e4fe6141edcf847b02fd
 
 const BookDetails = () => {
   const dummyReviews = [

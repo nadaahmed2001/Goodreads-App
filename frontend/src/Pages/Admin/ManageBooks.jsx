@@ -12,20 +12,19 @@ export default function Books({ category, author }) {
     useEffect(() => {
         const fetchBooks = async () => {
             try {
-                // setIsLoading(true);
-                // await new Promise((resolve) => setTimeout(resolve, 3000));
                 setIsLoading(true);
                 const response = await axios.get("http://localhost:5000/books");
                 setBooks(response.data);
             } catch (err) {
                 console.error("Unable to fetch books:", err);
             } finally {
-                setIsLoading(false); // Ensures loading stops even if an error occurs
+                setIsLoading(false);
             }
         };
 
         fetchBooks();
     }, []);
+
     useEffect(() => {
         if (books.length > 0) {
             console.log("Books List:", books);
@@ -36,16 +35,38 @@ export default function Books({ category, author }) {
 
     const handleSaveBook = async (formData) => {
         try {
+            let imageUrl = "";
+
+            // If an image file is uploaded, upload to Cloudinary
+            if (formData.image) {
+                const imageData = new FormData();
+                imageData.append("file", formData.image);
+                imageData.append("upload_preset", "Goodreads-imgs"); // Use unsigned preset
+                imageData.append("folder", "book_covers");
+
+                console.log("Uploading image...");
+
+                const uploadRes = await axios.post(
+                    "https://api.cloudinary.com/v1_1/dl14s4ipy/image/upload",
+                    imageData
+                );
+
+                imageUrl = uploadRes.data.secure_url;
+                console.log("Image uploaded:", imageUrl);
+            }
+
+            // Save book with the uploaded image URL
             const response = await axios.post("http://localhost:5000/book", {
                 title: formData.name,
                 author: formData.author,
                 category: formData.category,
                 description: formData.description,
+                coverImage: imageUrl, // Save image URL
             });
 
             console.log("Book added:", response.data);
             alert("Book added successfully!");
-            setBooks((prevBooks) => [...prevBooks, response.data]); // Update the list of books
+            setBooks((prevBooks) => [...prevBooks, response.data]);
         } catch (err) {
             console.error("Unable to add book:", err);
         }
@@ -55,14 +76,12 @@ export default function Books({ category, author }) {
         try {
             await axios.delete(`http://localhost:5000/book/${bookId}`);
             alert("Book deleted successfully!");
-            // After deleting, trigger a refetch to update the categories list
-            setBooks((prevBooks) => prevBooks.filter(book => book._id !== bookId)); // Remove deleted book from state
-            // setFetchTrigger((prev) => !prev);
-            // setBooks(books.filter(b => b._id !== book._id))
+            setBooks((prevBooks) => prevBooks.filter(book => book._id !== bookId));
         } catch (err) {
-            console.error("Unable to delete category:", err);
+            console.error("Unable to delete book:", err);
         }
     };
+
     return (
         <div className="d-flex">
             <Sidebar />
@@ -79,6 +98,7 @@ export default function Books({ category, author }) {
                             { name: "description", label: "Book Description", type: "text" },
                             { name: "category", label: "Choose Category", type: "dropdown" },
                             { name: "author", label: "Choose Author", type: "dropdown" },
+                            { name: "image", label: "Upload Cover Image", type: "file" }, // Add file input
                         ]}
                         onSave={handleSaveBook}
                     />
@@ -101,41 +121,13 @@ export default function Books({ category, author }) {
                         <tbody>
                             {[...Array(3)].map((_, index) => (
                                 <tr key={index}>
-                                    <td>
-                                        <Placeholder as="p" animation="glow">
-                                            <Placeholder xs={12} />
-                                        </Placeholder>
-                                    </td>
-                                    <td>
-                                        <Placeholder as="p" animation="glow">
-                                            <Placeholder xs={12} />
-                                        </Placeholder>
-                                    </td>
-                                    <td>
-                                        <Placeholder as="p" animation="glow">
-                                            <Placeholder xs={12} />
-                                        </Placeholder>
-                                    </td>
-                                    <td>
-                                        <Placeholder as="p" animation="glow">
-                                            <Placeholder xs={12} />
-                                        </Placeholder>
-                                    </td>
-                                    <td>
-                                        <Placeholder as="p" animation="glow">
-                                            <Placeholder xs={12} />
-                                        </Placeholder>
-                                    </td>
-                                    <td>
-                                        <Placeholder as="p" animation="glow">
-                                            <Placeholder xs={12} />
-                                        </Placeholder>
-                                    </td>
-                                    <td>
-                                        <Placeholder as="p" animation="glow">
-                                            <Placeholder xs={12} />
-                                        </Placeholder>
-                                    </td>
+                                    {[...Array(7)].map((_, i) => (
+                                        <td key={i}>
+                                            <Placeholder as="p" animation="glow">
+                                                <Placeholder xs={12} />
+                                            </Placeholder>
+                                        </td>
+                                    ))}
                                 </tr>
                             ))}
                         </tbody>
@@ -148,7 +140,7 @@ export default function Books({ category, author }) {
                                         {book.coverImage ? (
                                             <img
                                                 src={book.coverImage}
-                                                alt="Alt Book"
+                                                alt={book}
                                                 width="50"
                                                 height="60"
                                                 style={{ cursor: "pointer" }}
@@ -160,19 +152,11 @@ export default function Books({ category, author }) {
                                     </td>
                                     <td>{book.title}</td>
                                     <td>{book.description}</td>
-                                    <td>
-                                        {category?.find(cat => cat._id === book?.category)?.name || '-'}
-                                    </td>
-                                    <td>
-                                        {author?.find(auth => auth._id === book?.author)?.name || '-'}
-                                    </td>
-
+                                    <td>{category?.find(cat => cat._id === book?.category)?.name || '-'}</td>
+                                    <td>{author?.find(auth => auth._id === book?.author)?.name || '-'}</td>
                                     <td>
                                         <button>✏️</button>
-                                        <button
-                                            onClick={() => handleDelete(book._id)}>
-                                            ❌
-                                        </button>
+                                        <button onClick={() => handleDelete(book._id)}>❌</button>
                                     </td>
                                 </tr>
                             ))}
@@ -180,6 +164,6 @@ export default function Books({ category, author }) {
                     )}
                 </Table>
             </div>
-        </div >
+        </div>
     );
 }
