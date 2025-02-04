@@ -1,15 +1,11 @@
-// import { Globe, Moon } from 'lucide-react';
 import React, { useEffect, useState } from "react";
 import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
 import { Dropdown } from 'react-bootstrap';
-// import React from "react";
 import { ChevronLeft, ChevronRight, Globe, Moon, ShoppingCart } from 'lucide-react';
-// import { Link } from "react-router-dom";
 import "./Navbar.css";
 // import "./Navbar.css";
-// import { useNavigate } from 'react-router-dom';
-// import "./Navbar.css";
+import "./Navbar.css";
 
 const Navbar = () => {
   const [user, setUser] = useState(null); // State for user data from backend
