@@ -11,5 +11,5 @@ const bookSchema = new mongoose.Schema({
   trending: Boolean,
 });
 
-const Book = mongoose.model("Book", bookSchema);//table
+const Book = mongoose.model("Book", bookSchema); //table
 module.exports = Book;

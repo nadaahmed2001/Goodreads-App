@@ -5,41 +5,17 @@ import Modal from "react-bootstrap/Modal";
 import axios from "axios";
 import Dropdown from "react-bootstrap/Dropdown";
 
-export default function ModalBtn({ title, fields, onSave, category }) {
+export default function ModalBtn({ title, fields, onSave, category, author }) {
     const [show, setShow] = useState(false);
     const [formData, setFormData] = useState({});
-    const [author, setAuthor] = useState([]);
+    // const [author, setAuthor] = useState([]);
     // const [category, setCategory] = useState([]);
     const [selectedAuth, setSelectedAuth] = useState('Authors')
     const [selectedCat, setSelectedCat] = useState('categories')
     const [error, setError] = useState("");
     // console.log(formData);
     console.log("Categories in ModalBtn:", category);
-    useEffect(() => {
-        fetch("http://localhost:5000/authors")
-            .then((res) => res.json())
-            .then((data) => {
-                setAuthor(data); // ✅ Ensure `data` is an array
-            })
-            .catch((err) => {
-                console.error("Error fetching authors:", err);
-                setAuthor([]); // Fallback to an empty array in case of an error
-            });
-    }, []);
-
-    // console.log(author);
-    // useEffect(() => {
-    //     fetch("http://localhost:5000/categories")
-    //         .then((res) => res.json())
-    //         .then((data) => {
-    //             setCategory(data); // ✅ Ensure `data` is an array
-    //             console.log(category);
-    //         })
-    //         .catch((err) => {
-    //             console.error("Error fetching authors:", err);
-    //             setCategory([]); // Fallback to an empty array in case of an error
-    //         });
-    // }, []);
+    console.log("Author in ModalBtn:", author);
 
     const handleShow = () => {
         setShow(true);
@@ -47,7 +23,11 @@ export default function ModalBtn({ title, fields, onSave, category }) {
         setError("");
     };
 
-    const handleClose = () => setShow(false);
+    const handleClose = () => {
+        setShow(false)
+        setSelectedAuth('Authors')
+        setSelectedCat('Category')
+    };
 
     const handleChange = (e) => {
         const { name, value, type, files } = e.target;
@@ -69,56 +49,12 @@ export default function ModalBtn({ title, fields, onSave, category }) {
         setError("");
         onSave(formData);
         handleClose();
+        setSelectedAuth('Authors')
+        setSelectedCat('Category')
     };
 
     const handleSubmit = (e) => {
-        e.preventDefault(); // Prevent page reload
-
-        // console.log("submitted"); // Debugging log
-
-        // if (title === 'Category') {
-        //     axios.post(`http://localhost:5000/category`, { name: formData.name })
-        //         .then((response) => {
-        //             console.log("Category added:", response.data);
-        //             alert("Category added successfully!");
-        //         })
-        //         .catch((err) => console.log("unable to add category"));
-        // }
-        // else if (title === 'Book') {
-        //     const bookData = {
-        //         title: formData.name,
-        //         // author: formData.author,   // Use raw ID from formData
-        //         // category: formData.category, // Use raw ID from formData
-        //         // description: "",
-        //         // coverImage: "",
-        //         // price: formData.price || 0,
-        //         // rating: formData.rating || 0,
-        //         // featured: formData.featured || false,
-        //         // trending: formData.trending || false,
-        //     };
-        //     axios.post(`http://localhost:5000/book`, bookData)
-        //         .then((response) => {
-        //             console.log("Book added:", response.data);
-        //             alert("Book added successfully!");
-        //         })
-        //         .catch((err) => {
-        //             console.error("Unable to add book:", err);
-        //             alert("Failed to add the book.");
-        //         });
-        // }
-        // else if (title === 'Author') {
-        //     axios.post(`http://localhost:5000/author`, {
-        //         name: formData.name,
-        //         // image: formData.image,
-        //         bio: formData.bio,
-        //         birthDate: formData.birthDate
-        //     })
-        //         .then((response) => {
-        //             console.log("Author added:", response.data);
-        //             alert("Author added successfully!");
-        //         })
-        //         .catch((err) => console.log("unable to add author"));
-        // }
+        e.preventDefault();
     };
 
     return (
