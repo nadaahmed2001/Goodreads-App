@@ -1,0 +1,97 @@
+/* nav{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    background-color: #3F8FC0;
+    color: white;
+    flex-wrap: wrap;
+}
+nav .imgLogo{
+    width: 33%;
+}
+nav .Searchinput{
+    width: 33%;
+}
+nav .icons{
+    width: 33%;
+}
+.NavList{
+    
+   
+    width: 90%;
+    margin: auto;
+}
+nav .NavList ul{
+  display: flex;
+  list-style: none;
+}
+nav .NavList ul li a{
+  
+text-decoration: none;
+color: #000;
+font-family: Kufam;
+font-size: 24px;
+font-style: normal;
+font-weight: 700;
+line-height: normal;
+padding: 30px;
+} */
+
+
+nav {
+    display: flex;
+    flex-direction: column;
+    padding: 0 20px;
+    background-color: #3F8FC0;
+    color: white;
+  }
+  
+  .nav-top {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 80%;
+    margin: auto;
+    flex-wrap: wrap;
+  }
+  
+  nav .imgLogo {
+    width: 33%;
+  }
+  
+  nav .Searchinput {
+    width: 33%;
+  }
+  
+  nav .icons {
+    width: 33%;
+    display: flex;
+    justify-content: flex-end;
+  }
+  
+  .NavList {
+    width: 100%;
+    margin-top: 10px;
+  }
+  
+  nav .NavList ul {
+    display: flex;
+    list-style: none;
+    justify-content: center; /* Center the items */
+    padding: 0;
+    margin: 0;
+  }
+  
+  nav .NavList ul li a {
+    text-decoration: none;
+    color: #000;
+    font-family: Kufam;
+    font-size: 24px;
+    font-weight: 700;
+    padding: 20px 30px;
+    
+  }
+  .SignUp{
+    color: #3F8FC0;
+  }
