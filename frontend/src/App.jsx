@@ -8,7 +8,6 @@ import Home from "./Pages/Home/Home";
 import BookList from "./Pages/Books/BookList";
 import BookDetails from "./Pages/Books/BookDetails";
 
-// import HomePage from './Pages/Home/HomePage'; //testing
 import AdminLogin from "./Pages/Admin/AdminLogin";
 import NotFound from "./Pages/NotFound404/NotFound";
 import Categories from "./Pages/Admin/Categories";
@@ -18,23 +17,34 @@ import AuthorsBook from "../components/Authors-Book/AuthorsBook";
 import AuthorDetails from "../components/Authors-Book/AuthorDetails";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Login from "../components/Authentication/SignIn/Login";
+import { useState, useEffect } from "react";
 
 function App() {
+  const [category, setCategory] = useState([]);
+
+  useEffect(() => {
+    fetch("http://localhost:5000/categories")
+      .then((res) => res.json())
+      .then((data) => setCategory(data))
+      .catch((err) => console.error("Error fetching categories:", err));
+  }, []);
+
   return (
     <>
       <Router>
         <Routes>
           <Route path='/' element={<Home />} />
-
-          {/* <Route path = "/" element = {<HomePage />} /> //testing */}
           <Route path='/AdminLogin' element={<AdminLogin />} />
           <Route path='/Register' element={<Register />} />
-          <Route path='/Categories' element={<Categories />} />
-          <Route path='/ManageBooks' element={<ManageBooks />} />
-          <Route path='/Register' element={<Register />} />
+          <Route
+            path='/Categories'
+            element={<Categories category={category} />}
+          />
+          <Route
+            path='/ManageBooks'
+            element={<ManageBooks category={category} />}
+          />
           <Route path='/Authors' element={<Authors />} />
-          {/* <Route path = "/" element = {<HomePage />} /> //testing */}
-          {/* <Route path="/Admin" element={<AdminLogin />} /> */}
           <Route path='/books' element={<BookList />} />
           <Route path='/books/:bookId' element={<BookDetails />} />
           <Route path='/sign-up' element={<SignUp />} />
