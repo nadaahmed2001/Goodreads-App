@@ -18,6 +18,8 @@ import Authors from "./Pages/Admin/Authors";
 import AuthorsBook from "../components/Authors-Book/AuthorsBook";
 import AuthorDetails from "../components/Authors-Book/AuthorDetails";
 import Login from "../components/Authentication/SignIn/Login";
+import UserList from "./Pages/UserBookLists/UserList";
+import { useState, useEffect } from "react";
 
 function App() {
   const [category, setCategory] = useState([]);
@@ -41,6 +43,38 @@ function App() {
   }, [fetchTrigger]); // Re-fetch when fetchTrigger changes
 
   return (
+    <>
+      <Router>
+        <Routes>
+          <Route path='/' element={<Home />} />
+          <Route path='/AdminLogin' element={<AdminLogin />} />
+          <Route path='/Register' element={<Register />} />
+          <Route
+            path='/Categories'
+            element={<Categories category={category} />}
+          />
+          <Route
+            path='/ManageBooks'
+            element={<ManageBooks category={category} />}
+          />
+
+<Route path="/list/:shelf" element={<UserList />} />
+
+
+          <Route path='/Authors' element={<Authors />} />
+          <Route path='/books' element={<BookList />} />
+          <Route path='/books/:bookId' element={<BookDetails />} />
+          <Route path='/sign-up' element={<SignUp />} />
+          <Route path='/sign-in' element={<SignIn />} />
+          <Route path='/login' element={<Login />} />
+          <Route path='*' element={<NotFound />} />
+          <Route path="/AuthorsBook" element={<AuthorsBook />} />
+          <Route path="/AuthorDetails/:authorId" element={<AuthorDetails />} />
+          <Route path='*' element={<NotFound />} />
+          
+        </Routes>
+      </Router>
+    </>
     <Router>
       <Routes>
         <Route path='/' element={<Home />} />
