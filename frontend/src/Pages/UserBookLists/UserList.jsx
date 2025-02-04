@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getUserList, removeBookFromList } from "../../services/api";
-import { Container, Row, Col, Button, Card } from "react-bootstrap";
-import { Book } from "lucide-react";
+import { Container, Row, Col, Button } from "react-bootstrap";
 import BookCard from "../../../components/BookCard";
 
 const UserList = () => {
@@ -14,6 +13,7 @@ const UserList = () => {
     const fetchBooks = async () => {
       try {
         const response = await getUserList(shelf, token);
+        console.log("Fetched books:", response.data.books); // Debugging
         setBooks(response.data.books);
       } catch (error) {
         console.error("Error fetching books:", error);
@@ -37,21 +37,18 @@ const UserList = () => {
       <h2 className="mb-4">{shelf.replace("_", " ").toUpperCase()}</h2>
       <Row xs={1} md={2} lg={3} xl={4} className='g-4'>
         {books.map((book) => (
-          <Col key={book._id}>
-            <BookCard book={book} />
+          <Col key={book.book._id}>
+            <BookCard book={book.book} /> {/* FIX: Passing correct data */}
             <Button
               variant="danger"
               className="mt-3"
               onClick={() => handleRemove(book.book._id)}
             >
-                Remove
+              Remove
             </Button>
           </Col>
- 
         ))}
       </Row>
-
-
     </Container>
   );
 };
