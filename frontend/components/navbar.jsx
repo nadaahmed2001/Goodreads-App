@@ -11,8 +11,12 @@ const Navbar = () => {
 
   useEffect(() => {
     // Fetch user profile if token exists
-    const token = localStorage.getItem('token');
+    let token = localStorage.getItem('token');
+    if(!token){
+       token=sessionStorage.getItem('token');
+    }
     if (token) {
+
       axios.get('http://localhost:5000/profile', {
         headers: { Authorization: `Bearer ${token}` }
       })

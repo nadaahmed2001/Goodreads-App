@@ -15,7 +15,7 @@ const BookCard = ({ book }) => {
       />
       <Card.Body className="d-flex flex-column">
         <Card.Title className="card-title">{book.title}</Card.Title>
-        <Card.Text className="text-muted">Author: {book.author?.name}</Card.Text>
+        {/* <Card.Text className="text-muted">Author: {book.author?.name}</Card.Text> */}
 
         <div className="d-flex justify-content-between mt-2">
           <span className="text-muted">⭐⭐⭐⭐⭐</span>
