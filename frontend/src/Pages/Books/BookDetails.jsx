@@ -101,7 +101,9 @@ const BookDetails = () => {
         </Col>
         <Col md={8}>
           <h1 className='display-4 fw-bold mb-3'>{book.title}</h1>
-          {/* <p className='lead text-muted mb-4'>By {book.author.name}</p> */}
+          {/* category */}
+          <h4 className="lead text-muted mb-4">Category: {book.category.name}</h4>
+          <p className='lead text-muted mb-4'>By: {book.author.name}</p>
           <Badge bg='warning' className='fs-5 me-2'>
             ⭐ {book.rating}/5
           </Badge>
