@@ -18,7 +18,11 @@ import {
 import CustomButton from "../../../components/CustomButton";
 import { v4 as uuidv4 } from "uuid";
 import { FaHeart } from "react-icons/fa";
+<<<<<<< HEAD
 >>>>>>> 8635f9b936d35c01534ef7c8438c642f22f50a4d
+=======
+import StarRating from "../../../components/StarRating";
+>>>>>>> 4b610b10d346eece09f4e4fe6141edcf847b02fd
 
 const BookDetails = () => {
   const dummyReviews = [
@@ -40,6 +44,12 @@ const BookDetails = () => {
     comment: "",
   });
 
+  const calculateAverageRating = (reviews) => {
+    if (reviews.length === 0) return 0;
+    const total = reviews.reduce((sum, review) => sum + review.rating, 0);
+    return (total / reviews.length).toFixed(1);
+  };
+
   useEffect(() => {
     const getBook = async () => {
       try {
@@ -57,7 +67,15 @@ const BookDetails = () => {
 
   const handleAddReview = () => {
     if (!newReview.user || !newReview.rating || !newReview.comment) return;
-    setReviews([...reviews, { ...newReview, _id: uuidv4() }]);
+
+    const updatedReviews = [...reviews, { ...newReview, _id: uuidv4() }];
+    setReviews(updatedReviews);
+
+    setBook((prevBook) => ({
+      ...prevBook,
+      rating: calculateAverageRating(updatedReviews),
+    }));
+
     setShowModal(false);
     setNewReview({ user: "", rating: "", comment: "" });
   };
@@ -167,6 +185,14 @@ const BookDetails = () => {
                 onChange={(e) =>
                   setNewReview({ ...newReview, comment: e.target.value })
                 }
+              />
+            </Form.Group>
+
+            <Form.Group className='mb-3'>
+              <StarRating
+                maxRating={5}
+                size={30}
+                onSetRating={(rating) => setNewReview({ ...newReview, rating })}
               />
             </Form.Group>
           </Form>
