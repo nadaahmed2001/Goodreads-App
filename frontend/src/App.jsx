@@ -26,13 +26,6 @@ function App() {
   const [author, setAuthor] = useState([]);
   const [fetchTrigger, setFetchTrigger] = useState(false); // Trigger for refetching data
 
-  // Fetch Categories
-  useEffect(() => {
-    fetch("http://localhost:5000/categories")
-      .then((res) => res.json())
-      .then((data) => setCategory(data))
-      .catch((err) => console.error("Error fetching categories:", err));
-  }, [fetchTrigger]); // Re-fetch when fetchTrigger changes
 
   // Fetch Authors
   useEffect(() => {
@@ -48,51 +41,22 @@ function App() {
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/AdminLogin' element={<AdminLogin />} />
+          <Route path="/list/:shelf" element={<UserList />} />
           <Route path='/Register' element={<Register />} />
-          <Route
-            path='/Categories'
-            element={<Categories category={category} />}
-          />
-          <Route
-            path='/ManageBooks'
-            element={<ManageBooks category={category} />}
-          />
-
-<Route path="/list/:shelf" element={<UserList />} />
-
-
-          <Route path='/Authors' element={<Authors />} />
+          <Route path='/Categories' element={<Categories category={category} setFetchTrigger={setFetchTrigger} />} />
+          <Route path='/ManageBooks' element={<ManageBooks category={category} author={author} />} />
+          <Route path='/Authors' element={<Authors author={author} setFetchTrigger={setFetchTrigger} />} />
           <Route path='/books' element={<BookList />} />
           <Route path='/books/:bookId' element={<BookDetails />} />
           <Route path='/sign-up' element={<SignUp />} />
           <Route path='/sign-in' element={<SignIn />} />
           <Route path='/login' element={<Login />} />
+          <Route path='/AuthorsBook' element={<AuthorsBook />} />
+          <Route path='/AuthorDetails/:authorId' element={<AuthorDetails />} />
           <Route path='*' element={<NotFound />} />
-          <Route path="/AuthorsBook" element={<AuthorsBook />} />
-          <Route path="/AuthorDetails/:authorId" element={<AuthorDetails />} />
-          <Route path='*' element={<NotFound />} />
-          
         </Routes>
       </Router>
     </>
-    <Router>
-      <Routes>
-        <Route path='/' element={<Home />} />
-        <Route path='/AdminLogin' element={<AdminLogin />} />
-        <Route path='/Register' element={<Register />} />
-        <Route path='/Categories' element={<Categories category={category} setFetchTrigger={setFetchTrigger} />} />
-        <Route path='/ManageBooks' element={<ManageBooks category={category} author={author} />} />
-        <Route path='/Authors' element={<Authors author={author} setFetchTrigger={setFetchTrigger} />} />
-        <Route path='/books' element={<BookList />} />
-        <Route path='/books/:bookId' element={<BookDetails />} />
-        <Route path='/sign-up' element={<SignUp />} />
-        <Route path='/sign-in' element={<SignIn />} />
-        <Route path='/login' element={<Login />} />
-        <Route path='/AuthorsBook' element={<AuthorsBook />} />
-        <Route path='/AuthorDetails/:authorId' element={<AuthorDetails />} />
-        <Route path='*' element={<NotFound />} />
-      </Routes>
-    </Router>
   );
 }
 
