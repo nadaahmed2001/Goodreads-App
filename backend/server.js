@@ -134,7 +134,7 @@ Shelf-Sphere Team`,
 };
 
 
-//register and login 
+//register and login
 // Middleware to verify token
 function verifyToken(req, res, next) {
 
@@ -184,15 +184,10 @@ app.post('/login', (req, res) => {
              // If user exists, return an error message
              return res.json("Email Already Exist");
            }
+     
            // If user doesn't exist, create a new user
-        
-      UserModel.create(req.body) // Create user in the database
-        .then((user) => {
-          // Send the welcome email after user is created
-          sendWelcomeEmail(user.email);
-
-          res.json(user);  // Respond with the created user object
-        })
+           UserModel.create(req.body) //creation in database 
+             .then(user => res.json(user))  // Respond with the created user to the frontend 
              .catch(err => res.status(500).json({ error: err.message }));  // Handle any errors
          })
          .catch(err => res.status(500).json({ error: err.message }));  // Handle errors in finding the user
