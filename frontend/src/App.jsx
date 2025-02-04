@@ -25,6 +25,13 @@ function App() {
   const [author, setAuthor] = useState([]);
   const [fetchTrigger, setFetchTrigger] = useState(false); // Trigger for refetching data
 
+  useEffect(() => {
+    fetch("http://localhost:5000/categories")
+      .then((res) => res.json())
+      .then((data) => setCategory(data))
+      .catch((err) => console.error("Error fetching categories:", err));
+  }, [fetchTrigger]); // Re-fetch when fetchTrigger changes
+
 
   // Fetch Authors
   useEffect(() => {
@@ -33,6 +40,7 @@ function App() {
       .then((data) => setAuthor(data))
       .catch((err) => console.error("Error fetching authors:", err));
   }, [fetchTrigger]); // Re-fetch when fetchTrigger changes
+  console.log(category);
 
   return (
     <>
