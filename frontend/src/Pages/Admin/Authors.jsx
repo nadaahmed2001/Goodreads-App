@@ -7,20 +7,38 @@ import Modify from "./Modify"
 
 export default function Authors({ author, setFetchTrigger }) {
     const handleSaveAuthor = (formData) => {
-        axios
-            .post(`http://localhost:5000/author`, {
-                name: formData.name,
-                // image: formData.image,
-                bio: formData.bio,
-                birthDate: formData.birthDate,
+        const imageFile = formData.image;
+
+        if (!imageFile) {
+            alert("Please select an image.");
+            return;
+        }
+
+        const imageData = new FormData();
+        imageData.append("file", imageFile);
+        imageData.append("upload_preset", "Goodreads-imgs"); // Make sure this matches exactly
+        // Replace with your actual preset
+        // imageData.append("folder", "author_images"); // Organize images in Cloudinary
+        console.log("Uploading file:", imageFile);
+        axios.post("https://api.cloudinary.com/v1_1/dl14s4ipy/image/upload", imageData)
+            .then(uploadRes => {
+                const imageUrl = uploadRes.data.secure_url;
+                return axios.post(`http://localhost:5000/author`, {
+                    name: formData.name,
+                    bio: formData.bio,
+                    birthDate: formData.birthDate,
+                    image: imageUrl // Save the uploaded image URL in DB
+                });
             })
-            .then((response) => {
-                console.log("Author added:", response.data);
-                setFetchTrigger((prev) => !prev)
+            .then(() => {
                 alert("Author added successfully!");
+                setFetchTrigger(prev => !prev);
             })
-            .catch((err) => console.log("unable to add author"));
+            .catch(err => console.log("Unable to add author", err.response?.data || err.message));
     };
+
+
+
     console.log(author);
 
     const handleDelete = async (authorId) => {
@@ -60,7 +78,7 @@ export default function Authors({ author, setFetchTrigger }) {
                             { name: "name", label: "Fullname", type: "text" },
                             { name: "bio", label: "bio", type: "text" },
                             { name: "birthDate", label: "Date of Birth", type: "date" },
-                            // { name: "image", label: "Upload Photo", type: "file" }
+                            { name: "image", label: "Upload Photo", type: "file", accept: "image/*" }
                         ]}
                         onSave={handleSaveAuthor}
                     />
@@ -81,19 +99,20 @@ export default function Authors({ author, setFetchTrigger }) {
                             <tr key={a._id}>
                                 <td>{idx + 1}</td>
                                 <td>
-                                    {a.coverImage ? (
+                                    {a.image ? (
                                         <img
-                                            src={a.coverImage}
+                                            src={a.image}
                                             alt="Alt Book"
                                             width="50"
                                             height="60"
                                             style={{ cursor: "pointer" }}
-                                            onClick={() => window.open(a.coverImage, "_blank")}
+                                            onClick={() => window.open(a.image, "_blank")}
                                         />
                                     ) : (
                                         "No Image"
                                     )}
                                 </td>
+
                                 <td>{a.name}</td>
                                 <td>{a.bio}</td>
                                 <td>{a.birthDate}</td>
