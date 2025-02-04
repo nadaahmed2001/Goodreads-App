@@ -25,7 +25,8 @@ const Navbar = () => {
 
   const logout = () => {
     localStorage.removeItem('token');
-    navigate('/login');
+    sessionStorage.removeItem('token');
+    navigate('/sign-in');
   };
   return (
     <>
@@ -77,10 +78,10 @@ const Navbar = () => {
               </>
             ) : (
               <>
-                <Link to="/register">
+                <Link to="/sign-up">
                   <button className="btn btn-light text-primary ms-2">Sign up</button>
                 </Link>
-                <Link to="/login">
+                <Link to="/sign-in">
                   <button className="btn btn-outline-light ms-2">Log in</button>
                 </Link>
               </>
