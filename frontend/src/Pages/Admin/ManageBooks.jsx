@@ -15,6 +15,9 @@ export default function Books({ category, author }) {
                 setIsLoading(true);
                 const response = await axios.get("http://localhost:5000/books");
                 setBooks(response.data);
+                response.data.forEach((book, index) => {
+                    console.log(`Book ${index + 1}:`, book);
+                });
             } catch (err) {
                 console.error("Unable to fetch books:", err);
             } finally {
@@ -81,6 +84,8 @@ export default function Books({ category, author }) {
             console.error("Unable to delete book:", err);
         }
     };
+
+    console.log("inside manage books" + category);
 
     return (
         <div className="d-flex">
@@ -153,7 +158,7 @@ export default function Books({ category, author }) {
                                     <td>{book.title}</td>
                                     <td>{book.description}</td>
                                     <td>{category?.find(cat => cat._id === book?.category)?.name || '-'}</td>
-                                    <td>{author?.find(auth => auth._id === book?.author)?.name || '-'}</td>
+                                    <td>{book.author.name}</td>
                                     <td>
                                         <button>✏️</button>
                                         <button onClick={() => handleDelete(book._id)}>❌</button>

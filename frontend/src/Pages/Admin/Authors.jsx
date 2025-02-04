@@ -43,7 +43,7 @@ export default function Authors({ author, setFetchTrigger }) {
 
     const handleDelete = async (authorId) => {
         try {
-            await axios.delete(`http://localhost:5000/author/${authorId}`);
+            await axios.delete(`http://localhost:5000/authorsAdmin/${authorId}`);
             alert("author deleted successfully!");
             // setBooks(books.filter((b) => b._id !== book._id))
             // After deleting, trigger a refetch to update the categories list
@@ -55,7 +55,7 @@ export default function Authors({ author, setFetchTrigger }) {
     };
     const handleUpdate = async (authorId, updatedData) => {
         try {
-            await axios.put(`http://localhost:5000/author/${authorId}`, updatedData);
+            await axios.put(`http://localhost:5000/authorsAdmin/${authorId}`, updatedData);
             alert("Author updated successfully!");
 
             // Refetch the data to reflect changes
