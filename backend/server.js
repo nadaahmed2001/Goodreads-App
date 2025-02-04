@@ -1,4 +1,3 @@
-const express = require("express");
 // import Categories from './../frontend/src/Pages/Admin/Categories';
 const cors = require("cors");
 const connectDB = require("./config/db");
@@ -9,6 +8,9 @@ const UserModel = require("./models/User");
 const Category = require("./models/Category");
 const jwt = require("jsonwebtoken");
 const TempBooks = require("./models/TempBooks");
+const express = require("express");
+const router = express.Router();
+const UserBookList = require("./models/UserBookList");
 const nodemailer = require("nodemailer");
 
 const app = express();
@@ -207,6 +209,93 @@ app.post('/login', (req, res) => {
  
 
 // Start the server
+//register and login
+app.post("/login", (req, res) => {
+  const { email, password } = req.body;
+  UserModel.findOne({ email: email }).then((user) => {
+    if (user) {
+      if (user.password === password) {
+        res.json("success");
+      } else {
+        res.json("Incorrect password");
+      }
+    } else {
+      res.json("User not found");
+    }
+  });
+});
+
+app.post("/register", (req, res) => {
+  // Check if user already exists (by email in this case)
+  UserModel.findOne({ email: req.body.email })
+    .then((existingUser) => {
+      if (existingUser) {
+        // If user exists, return an error message
+        return res.json("Email Already Exist");
+      }
+
+      // If user doesn't exist, create a new user
+      UserModel.create(req.body) //creation in database
+        .then((user) => res.json(user)) // Respond with the created user to the frontend
+        .catch((err) => res.status(500).json({ error: err.message })); // Handle any errors
+    })
+    .catch((err) => res.status(500).json({ error: err.message })); // Handle errors in finding the user
+});
+
+
+
+// ======================================= User Book Lists ====================================================
+app.post("/add-to-list", verifyToken, async (req, res) => {
+  const { bookId, shelf } = req.body;
+  const userId = req.user.id; // Extract user ID from JWT
+  console.log("Adding book", bookId, "to list", shelf, "for user", userId);
+
+  try {
+    const bookExists = await UserBookList.findOne({ user: userId, book: bookId });
+    if (bookExists) {
+      return res.status(400).json({ success: false, message: "Book already exists in the list." });
+    }
+
+    await UserBookList.create({ user: userId, book: bookId, shelf });
+    res.json({ success: true, message: "Book added to the list." });
+  } catch (error) {
+    console.error("Error adding book to list:", error);
+    res.status(500).json({ success: false, message: "Internal server error." });
+  }
+
+} );
+
+// Get user's book list by shelf
+app.get("/get-list/:shelf", verifyToken, async (req, res) => {
+  const { shelf } = req.params;
+  const userId = req.user.id; // Extract user ID from JWT
+
+  try {
+    const books = await UserBookList.find({ user: userId, shelf }).populate("book");
+    res.json({ success: true, books });
+  } catch (error) {
+    console.error("Error fetching list:", error);
+    res.status(500).json({ success: false, message: "Internal server error." });
+  }
+});
+
+//Remove book from list
+app.delete("/remove-from-list/:bookId", verifyToken, async (req, res) => {
+  const { bookId } = req.params;
+  const userId = req.user.id;
+
+  try {
+    await UserBookList.deleteOne({ user: userId, book: bookId });
+    res.json({ success: true, message: "Book removed from the list." });
+  } catch (error) {
+    console.error("Error removing book:", error);
+    res.status(500).json({ success: false, message: "Internal server error." });
+  }
+});
+
+
+
+
 // ================ Admin Operations ================
 
 // ======== Category ========
