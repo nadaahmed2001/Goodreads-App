@@ -30,7 +30,7 @@ connectDB();
 
 // Routes
 
-// Home page
+//Home
 app.get("/", async (req, res) => {
   console.log("I entered the server.js file to fetch books");
   try {
@@ -45,6 +45,7 @@ app.get("/", async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 });
+
 
 // Author endpoint to get all authors in books
 app.get("/authors", async (req, res) => {
@@ -363,7 +364,7 @@ app.post("/book", (req, res) => {
 // Get Book through Admin Panel
 app.get("/books", async (req, res) => {
   try {
-    const books = await Book.find();
+    const books = await Book.find().populate("author","name");
     res.json(books);
   } catch (err) {
     res.status(500).json({ error: "Failed to fetch books" });

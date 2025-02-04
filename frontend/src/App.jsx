@@ -19,7 +19,6 @@ import AuthorsBook from "../components/Authors-Book/AuthorsBook";
 import AuthorDetails from "../components/Authors-Book/AuthorDetails";
 import Login from "../components/Authentication/SignIn/Login";
 import UserList from "./Pages/UserBookLists/UserList";
-import { useState, useEffect } from "react";
 
 function App() {
   const [category, setCategory] = useState([]);
