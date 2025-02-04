@@ -60,6 +60,7 @@ function App() {
           <Route path='/login' element={<Login />} />
           <Route path='/AuthorsBook' element={<AuthorsBook />} />
           <Route path='/AuthorDetails/:authorId' element={<AuthorDetails />} />
+        
           <Route path='*' element={<NotFound />} />
         </Routes>
       </Router>

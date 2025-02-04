@@ -1,3 +1,4 @@
+const express = require("express");
 // import Categories from './../frontend/src/Pages/Admin/Categories';
 const cors = require("cors");
 const connectDB = require("./config/db");
@@ -8,9 +9,6 @@ const UserModel = require("./models/User");
 const Category = require("./models/Category");
 const jwt = require("jsonwebtoken");
 const TempBooks = require("./models/TempBooks");
-const express = require("express");
-const router = express.Router();
-const UserBookList = require("./models/UserBookList");
 const nodemailer = require("nodemailer");
 
 const app = express();
@@ -30,7 +28,7 @@ connectDB();
 
 // Routes
 
-//Home
+// Home page
 app.get("/", async (req, res) => {
   console.log("I entered the server.js file to fetch books");
   try {
@@ -64,12 +62,15 @@ app.get("/authors/:authorId", async (req, res) => {
 
   try {
     // Fetch the author with the books populated
-    const author = await Author.findById(authorId).populate("books");
+    const author = await Author.findOne({ _id: authorId });
     // Fetch the author with the books populated
 
     if (!author) {
       return res.status(404).json({ message: "Author not found" });
     }
+
+    res.json(author);  // Return the author with the populated books
+    console.log("Auther-------------------", author);
 
     res.json(author); // Return the author with the populated books
     res.json(author); // Send back the single author object, not an array
@@ -129,7 +130,7 @@ Shelf-Sphere Team`,
   });
 };
 
-//register and login
+//register and login 
 // Middleware to verify token
 function verifyToken(req, res, next) {
   const authHeader = req.headers["authorization"];
@@ -174,6 +175,39 @@ app.post("/login", (req, res) => {
     .catch((err) => res.status(500).json({ error: err.message }));
 });
 
+   
+   app.post('/register', (req, res) => {
+       // Check if user already exists (by email in this case)
+       UserModel.findOne({ email: req.body.email })
+         .then(existingUser => {
+           if (existingUser) {
+             // If user exists, return an error message
+             return res.json("Email Already Exist");
+           }
+           // If user doesn't exist, create a new user
+        
+      UserModel.create(req.body) // Create user in the database
+        .then((user) => {
+          // Send the welcome email after user is created
+          sendWelcomeEmail(user.email);
+
+          res.json(user);  // Respond with the created user object
+        })
+             .catch(err => res.status(500).json({ error: err.message }));  // Handle any errors
+         })
+         .catch(err => res.status(500).json({ error: err.message }));  // Handle errors in finding the user
+     });
+     
+      
+     //retreive the user data by verifying its token 
+     app.get('/profile', verifyToken, (req, res) => {
+      // Access the user ID from the decoded JWT token
+      UserModel.findById(req.user.id)
+        .then(user => res.json(user))
+        .catch(err => res.status(500).json({ message: err.message }));
+    });
+    
+ 
 app.post("/register", (req, res) => {
   // Check if user already exists (by email in this case)
   UserModel.findOne({ email: req.body.email })
@@ -290,8 +324,6 @@ app.delete("/remove-from-list/:bookId", verifyToken, async (req, res) => {
 
 // ================ Admin Operations ================
 
-// ======== Category ========
-
 // Add Category through Admin Panel
 app.post("/category", (req, res) => {
   Category.create(req.body)
@@ -311,37 +343,7 @@ app.get("/categories", async (req, res) => {
     res.status(500).json({ error: "Failed to fetch categories" });
   }
 });
-// Delete Category through Admin Panel
-app.delete("/category/:id", async (req, res) => {
-  try {
-    const categoryId = req.params.id;
-    const deletedCategory = await Category.findByIdAndDelete(categoryId);
-    if (!deletedCategory) {
-      return res.status(404).json({ error: "Category not found" });
-    }
-    res.json({
-      message: "Category deleted successfully",
-      category: deletedCategory,
-    });
-  } catch (err) {
-    res.status(500).json({ error: "Failed to delete category" });
-  }
-});
 
-// Put Category through Admin Panel
-app.put("/category/:id", (req, res) => {
-  Category.findByIdAndUpdate(req.params.id, req.body, { new: true }) // `new: true` returns updated doc
-    .then((updatedBook) => {
-      if (!updatedBook) {
-        return res.status(404).json({ error: "Book not found" });
-      }
-      console.log("Book updated:", updatedBook);
-      res.json(updatedBook);
-    })
-    .catch((err) => res.status(500).json({ error: err.message }));
-});
-
-// ======== Book ========
 // Add Book through Admin Panel
 app.post("/book", (req, res) => {
   Book.create(req.body)
@@ -352,6 +354,15 @@ app.post("/book", (req, res) => {
     .catch((err) => res.status(500).json({ error: err.message }));
 });
 
+app.post("/temp", (req, res) => {
+  // console.log("Request Body:", req.body);
+  TempBooks.create(req.body)
+    .then((book) => {
+      console.log("Book added:", book); // Log full book details
+      res.json(book); // Send full book object to frontend
+    })
+    .catch((err) => res.status(500).json({ error: err.message }));
+});
 // Get Book through Admin Panel
 app.get("/books", async (req, res) => {
   try {
@@ -401,34 +412,6 @@ app.post("/author", (req, res) => {
       res.json(author); // Send full book object to frontend
     })
     .catch((err) => res.status(500).json({ error: err.message }));
-});
-
-// Get Author through Admin Panel
-app.get("/authors", async (req, res) => {
-  try {
-    const authors = await Author.find();
-    res.json(authors);
-  } catch (err) {
-    res.status(500).json({ error: "Failed to fetch authors" });
-  }
-});
-
-// Delete Author through Admin Panel
-
-app.delete("/author/:id", async (req, res) => {
-  try {
-    const authorId = req.params.id;
-    const deletedAuthor = await Author.findByIdAndDelete(authorId);
-    if (!deletedAuthor) {
-      return res.status(404).json({ error: "Author not found" });
-    }
-    res.json({
-      message: "Author deleted successfully",
-      category: deletedAuthor,
-    });
-  } catch (err) {
-    res.status(500).json({ error: "Failed to delete author" });
-  }
 });
 
 // const PORT = process.env.PORT || 5000;
