@@ -1,43 +1,30 @@
-import {
-  ChevronLeft,
-  ChevronRight,
-  Globe,
-  Moon,
-  ShoppingCart,
-} from "lucide-react";
+import { ChevronLeft, ChevronRight, Globe, Moon, ShoppingCart } from "lucide-react";
 import "./Home.css";
 import Navbar from "./../../../components/navbar";
 import React, { useEffect, useState } from "react";
 import { fetchBooks } from "../../services/api"; // Import API function
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 
 const HomePage = () => {
   const navigate = useNavigate();
-  const [books, setBooks] = useState([]); // useState used to set the state of the books
-  const [user, setUser] = useState(null); // State for user data from backend
+  const [books, setBooks] = useState([]);
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
     // Fetch books from the API
     fetchBooks()
-      .then((response) => {
-        // console.log(response.data); // Log the data to check its structure
-        setBooks(response.data); // Set books from API response
-      })
+      .then((response) => setBooks(response.data))
       .catch((error) => console.error("Error fetching books:", error));
-    //after login
+
     // Fetch user profile if token exists
-    const token =
-      localStorage.getItem("token") || sessionStorage.getItem("token");
+    const token = localStorage.getItem("token") || sessionStorage.getItem("token");
     if (token) {
       axios
         .get("http://localhost:5000/profile", {
           headers: { Authorization: `Bearer ${token}` },
         })
-        .then((result) => {
-          setUser(result.data); // Set user data
-        })
+        .then((result) => setUser(result.data))
         .catch((error) => console.log(error));
     }
   }, []);
@@ -49,19 +36,9 @@ const HomePage = () => {
   };
 
   return (
-    <div className='homepage'>
-      {/* NavBar */}
+    <div className="homepage">
+      <Navbar />
 
-      {user ? (
-        <>
-          <span className='me-3 fw-medium'>Welcome, {user.first_name}!</span>
-          <button className='btn btn-outline-danger' onClick={logout}>
-            Logout
-          </button>
-        </>
-      ) : (
-        <Navbar />
-      )}
       {/* Hero Section */}
       <div className='container mt-5'>
         <div className='row align-items-center'>
@@ -76,9 +53,7 @@ const HomePage = () => {
           <div className='col-md-6'>
             <h1 className='display-4 fw-bold'>GoodReads</h1>
             <p className='lead'>
-              is a place where books lovers can find, review, and buy books
-              easily. Discover recommendations, keep a reading lists, and shop
-              for your next read. All in one Place.
+              A place where book lovers can find, review, and buy books easily. Discover recommendations, keep a reading list, and shop for your next read—all in one place.
             </p>
           </div>
         </div>
@@ -112,10 +87,7 @@ const HomePage = () => {
               <div>
                 <h3 className='fw-bold'>William Shakespeare</h3>
                 <p className='text-muted'>
-                  An English playwright, poet, and actor widely regarded as the
-                  greatest writer in the English language. Known as the 'Bard of
-                  Avon'. His works include 38 plays, 154 sonnets, and two long
-                  narrative poems.
+                  An English playwright, poet, and actor widely regarded as the greatest writer in the English language.
                 </p>
               </div>
             </div>
@@ -127,38 +99,27 @@ const HomePage = () => {
       <div className='container mt-5'>
         <h2 className='fw-bold mb-4'>Most Popular Categories</h2>
         <div className='row g-4'>
-          {["Art", "Technology", "Sport", "Economics", "Food", "Health"].map(
-            (category, index) => (
-              <div key={index} className='col-2'>
-                <div className='category-card text-center p-3 rounded'>
-                  <div className='fs-3 mb-2'>
-                    {["🎨", "💻", "⚽", "📈", "🍳", "🏥"][index]}
-                  </div>
-                  <div className='fw-medium'>{category}</div>
-                </div>
+          {["Art", "Technology", "Sport", "Economics", "Food", "Health"].map((category, index) => (
+            <div key={index} className='col-2'>
+              <div className='category-card text-center p-3 rounded'>
+                <div className='fs-3 mb-2'>{["🎨", "💻", "⚽", "📈", "🍳", "🏥"][index]}</div>
+                <div className='fw-medium'>{category}</div>
               </div>
-            )
-          )}
+            </div>
+          ))}
         </div>
       </div>
 
       {/* Best-Selling Books Section */}
       <div className='container mt-5'>
         <h2 className='fw-bold mb-4'>Best-Selling Books</h2>
-
         <div className='row g-4'>
           {books.map((book, index) => (
             <div key={index} className='col-md-3'>
               <div className='card book-card'>
-                <img
-                  src={book.coverImage}
-                  className='card-img-top'
-                  alt={book.title}
-                />
+                <img src={book.coverImage} className='card-img-top' alt={book.title} />
                 <div className='card-body'>
                   <h4 className='card-title'>{book.title}</h4>
-                  <p className='card-text text-muted'>Author:</p>
-                  {/* {book.author.name} */}
                   <div className='d-flex justify-content-between mt-2'>
                     <span className='text-muted'>⭐⭐⭐⭐⭐</span>
                   </div>
@@ -173,35 +134,6 @@ const HomePage = () => {
             </div>
           ))}
         </div>
-
-        <div className='text-center mt-5'>
-          <button className='btn btn-primary btn-lg'>
-            <Link to='/books'>View All Books</Link>
-          </button>
-        </div>
-      </div>
-
-      {/* Testimonials Section */}
-      <div className='bg-light py-5 mt-5'>
-        <div className='container'>
-          <h2 className='text-center fw-bold mb-4'>What Our Clients Say</h2>
-          <div className='row g-4'>
-            {[1, 2, 3].map((_, index) => (
-              <div key={index} className='col-md-4'>
-                <div className='card h-100'>
-                  <div className='card-body'>
-                    <p className='card-text text-muted'>
-                      "Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                      Nam adipiscing venenatis quam at tempor. Ut auctor urna ut
-                      pellentesque volutpat."
-                    </p>
-                    <p className='fw-bold mb-0'>Client Name</p>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
       </div>
 
       {/* Footer */}
@@ -211,40 +143,21 @@ const HomePage = () => {
             <div className='col-md-3'>
               <h5 className='fw-bold mb-3'>Company</h5>
               <ul className='list-unstyled'>
-                <li className='mb-2'>About us</li>
-                <li className='mb-2'>Careers</li>
-                <li className='mb-2'>Blog</li>
-                <li className='mb-2'>Privacy</li>
+                <li>About us</li>
+                <li>Careers</li>
+                <li>Blog</li>
+                <li>Privacy</li>
               </ul>
             </div>
             <div className='col-md-3'>
-              <h5 className='fw-bold mb-3'>Work with us</h5>
+              <h5 className='fw-bold mb-3'>Customer Service</h5>
               <ul className='list-unstyled'>
-                <li className='mb-2'>Authors</li>
-                <li className='mb-2'>Advertise</li>
-                <li className='mb-2'>Affiliate marketing</li>
-                <li className='mb-2'>API</li>
+                <li>FAQ</li>
+                <li>Disclaimer</li>
               </ul>
-            </div>
-            <div className='col-md-3'>
-              <h5 className='fw-bold mb-3'>Customer service</h5>
-              <ul className='list-unstyled'>
-                <li className='mb-2'>FAQ</li>
-                <li className='mb-2'>Disclaimer</li>
-              </ul>
-            </div>
-            <div className='col-md-3'>
-              <h5 className='fw-bold mb-3'>Follow US</h5>
-              <div className='social-icons'>
-                <span className='me-3'>f</span>
-                <span className='me-3'>t</span>
-                <span>ig</span>
-              </div>
             </div>
           </div>
-
           <div className='text-center mt-5'>
-            <img src='/api/placeholder/40/40' alt='Logo' className='mb-3' />
             <p className='mb-0'>Goodreads</p>
           </div>
         </div>
