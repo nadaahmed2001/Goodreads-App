@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { fetchBookById, addBookToList } from "../../services/api"; // Add the API function
-// import { fetchBookById } from "../../servisces/api";
+
 import {
   Container,
   Row,
@@ -71,7 +71,7 @@ const BookDetails = () => {
         alert("Please log in to add books to your list.");
         return;
       }
-  
+
       const response = await addBookToList(bookId, shelf, token);
       if (response.data.success) {
         alert(`Book moved to ${shelf.replace("_", " ")} list!`);
@@ -81,7 +81,7 @@ const BookDetails = () => {
       alert("Failed to add book to list.");
     }
   };
-  
+
 
   if (!book)
     return <p className='text-center mt-4 fs-5 fw-semibold'>Loading...</p>;
