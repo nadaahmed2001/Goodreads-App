@@ -16,11 +16,15 @@ tr td {
   text-align: center;
 }
 
+td {
+  max-width: 200px;
+}
+
 /* .container {
   padding: 50px 30px;
 } */
 
-/* 
+
 .read-the-docs {
   color: #888;
-} */ 
+}

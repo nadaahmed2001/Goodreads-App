@@ -5,37 +5,28 @@ import { Link } from "react-router-dom";
 
 const BookCard = ({ book }) => {
   return (
-    <Card className='h-100 shadow-sm'>
+    <Card className="h-100 shadow-sm book-card">
       <Card.Img
-        variant='top'
+        variant="top"
         src={book.coverImage}
         alt={book.title}
+        className="card-img-top"
         style={{ height: "300px", objectFit: "cover" }}
       />
-      <Card.Body className='d-flex flex-column'>
-        <Card.Title className='mb-3'>{book.title}</Card.Title>
-        <Card.Subtitle className='text-muted mb-2'>
-          By {book.author.name}
-        </Card.Subtitle>
+      <Card.Body className="d-flex flex-column">
+        <Card.Title className="card-title">{book.title}</Card.Title>
+        <Card.Text className="text-muted">Author: {book.author?.name}</Card.Text>
 
-        <div className='mt-auto'>
-          <div className='d-flex justify-content-between mb-3'>
-            <div className='text-warning'>
-              {Array.from({ length: 5 }).map((_, i) => (
-                <i key={i} className='bi bi-star-fill'></i>
-              ))}
-            </div>
-          </div>
+        <div className="d-flex justify-content-between mt-2">
+          <span className="text-muted">⭐⭐⭐⭐⭐</span>
+        </div>
 
-          <div className='d-grid gap-2'>
-            <Button
-              variant='outline-primary'
-              as={Link}
-              to={`/books/${book._id}`}
-            >
+        <div className="d-grid">
+          <Link to={`/books/${book._id}`}>
+            <Button variant="outline-primary" className="mt-2">
               View Details
             </Button>
-          </div>
+          </Link>
         </div>
       </Card.Body>
     </Card>

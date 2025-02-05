@@ -56,38 +56,30 @@ app.get("/authors", async (req, res) => {
   }
 });
 
-// Endpoint to get all books by a specific author ID
-// app.get("/authors/:authorId", async (req, res) => {
-//   const authorId = req.params.authorId;
-//   console.log(`Looking for author with ID: ${authorId}`);
-
-//   try {
-//     const author = await Author.find({ _id: authorId });
-//     res.json(author);
-//     console.log("Author fetched successfully from server.js");
-//   } catch (error) {
-//     res.status(500).json({ message: error.message });
-//   }
-// });
 app.get("/authors/:authorId", async (req, res) => {
   const authorId = req.params.authorId;
   console.log(`Looking for author with ID: ${authorId}`);
 
   try {
-    const author = await Author.findById(authorId); // findById should return a single author object
+    // Fetch the author with the books populated
+    const author = await Author.findOne({ _id: authorId });
+    // Fetch the author with the books populated
 
     if (!author) {
       return res.status(404).json({ message: "Author not found" });
     }
 
+    res.json(author);  // Return the author with the populated books
+    console.log("Auther-------------------", author);
+
+    res.json(author); // Return the author with the populated books
     res.json(author); // Send back the single author object, not an array
+    res.json(author); // Return the author with the populated books
     console.log("Author fetched successfully");
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 });
-
-
 
 app.get("/books/:bookId", async (req, res) => {
   const bookId = req.params.bookId;
@@ -107,7 +99,7 @@ app.get("/books/:bookId", async (req, res) => {
 
 // Set up Nodemailer transporter
 const transporter = nodemailer.createTransport({
-  service: "gmail",  // You can use another SMTP service, Gmail is just an example
+  service: "gmail", // You can use another SMTP service, Gmail is just an example
   auth: {
     user: process.env.EMAIL_USER,
     pass: process.env.EMAIL_PASS,
@@ -138,18 +130,18 @@ Shelf-Sphere Team`,
   });
 };
 
-
 //register and login 
 // Middleware to verify token
 function verifyToken(req, res, next) {
-
-  const authHeader = req.headers['authorization'];
+  const authHeader = req.headers["authorization"];
 
   if (!authHeader) {
     return res.status(403).json({ message: "No token provided" });
   }
   // Handle case where token might or might not have "Bearer "
-  const token = authHeader.startsWith("Bearer ") ? authHeader.split(" ")[1] : authHeader;
+  const token = authHeader.startsWith("Bearer ")
+    ? authHeader.split(" ")[1]
+    : authHeader;
   jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
     if (err) {
       return res.status(401).json({ message: "Unauthorized" });
@@ -157,18 +149,21 @@ function verifyToken(req, res, next) {
     req.user = decoded;
     next();
   });
-
 }
 
-app.post('/login', (req, res) => {
+app.post("/login", (req, res) => {
   const { email, password } = req.body;
-  
+
   UserModel.findOne({ email: email })
     .then((user) => {
       if (user) {
         if (user.password === password) {
           // Issue JWT Token
-          const token = jwt.sign({ id: user._id, email: user.email }, process.env.JWT_SECRET, { expiresIn: '1h' });
+          const token = jwt.sign(
+            { id: user._id, email: user.email },
+            process.env.JWT_SECRET,
+            { expiresIn: "1h" }
+          );
           res.json({ message: "success", token });
         } else {
           res.json({ message: "Incorrect password" });
@@ -177,7 +172,7 @@ app.post('/login', (req, res) => {
         res.json({ message: "User not found" });
       }
     })
-    .catch(err => res.status(500).json({ error: err.message }));
+    .catch((err) => res.status(500).json({ error: err.message }));
 });
 
    
@@ -213,8 +208,120 @@ app.post('/login', (req, res) => {
     });
     
  
+app.post("/register", (req, res) => {
+  // Check if user already exists (by email in this case)
+  UserModel.findOne({ email: req.body.email })
+    .then((existingUser) => {
+      if (existingUser) {
+        // If user exists, return an error message
+        return res.json("Email Already Exist");
+      }
+
+      // If user doesn't exist, create a new user
+      UserModel.create(req.body) //creation in database
+        .then((user) => res.json(user)) // Respond with the created user to the frontend
+        .catch((err) => res.status(500).json({ error: err.message })); // Handle any errors
+    })
+    .catch((err) => res.status(500).json({ error: err.message })); // Handle errors in finding the user
+});
+
+//retreive the user data by verifying its token
+app.get("/profile", verifyToken, (req, res) => {
+  // Access the user ID from the decoded JWT token
+  UserModel.findById(req.user.id)
+    .then((user) => res.json(user))
+    .catch((err) => res.status(500).json({ message: err.message }));
+});
 
 // Start the server
+//register and login
+app.post("/login", (req, res) => {
+  const { email, password } = req.body;
+  UserModel.findOne({ email: email }).then((user) => {
+    if (user) {
+      if (user.password === password) {
+        res.json("success");
+      } else {
+        res.json("Incorrect password");
+      }
+    } else {
+      res.json("User not found");
+    }
+  });
+});
+
+app.post("/register", (req, res) => {
+  // Check if user already exists (by email in this case)
+  UserModel.findOne({ email: req.body.email })
+    .then((existingUser) => {
+      if (existingUser) {
+        // If user exists, return an error message
+        return res.json("Email Already Exist");
+      }
+
+      // If user doesn't exist, create a new user
+      UserModel.create(req.body) //creation in database
+        .then((user) => res.json(user)) // Respond with the created user to the frontend
+        .catch((err) => res.status(500).json({ error: err.message })); // Handle any errors
+    })
+    .catch((err) => res.status(500).json({ error: err.message })); // Handle errors in finding the user
+});
+
+// ======================================= User Book Lists ====================================================
+app.post("/add-to-list", verifyToken, async (req, res) => {
+  const { bookId, shelf } = req.body;
+  const userId = req.user.id; // Extract user ID from JWT
+  console.log("Adding book", bookId, "to list", shelf, "for user", userId);
+
+  try {
+    const bookExists = await UserBookList.findOne({
+      user: userId,
+      book: bookId,
+    });
+    if (bookExists) {
+      return res
+        .status(400)
+        .json({ success: false, message: "Book already exists in the list." });
+    }
+
+    await UserBookList.create({ user: userId, book: bookId, shelf });
+    res.json({ success: true, message: "Book added to the list." });
+  } catch (error) {
+    console.error("Error adding book to list:", error);
+    res.status(500).json({ success: false, message: "Internal server error." });
+  }
+});
+
+// Get user's book list by shelf
+app.get("/get-list/:shelf", verifyToken, async (req, res) => {
+  const { shelf } = req.params;
+  const userId = req.user.id; // Extract user ID from JWT
+
+  try {
+    const books = await UserBookList.find({ user: userId, shelf }).populate(
+      "book"
+    );
+    res.json({ success: true, books });
+  } catch (error) {
+    console.error("Error fetching list:", error);
+    res.status(500).json({ success: false, message: "Internal server error." });
+  }
+});
+
+//Remove book from list
+app.delete("/remove-from-list/:bookId", verifyToken, async (req, res) => {
+  const { bookId } = req.params;
+  const userId = req.user.id;
+
+  try {
+    await UserBookList.deleteOne({ user: userId, book: bookId });
+    res.json({ success: true, message: "Book removed from the list." });
+  } catch (error) {
+    console.error("Error removing book:", error);
+    res.status(500).json({ success: false, message: "Internal server error." });
+  }
+});
+
 // ================ Admin Operations ================
 
 // Add Category through Admin Panel
@@ -256,6 +363,46 @@ app.post("/temp", (req, res) => {
     })
     .catch((err) => res.status(500).json({ error: err.message }));
 });
+// Get Book through Admin Panel
+app.get("/books", async (req, res) => {
+  try {
+    const books = await Book.find().populate("author", "name");
+    console.log("side seerver", books);
+    res.json(books);
+  } catch (err) {
+    res.status(500).json({ error: "Failed to fetch books" });
+  }
+});
+
+// Delete Book through Admin Panel
+
+app.delete("/book/:id", async (req, res) => {
+  try {
+    const bookId = req.params.id;
+    const deletedBook = await Book.findByIdAndDelete(bookId);
+    if (!deletedBook) {
+      return res.status(404).json({ error: "Category not found" });
+    }
+    res.json({
+      message: "Book deleted successfully",
+      category: deletedBook,
+    });
+  } catch (err) {
+    res.status(500).json({ error: "Failed to delete book" });
+  }
+});
+
+// app.post("/temp", (req, res) => {
+//   // console.log("Request Body:", req.body);
+//   TempBooks.create(req.body)
+//     .then((book) => {
+//       console.log("Book added:", book); // Log full book details
+//       res.json(book); // Send full book object to frontend
+//     })
+//     .catch((err) => res.status(500).json({ error: err.message }));
+// });
+
+// ======== Author ========
 
 // Add Author through Admin Panel
 app.post("/author", (req, res) => {

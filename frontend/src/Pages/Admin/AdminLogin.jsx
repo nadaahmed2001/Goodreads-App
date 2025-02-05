@@ -17,7 +17,6 @@ const AdminLogin = ({ onLogin }) => {
     };
 
 
-
     return (
         <Box
             sx={{
