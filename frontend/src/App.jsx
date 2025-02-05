@@ -40,7 +40,7 @@ function App() {
       .then((data) => setAuthor(data))
       .catch((err) => console.error("Error fetching authors:", err));
   }, [fetchTrigger]); // Re-fetch when fetchTrigger changes
-  console.log(category);
+  // console.log(category);
 
   return (
     <>
@@ -60,7 +60,7 @@ function App() {
           <Route path='/login' element={<Login />} />
           <Route path='/AuthorsBook' element={<AuthorsBook />} />
           <Route path='/AuthorDetails/:authorId' element={<AuthorDetails />} />
-        
+
           <Route path='*' element={<NotFound />} />
         </Routes>
       </Router>

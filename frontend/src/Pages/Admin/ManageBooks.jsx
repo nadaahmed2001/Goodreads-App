@@ -3,6 +3,7 @@ import Sidebar from "./Sidebar";
 import Table from "react-bootstrap/Table";
 import ModalBtn from "../../assets/Reusable";
 import Placeholder from "react-bootstrap/Placeholder";
+import Modify from './Modify'
 import axios from "axios";
 
 export default function Books({ category, author }) {
@@ -28,27 +29,18 @@ export default function Books({ category, author }) {
         fetchBooks();
     }, []);
 
-    useEffect(() => {
-        if (books.length > 0) {
-            console.log("Books List:", books);
-        } else {
-            console.log("No books found yet.");
-        }
-    }, [books]);
-
     const handleSaveBook = async (formData) => {
         try {
             let imageUrl = "";
 
-            // If an image file is uploaded, upload to Cloudinary
+            // Upload image if provided
             if (formData.image) {
                 const imageData = new FormData();
                 imageData.append("file", formData.image);
-                imageData.append("upload_preset", "Goodreads-imgs"); // Use unsigned preset
+                imageData.append("upload_preset", "Goodreads-imgs");
                 imageData.append("folder", "book_covers");
 
                 console.log("Uploading image...");
-
                 const uploadRes = await axios.post(
                     "https://api.cloudinary.com/v1_1/dl14s4ipy/image/upload",
                     imageData
@@ -58,22 +50,27 @@ export default function Books({ category, author }) {
                 console.log("Image uploaded:", imageUrl);
             }
 
-            // Save book with the uploaded image URL
-            const response = await axios.post("http://localhost:5000/book", {
+            // Save book to database
+            await axios.post("http://localhost:5000/book", {
                 title: formData.name,
                 author: formData.author,
                 category: formData.category,
                 description: formData.description,
-                coverImage: imageUrl, // Save image URL
+                coverImage: imageUrl,
             });
 
-            console.log("Book added:", response.data);
+            console.log("Book added successfully!");
             alert("Book added successfully!");
-            setBooks((prevBooks) => [...prevBooks, response.data]);
+
+            // 🔴 Instead of adding manually, re-fetch all books
+            const response = await axios.get("http://localhost:5000/books");
+            setBooks(response.data); // Ensures books have populated authors
+
         } catch (err) {
             console.error("Unable to add book:", err);
         }
     };
+
 
     const handleDelete = async (bookId) => {
         try {
@@ -85,7 +82,17 @@ export default function Books({ category, author }) {
         }
     };
 
-    console.log("inside manage books" + category);
+    const handleUpdate = async (bookId, updatedData) => {
+        try {
+            await axios.put(`http://localhost:5000/book/${bookId}`, updatedData);
+            alert("Book updated successfully!");
+
+            const response = await axios.get("http://localhost:5000/books");
+            setBooks(response.data);
+        } catch (err) {
+            console.error("Unable to update book:", err);
+        }
+    }
 
     return (
         <div className="d-flex">
@@ -158,9 +165,22 @@ export default function Books({ category, author }) {
                                     <td>{book.title}</td>
                                     <td>{book.description}</td>
                                     <td>{category?.find(cat => cat._id === book?.category)?.name || '-'}</td>
-                                    <td>{book.author.name}</td>
+                                    {/* <td>{book.author.name}</td> */}
+                                    <td>{author?.find(a => a._id === book?.author)?.name || book?.author?.name || '-'}</td>
                                     <td>
-                                        <button>✏️</button>
+                                        <Modify
+                                            title="Book"
+                                            category={category}
+                                            author={author}
+                                            // book={books}
+                                            handleUpdate={(data) => handleUpdate(book._id, data)}
+                                            fields={[
+                                                { name: "title", label: "name", type: "text" },
+                                                { name: "description", label: "Discroption", type: "text" },
+                                                { name: "category", label: "Category", type: "dropdown" },
+                                                { name: "author", label: "Author", type: "dropdown" },
+                                            ]}
+                                        />
                                         <button onClick={() => handleDelete(book._id)}>❌</button>
                                     </td>
                                 </tr>
