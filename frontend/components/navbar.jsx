@@ -29,7 +29,7 @@ const Navbar = () => {
         headers: { Authorization: `Bearer ${token}` }
       })
         .then(result => {
- 
+
           setUser(result.data); // Set user data
         })
         .catch((error) => console.log(error));
@@ -70,13 +70,16 @@ const Navbar = () => {
 
             {user ? (
               <>
+                <Link to="/Payment">
+                  <button className="button-85" role="button">Subscribe</button>
+                </Link>
                 {/* My Lists Dropdown */}
-                <Dropdown align='end'>
-                  <Dropdown.Toggle id='dropdown-lists'>
+                <Dropdown align='end' >
+                  <Dropdown.Toggle id='dropdown-lists' className="sign-in-btn">
                     <span className='me-2 fw-medium'>My Lists</span>
                   </Dropdown.Toggle>
 
-                  <Dropdown.Menu>
+                  <Dropdown.Menu >
                     <Dropdown.Item
                       onClick={() => navigate("/list/currently_reading")}
                     >
@@ -94,8 +97,9 @@ const Navbar = () => {
                 </Dropdown>
 
                 {/* User Dropdown */}
+
                 <Dropdown align='end'>
-                  <Dropdown.Toggle id='dropdown-user'>
+                  <Dropdown.Toggle id='dropdown-user' className="sign-in-btn">
                     <span className='me-2 fw-medium'>{user.first_name}</span>
                   </Dropdown.Toggle>
 
@@ -109,6 +113,7 @@ const Navbar = () => {
               </>
             ) : (
               <>
+
                 <Link to="/sign-up">
                   <button className="sign-in-btn">Sign up</button>
                 </Link>
@@ -123,19 +128,19 @@ const Navbar = () => {
         <div className='NavList'>
           <ul>
             <li>
-              <a href=''>Home</a>
+              <Link to='/' className="hoverlink">Home</Link>
             </li>
             <li>
-              <a href=''>Category</a>
+              <Link to='/Categories' className="hoverlink">Category</Link>
             </li>
             <li>
-              <a href=''>Authors</a>
+              <Link to='/AuthorsBook' className="hoverlink">Authors</Link>
             </li>
             <li>
-              <a href=''>About Us</a>
+              <Link to='/AboutUs' className="hoverlink">About Us</Link>
             </li>
             <li>
-              <a href=''>Terms & Conditions</a>
+              <Link to='/TermsConditions' className="hoverlink">Terms & Conditions</Link>
             </li>
           </ul>
         </div>
@@ -145,3 +150,4 @@ const Navbar = () => {
 };
 
 export default Navbar;
+

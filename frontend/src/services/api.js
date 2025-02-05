@@ -4,7 +4,8 @@ const API_BASE_URL = "http://localhost:5000";
 
 // Fetch all books
 export const fetchBooks = () => axios.get(`${API_BASE_URL}/`);
-export const fetchBookById = (bookId) => axios.get(`${API_BASE_URL}/books/${bookId}`);
+export const fetchBookById = (bookId) =>
+  axios.get(`${API_BASE_URL}/books/${bookId}`);
 
 export const addBookToList = async (bookId, shelf, token) => {
   return axios.post(
@@ -25,7 +26,6 @@ export const removeBookFromList = async (bookId, token) => {
     headers: { Authorization: `Bearer ${token}` },
   });
 };
-
 
 // export const fetchFeaturedBooks = () => axios.get(`${API_BASE_URL}/books/featured`);
 // export const fetchTrendingBooks = () => axios.get(`${API_BASE_URL}/books/trending`);
