@@ -1,5 +1,3 @@
-
-
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import Navbar from '../navbar';
@@ -8,6 +6,7 @@ import './Authors-Book.css';
 export default function AuthorDetails() {
   const { authorId } = useParams(); // This gets the authorId from the URL
   const [author, setAuthor] = useState(null);
+  const [books, setBooks] = useState([]);  // Separate state for books
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -21,9 +20,14 @@ export default function AuthorDetails() {
           throw new Error('Failed to fetch author data');
         }
         const data = await response.json();
-        
-        // If you receive an array, take the first element (in case the response is an array)
-        setAuthor(data[0] || data);  // If data is an array, select the first element
+
+        // Since the data is an array, we can get the first book's author details and all the books
+        if (data.length > 0) {
+          setAuthor(data[0].author);  // Assuming author details are in the first book
+          setBooks(data);  // Store all books written by the author
+        } else {
+          setError('No data found for this author');
+        }
       } catch (error) {
         setError(error.message);
       } finally {
@@ -49,6 +53,7 @@ export default function AuthorDetails() {
   return (
     <>
       <Navbar />
+      {/* Section to display author details */}
       <section className="cards">
         <div className="card">
           <h3>{author.name}</h3>
@@ -61,11 +66,11 @@ export default function AuthorDetails() {
       {/* Section to display books by the author */}
       <section className="books">
         <h2>Books by {author.name}</h2>
-        {author.books && author.books.length > 0 ? (
+        {books.length > 0 ? (
           <ul>
-            {author.books.map((book) => (
+            {books.map((book) => (
               <li key={book._id}>
-                <img src={book.image} alt={book.title} />
+                <img src={book.coverImage} alt={book.title} />
                 <h3>{book.title}</h3>
                 <p>{book.description}</p>
               </li>
