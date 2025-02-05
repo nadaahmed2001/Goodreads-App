@@ -10,6 +10,10 @@ const Category = require("./models/Category");
 const jwt = require("jsonwebtoken");
 const TempBooks = require("./models/TempBooks");
 const nodemailer = require("nodemailer");
+const authController = require("./controllers/authencation/authController"); // Import the controller
+const  {verifyToken}  = require("./controllers/authorization/authorizationMiddleware"); // Import verifyToken middleware
+const userProfileController = require("./controllers/userProfileController/userProfile");
+const UserBookList = require("./models/UserBookList");
 
 const app = express();
 
@@ -130,80 +134,15 @@ Shelf-Sphere Team`,
   });
 };
 
-//register and login
-// Middleware to verify token
-function verifyToken(req, res, next) {
-  const authHeader = req.headers["authorization"];
+//register and login & profile
 
-  if (!authHeader) {
-    return res.status(403).json({ message: "No token provided" });
-  }
-  // Handle case where token might or might not have "Bearer "
-  const token = authHeader.startsWith("Bearer ")
-    ? authHeader.split(" ")[1]
-    : authHeader;
-  jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
-    if (err) {
-      return res.status(401).json({ message: "Unauthorized" });
-    }
-    req.user = decoded;
-    next();
-  });
-}
 
-app.post("/login", (req, res) => {
-  const { email, password } = req.body;
+app.post("/login", authController.login); // Use the controller for the /login route
+app.post("/register", authController.register); // Use the controller for the /register route
+app.get("/profile", verifyToken, userProfileController.profile);
 
-  UserModel.findOne({ email: email })
-    .then((user) => {
-      if (user) {
-        if (user.password === password) {
-          // Issue JWT Token
-          const token = jwt.sign(
-            { id: user._id, email: user.email },
-            process.env.JWT_SECRET,
-            { expiresIn: "1h" }
-          );
-          res.json({ message: "success", token });
-        } else {
-          res.json({ message: "Incorrect password" });
-        }
-      } else {
-        res.json({ message: "User not found" });
-      }
-    })
-    .catch((err) => res.status(500).json({ error: err.message }));
-});
-
-app.post("/register", (req, res) => {
-  // Check if user already exists (by email in this case)
-  UserModel.findOne({ email: req.body.email })
-    .then((existingUser) => {
-      if (existingUser) {
-        // If user exists, return an error message
-        return res.json("Email Already Exist");
-      }
-      // If user doesn't exist, create a new user
-
-      UserModel.create(req.body) // Create user in the database
-        .then((user) => {
-          // Send the welcome email after user is created
-          sendWelcomeEmail(user.email);
-
-          res.json(user); // Respond with the created user object
-        })
-        .catch((err) => res.status(500).json({ error: err.message })); // Handle any errors
-    })
-    .catch((err) => res.status(500).json({ error: err.message })); // Handle errors in finding the user
-});
 
 //retreive the user data by verifying its token
-app.get("/profile", verifyToken, (req, res) => {
-  // Access the user ID from the decoded JWT token
-  UserModel.findById(req.user.id)
-    .then((user) => res.json(user))
-    .catch((err) => res.status(500).json({ message: err.message }));
-});
 
 // ======================================= User Book Lists ====================================================
 app.post("/add-to-list", verifyToken, async (req, res) => {

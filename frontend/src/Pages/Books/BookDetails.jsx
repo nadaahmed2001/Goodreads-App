@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { fetchBookById, addBookToList } from "../../services/api"; // Add the API function
-// import { fetchBookById } from "../../servisces/api";
+
 import {
   Container,
   Row,
@@ -18,14 +18,51 @@ import CustomButton from "../../../components/CustomButton";
 import { v4 as uuidv4 } from "uuid";
 import { FaHeart } from "react-icons/fa";
 import StarRating from "../../../components/StarRating";
+import Navbar from "./../../../components/navbar";
 
 const BookDetails = () => {
+   // Check if the user is authenticated
+   let token = localStorage.getItem("token");
+   if (!token)
+   {
+     token = sessionStorage.getItem("token");
+   }
   const dummyReviews = [
-    { _id: "1", user: "fatma", rating: 5, comment: "great book" },
-    { _id: "2", user: "nada", rating: 4, comment: "very nice" },
-    { _id: "3", user: "rahma", rating: 3, comment: "not good and not bad" },
-    { _id: "4", user: "abdelrahman", rating: 1, comment: "not good" },
-    { _id: "5", user: "hosam", rating: 0, comment: "very bad" },
+    {
+      _id: "1",
+      user: "fatma",
+      rating: 5,
+      comment:
+        "Lorem ipsum dolor sit amet consectetur  adipisicing elit  Corrupti quam deleniti  doloribus unde  repellat neque dolore sapiente sit totam  nemo porro minus assumenda! Fugit molestias sunt laboriosam  perferendis architecto amet ",
+    },
+    {
+      _id: "2",
+      user: "nada",
+      rating: 4,
+      comment:
+        "Lorem ipsum dolor sit amet consectetur  adipisicing elit  Corrupti quam deleniti  doloribus unde  repellat neque dolore sapiente sit totam  nemo porro minus assumenda! Fugit molestias sunt laboriosam  perferendis architecto amet ",
+    },
+    {
+      _id: "3",
+      user: "rahma",
+      rating: 3,
+      comment:
+        "Lorem ipsum dolor sit amet consectetur  adipisicing elit  Corrupti quam deleniti  doloribus unde  repellat neque dolore sapiente sit totam  nemo porro minus assumenda! Fugit molestias sunt laboriosam  perferendis architecto amet ",
+    },
+    {
+      _id: "4",
+      user: "abdelrahman",
+      rating: 1,
+      comment:
+        "Lorem ipsum dolor sit amet consectetur  adipisicing elit  Corrupti quam deleniti  doloribus unde  repellat neque dolore sapiente sit totam  nemo porro minus assumenda! Fugit molestias sunt laboriosam  perferendis architecto amet ",
+    },
+    {
+      _id: "5",
+      user: "hosam",
+      rating: 0,
+      comment:
+        "Lorem ipsum dolor sit amet consectetur  adipisicing elit  Corrupti quam deleniti  doloribus unde  repellat neque dolore sapiente sit totam  nemo porro minus assumenda! Fugit molestias sunt laboriosam  perferendis architecto amet ",
+    },
   ];
 
   const { bookId } = useParams();
@@ -57,8 +94,7 @@ const BookDetails = () => {
     };
     getBook();
 
-    // Check if the user is authenticated
-    const token = localStorage.getItem("token");
+
     if (token) {
       setIsAuthenticated(true);
     }
@@ -66,7 +102,7 @@ const BookDetails = () => {
 
   const handleAddToList = async (shelf) => {
     try {
-      const token = localStorage.getItem("token");
+      console.log(token)
       if (!token) {
         alert("Please log in to add books to your list.");
         return;
@@ -81,7 +117,6 @@ const BookDetails = () => {
       alert("Failed to add book to list.");
     }
   };
-
 
   if (!book)
     return <p className='text-center mt-4 fs-5 fw-semibold'>Loading...</p>;
@@ -101,157 +136,197 @@ const BookDetails = () => {
     setNewReview({ user: "", rating: "", comment: "" });
   };
 
+  const averageRating =
+    reviews.length > 0
+      ? reviews.reduce((acc, review) => acc + review.rating, 0) / reviews.length
+      : 0;
+
   return (
-    <Container className='my-5 max-w-5xl'>
-      <Row className='g-4 bg-white shadow-lg rounded-3 p-4'>
-        <Col
-          md={4}
-          className='d-flex justify-content-center align-items-center'
-        >
-          <img
-            src={book.coverImage}
-            alt={book.title}
-            className='img-fluid rounded-3 shadow'
-            style={{ maxWidth: "250px" }}
-          />
-        </Col>
-        <Col md={8}>
-          <h1 className='display-4 fw-bold mb-3'>{book.title}</h1>
-          {/* category */}
-          <h4 className="lead text-muted mb-4">Category: {book.category.name}</h4>
-          <p className='lead text-muted mb-4'>By: {book.author.name}</p>
-          <Badge bg='warning' className='fs-5 me-2'>
-            ⭐ {book.rating}/5
-          </Badge>
-          <p className='text-secondary fs-5 mb-4'>{book.description}</p>
+    <>
+      <Navbar />
 
-          <Stack direction='horizontal' className='mt-4' gap={2}>
-            {isAuthenticated && (
-              <Dropdown>
-                <Dropdown.Toggle variant='primary' id='dropdown-add-to-list'>
-                  Add to List
-                </Dropdown.Toggle>
-                <Dropdown.Menu>
-                  <Dropdown.Item onClick={() => handleAddToList("read")}>
-                    Read
-                  </Dropdown.Item>
-                  <Dropdown.Item
-                    onClick={() => handleAddToList("currently_reading")}
-                  >
-                    Currently Reading
-                  </Dropdown.Item>
-                  <Dropdown.Item onClick={() => handleAddToList("want_to_read")}>
-                    Want to Read
-                  </Dropdown.Item>
-                </Dropdown.Menu>
-              </Dropdown>
-            )}
-            <CustomButton color='blue' icon={<FaHeart />}>
-              Add to Wishlist
-            </CustomButton>
-          </Stack>
-        </Col>
-      </Row>
+      <Container className='my-5 max-w-5xl'>
+        <Row className='g-4 bg-white  rounded-3 p-4'>
+          <Col
+            md={6}
+            className='d-flex justify-content-center align-items-center'
+          >
+            <img
+              src={book.coverImage}
+              alt={book.title}
+              className='img-fluid rounded-3 shadow'
+              style={{ maxWidth: "400px", width: "400px" }}
+            />
+          </Col>
+          <Col md={6}>
+            <h1 className='display-4 fw-bold mb-3'>{book.title}</h1>
 
-      {/* Reviews Section */}
-      <Row>
-        <div className='mt-5'>
-          <div className='d-flex justify-content-between align-items-center mb-3'>
-            <h3>All Reviews ({reviews.length})</h3>
-            <CustomButton color='blue' onClick={() => setShowModal(true)}>
-              Write a Review
-            </CustomButton>
-          </div>
-          <Row>
-            {reviews.slice(0, visibleReviews).map((review) => (
-              <Col md={6} key={review._id} className='mb-4'>
-                <Card>
-                  <Card.Body>
-                    <Card.Title>⭐ {review.rating}</Card.Title>
-                    <Card.Title>{review.user}</Card.Title>
-                    <Card.Text>{review.comment}</Card.Text>
-                  </Card.Body>
-                </Card>
-              </Col>
-            ))}
-          </Row>
-          {visibleReviews < reviews.length && (
-            <div className='text-center mt-3'>
-              <CustomButton
-                color='blue'
-                onClick={() => setVisibleReviews((prev) => prev + 6)}
-              >
-                Load More Reviews
+            <StarRating
+              className='mb-4'
+              maxRating={5}
+              size={30}
+              defaultRating={averageRating}
+              isReadOnly={true}
+            >
+              {averageRating.toFixed(1)}/5
+            </StarRating>
+
+            <h4 className='lead text-muted mb-4  '>
+              Category: {book.category.name}
+            </h4>
+            <p className='lead text-muted mb-4  '>By: author</p>
+            {/* <p className='lead text-muted mb-4  '>By: {book.author.name}</p> */}
+
+            {/* <p className='text-secondary fs-5 mb-4'>{book.description}</p> */}
+            <p>
+              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Corrupti
+              quam deleniti, doloribus unde, repellat neque dolore sapiente sit
+              totam, nemo porro minus assumenda! Fugit molestias sunt
+              laboriosam, perferendis architecto amet.
+            </p>
+            <hr />
+            <Stack direction='horizontal' className='mt-4' gap={2}>
+              {isAuthenticated && (
+                <Dropdown>
+                  <Dropdown.Toggle variant='primary' id='dropdown-add-to-list'>
+                    Add to List
+                  </Dropdown.Toggle>
+                  <Dropdown.Menu>
+                    <Dropdown.Item onClick={() => handleAddToList("read")}>
+                      Read
+                    </Dropdown.Item>
+                    <Dropdown.Item
+                      onClick={() => handleAddToList("currently_reading")}
+                    >
+                      Currently Reading
+                    </Dropdown.Item>
+                    <Dropdown.Item
+                      onClick={() => handleAddToList("want_to_read")}
+                    >
+                      Want to Read
+                    </Dropdown.Item>
+                  </Dropdown.Menu>
+                </Dropdown>
+              )}
+              <CustomButton color='blue' icon={<FaHeart />}>
+                Add to Wishlist
+              </CustomButton>
+            </Stack>
+          </Col>
+        </Row>
+        <hr />
+        {/* Reviews Section */}
+        <Row>
+          <div>
+            <div className='d-flex justify-content-between align-items-center mb-4'>
+              <h3>All Reviews ({reviews.length})</h3>
+              <CustomButton color='blue' onClick={() => setShowModal(true)}>
+                Write a Review
               </CustomButton>
             </div>
-          )}
-        </div>
-      </Row>
+            <Row className='mt-4 auto'>
+              {reviews.slice(0, visibleReviews).map((review) => (
+                <Col md={6} key={review._id} className='mb-4'>
+                  <Card className='rounded-4 w-auto p-3'>
+                    <Card.Body>
+                      <StarRating
+                        className='mb-4'
+                        maxRating={5}
+                        size={30}
+                        defaultRating={review.rating}
+                        isReadOnly={true}
+                      >
+                        {review.rating}/5
+                      </StarRating>
 
-      {/* Review Modal */}
-      <Modal show={showModal} onHide={() => setShowModal(false)} centered>
-        <Modal.Header closeButton>
-          <Modal.Title>Write a Review</Modal.Title>
-        </Modal.Header>
+                      <Card.Title>{review.user}</Card.Title>
+                      <Card.Text>{review.comment}</Card.Text>
+                    </Card.Body>
+                  </Card>
+                </Col>
+              ))}
+            </Row>
 
-        <Modal.Body>
-          <Form>
-            <Form.Group className='mb-3'>
-              <Form.Label>Name</Form.Label>
-              <Form.Control
-                type='text'
-                value={newReview.user}
-                onChange={(e) =>
-                  setNewReview({ ...newReview, user: e.target.value })
-                }
-              />
-            </Form.Group>
+            {visibleReviews < reviews.length && (
+              <div className='text-center mt-3'>
+                <CustomButton
+                  color='blue'
+                  onClick={() => setVisibleReviews((prev) => prev + 6)}
+                >
+                  Load More Reviews
+                </CustomButton>
+              </div>
+            )}
+          </div>
+        </Row>
 
-            <Form.Group className='mb-3'>
-              <Form.Label>Rating</Form.Label>
-              <Form.Control
-                type='number'
-                min='0'
-                max='5'
-                value={newReview.rating}
-                onChange={(e) =>
-                  setNewReview({ ...newReview, rating: e.target.value })
-                }
-              />
-            </Form.Group>
+        {/* Review Modal */}
+        <Modal show={showModal} onHide={() => setShowModal(false)} centered>
+          <Modal.Header closeButton>
+            <Modal.Title>Rate and Review</Modal.Title>
+          </Modal.Header>
 
-            <Form.Group className='mb-3'>
-              <Form.Label>Comment</Form.Label>
-              <Form.Control
-                as='textarea'
-                rows={3}
-                value={newReview.comment}
-                onChange={(e) =>
-                  setNewReview({ ...newReview, comment: e.target.value })
-                }
-              />
-            </Form.Group>
+          <Modal.Body>
+            <Form>
+              <Form.Group className='mb-3'>
+                <Form.Label>Name</Form.Label>
+                <Form.Control
+                  type='text'
+                  value={newReview.user}
+                  onChange={(e) =>
+                    setNewReview({ ...newReview, user: e.target.value })
+                  }
+                />
+              </Form.Group>
 
-            <Form.Group className='mb-3'>
-              <StarRating
-                maxRating={5}
-                size={30}
-                onSetRating={(rating) => setNewReview({ ...newReview, rating })}
-              />
-            </Form.Group>
-          </Form>
-        </Modal.Body>
+              <Form.Group className='mb-3'>
+                <Form.Label>Rating</Form.Label>
+                <Form.Control
+                  type='number'
+                  min='0'
+                  max='5'
+                  value={newReview.rating}
+                  onChange={(e) =>
+                    setNewReview({ ...newReview, rating: e.target.value })
+                  }
+                />
+              </Form.Group>
 
-        <Modal.Footer>
-          <Button variant='secondary' onClick={() => setShowModal(false)}>
-            Cancel
-          </Button>
-          <Button variant='primary' onClick={handleAddReview}>
-            Add Review
-          </Button>
-        </Modal.Footer>
-      </Modal>
-    </Container>
+              <Form.Group className='mb-3'>
+                <Form.Label>Comment</Form.Label>
+                <Form.Control
+                  as='textarea'
+                  rows={3}
+                  value={newReview.comment}
+                  onChange={(e) =>
+                    setNewReview({ ...newReview, comment: e.target.value })
+                  }
+                />
+              </Form.Group>
+
+              <Form.Group className='mb-3'>
+                <StarRating
+                  maxRating={5}
+                  size={30}
+                  onSetRating={(rating) =>
+                    setNewReview({ ...newReview, rating })
+                  }
+                />
+              </Form.Group>
+            </Form>
+          </Modal.Body>
+
+          <Modal.Footer>
+            <Button variant='secondary' onClick={() => setShowModal(false)}>
+              Cancel
+            </Button>
+            <Button variant='primary' onClick={handleAddReview}>
+              Add Review
+            </Button>
+          </Modal.Footer>
+        </Modal>
+      </Container>
+    </>
   );
 };
 
