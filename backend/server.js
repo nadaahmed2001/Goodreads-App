@@ -190,7 +190,7 @@ app.delete("/remove-from-list/:bookId", verifyToken, async (req, res) => {
 
 // ======== Category ========
 
-// Add Category through Admin Panel
+// Post Category through Admin Panel
 app.post("/category", (req, res) => {
   Category.create(req.body)
     .then((cat) => {
@@ -227,20 +227,22 @@ app.delete("/category/:id", async (req, res) => {
 });
 
 // Put Category through Admin Panel
+
 app.put("/category/:id", (req, res) => {
-  Category.findByIdAndUpdate(req.params.id, req.body, { new: true }) // `new: true` returns updated doc
-    .then((updatedBook) => {
-      if (!updatedBook) {
-        return res.status(404).json({ error: "Book not found" });
+  Category.findByIdAndUpdate(req.params.id, req.body, { new: true }) //first parameter is ID , second parameter is the updated changes , third parameter `new: true` returns updated doc
+    .then((updatedCategory) => {
+      if (!updatedCategory) {
+        return res.status(404).json({ error: "Category not found" });
       }
-      console.log("Book updated:", updatedBook);
-      res.json(updatedBook);
+      console.log("Category updated:", updatedCategory);
+      res.json(updatedCategory);
     })
     .catch((err) => res.status(500).json({ error: err.message }));
 });
 
 // ======== Book ========
-// Add Book through Admin Panel
+// Post Book through Admin Panel
+
 app.post("/book", (req, res) => {
   Book.create(req.body)
     .then((book) => {
@@ -271,15 +273,17 @@ app.delete("/book/:id", async (req, res) => {
   }
 });
 
-// app.post("/temp", (req, res) => {
-//   // console.log("Request Body:", req.body);
-//   TempBooks.create(req.body)
-//     .then((book) => {
-//       console.log("Book added:", book); // Log full book details
-//       res.json(book); // Send full book object to frontend
-//     })
-//     .catch((err) => res.status(500).json({ error: err.message }));
-// });
+app.put("/book/:id", (req, res) => {
+  Book.findByIdAndUpdate(req.params.id, req.body, { new: true }) //first parameter is ID , second parameter is the updated changes , third parameter `new: true` returns updated doc
+    .then((updatedBook) => {
+      if (!updatedBook) {
+        return res.status(404).json({ error: "Bood not found" });
+      }
+      console.log("Book updated:", updatedBook);
+      res.json(updatedBook);
+    })
+    .catch((err) => res.status(500).json({ error: err.message }));
+});
 
 // ======== Author ========
 
@@ -319,6 +323,18 @@ app.delete("/authorsAdmin/:id", async (req, res) => {
   } catch (err) {
     res.status(500).json({ error: "Failed to delete author" });
   }
+});
+
+app.put("/authorsAdmin/:id", async (req, res) => {
+  Author.findByIdAndUpdate(req.params.id, req.body, { new: true })
+    .then((updatedAuthor) => {
+      if (!updatedAuthor) {
+        return res.status(404).json({ error: "Author not found" });
+      }
+      console.log("Author updated:", updatedAuthor);
+      res.json(updatedAuthor);
+    })
+    .catch((err) => res.status(500).json({ error: err.message }));
 });
 
 // const PORT = process.env.PORT || 5000;
