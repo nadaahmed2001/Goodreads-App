@@ -7,19 +7,30 @@ import ModalBtn from '../../assets/Reusable';
 import axios from 'axios';
 
 
-export default function Categories({ category }) {
+export default function Categories({ category, setFetchTrigger }) {
 
     const handleSaveCategory = (formData) => {
         axios.post(`http://localhost:5000/category`, { name: formData.name })
             .then((response) => {
                 console.log("Category added:", response.data);
                 alert("Category added successfully!");
-                setCategory((prev) => [...prev, response.data]); // ✅ Update state to refresh UI
+                setFetchTrigger((prev) => !prev)
             })
             .catch((err) => console.log("unable to add category"));
     }
 
     // console.log("Categories in category component:", category);
+    const handleDelete = async (categoryId) => {
+        try {
+            await axios.delete(`http://localhost:5000/category/${categoryId}`);
+            alert("Category deleted successfully!");
+            // After deleting, trigger a refetch to update the categories list
+            setFetchTrigger((prev) => !prev);
+            // setBooks(books.filter(b => b._id !== book._id))
+        } catch (err) {
+            console.error("Unable to delete category:", err);
+        }
+    };
 
     return (
         <div className='d-flex'>
@@ -46,16 +57,17 @@ export default function Categories({ category }) {
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>Mark</td>
-                            <td>Admin</td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>Jacob</td>
-                            <td>Moderator</td>
-                        </tr>
+                        {category.map((c, index) => (
+                            <tr key={c._id}>
+                                <td>{index + 1}</td>
+                                <td>{c.name}</td>
+                                <td>
+                                    <button>✏️</button>
+                                    <button onClick={() => handleDelete(c._id)}>❌</button>
+
+                                </td>
+                            </tr>
+                        ))}
                     </tbody>
                 </Table>
             </div>

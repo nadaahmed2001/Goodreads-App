@@ -10,7 +10,7 @@ const Sidebar = () => {
             variant="dark"
             expand="lg"
             className="d-flex flex-column vh-100 p-3"
-            style={{ width: "240px" }}
+            style={{ width: "240px", position: "sticky", top: 0 }}
         >
             <Navbar.Brand className="mb-4">Admin Panel</Navbar.Brand>
             <Nav className="flex-column w-100">

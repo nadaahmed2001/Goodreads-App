@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { fetchBookById } from "../../services/api";
+import { fetchBookById, addBookToList } from "../../services/api"; // Add the API function
+// import { fetchBookById } from "../../servisces/api";
 import {
   Container,
   Row,
@@ -11,10 +12,12 @@ import {
   Card,
   Modal,
   Form,
+  Dropdown,
 } from "react-bootstrap";
 import CustomButton from "../../../components/CustomButton";
 import { v4 as uuidv4 } from "uuid";
 import { FaHeart } from "react-icons/fa";
+import StarRating from "../../../components/StarRating";
 
 const BookDetails = () => {
   const dummyReviews = [
@@ -35,6 +38,13 @@ const BookDetails = () => {
     rating: "",
     comment: "",
   });
+  const [isAuthenticated, setIsAuthenticated] = useState(false); // Check if user is authenticated
+
+  const calculateAverageRating = (reviews) => {
+    if (reviews.length === 0) return 0;
+    const total = reviews.reduce((sum, review) => sum + review.rating, 0);
+    return (total / reviews.length).toFixed(1);
+  };
 
   useEffect(() => {
     const getBook = async () => {
@@ -46,14 +56,47 @@ const BookDetails = () => {
       }
     };
     getBook();
+
+    // Check if the user is authenticated
+    const token = localStorage.getItem("token");
+    if (token) {
+      setIsAuthenticated(true);
+    }
   }, [bookId]);
+
+  const handleAddToList = async (shelf) => {
+    try {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        alert("Please log in to add books to your list.");
+        return;
+      }
+
+      const response = await addBookToList(bookId, shelf, token);
+      if (response.data.success) {
+        alert(`Book moved to ${shelf.replace("_", " ")} list!`);
+      }
+    } catch (error) {
+      console.error("Error adding book to list:", error.response || error);
+      alert("Failed to add book to list.");
+    }
+  };
+
 
   if (!book)
     return <p className='text-center mt-4 fs-5 fw-semibold'>Loading...</p>;
 
   const handleAddReview = () => {
     if (!newReview.user || !newReview.rating || !newReview.comment) return;
-    setReviews([...reviews, { ...newReview, _id: uuidv4() }]);
+
+    const updatedReviews = [...reviews, { ...newReview, _id: uuidv4() }];
+    setReviews(updatedReviews);
+
+    setBook((prevBook) => ({
+      ...prevBook,
+      rating: calculateAverageRating(updatedReviews),
+    }));
+
     setShowModal(false);
     setNewReview({ user: "", rating: "", comment: "" });
   };
@@ -74,13 +117,35 @@ const BookDetails = () => {
         </Col>
         <Col md={8}>
           <h1 className='display-4 fw-bold mb-3'>{book.title}</h1>
-          <p className='lead text-muted mb-4'>By {book.author.name}</p>
+          {/* category */}
+          <h4 className="lead text-muted mb-4">Category: {book.category.name}</h4>
+          <p className='lead text-muted mb-4'>By: {book.author.name}</p>
           <Badge bg='warning' className='fs-5 me-2'>
             ⭐ {book.rating}/5
           </Badge>
           <p className='text-secondary fs-5 mb-4'>{book.description}</p>
 
-          <Stack direction='horizontal' className='mt-4'>
+          <Stack direction='horizontal' className='mt-4' gap={2}>
+            {isAuthenticated && (
+              <Dropdown>
+                <Dropdown.Toggle variant='primary' id='dropdown-add-to-list'>
+                  Add to List
+                </Dropdown.Toggle>
+                <Dropdown.Menu>
+                  <Dropdown.Item onClick={() => handleAddToList("read")}>
+                    Read
+                  </Dropdown.Item>
+                  <Dropdown.Item
+                    onClick={() => handleAddToList("currently_reading")}
+                  >
+                    Currently Reading
+                  </Dropdown.Item>
+                  <Dropdown.Item onClick={() => handleAddToList("want_to_read")}>
+                    Want to Read
+                  </Dropdown.Item>
+                </Dropdown.Menu>
+              </Dropdown>
+            )}
             <CustomButton color='blue' icon={<FaHeart />}>
               Add to Wishlist
             </CustomButton>
@@ -88,6 +153,7 @@ const BookDetails = () => {
         </Col>
       </Row>
 
+      {/* Reviews Section */}
       <Row>
         <div className='mt-5'>
           <div className='d-flex justify-content-between align-items-center mb-3'>
@@ -163,6 +229,14 @@ const BookDetails = () => {
                 onChange={(e) =>
                   setNewReview({ ...newReview, comment: e.target.value })
                 }
+              />
+            </Form.Group>
+
+            <Form.Group className='mb-3'>
+              <StarRating
+                maxRating={5}
+                size={30}
+                onSetRating={(rating) => setNewReview({ ...newReview, rating })}
               />
             </Form.Group>
           </Form>
