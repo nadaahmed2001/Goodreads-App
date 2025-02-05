@@ -10,6 +10,7 @@ import {
   ShoppingCart,
 } from "lucide-react";
 import "./Navbar.css";
+// import { Helmet } from "react-helmet";
 // import "./Navbar.css";
 import "./Navbar.css";
 
@@ -42,10 +43,12 @@ const Navbar = () => {
   };
   return (
     <>
+
+
       <nav>
-        <div className='nav-top'>
-          <div className='imgLogo'>
-            <img src='/Untitled.png' alt='logo' />
+        <div className="nav-top">
+          <div className="imgLogo">
+            <img src="./public/BookAppLogo.png" alt="logo" />
           </div>
           <div className='Searchinput'>
             <input
@@ -106,13 +109,11 @@ const Navbar = () => {
               </>
             ) : (
               <>
-                <Link to='/sign-up'>
-                  <button className='btn btn-light text-primary ms-2'>
-                    Sign up
-                  </button>
+                <Link to="/sign-up">
+                  <button className="sign-in-btn">Sign up</button>
                 </Link>
-                <Link to='/sign-in'>
-                  <button className='btn btn-outline-light ms-2'>Log in</button>
+                <Link to="/sign-in">
+                  <button className="log-in-btn">Log in</button>
                 </Link>
               </>
             )}
