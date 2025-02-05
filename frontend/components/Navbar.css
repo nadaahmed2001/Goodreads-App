@@ -1,50 +1,86 @@
-/* nav{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 20px;
-    background-color: #3F8FC0;
-    color: white;
-    flex-wrap: wrap;
-}
-nav .imgLogo{
-    width: 33%;
-}
-nav .Searchinput{
-    width: 33%;
-}
-nav .icons{
-    width: 33%;
-}
-.NavList{
-    
-   
-    width: 90%;
-    margin: auto;
-}
-nav .NavList ul{
-  display: flex;
-  list-style: none;
-}
-nav .NavList ul li a{
-  
-text-decoration: none;
-color: #000;
-font-family: Kufam;
-font-size: 24px;
-font-style: normal;
-font-weight: 700;
-line-height: normal;
-padding: 30px;
-} */
+/* basic style start*/
 
+@import url('https://fonts.googleapis.com/css2?family=Spartan:wght@100;200;300;400;500;600;700;800;900&display=swap');
+/* If you are targeting Firefox on macOS */
+* {
+    -moz-osx-font-smoothing: grayscale;  /* Optional */
+ }
+ 
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Spartan', sans-serif;
+}
+h1{
+    font-size: 50px;
+    line-height: 64px;
+    color: #222;
+}
+h2{
+    font-size: 46px;
+    line-height: 54px;
+    color: #222;
+}
+h4{
+    font-size: 20px;
+    color: #222;
+}
+h6{
+    font-weight: 700;
+    font-size: 12px;
+}
+p{
+    font-size: 16px;
+    color: #465b52;
+    margin:15px 0 20px 0  ;
+}
+.section-p1{
+    padding: 40px 80px;
+} 
+.section-m1{
+    margin: 40px 0;
+}
+body{
+    width: 100%;
+}
+.fa-bag-shopping{
+ 
+    align-items: end;
+}
+button.normal {
+    font-size: 14px;
+    font-weight: 600;
+    padding: 15px 30px;
+    color: #000;
+    background-color: #fff;
+    border-radius: 4px;
+    cursor: pointer;
+    border: none;
+    outline: none;
+    transition:  0.2s;
+    }
+    button.white {
+        font-size: 13px;
+        font-weight: 600;
+        padding: 11px 18px;
+        color: #fff;
+        background-color: transparent;
+        border-radius: 4px;
+        cursor: pointer;
+        border: 1px solid white;
+        outline: none;
+        transition:  0.2s;
+        }
+
+        /* basic style end */
 
 nav {
     display: flex;
     flex-direction: column;
     padding: 0 20px;
-    background-color: #3F8FC0;
-    color: white;
+    background-color: #088178 ;  
+    position:sticky;
   }
   
   .nav-top {
@@ -59,6 +95,10 @@ nav {
   nav .imgLogo {
     width: 33%;
   }
+  nav .imgLogo img {
+    width: 150px;
+    height: 90px;
+  }
   
   nav .Searchinput {
     width: 33%;
@@ -68,6 +108,9 @@ nav {
     width: 33%;
     display: flex;
     justify-content: flex-end;
+  }
+  nav .icons button :hover{
+    color: #222;
   }
   
   .NavList {
@@ -85,13 +128,158 @@ nav {
   
   nav .NavList ul li a {
     text-decoration: none;
-    color: #000;
-    font-family: Kufam;
+    color: rgb(214, 213, 213);
+    font-family: 'Spartan', sans-serif;
     font-size: 24px;
     font-weight: 700;
     padding: 20px 30px;
     
   }
-  .SignUp{
-    color: #3F8FC0;
+  nav .NavList ul li a:hover {
+    color: #222;
+   
   }
+.sign-in-btn{
+  font-size: 14px;
+  font-weight: 600;
+  padding: 15px 30px;
+  color: #465b52;
+  background-color: #fff;
+  border-radius: 4px;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  transition:  0.2s;
+  margin-right: 10px;
+}
+.sign-in-btn:hover{
+  background-color: rgb(214, 213, 213);
+  color: #088178;
+}
+/* login */
+.log-in-btn{
+  font-size: 14px;
+  font-weight: 600;
+  padding: 15px 30px;
+  color: #465b52;
+  background-color: #fff;
+  border-radius: 4px;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  transition:  0.2s;
+  background-color: #fff;
+  color: #088178;
+ 
+}
+.log-in-btn:hover{
+  background-color: rgb(214, 213, 213);
+  color: #465b52;
+}
+
+/* Responsive styles */
+@media (max-width: 1200px) {
+  nav .imgLogo img {
+    width: 130px;
+    height: 80px;
+  }
+
+  nav .NavList ul li a {
+    font-size: 20px;
+    padding: 15px 25px;
+  }
+
+  .sign-in-btn,
+  .log-in-btn {
+    padding: 12px 25px;
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 992px) {
+  .nav-top {
+    width: 90%;
+  }
+
+  nav .imgLogo {
+    width: 30%;
+  }
+
+  nav .Searchinput {
+    width: 40%;
+  }
+
+  nav .icons {
+    width: 30%;
+  }
+
+  nav .NavList ul li a {
+    font-size: 18px;
+    padding: 10px 20px;
+  }
+
+  .sign-in-btn,
+  .log-in-btn {
+    padding: 10px 20px;
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 768px) {
+  nav {
+    padding: 0 10px;
+  }
+
+  .nav-top {
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+
+  nav .imgLogo,
+  nav .Searchinput,
+  nav .icons {
+    width: 100%;
+    text-align: center;
+    margin: 10px 0;
+  }
+
+  nav .imgLogo img {
+    width: 120px;
+    height: 70px;
+  }
+
+  nav .NavList ul {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  nav .NavList ul li a {
+    font-size: 16px;
+    padding: 10px 15px;
+  }
+
+  .sign-in-btn,
+  .log-in-btn {
+    padding: 8px 15px;
+    font-size: 11px;
+  }
+}
+
+@media (max-width: 576px) {
+  nav .imgLogo img {
+    width: 100px;
+    height: 60px;
+  }
+
+  nav .NavList ul li a {
+    font-size: 14px;
+    padding: 8px 12px;
+  }
+
+  .sign-in-btn,
+  .log-in-btn {
+    padding: 6px 12px;
+    font-size: 10px;
+  }
+}
