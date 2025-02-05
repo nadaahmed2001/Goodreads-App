@@ -7,8 +7,11 @@ import BookCard from "../../../components/BookCard";
 const UserList = () => {
   const { shelf } = useParams();
   const [books, setBooks] = useState([]);
-  const token = localStorage.getItem("token");
-
+ let token = localStorage.getItem("token");
+if(!token)
+{
+  token = sessionStorage.getItem("token");
+}
   useEffect(() => {
     const fetchBooks = async () => {
       try {

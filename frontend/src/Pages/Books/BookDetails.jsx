@@ -23,11 +23,12 @@ import ReviewForm from "../../../components/ReviewForm";
 import ReviewList from "../../../components/ReviewList";
 
 const BookDetails = () => {
-  // Check if the user is authenticated
-  let token = localStorage.getItem("token");
-  if (!token) {
-    token = sessionStorage.getItem("token");
-  }
+   // Check if the user is authenticated
+   let token = localStorage.getItem("token");
+   if (!token)
+   {
+     token = sessionStorage.getItem("token");
+   }
   const dummyReviews = [
     {
       _id: "1",
@@ -94,7 +95,6 @@ const BookDetails = () => {
       }
     };
     getBook();
-
     if (token) {
       setIsAuthenticated(true);
     }
@@ -102,7 +102,7 @@ const BookDetails = () => {
 
   const handleAddToList = async (shelf) => {
     try {
-      console.log(token);
+      console.log(token)
       if (!token) {
         alert("Please log in to add books to your list.");
         return;

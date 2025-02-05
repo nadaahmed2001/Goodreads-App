@@ -3,7 +3,7 @@ const jwt = require("jsonwebtoken");
 const UserModel = require("../../models/User");
 
 const login = (req, res) => {
-  const { email, password } = req.body;
+  const { email , password } = req.body;
 
   UserModel.findOne({ email: email })
     .then((user) => {
