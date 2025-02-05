@@ -14,7 +14,8 @@ const authController = require("./controllers/authencation/authController"); // 
 const  {verifyToken}  = require("./controllers/authorization/authorizationMiddleware"); // Import verifyToken middleware
 const userProfileController = require("./controllers/userProfileController/userProfile");
 const UserBookList = require("./models/UserBookList");
-
+const {allbooks} = require("./controllers/admin/crud"); 
+const {getBookById} = require("./controllers/getBookbyID/bookID");
 const app = express();
 
 // CORS configuration
@@ -85,21 +86,7 @@ app.get("/authors/:authorId", async (req, res) => {
   }
 });
 
-app.get("/books/:bookId", async (req, res) => {
-  const bookId = req.params.bookId;
-  console.log(`Looking for book with ID: ${bookId}`);
-
-  try {
-    // Populate the author field with the name field from the Author model and populate categoru name
-    const book = await Book.findById(bookId)
-      .populate("author", "name")
-      .populate("category", "name");
-    res.json(book);
-    console.log("Book fetched successfully from server.js");
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-});
+app.get("/books/:bookId", getBookById);
 
 // Set up Nodemailer transporter
 const transporter = nodemailer.createTransport({
@@ -264,15 +251,7 @@ app.post("/book", (req, res) => {
 });
 
 // Get Book through Admin Panel
-app.get("/books", async (req, res) => {
-  try {
-    const books = await Book.find().populate("author", "name");
-    console.log("side seerver", books);
-    res.json(books);
-  } catch (err) {
-    res.status(500).json({ error: "Failed to fetch books" });
-  }
-});
+app.get("/books",allbooks);
 
 // Delete Book through Admin Panel
 
