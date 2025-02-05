@@ -61,7 +61,7 @@ export default function Categories({ category, setFetchTrigger }) {
                         onSave={handleSaveCategory}
                     />
                 </div>
-                <Table striped bordered hover>
+                <Table striped bordered hover className="mt-3">
                     <thead >
                         <tr>
                             <th>ID</th>
@@ -85,10 +85,11 @@ export default function Categories({ category, setFetchTrigger }) {
 
                                 </td>
                             </tr>
-                        ))}
-                    </tbody>
-                </Table>
-            </div>
-        </div>
+                        ))
+                        }
+                    </tbody >
+                </Table >
+            </div >
+        </div >
     )
 }
