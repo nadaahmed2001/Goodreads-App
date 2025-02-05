@@ -11,11 +11,14 @@ const jwt = require("jsonwebtoken");
 const TempBooks = require("./models/TempBooks");
 const nodemailer = require("nodemailer");
 const authController = require("./controllers/authencation/authController"); // Import the controller
+const BookAuthor = require("./controllers/authorBookController/BookAuthor");
+const bookID = require("./controllers/getBookbyID/bookID");
 const {
   verifyToken,
 } = require("./controllers/authorization/authorizationMiddleware"); // Import verifyToken middleware
 const userProfileController = require("./controllers/userProfileController/userProfile");
 const UserBookList = require("./models/UserBookList");
+const {allbooks} = require("./controllers/admin/crud"); 
 
 const {
   getBooks,
@@ -74,43 +77,11 @@ app.get("/", async (req, res) => {
 });
 
 // Author endpoint to get all authors in books
-app.get("/authors", async (req, res) => {
-  console.log("I entered the server.js file to fetch authors");
-  try {
-    const books = await Author.find();
-    res.json(books);
-    console.log("Authors fetched successfully from server.js");
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-});
+app.get("/authors",BookAuthor.getAuthors);
 
-app.get("/authors/:authorId", async (req, res) => {
-  const authorId = req.params.authorId;
-  console.log(`Looking for author with ID: ${authorId}`);
+app.get("/authors/:authorId", BookAuthor.getBooksByAuthId);
 
-  try {
-    // Fetch the author with the books populated
-    const author = await Author.findOne({ _id: authorId });
-    // Fetch the author with the books populated
-
-    if (!author) {
-      return res.status(404).json({ message: "Author not found" });
-    }
-
-    res.json(author); // Return the author with the populated books
-    console.log("Auther-------------------", author);
-
-    res.json(author); // Return the author with the populated books
-    res.json(author); // Send back the single author object, not an array
-    res.json(author); // Return the author with the populated books
-    console.log("Author fetched successfully");
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-});
-
-app.get("/books/:bookId", getBookById);
+app.get("/books/:bookId", bookID.getBookById);
 
 // Set up Nodemailer transporter
 const transporter = nodemailer.createTransport({
