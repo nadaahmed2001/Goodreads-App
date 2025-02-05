@@ -14,8 +14,8 @@ const Navbar = () => {
   useEffect(() => {
     // Fetch user profile if token exists
     let token = localStorage.getItem('token');
-    if(!token){
-       token=sessionStorage.getItem('token');
+    if (!token) {
+      token = sessionStorage.getItem('token');
     }
     if (token) {
       axios.get('http://localhost:5000/profile', {
