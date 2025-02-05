@@ -218,13 +218,6 @@ const BookDetails = () => {
         {/* Reviews Section */}
         <Row>
           <div>
-            <div className='d-flex justify-content-between align-items-center mb-4'>
-              <h3>All Reviews ({reviews.length})</h3>
-              <CustomButton color='blue' onClick={() => setShowModal(true)}>
-                Write a Review
-              </CustomButton>
-            </div>
-
             <ReviewList
               reviews={reviews}
               visibleReviews={visibleReviews}
