@@ -13,7 +13,9 @@ const nodemailer = require("nodemailer");
 const authController = require("./controllers/authencation/authController"); // Import the controller
 const  {verifyToken}  = require("./controllers/authorization/authorizationMiddleware"); // Import verifyToken middleware
 const userProfileController = require("./controllers/userProfileController/userProfile");
-
+const UserBookList = require("./models/UserBookList");
+const {allbooks} = require("./controllers/admin/crud"); 
+const {getBookById} = require("./controllers/getBookbyID/bookID");
 const app = express();
 
 // CORS configuration
@@ -84,21 +86,7 @@ app.get("/authors/:authorId", async (req, res) => {
   }
 });
 
-app.get("/books/:bookId", async (req, res) => {
-  const bookId = req.params.bookId;
-  console.log(`Looking for book with ID: ${bookId}`);
-
-  try {
-    // Populate the author field with the name field from the Author model and populate categoru name
-    const book = await Book.findById(bookId)
-      .populate("author", "name")
-      .populate("category", "name");
-    res.json(book);
-    console.log("Book fetched successfully from server.js");
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-});
+app.get("/books/:bookId", getBookById);
 
 // Set up Nodemailer transporter
 const transporter = nodemailer.createTransport({
@@ -202,7 +190,7 @@ app.delete("/remove-from-list/:bookId", verifyToken, async (req, res) => {
 
 // ======== Category ========
 
-// Add Category through Admin Panel
+// Post Category through Admin Panel
 app.post("/category", (req, res) => {
   Category.create(req.body)
     .then((cat) => {
@@ -239,20 +227,22 @@ app.delete("/category/:id", async (req, res) => {
 });
 
 // Put Category through Admin Panel
+
 app.put("/category/:id", (req, res) => {
-  Category.findByIdAndUpdate(req.params.id, req.body, { new: true }) // `new: true` returns updated doc
-    .then((updatedBook) => {
-      if (!updatedBook) {
-        return res.status(404).json({ error: "Book not found" });
+  Category.findByIdAndUpdate(req.params.id, req.body, { new: true }) //first parameter is ID , second parameter is the updated changes , third parameter `new: true` returns updated doc
+    .then((updatedCategory) => {
+      if (!updatedCategory) {
+        return res.status(404).json({ error: "Category not found" });
       }
-      console.log("Book updated:", updatedBook);
-      res.json(updatedBook);
+      console.log("Category updated:", updatedCategory);
+      res.json(updatedCategory);
     })
     .catch((err) => res.status(500).json({ error: err.message }));
 });
 
 // ======== Book ========
-// Add Book through Admin Panel
+// Post Book through Admin Panel
+
 app.post("/book", (req, res) => {
   Book.create(req.body)
     .then((book) => {
@@ -263,15 +253,7 @@ app.post("/book", (req, res) => {
 });
 
 // Get Book through Admin Panel
-app.get("/books", async (req, res) => {
-  try {
-    const books = await Book.find().populate("author", "name");
-    console.log("side seerver", books);
-    res.json(books);
-  } catch (err) {
-    res.status(500).json({ error: "Failed to fetch books" });
-  }
-});
+app.get("/books",allbooks);
 
 // Delete Book through Admin Panel
 
@@ -291,15 +273,17 @@ app.delete("/book/:id", async (req, res) => {
   }
 });
 
-// app.post("/temp", (req, res) => {
-//   // console.log("Request Body:", req.body);
-//   TempBooks.create(req.body)
-//     .then((book) => {
-//       console.log("Book added:", book); // Log full book details
-//       res.json(book); // Send full book object to frontend
-//     })
-//     .catch((err) => res.status(500).json({ error: err.message }));
-// });
+app.put("/book/:id", (req, res) => {
+  Book.findByIdAndUpdate(req.params.id, req.body, { new: true }) //first parameter is ID , second parameter is the updated changes , third parameter `new: true` returns updated doc
+    .then((updatedBook) => {
+      if (!updatedBook) {
+        return res.status(404).json({ error: "Bood not found" });
+      }
+      console.log("Book updated:", updatedBook);
+      res.json(updatedBook);
+    })
+    .catch((err) => res.status(500).json({ error: err.message }));
+});
 
 // ======== Author ========
 
@@ -339,6 +323,18 @@ app.delete("/authorsAdmin/:id", async (req, res) => {
   } catch (err) {
     res.status(500).json({ error: "Failed to delete author" });
   }
+});
+
+app.put("/authorsAdmin/:id", async (req, res) => {
+  Author.findByIdAndUpdate(req.params.id, req.body, { new: true })
+    .then((updatedAuthor) => {
+      if (!updatedAuthor) {
+        return res.status(404).json({ error: "Author not found" });
+      }
+      console.log("Author updated:", updatedAuthor);
+      res.json(updatedAuthor);
+    })
+    .catch((err) => res.status(500).json({ error: err.message }));
 });
 
 // const PORT = process.env.PORT || 5000;
