@@ -13,6 +13,7 @@ const nodemailer = require("nodemailer");
 const authController = require("./controllers/authencation/authController"); // Import the controller
 const  {verifyToken}  = require("./controllers/authorization/authorizationMiddleware"); // Import verifyToken middleware
 const userProfileController = require("./controllers/userProfileController/userProfile");
+const UserBookList = require("./models/UserBookList");
 
 const app = express();
 

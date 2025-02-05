@@ -19,7 +19,15 @@ import { v4 as uuidv4 } from "uuid";
 import { FaHeart } from "react-icons/fa";
 import StarRating from "../../../components/StarRating";
 
+   
+
 const BookDetails = () => {
+   // Check if the user is authenticated
+   let token = localStorage.getItem("token");
+   if (!token)
+   {
+     token = sessionStorage.getItem("token");
+   }
   const dummyReviews = [
     { _id: "1", user: "fatma", rating: 5, comment: "great book" },
     { _id: "2", user: "nada", rating: 4, comment: "very nice" },
@@ -57,8 +65,7 @@ const BookDetails = () => {
     };
     getBook();
 
-    // Check if the user is authenticated
-    const token = localStorage.getItem("token");
+
     if (token) {
       setIsAuthenticated(true);
     }
@@ -66,7 +73,7 @@ const BookDetails = () => {
 
   const handleAddToList = async (shelf) => {
     try {
-      const token = localStorage.getItem("token");
+      console.log(token)
       if (!token) {
         alert("Please log in to add books to your list.");
         return;
@@ -118,8 +125,8 @@ const BookDetails = () => {
         <Col md={8}>
           <h1 className='display-4 fw-bold mb-3'>{book.title}</h1>
           {/* category */}
-          <h4 className="lead text-muted mb-4">Category: {book.category.name}</h4>
-          <p className='lead text-muted mb-4'>By: {book.author.name}</p>
+          <h4 className="lead text-muted mb-4">Category : </h4> 
+          <p className='lead text-muted mb-4'>By: </p>
           <Badge bg='warning' className='fs-5 me-2'>
             ⭐ {book.rating}/5
           </Badge>
