@@ -212,7 +212,7 @@ app.delete("/remove-from-list/:bookId", verifyToken, async (req, res) => {
 
 // ======== Category ========
 
-// Post Category through Admin Panel
+// Post Category through Admin Panel  ^T Execute
 app.post("/category", postCategory);
 
 // Get Category through Admin Panel
