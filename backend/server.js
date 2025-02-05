@@ -11,7 +11,9 @@ const jwt = require("jsonwebtoken");
 const TempBooks = require("./models/TempBooks");
 const nodemailer = require("nodemailer");
 const authController = require("./controllers/authencation/authController"); // Import the controller
-const  {verifyToken}  = require("./controllers/authorization/authorizationMiddleware"); // Import verifyToken middleware
+const {
+  verifyToken,
+} = require("./controllers/authorization/authorizationMiddleware"); // Import verifyToken middleware
 const userProfileController = require("./controllers/userProfileController/userProfile");
 const UserBookList = require("./models/UserBookList");
 const {allbooks} = require("./controllers/admin/crud"); 
@@ -123,11 +125,9 @@ Shelf-Sphere Team`,
 
 //register and login & profile
 
-
 app.post("/login", authController.login); // Use the controller for the /login route
 app.post("/register", authController.register); // Use the controller for the /register route
 app.get("/profile", verifyToken, userProfileController.profile);
-
 
 //retreive the user data by verifying its token
 
@@ -257,21 +257,7 @@ app.get("/books",allbooks);
 
 // Delete Book through Admin Panel
 
-app.delete("/book/:id", async (req, res) => {
-  try {
-    const bookId = req.params.id;
-    const deletedBook = await Book.findByIdAndDelete(bookId);
-    if (!deletedBook) {
-      return res.status(404).json({ error: "Category not found" });
-    }
-    res.json({
-      message: "Book deleted successfully",
-      category: deletedBook,
-    });
-  } catch (err) {
-    res.status(500).json({ error: "Failed to delete book" });
-  }
-});
+app.delete("/book/:id");
 
 app.put("/book/:id", (req, res) => {
   Book.findByIdAndUpdate(req.params.id, req.body, { new: true }) //first parameter is ID , second parameter is the updated changes , third parameter `new: true` returns updated doc
