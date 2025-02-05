@@ -208,23 +208,6 @@ app.post("/login", (req, res) => {
     });
     
  
-app.post("/register", (req, res) => {
-  // Check if user already exists (by email in this case)
-  UserModel.findOne({ email: req.body.email })
-    .then((existingUser) => {
-      if (existingUser) {
-        // If user exists, return an error message
-        return res.json("Email Already Exist");
-      }
-
-      // If user doesn't exist, create a new user
-      UserModel.create(req.body) //creation in database
-        .then((user) => res.json(user)) // Respond with the created user to the frontend
-        .catch((err) => res.status(500).json({ error: err.message })); // Handle any errors
-    })
-    .catch((err) => res.status(500).json({ error: err.message })); // Handle errors in finding the user
-});
-
 
 // ======================================= User Book Lists ====================================================
 app.post("/add-to-list", verifyToken, async (req, res) => {
