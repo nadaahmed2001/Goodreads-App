@@ -8,6 +8,7 @@ import SignUp from "../components/Authentication/SignUp/SignUp";
 import Register from "../components/Authentication/SignUp/Register";
 import Logged from "../components/Authentication/Logged";
 import Home from "./Pages/Home/Home";
+// import Homerahma from "./Pages/Home/Homerahma";
 import BookList from "./Pages/Books/BookList";
 import BookDetails from "./Pages/Books/BookDetails";
 import AdminLogin from "./Pages/Admin/AdminLogin";
@@ -19,6 +20,7 @@ import AuthorsBook from "../components/Authors-Book/AuthorsBook";
 import AuthorDetails from "../components/Authors-Book/AuthorDetails";
 import Login from "../components/Authentication/SignIn/Login";
 import UserList from "./Pages/UserBookLists/UserList";
+import { Helmet } from "react-helmet";
 
 function App() {
   const [category, setCategory] = useState([]);
@@ -44,9 +46,11 @@ function App() {
 
   return (
     <>
+   
       <Router>
         <Routes>
           <Route path='/' element={<Home />} />
+          {/* <Route path='/' element={<Homerahma />} />  */}
           <Route path='/AdminLogin' element={<AdminLogin />} />
           <Route path="/list/:shelf" element={<UserList />} />
           <Route path='/Register' element={<Register />} />
@@ -64,6 +68,12 @@ function App() {
           <Route path='*' element={<NotFound />} />
         </Routes>
       </Router>
+      <Helmet>
+        <link
+          href="https://fonts.googleapis.com/css2?family=Spartan:wght@300;400;600&display=swap"
+          rel="stylesheet"
+        />
+      </Helmet>
     </>
   );
 }

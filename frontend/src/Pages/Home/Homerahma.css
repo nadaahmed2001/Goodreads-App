@@ -1,0 +1,145 @@
+/* .homepage {
+    min-height: 100vh;
+  } */
+  
+  /* Navigation */
+  .search-input {
+    max-width: 500px;
+    width: 100%;
+  }
+  
+  /* Hero Section */
+  /* .hero-image {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+  } */
+  
+  /* Categories */
+  .category-card {
+    background-color: #f8f9fa;
+    transition: all 0.3s ease;
+  }
+  
+  .category-card:hover {
+    background-color: #e9ecef;
+    transform: translateY(-5px);
+  }
+  
+  /* Books Section */
+  .categories-scroll {
+    overflow-x: auto;
+    white-space: nowrap;
+    padding-bottom: 10px;
+  }
+  
+  .book-card {
+    transition: all 0.3s ease;
+  }
+  
+  .book-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  }
+  
+  .book-card img {
+    height: 250px;
+    object-fit: cover;
+  }
+  
+  /* Social Icons */
+  .social-icons span {
+    font-size: 1.5rem;
+    cursor: pointer;
+  }
+  
+  /* Responsive Adjustments */
+  @media (max-width: 768px) {
+    .navbar .search-input {
+      max-width: 100%;
+    }
+    
+    /* .hero-image {
+      height: 300px;
+      margin-bottom: 2rem;
+    } */
+  }
+.section2{
+    display: flex;
+    flex-wrap: wrap;
+    width: 60%;
+    margin: auto;
+    justify-content:center;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+.PopularAuthorsSection{
+width: 50%;
+text-align: left;
+}
+.PopularAuthors{
+    margin-top: 50px;
+    margin-bottom: 50px;
+    color: #465b52;
+    font-size:30px;
+    font-weight: 500;
+    padding: 30px;
+    
+}
+.PopularCategoriesSection{
+    width: 50%;
+    text-align: left;
+}
+.PopularCategories{
+    margin-top: 50px;
+    margin-bottom: 50px;
+    color: #465b52;
+    font-size:30px;
+    font-weight: 500;
+    padding: 30px;
+}
+
+.PopularQuotes{
+    margin-top: 50px;
+    margin-bottom: 50px;
+    color: #465b52;
+    font-size:30px;
+    font-weight: 500;
+    padding: 30px;
+}
+.Card-home{
+    background-color: #e9ecef;
+}
+.Best-Selling-Books{
+  margin-top: 50px;
+  margin-bottom: 50px;
+  color: #465b52;
+  font-size:30px;
+  font-weight: 500;
+  padding: 30px;
+}
+.view-details{
+  background-color: #088178;
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border: none;
+}
+.view-details:hover{
+  background-color: #465b52;
+}
+.View-All-Books
+{
+  background-color: #088178;
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border: none;
+}
+.View-All-Books:hover{
+  background-color: #465b52;
+}
