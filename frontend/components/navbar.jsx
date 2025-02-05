@@ -19,16 +19,16 @@ const Navbar = () => {
 
   useEffect(() => {
     // Fetch user profile if token exists
-    let token = localStorage.getItem("token");
+    let token = localStorage.getItem('token');
     if (!token) {
-      token = sessionStorage.getItem("token");
+      token = sessionStorage.getItem('token');
     }
     if (token) {
-      axios
-        .get("http://localhost:5000/profile", {
-          headers: { Authorization: `Bearer ${token}` },
-        })
-        .then((result) => {
+      axios.get('http://localhost:5000/profile', {
+        headers: { Authorization: `Bearer ${token}` }
+      })
+        .then(result => {
+ 
           setUser(result.data); // Set user data
         })
         .catch((error) => console.log(error));
