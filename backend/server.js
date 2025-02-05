@@ -225,47 +225,6 @@ app.post("/register", (req, res) => {
     .catch((err) => res.status(500).json({ error: err.message })); // Handle errors in finding the user
 });
 
-//retreive the user data by verifying its token
-app.get("/profile", verifyToken, (req, res) => {
-  // Access the user ID from the decoded JWT token
-  UserModel.findById(req.user.id)
-    .then((user) => res.json(user))
-    .catch((err) => res.status(500).json({ message: err.message }));
-});
-
-// Start the server
-//register and login
-app.post("/login", (req, res) => {
-  const { email, password } = req.body;
-  UserModel.findOne({ email: email }).then((user) => {
-    if (user) {
-      if (user.password === password) {
-        res.json("success");
-      } else {
-        res.json("Incorrect password");
-      }
-    } else {
-      res.json("User not found");
-    }
-  });
-});
-
-app.post("/register", (req, res) => {
-  // Check if user already exists (by email in this case)
-  UserModel.findOne({ email: req.body.email })
-    .then((existingUser) => {
-      if (existingUser) {
-        // If user exists, return an error message
-        return res.json("Email Already Exist");
-      }
-
-      // If user doesn't exist, create a new user
-      UserModel.create(req.body) //creation in database
-        .then((user) => res.json(user)) // Respond with the created user to the frontend
-        .catch((err) => res.status(500).json({ error: err.message })); // Handle any errors
-    })
-    .catch((err) => res.status(500).json({ error: err.message })); // Handle errors in finding the user
-});
 
 // ======================================= User Book Lists ====================================================
 app.post("/add-to-list", verifyToken, async (req, res) => {
