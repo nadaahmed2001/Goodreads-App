@@ -18,7 +18,7 @@ const {
 } = require("./controllers/authorization/authorizationMiddleware"); // Import verifyToken middleware
 const userProfileController = require("./controllers/userProfileController/userProfile");
 const UserBookList = require("./models/UserBookList");
-const {allbooks} = require("./controllers/admin/crud"); 
+// const {allbooks} = require("./controllers/admin/crud"); 
 
 const {
   getBooks,
@@ -83,38 +83,6 @@ app.get("/authors/:authorId", BookAuthor.getBooksByAuthId);
 
 app.get("/books/:bookId", bookID.getBookById);
 
-// Set up Nodemailer transporter
-const transporter = nodemailer.createTransport({
-  service: "gmail", // You can use another SMTP service, Gmail is just an example
-  auth: {
-    user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASS,
-  },
-});
-const sendWelcomeEmail = (userEmail) => {
-  const mailOptions = {
-    from: "your-email@gmail.com",
-    to: userEmail,
-    subject: "Welcome to Shelf-Sphere!",
-    text: `Hello,
-
-    Your account has been successfully created at Shelf-Sphere!
-
-    You can now log in to your account by clicking the link below:
-    http://localhost:5173/sign-in
-
-    Best regards,
-    Shelf-Sphere Team`,
-  };
-
-  transporter.sendMail(mailOptions, (error, info) => {
-    if (error) {
-      console.log("Error sending email:", error);
-    } else {
-      console.log("Email sent: " + info.response);
-    }
-  });
-};
 
 //register and login & profile
 
