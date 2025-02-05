@@ -72,7 +72,7 @@ export default function Authors({ author, setFetchTrigger }) {
                         onSave={handleSaveAuthor}
                     />
                 </div>
-                <Table striped bordered hover>
+                <Table striped bordered hover className="mt-3">
                     <thead>
                         <tr className="bg-light-subtle">
                             <th>ID</th>
