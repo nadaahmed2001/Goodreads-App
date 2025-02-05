@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import { fetchBooks } from "../../services/api";
 import BookCard from "../../../components/BookCard";
+import Navbar from "../../../components/navbar";
 
 const BooksList = () => {
   const [books, setBooks] = useState([]);
@@ -25,16 +26,20 @@ const BooksList = () => {
   if (loading) return <div className='text-center my-5'>Loading...</div>;
 
   return (
-    <Container className='my-5'>
-      <h2 className='mb-4'>All Books</h2>
-      <Row xs={1} md={2} lg={3} xl={4} className='g-4'>
-        {books.map((book) => (
-          <Col key={book._id}>
-            <BookCard book={book} />
-          </Col>
-        ))}
-      </Row>
-    </Container>
+    <>
+      <Navbar />
+
+      <Container className='my-5'>
+        <h2 className='mb-4'>All Books</h2>
+        <Row xs={1} md={2} lg={3} xl={4} className='g-4'>
+          {books.map((book) => (
+            <Col key={book._id}>
+              <BookCard book={book} />
+            </Col>
+          ))}
+        </Row>
+      </Container>
+    </>
   );
 };
 
