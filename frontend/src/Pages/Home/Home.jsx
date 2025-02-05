@@ -3,40 +3,24 @@ import "./Home.css";
 import Navbar from "./../../../components/navbar";
 import React, { useEffect, useState } from "react";
 import { fetchBooks } from "../../services/api";
-import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
+import { Link } from "react-router-dom";
 
 const HomePage = () => {
-  const navigate = useNavigate();
+
   const [books, setBooks] = useState([]);
-  const [user, setUser] = useState(null);
 
   useEffect(() => {
     fetchBooks()
       .then((response) => setBooks(response.data))
       .catch((error) => console.error("Error fetching books:", error));
 
-    const token = localStorage.getItem("token") || sessionStorage.getItem("token");
-    if (token) {
-      axios
-        .get("http://localhost:5000/profile", {
-          headers: { Authorization: `Bearer ${token}` },
-        })
-        .then((result) => setUser(result.data))
-        .catch((error) => console.log(error));
-    }
   }, []);
 
-  const logout = () => {
-    localStorage.removeItem("token");
-    sessionStorage.removeItem("token");
-    navigate("/sign-in");
-  };
+
 
   return (
     <div className="homepage">
       <Navbar />
-
       {/* Hero Section */}
       <div className='container mt-5'>
         <div className='row align-items-center'>
