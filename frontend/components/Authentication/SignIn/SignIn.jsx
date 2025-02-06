@@ -14,7 +14,7 @@ import {
   Grid,
 } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
-
+import ClickSpark from "../../../src/Pages/Profile/ClickSpark";
 export default function SignIn() {
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState('');
@@ -44,7 +44,16 @@ export default function SignIn() {
   };
 
   return (
-    <Grid container sx={{ height: "100vh", backgroundColor: "#3f8fc0" }} alignItems="center" justifyContent="center">
+    <> 
+     <ClickSpark
+  sparkColor='#fff'
+  sparkSize={12}
+  sparkRadius={25}
+  sparkCount={10}
+  duration={900}
+  
+/>
+      <Grid container sx={{ height: "100vh", backgroundColor: "#3f8fc0" }} alignItems="center" justifyContent="center" >
       <Grid item xs={12} md={6} sx={{ display: { xs: "none", md: "block" } }}>
         <img
           alt="Background"
@@ -128,11 +137,19 @@ export default function SignIn() {
 
         <Typography mt={2} fontSize="14px" color="#fff">
           Don’t have an account?{" "}
-          <Link to="/sign-up" style={{ color: 'white', fontWeight: 'bold', textDecoration: 'none' }}>
+          <Link to="/sign-up" style={{
+    color: 'white',
+    fontWeight: 'bold',
+    textDecoration: 'none',
+    position: 'relative', 
+    
+  }}>
             Sign Up
           </Link>
         </Typography>
       </Grid>
     </Grid>
+            
+    </>
   );
 }

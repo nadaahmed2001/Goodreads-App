@@ -1,9 +1,10 @@
 // controllers/authController.js
 const jwt = require("jsonwebtoken");
+const nodemailer = require("nodemailer"); // Import nodemailer for email functionality
 const UserModel = require("../../models/User");
 
 const login = (req, res) => {
-  const { email , password } = req.body;
+  const { email, password } = req.body;
 
   UserModel.findOne({ email: email })
     .then((user) => {
@@ -37,7 +38,7 @@ const sendWelcomeEmail = (userEmail) => {
   });
 
   const mailOptions = {
-    from: "your-email@gmail.com",
+    from: process.env.EMAIL_USER,  // Use environment variable for email address
     to: userEmail,
     subject: "Welcome to Shelf-Sphere!",
     text: `Hello,
