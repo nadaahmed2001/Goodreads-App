@@ -2,7 +2,6 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { useState, useEffect } from "react";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-
 import SignIn from "../components/Authentication/SignIn/SignIn";
 import SignUp from "../components/Authentication/SignUp/SignUp";
 import Register from "../components/Authentication/SignUp/Register";
@@ -23,7 +22,8 @@ import TermsConditions from "./Pages/TermsConditions/TermsConditions";
 import Login from "../components/Authentication/SignIn/Login";
 import Payment from "./Pages/Payment/Payment";
 import UserList from "./Pages/UserBookLists/UserList";
-import { Helmet } from "react-helmet";
+// import { Helmet } from "react-helmet";
+import Profile from "./Pages/Profile/Profile";
 
 function App() {
   const [category, setCategory] = useState([]);
@@ -51,6 +51,7 @@ function App() {
     <>
 
       <Router>
+      
         <Routes>
           {/* <Route path='/' element={<Home />} /> */}
           <Route path='/' element={<Homerahma />} />
@@ -70,15 +71,16 @@ function App() {
           <Route path='/login' element={<Login />} />
           <Route path='/AuthorsBook' element={<AuthorsBook />} />
           <Route path='/AuthorDetails/:authorId' element={<AuthorDetails />} />
+          <Route path='/profile' element={<Profile />} />
           <Route path='*' element={<NotFound />} />
         </Routes>
       </Router>
-      <Helmet>
+      {/* <Helmet>
         <link
           href="https://fonts.googleapis.com/css2?family=Spartan:wght@300;400;600&display=swap"
           rel="stylesheet"
         />
-      </Helmet>
+      </Helmet> */}
     </>
   );
 }

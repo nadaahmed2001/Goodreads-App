@@ -5,11 +5,17 @@ import ModalBtn from "../../assets/Reusable";
 import Placeholder from "react-bootstrap/Placeholder";
 import Modify from './Modify'
 import axios from "axios";
+import Denied from "../Profile/Denied";
+import DeniedA from "../Profile/DeniedA";
+import IsLogged from "../../../components/Authentication/IsLogged";
+// import 
 
 export default function Books({ category, author }) {
     const [books, setBooks] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
-
+    const [user, setUser] = useState(null);
+    const isUserLogged = IsLogged();
+    
     useEffect(() => {
         const fetchBooks = async () => {
             try {
@@ -29,6 +35,30 @@ export default function Books({ category, author }) {
         fetchBooks();
     }, []);
 
+    useEffect(() => {
+        if (isUserLogged) {
+            let token = localStorage.getItem("token") || sessionStorage.getItem("token");
+            axios
+                .get("http://localhost:5000/profile", {
+                    headers: { Authorization: `Bearer ${token}` },
+                })
+                .then((result) => {
+                    setUser(result.data);
+                })
+                .catch((error) => console.log(error));
+        }
+    }, [isUserLogged]);
+
+    if (!isUserLogged || !user) {
+        return <Denied />;
+    }
+
+    if (user.role !== "admin") {
+        return <>
+        
+        <DeniedA />
+        </>;
+    }
     const handleSaveBook = async (formData) => {
         try {
             let imageUrl = "";
