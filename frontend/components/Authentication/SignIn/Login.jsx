@@ -34,6 +34,7 @@ export default function Login() {
   // console.log(rememberMe)
   return (
     <Container className="mt-5">
+      
       <Row className="justify-content-md-center">
         <Col md={6}>
           <h2 className="text-center">Login</h2>
@@ -65,17 +66,19 @@ export default function Login() {
               checked={rememberMe}
               onChange={(e) => setRememberMe(e.target.checked)}
             />
+            
 
             <Button variant="primary" type="submit" className="w-100">
               Login
             </Button>
           </Form>
-
+            
           {errorMessage && <p className="mt-3 text-center text-danger">{errorMessage}</p>}
 
           <p className="mt-3 text-center">
             No Account? <Link to="/register"> SignUp</Link>
           </p>
+          
         </Col>
       </Row>
     </Container>

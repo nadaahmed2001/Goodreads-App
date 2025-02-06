@@ -4,29 +4,35 @@ const nodemailer = require("nodemailer"); // Import nodemailer for email functio
 const UserModel = require("../../models/User");
 
 const login = (req, res) => {
-  const { email, password } = req.body;
+  const { email, password, role } = req.body;
 
+  // Find the user by email
   UserModel.findOne({ email: email })
     .then((user) => {
       if (user) {
+        // Check if the password matches
         if (user.password === password) {
-          // Issue JWT Token
-          const token = jwt.sign(
-            { id: user._id, email: user.email },
-            process.env.JWT_SECRET,
-            { expiresIn: "1h" }
-          );
-          res.json({ message: "success", token });
+          // Check if the user's role matches the requested role
+          if (user.role === role) {
+            // Issue JWT Token
+            const token = jwt.sign(
+              { id: user._id, email: user.email, role: user.role }, // Include role in the token payload
+              process.env.JWT_SECRET,
+              { expiresIn: "1h" }
+            );
+            res.json({ message: "success", token });
+          } else {
+            res.status(403).json({ message: `You Are Not : ${role}`  });
+          }
         } else {
-          res.json({ message: "Incorrect password" });
+          res.status(401).json({ message: "Incorrect password" });
         }
       } else {
-        res.json({ message: "User not found" });
+        res.status(404).json({ message: "User not found" });
       }
     })
     .catch((err) => res.status(500).json({ error: err.message }));
 };
-
 // Send welcome email
 const sendWelcomeEmail = (userEmail) => {
   const transporter = nodemailer.createTransport({
