@@ -3,7 +3,6 @@ import { Form, Button, Container, Row, Col } from 'react-bootstrap';
 import { Link } from 'react-router';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-
 export default function Register() {
   const [first_name, setFirst_name] = useState();
   const [last_name, setLast_name] = useState();
@@ -40,7 +39,10 @@ export default function Register() {
   };
 
   return (
-    <Container className="mt-5">
+    <>
+   
+<Container className="mt-5" style={{ position: 'relative', zIndex: 1 }}>
+
       <Row className="justify-content-md-center">
         <Col md={6}>
           <h2 className="text-center">Sign Up</h2>
@@ -52,7 +54,7 @@ export default function Register() {
                 placeholder="Enter First Name"
                 required
                 onChange={(e) => setFirst_name(e.target.value)}
-              />
+                />
             </Form.Group>
             <Form.Group className="mb-3" controlId="formBasicname">
               <Form.Label>Last Name</Form.Label>
@@ -61,7 +63,7 @@ export default function Register() {
                 placeholder="Enter Last Name"
                 required
                 onChange={(e) => setLast_name(e.target.value)}
-              />
+                />
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="formBasicEmail">
@@ -71,7 +73,7 @@ export default function Register() {
                 placeholder="Enter email"
                 required
                 onChange={(e) => setEmail(e.target.value)}
-              />
+                />
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="formBasicPassword">
@@ -81,7 +83,7 @@ export default function Register() {
                 placeholder="Enter password"
                 required
                 onChange={(e) => setPassword(e.target.value)}
-              />
+                />
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="formConfirmPassword">
@@ -91,7 +93,7 @@ export default function Register() {
                 placeholder="Confirm password"
                 required
                 onChange={(e) => setConfirmPassword(e.target.value)}
-              />
+                />
             </Form.Group>
 
             <Button variant="primary" type="submit" className="w-100">
@@ -110,5 +112,6 @@ export default function Register() {
         </Col>
       </Row>
     </Container>
+          </>
   );
 }
