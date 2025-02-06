@@ -6,16 +6,17 @@ import Placeholder from "react-bootstrap/Placeholder";
 import Modify from './Modify'
 import axios from "axios";
 import Denied from "../Profile/Denied";
+import Button from 'react-bootstrap/Button';
 import DeniedA from "../Profile/DeniedA";
 import IsLogged from "../../../components/Authentication/IsLogged";
-// import 
+import "./Books.css"
 
 export default function Books({ category, author }) {
     const [books, setBooks] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [user, setUser] = useState(null);
     const isUserLogged = IsLogged();
-    
+
     useEffect(() => {
         const fetchBooks = async () => {
             try {
@@ -55,8 +56,8 @@ export default function Books({ category, author }) {
 
     if (user.role !== "admin") {
         return <>
-        
-        <DeniedA />
+
+            <DeniedA />
         </>;
     }
     const handleSaveBook = async (formData) => {
@@ -211,7 +212,7 @@ export default function Books({ category, author }) {
                                                 { name: "author", label: "Author", type: "dropdown" },
                                             ]}
                                         />
-                                        <button onClick={() => handleDelete(book._id)}>❌</button>
+                                        <Button variant="outline-dark" onClick={() => handleDelete(book._id)}>❌</Button>
                                     </td>
                                 </tr>
                             ))}

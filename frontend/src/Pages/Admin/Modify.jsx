@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
+
 import Dropdown from "react-bootstrap/Dropdown";
 
 function Modify({ fields, handleUpdate, initialData, category, author }) {
@@ -34,7 +35,7 @@ function Modify({ fields, handleUpdate, initialData, category, author }) {
 
     return (
         <>
-            <button onClick={handleShow}>✏️</button>
+            <Button variant="outline-dark me-2" onClick={handleShow}>✏️</Button >
 
             <Modal show={show} onHide={handleClose} centered>
                 <Modal.Header closeButton>

@@ -8,6 +8,7 @@ import Modify from "./Modify"
 import Denied from "../Profile/Denied";
 import DeniedA from "../Profile/DeniedA";
 import IsLogged from "../../../components/Authentication/IsLogged";
+import { Button } from "react-bootstrap";
 
 export default function Authors({ author, setFetchTrigger }) {
 
@@ -34,12 +35,12 @@ export default function Authors({ author, setFetchTrigger }) {
 
     if (user.role !== "admin") {
         return <>
-        
-        <DeniedA />
+
+            <DeniedA />
         </>;
     }
 
-    
+
     const handleSaveAuthor = (formData) => {
         const imageFile = formData.image;
 
@@ -156,11 +157,11 @@ export default function Authors({ author, setFetchTrigger }) {
                                         ]}
                                     />
 
-                                    <button
+                                    <Button variant="outline-dark"
                                         onClick={() => handleDelete(a._id)}>
                                         ❌
 
-                                    </button>
+                                    </Button>
                                 </td>
                             </tr>
                         ))}
