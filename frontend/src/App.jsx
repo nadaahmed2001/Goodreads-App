@@ -20,8 +20,9 @@ import AboutUs from "./Pages/AboutUs/AboutUs";
 import AuthorDetails from "../components/Authors-Book/AuthorDetails";
 import TermsConditions from "./Pages/TermsConditions/TermsConditions";
 import Login from "../components/Authentication/SignIn/Login";
-import Payment from "./Pages/Payment/Payment";
+// import Payment from "./Pages/Payment/Payment";
 import UserList from "./Pages/UserBookLists/UserList";
+import CheckoutPage from "./Pages/Payment/CheckoutPage";
 // import { Helmet } from "react-helmet";
 import Profile from "./Pages/Profile/Profile";
 
@@ -51,15 +52,16 @@ function App() {
     <>
 
       <Router>
-      
+
         <Routes>
+          <Route path="/checkout" element={<CheckoutPage />} />
           <Route path='/' element={<Home />} />
           {/* <Route path='/' element={<Homerahma />} /> */}
           <Route path='/AdminLogin' element={<AdminLogin />} />
           <Route path='/AboutUs' element={<AboutUs />} />
           <Route path="/list/:shelf" element={<UserList />} />
           <Route path='/Register' element={<Register />} />
-          <Route path="/Payment" element={<Payment />} />
+          {/* <Route path="/Payment" element={<Payment />} /> */}
           <Route path='/Categories' element={<Categories category={category} setFetchTrigger={setFetchTrigger} />} />
           <Route path='/ManageBooks' element={<ManageBooks category={category} author={author} />} />
           <Route path='/Authors' element={<Authors author={author} setFetchTrigger={setFetchTrigger} />} />
