@@ -51,8 +51,10 @@ function App() {
     <>
 
       <Router>
-      
-        <Routes>
+
+
+   <Routes>
+    
           {/* <Route path='/' element={<Home />} /> */}
           <Route path='/' element={<Homerahma />} />
           <Route path='/AdminLogin' element={<AdminLogin />} />
