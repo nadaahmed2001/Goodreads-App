@@ -4,7 +4,7 @@ const reviewSchema = new mongoose.Schema({
   rating: Number,
   comment: String,
   user: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
-  book: { type: mongoose.Schema.Types.ObjectId, ref: "Product" },
+  book: { type: mongoose.Schema.Types.ObjectId, ref: "Book" },
   createdat: { type: Date, default: Date.now },
 });
 

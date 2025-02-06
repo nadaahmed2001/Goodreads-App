@@ -1,0 +1,150 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+    color: #343a40;
+    margin: 0;
+    padding: 0;
+}
+
+/* Layout */
+.d-flex {
+    display: flex;
+}
+
+/* Sidebar Styling */
+.sidebar {
+    width: 250px;
+    background-color: #343a40;
+    min-height: 100vh;
+    padding: 20px;
+    color: white;
+}
+
+.sidebar a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    display: block;
+    padding: 10px;
+    transition: 0.3s;
+}
+
+.sidebar a:hover {
+    background-color: #495057;
+    border-radius: 5px;
+}
+
+/* Main Content */
+.flex-grow-1 {
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    margin: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Header */
+h1 {
+    font-size: 26px;
+    font-weight: bold;
+}
+
+/* Table Styles */
+.table {
+    background-color: white;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.table th {
+    background-color: #323232;
+    color: white;
+    text-align: center;
+}
+
+.table td {
+    vertical-align: middle;
+    text-align: center;
+}
+
+/* Buttons */
+button {
+    transition: all 0.3s ease;
+}
+
+button:hover {
+    opacity: 0.8;
+}
+
+/* Delete Button */
+.btn-outline-dark {
+    border: none;
+    font-size: 18px;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.btn-outline-dark:hover {
+    color: red;
+}
+
+/* Modal Button */
+.modal-btn {
+    background-color: #28a745;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.modal-btn:hover {
+    background-color: #218838;
+}
+
+/* Image Styling */
+img {
+    border-radius: 5px;
+    transition: 0.3s;
+}
+
+img:hover {
+    transform: scale(1.1);
+}
+
+/* Placeholder Animation */
+.placeholder {
+    background: #ddd;
+    animation: shimmer 1.5s infinite linear;
+}
+
+/* Loading Effect */
+@keyframes shimmer {
+    0% {
+        background-position: -100px 0;
+    }
+
+    100% {
+        background-position: 100px 0;
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .flex-grow-1 {
+        padding: 15px;
+        margin: 10px;
+    }
+
+    .table {
+        font-size: 14px;
+    }
+
+    .modal-btn {
+        padding: 8px 12px;
+        font-size: 14px;
+    }
+}
