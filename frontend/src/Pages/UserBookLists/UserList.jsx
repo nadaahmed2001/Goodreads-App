@@ -36,7 +36,7 @@ const UserList = () => {
   const handleRemove = async (bookId) => {
     try {
       console.log("Removing book with ID:", bookId);
-      const response = await removeBookFromList(bookId, shelf, token);
+      const response = await removeBookFromList(bookId,shelf, token);
       console.log("Response from server:", response.data); // Debugging line
       if (response.data.success) {
         setBooks(books.filter((book) => book.book._id !== bookId)); // Ensure correct book object reference
