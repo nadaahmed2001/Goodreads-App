@@ -37,7 +37,7 @@ export default function AuthorDetails() {
     };
 
     fetchAuthor();
-  }, [authorId]);  // Re-fetch when authorId changes
+  }, [authorId]);  
 
   if (loading) {
     return <div>Loading...</div>;
