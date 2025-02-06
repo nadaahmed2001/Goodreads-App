@@ -7,6 +7,16 @@ export const fetchBooks = () => axios.get(`${API_BASE_URL}/`);
 export const fetchBookById = (bookId) =>
   axios.get(`${API_BASE_URL}/books/${bookId}`);
 
+export const fetchReviewsByBookId = async (bookId) => {
+  try {
+    const response = await axios.get(`${API_BASE_URL}/books/${bookId}/rating`);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching reviews:", error);
+    throw error;
+  }
+};
+
 export const addBookToList = async (bookId, shelf, token) => {
   return axios.post(
     `${API_BASE_URL}/add-to-list`,
@@ -28,5 +38,8 @@ export const removeBookFromList = async (bookId, shelf, token) => {
   });
 };
 
+// export const fetchFeaturedBooks = () => axios.get(`${API_BASE_URL}/books/featured`);
+// export const fetchTrendingBooks = () => axios.get(`${API_BASE_URL}/books/trending`);
+// export const fetchBooksByCategory = (categoryId) => axios.get(`${API_BASE_URL}/books/category/${categoryId}`);
 
 
