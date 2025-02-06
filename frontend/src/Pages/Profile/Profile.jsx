@@ -5,6 +5,7 @@ import IsLogged from "../../../components/Authentication/IsLogged";
 import SplashCursor from "./SplashCursor";
 import Denied from "./Denied"
 import "./Profile.css";
+import Navbar from "../../../components/navbar";
 
 const Profile = () => {
 
@@ -33,23 +34,26 @@ const Profile = () => {
     return <div>Loading...</div>;
   }
   return (
-    <div className="profile-container">
+    <>
+      <Navbar />
+      <div className="profile-container">
         <SplashCursor />
-   
 
-      <div className="profile-card">
-        
-        <h2>Welcome, {user.first_name} {user.last_name}!</h2>
-        <p><strong>Email:</strong> {user.email}</p>
-        <p><strong>Role:</strong> {user.role}</p>
-        <p><strong>Member Since:</strong> {new Date(user.created_at).toDateString()}</p>
-        <button className="logout-btn" onClick={() => {
-          localStorage.removeItem("token");
-          sessionStorage.removeItem("token");
-          window.location.href = "/sign-in";
-        }}>Logout</button>
+
+        <div className="profile-card">
+
+          <h2>Welcome, {user.first_name} {user.last_name}!</h2>
+          <p><strong>Email:</strong> {user.email}</p>
+          <p><strong>Role:</strong> {user.role}</p>
+          <p><strong>Member Since:</strong> {new Date(user.created_at).toDateString()}</p>
+          <button className="logout-btn" onClick={() => {
+            localStorage.removeItem("token");
+            sessionStorage.removeItem("token");
+            window.location.href = "/sign-in";
+          }}>Logout</button>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 
