@@ -17,9 +17,9 @@ const {
 } = require("./controllers/authorization/authorizationMiddleware"); // Import verifyToken middleware
 const userProfileController = require("./controllers/userProfileController/userProfile");
 const UserBookList = require("./models/UserBookList");
-// const {allbooks} = require("./controllers/admin/crud"); 
-const {getBooks} = require("./controllers/admin/Book"); 
-const {getBookById} = require("./controllers/getBookbyID/bookID");
+// const {allbooks} = require("./controllers/admin/crud");
+const { getBooks } = require("./controllers/admin/Book");
+const { getBookById } = require("./controllers/getBookbyID/bookID");
 const app = express();
 
 // CORS configuration
@@ -54,18 +54,16 @@ app.get("/", async (req, res) => {
 });
 
 // Author endpoint to get all authors in books
-app.get("/authors",BookAuthor.getAuthors);
+app.get("/authors", BookAuthor.getAuthors);
 
 app.get("/authors/:authorId", BookAuthor.getBooksByAuthId);
 
 app.get("/books/:bookId", bookID.getBookById);
 
-
 //register and login & profile
 app.post("/login", authController.login); // Use the controller for the /login route
 app.post("/register", authController.register); // Use the controller for the /register route
 app.get("/profile", verifyToken, userProfileController.profile);
-
 
 //retreive the user data by verifying its token
 
@@ -73,43 +71,65 @@ app.get("/profile", verifyToken, userProfileController.profile);
 app.post("/add-to-list", verifyToken, async (req, res) => {
   const { bookId, shelf } = req.body;
   const userId = req.user.id; // Extract user ID from JWT
-  
+
   if (!userId) {
-    return res.status(401).json({ success: false, message: "You must be logged in to add books to your list." });
+    return res
+      .status(401)
+      .json({
+        success: false,
+        message: "You must be logged in to add books to your list.",
+      });
   }
 
-  if (!bookId || !shelf) { 
-    return res.status(400).json({ success: false, message: "Book ID and shelf are required." });
+  if (!bookId || !shelf) {
+    return res
+      .status(400)
+      .json({ success: false, message: "Book ID and shelf are required." });
   }
 
   try {
     // Check if the book is already in the user's list
-    const existingEntry = await UserBookList.findOne({ user: userId, book: bookId });
+    const existingEntry = await UserBookList.findOne({
+      user: userId,
+      book: bookId,
+    });
 
     console.log("existingEntry: ------------ ", existingEntry);
-    
+
     if (existingEntry) {
       // Instead of rejecting, update the existing entry's shelf
       existingEntry.shelf = shelf;
       await existingEntry.save();
-      return res.json({ success: true, message: `Book moved to ${shelf} list.` });
+      return res.json({
+        success: true,
+        message: `Book moved to ${shelf} list.`,
+      });
     }
 
     try {
       // If the book is not in any list, add it
-      const newEntry = await UserBookList.create({ user: userId, book: bookId, shelf });
-      return res.json({ success: true, message: `Book successfully added to your list: ${shelf}` });
+      const newEntry = await UserBookList.create({
+        user: userId,
+        book: bookId,
+        shelf,
+      });
+      return res.json({
+        success: true,
+        message: `Book successfully added to your list: ${shelf}`,
+      });
     } catch (error) {
       console.error("Error adding book to list:", error);
-      return res.status(500).json({ success: false, message: "Internal server error." });
+      return res
+        .status(500)
+        .json({ success: false, message: "Internal server error." });
     }
   } catch (error) {
     console.error("Error checking existing entry:", error);
-    return res.status(500).json({ success: false, message: "Internal server error." });
+    return res
+      .status(500)
+      .json({ success: false, message: "Internal server error." });
   }
 });
-
-
 
 // Get user's book list by shelf
 app.get("/get-list/:shelf", verifyToken, async (req, res) => {
@@ -118,10 +138,13 @@ app.get("/get-list/:shelf", verifyToken, async (req, res) => {
 
   try {
     console.log("Fetching books from server --> get-list");
-    const books = await UserBookList.find({ user: userId, shelf }).populate(
-      "book"
-    ).exec();
-    console.log("------------------Fetchedbooks from server --> get-list", books);
+    const books = await UserBookList.find({ user: userId, shelf })
+      .populate("book")
+      .exec();
+    console.log(
+      "------------------Fetchedbooks from server --> get-list",
+      books
+    );
     res.json({ success: true, books });
   } catch (error) {
     console.error("Error fetching list:", error);
@@ -130,19 +153,28 @@ app.get("/get-list/:shelf", verifyToken, async (req, res) => {
 });
 
 //Remove book from list
-app.delete("/remove-from-list/:bookId/:shelf", verifyToken, async (req, res) => {
-  const { bookId, shelf } = req.params;
-  const userId = req.user.id;
+app.delete(
+  "/remove-from-list/:bookId/:shelf",
+  verifyToken,
+  async (req, res) => {
+    const { bookId, shelf } = req.params;
+    const userId = req.user.id;
 
-  try {
-    console.log("(server.js) Removing book with ID:", bookId + "from shelf: " + shelf);
-    await UserBookList.deleteOne({ user: userId, book: bookId , shelf});
-    res.json({ success: true, message: "Book removed from the list." });
-  } catch (error) {
-    console.error("Error removing book:", error);
-    res.status(500).json({ success: false, message: "Internal server error." });
+    try {
+      console.log(
+        "(server.js) Removing book with ID:",
+        bookId + "from shelf: " + shelf
+      );
+      await UserBookList.deleteOne({ user: userId, book: bookId, shelf });
+      res.json({ success: true, message: "Book removed from the list." });
+    } catch (error) {
+      console.error("Error removing book:", error);
+      res
+        .status(500)
+        .json({ success: false, message: "Internal server error." });
+    }
   }
-});
+);
 
 // ================ Admin Operations ================
 
@@ -211,7 +243,7 @@ app.post("/book", (req, res) => {
 });
 
 // Get Book through Admin Panel
-app.get("/books",getBooks);
+app.get("/books", getBooks);
 
 // Delete Book through Admin Panel
 
