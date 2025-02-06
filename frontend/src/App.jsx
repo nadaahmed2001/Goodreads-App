@@ -7,7 +7,7 @@ import SignUp from "../components/Authentication/SignUp/SignUp";
 import Register from "../components/Authentication/SignUp/Register";
 import Logged from "../components/Authentication/Logged";
 import Home from "./Pages/Home/Home";
-// import Homerahma from "./Pages/Home/Homerahma";
+import Homerahma from "./Pages/Home/Homerahma";
 import BookList from "./Pages/Books/BookList";
 import BookDetails from "./Pages/Books/BookDetails";
 import AdminLogin from "./Pages/Admin/AdminLogin";
@@ -16,8 +16,11 @@ import Categories from "./Pages/Admin/Categories";
 import ManageBooks from "./Pages/Admin/ManageBooks";
 import Authors from "./Pages/Admin/Authors";
 import AuthorsBook from "../components/Authors-Book/AuthorsBook";
+import AboutUs from "./Pages/AboutUs/AboutUs";
 import AuthorDetails from "../components/Authors-Book/AuthorDetails";
+import TermsConditions from "./Pages/TermsConditions/TermsConditions";
 import Login from "../components/Authentication/SignIn/Login";
+import Payment from "./Pages/Payment/Payment";
 import UserList from "./Pages/UserBookLists/UserList";
 // import { Helmet } from "react-helmet";
 import Profile from "./Pages/Profile/Profile";
@@ -46,20 +49,23 @@ function App() {
 
   return (
     <>
-   
+
       <Router>
       
         <Routes>
-          <Route path='/' element={<Home />} />
-          {/* <Route path='/' element={<Homerahma />} />  */}
+          {/* <Route path='/' element={<Home />} /> */}
+          <Route path='/' element={<Homerahma />} />
           <Route path='/AdminLogin' element={<AdminLogin />} />
+          <Route path='/AboutUs' element={<AboutUs />} />
           <Route path="/list/:shelf" element={<UserList />} />
           <Route path='/Register' element={<Register />} />
+          <Route path="/Payment" element={<Payment />} />
           <Route path='/Categories' element={<Categories category={category} setFetchTrigger={setFetchTrigger} />} />
           <Route path='/ManageBooks' element={<ManageBooks category={category} author={author} />} />
           <Route path='/Authors' element={<Authors author={author} setFetchTrigger={setFetchTrigger} />} />
           <Route path='/books' element={<BookList />} />
           <Route path='/books/:bookId' element={<BookDetails />} />
+          <Route path="/TermsConditions" element={<TermsConditions />} />
           <Route path='/sign-up' element={<SignUp />} />
           <Route path='/sign-in' element={<SignIn />} />
           <Route path='/login' element={<Login />} />
