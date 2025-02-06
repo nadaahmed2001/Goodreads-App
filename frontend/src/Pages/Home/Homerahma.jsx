@@ -143,8 +143,8 @@ const HomePage = () => {
     </section>
     </section>
     <section className="section3">
-    <div className='container mt-5'>
-        <h2 className='fw-bold mb-4 Best-Selling-Books'>Best-Selling Books</h2>
+    <h2 className='fw-bold mb-4 Best-Selling-Books'>Best-Selling Books</h2>
+    <div className='containerBooks mt-5'>
         <div className='row g-4'>
           {books.map((book, index) => (
             <div key={index} className='col-md-3'>
@@ -167,12 +167,13 @@ const HomePage = () => {
           ))}
         </div>
 
-        <div className='text-center mt-5'>
+       
+      </div>
+      <div className='text-center mt-5'>
           <Link to='/books'>
             <button className='btn btn-primary btn-lg View-All-Books'>View All Books</button>
           </Link>
         </div>
-      </div>
       </section>
      
       <FooterPage />
