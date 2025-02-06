@@ -1,6 +1,10 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { fetchBookById, addBookToList } from "../../services/api"; // Add the API function
+import {
+  fetchBookById,
+  addBookToList,
+  fetchReviewsByBookId,
+} from "../../services/api"; // Add the API function
 
 import {
   Container,
@@ -23,12 +27,11 @@ import ReviewForm from "../../../components/ReviewForm";
 import ReviewList from "../../../components/ReviewList";
 
 const BookDetails = () => {
-   // Check if the user is authenticated
-   let token = localStorage.getItem("token");
-   if (!token)
-   {
-     token = sessionStorage.getItem("token");
-   }
+  // Check if the user is authenticated
+  let token = localStorage.getItem("token");
+  if (!token) {
+    token = sessionStorage.getItem("token");
+  }
   const dummyReviews = [
     {
       _id: "1",
@@ -94,7 +97,19 @@ const BookDetails = () => {
         console.error("Error fetching book details:", error.response || error);
       }
     };
+
+    const getReviews = async () => {
+      try {
+        const reviewsData = await fetchReviewsByBookId(bookId);
+        setReviews(reviewsData);
+      } catch (error) {
+        console.error("Error fetching reviews:", error);
+      }
+    };
+
     getBook();
+    getReviews();
+
     if (token) {
       setIsAuthenticated(true);
     }
@@ -102,7 +117,7 @@ const BookDetails = () => {
 
   const handleAddToList = async (shelf) => {
     try {
-      console.log(token)
+      console.log(token);
       if (!token) {
         alert("Please log in to add books to your list.");
         return;
