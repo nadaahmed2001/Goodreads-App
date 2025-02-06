@@ -1,7 +1,6 @@
 const express = require("express");
 // import Categories from './../frontend/src/Pages/Admin/Categories';
-conimport UserList from './../frontend/src/Pages/UserBookLists/UserList';
-st cors = require("cors");
+const cors = require("cors");
 const connectDB = require("./config/db");
 require("dotenv").config(); // Load environment variables from .env file
 const Book = require("./models/Book");
@@ -21,8 +20,6 @@ const UserBookList = require("./models/UserBookList");
 // const {allbooks} = require("./controllers/admin/crud");
 const { getBooks } = require("./controllers/admin/Book");
 const { getBookById } = require("./controllers/getBookbyID/bookID");
-
-const UserList= require("./controllers/UserListsController/UserLists");
 
 
 /*reviews fatma*/
@@ -75,16 +72,114 @@ app.post("/login", authController.login); // Use the controller for the /login r
 app.post("/register", authController.register); // Use the controller for the /register route
 app.get("/profile", verifyToken, userProfileController.profile);
 
+//retreive the user data by verifying its token
 
 // ======================================= User Book Lists ====================================================
-// Add book to list
-app.post("/add-to-list", verifyToken,  UserList.addToList);
+app.post("/add-to-list", verifyToken, async (req, res) => {
+  const { bookId, shelf } = req.body;
+  const userId = req.user.id; // Extract user ID from JWT
+
+  if (!userId) {
+    return res.status(401).json({
+      success: false,
+      message: "You must be logged in to add books to your list.",
+    });
+  }
+
+  if (!bookId || !shelf) {
+    return res
+      .status(400)
+      .json({ success: false, message: "Book ID and shelf are required." });
+  }
+
+  try {
+    // Check if the book is already in the user's list
+    const existingEntry = await UserBookList.findOne({
+      user: userId,
+      book: bookId,
+    });
+
+    console.log("existingEntry: ------------ ", existingEntry);
+
+    if (existingEntry) {
+      // Instead of rejecting, update the existing entry's shelf
+      existingEntry.shelf = shelf;
+      await existingEntry.save();
+      return res.json({
+        success: true,
+        message: `Book moved to ${shelf} list.`,
+      });
+    }
+
+    try {
+      // If the book is not in any list, add it
+      const newEntry = await UserBookList.create({
+        user: userId,
+        book: bookId,
+        shelf,
+      });
+      return res.json({
+        success: true,
+        message: `Book successfully added to your list: ${shelf}`,
+      });
+    } catch (error) {
+      console.error("Error adding book to list:", error);
+      return res
+        .status(500)
+        .json({ success: false, message: "Internal server error." });
+    }
+  } catch (error) {
+    console.error("Error checking existing entry:", error);
+    return res
+      .status(500)
+      .json({ success: false, message: "Internal server error." });
+  }
+});
 
 // Get user's book list by shelf
-app.get("/get-list/:shelf", verifyToken, UserList.getList);
+app.get("/get-list/:shelf", verifyToken, async (req, res) => {
+  const { shelf } = req.params;
+  const userId = req.user.id; // Extract user ID from JWT
+
+  try {
+    console.log("Fetching books from server --> get-list");
+    const books = await UserBookList.find({ user: userId, shelf })
+      .populate("book")
+      .exec();
+    console.log(
+      "------------------Fetchedbooks from server --> get-list",
+      books
+    );
+    res.json({ success: true, books });
+  } catch (error) {
+    console.error("Error fetching list:", error);
+    res.status(500).json({ success: false, message: "Internal server error." });
+  }
+});
 
 //Remove book from list
-app.delete("/remove-from-list/:bookId/:shelf", verifyToken, UserList.removeFromList);
+app.delete(
+  "/remove-from-list/:bookId/:shelf",
+  verifyToken,
+  async (req, res) => {
+    const { bookId, shelf } = req.params;
+    const userId = req.user.id;
+
+    try {
+      console.log(
+        "(server.js) Removing book with ID:",
+        bookId + "from shelf: " + shelf
+      );
+      await UserBookList.deleteOne({ user: userId, book: bookId, shelf });
+      res.json({ success: true, message: "Book removed from the list." });
+    } catch (error) {
+      console.error("Error removing book:", error);
+      res
+        .status(500)
+        .json({ success: false, message: "Internal server error." });
+    }
+  }
+);
 
 // ================ Admin Operations ================
 

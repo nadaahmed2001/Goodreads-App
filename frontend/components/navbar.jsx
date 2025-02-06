@@ -10,12 +10,10 @@ import {
   ShoppingCart,
 } from "lucide-react";
 import "./Navbar.css";
-// import { Helmet } from "react-helmet";
-// import "./Navbar.css";
-
 
 const Navbar = () => {
   const [user, setUser] = useState(null); // State for user data from backend
+  const [role, setRole] = useState(null); // State for user role
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -31,6 +29,7 @@ const Navbar = () => {
         })
         .then((result) => {
           setUser(result.data); // Set user data
+          setRole(result.data.role); // Set user role
         })
         .catch((error) => console.log(error));
     }
@@ -41,6 +40,7 @@ const Navbar = () => {
     sessionStorage.removeItem("token");
     navigate("/sign-in");
   };
+
   return (
     <>
       <nav>
@@ -73,6 +73,7 @@ const Navbar = () => {
                     Subscribe
                   </button>
                 </Link>
+
                 {/* My Lists Dropdown */}
                 <Dropdown align='end'>
                   <Dropdown.Toggle id='dropdown-lists' className='sign-in-btn'>
@@ -97,13 +98,17 @@ const Navbar = () => {
                 </Dropdown>
 
                 {/* User Dropdown */}
-
                 <Dropdown align='end'>
                   <Dropdown.Toggle id='dropdown-user' className='sign-in-btn'>
                     <span className='me-2 fw-medium'>{user.first_name}</span>
                   </Dropdown.Toggle>
 
                   <Dropdown.Menu>
+                    {role === "admin" && (
+                      <Dropdown.Item as={Link} to='/categories'>
+                        Admin Dashboard
+                      </Dropdown.Item>
+                    )}
                     <Dropdown.Item as={Link} to='/profile'>
                       Profile
                     </Dropdown.Item>
@@ -132,7 +137,7 @@ const Navbar = () => {
               </Link>
             </li>
             <li>
-              <Link to='/Categories' className='hoverlink'>
+              <Link to='/' className='hoverlink'>
                 Category
               </Link>
             </li>
