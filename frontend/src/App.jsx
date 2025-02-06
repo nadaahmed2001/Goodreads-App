@@ -53,8 +53,8 @@ function App() {
       <Router>
       
         <Routes>
-          {/* <Route path='/' element={<Home />} /> */}
-          <Route path='/' element={<Homerahma />} />
+          <Route path='/' element={<Home />} />
+          {/* <Route path='/' element={<Homerahma />} /> */}
           <Route path='/AdminLogin' element={<AdminLogin />} />
           <Route path='/AboutUs' element={<AboutUs />} />
           <Route path="/list/:shelf" element={<UserList />} />

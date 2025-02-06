@@ -12,7 +12,7 @@ import {
 import "./Navbar.css";
 // import { Helmet } from "react-helmet";
 // import "./Navbar.css";
-import "./Navbar.css";
+
 
 const Navbar = () => {
   const [user, setUser] = useState(null); // State for user data from backend

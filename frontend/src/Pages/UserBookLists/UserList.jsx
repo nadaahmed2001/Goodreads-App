@@ -3,6 +3,8 @@ import { useParams } from "react-router-dom";
 import { getUserList, removeBookFromList } from "../../services/api";
 import { Container, Row, Col, Button, Alert } from "react-bootstrap";
 import BookCard from "../../../components/BookCard";
+import Navbar from "./../../../components/navbar";
+import FooterPage from "../Footer/FooterPage";
 
 const UserList = () => {
   const { shelf } = useParams();
@@ -34,7 +36,7 @@ const UserList = () => {
   const handleRemove = async (bookId) => {
     try {
       console.log("Removing book with ID:", bookId);
-      const response = await removeBookFromList(bookId,shelf, token);
+      const response = await removeBookFromList(bookId, shelf, token);
       console.log("Response from server:", response.data); // Debugging line
       if (response.data.success) {
         setBooks(books.filter((book) => book.book._id !== bookId)); // Ensure correct book object reference
@@ -44,36 +46,40 @@ const UserList = () => {
       setError("Could not remove book. It may not be in your list.");
     }
   };
-  
+
   return (
-    <Container className="my-5">
-      <h2 className="mb-4">{shelf.replace("_", " ").toUpperCase()}</h2>
-      
-      {error && <Alert variant="danger">{error}</Alert>} {/* Show error messages */}
+    <>
+      <Navbar />
+      <Container className="my-5">
+        <h2 className="mb-4">{shelf.replace("_", " ").toUpperCase()}</h2>
 
-      <Row xs={1} md={2} lg={3} xl={4} className='g-4'>
-  {/* If books array has items */}
-  {books.length > 0 ? (
-    books
-      .filter((book) => book.book) // Filter out books where book.book is null
-      .map((book) => (
-        <Col key={book.book._id}>
-          <BookCard book={book} showShelf={true} />
-          <Button
-            variant="danger"
-            className="w-100"
-            onClick={() => handleRemove(book.book._id)}
-          >
-            Remove
-          </Button>
-        </Col>
-      ))
-  ) : (
-    <p className="text-center">No books in this list.</p>
-  )}
-</Row>
+        {error && <Alert variant="danger">{error}</Alert>} {/* Show error messages */}
 
-    </Container>
+        <Row xs={1} md={2} lg={3} xl={4} className='g-4'>
+          {/* If books array has items */}
+          {books.length > 0 ? (
+            books
+            .filter((book) => book.book) // Filter out books where book.book is null
+            .map((book) => (
+              <Col key={book.book._id}>
+                <BookCard book={book} />
+                <Button
+                  variant="danger"
+                  className="w-100"
+                  onClick={() => handleRemove(book.book._id)}
+                >
+                  Remove
+                </Button>
+              </Col>
+              ))
+          ) : (
+            <p className="text-center">No books in this list.</p>
+          )}
+        </Row>
+
+      </Container>
+      <FooterPage />
+    </>
   );
 };
 
