@@ -20,6 +20,12 @@ const UserBookList = require("./models/UserBookList");
 // const {allbooks} = require("./controllers/admin/crud");
 const { getBooks } = require("./controllers/admin/Book");
 const { getBookById } = require("./controllers/getBookbyID/bookID");
+
+/*reviews fatma*/
+const reviewRoutes = require("./routes/reviewRoutes");
+app.use("/api", reviewRoutes);
+/*reviews fatma*/
+
 const app = express();
 
 // CORS configuration
@@ -73,12 +79,10 @@ app.post("/add-to-list", verifyToken, async (req, res) => {
   const userId = req.user.id; // Extract user ID from JWT
 
   if (!userId) {
-    return res
-      .status(401)
-      .json({
-        success: false,
-        message: "You must be logged in to add books to your list.",
-      });
+    return res.status(401).json({
+      success: false,
+      message: "You must be logged in to add books to your list.",
+    });
   }
 
   if (!bookId || !shelf) {
