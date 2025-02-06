@@ -34,7 +34,7 @@ export default function SignIn() {
 
     axios.post('http://localhost:5000/login', { email, password, role })
     .then(result => {
-      console.log("Login Response:", result); // Debugging
+      // console.log("Login Response:", result); // Debugging
       if (result.data.message === "success") {
         if (rememberMe) {
           localStorage.setItem('token', result.data.token);
