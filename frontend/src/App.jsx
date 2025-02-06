@@ -53,10 +53,18 @@ function App() {
 
       <Router>
 
+<<<<<<< HEAD
         <Routes>
           <Route path="/checkout" element={<CheckoutPage />} />
           <Route path='/' element={<Home />} />
           {/* <Route path='/' element={<Homerahma />} /> */}
+=======
+
+   <Routes>
+    
+          {/* <Route path='/' element={<Home />} /> */}
+          <Route path='/' element={<Homerahma />} />
+>>>>>>> bb5f235bc405b3c7917c431c844f2bc34ba2840a
           <Route path='/AdminLogin' element={<AdminLogin />} />
           <Route path='/AboutUs' element={<AboutUs />} />
           <Route path="/list/:shelf" element={<UserList />} />

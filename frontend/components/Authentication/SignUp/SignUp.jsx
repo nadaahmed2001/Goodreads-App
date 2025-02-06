@@ -8,7 +8,7 @@ import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-
+import ClickSpark from "../../../src/Pages/Profile/ClickSpark";
 export default function SignUp() {
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
@@ -84,6 +84,15 @@ export default function SignUp() {
   };
 
   return (
+    <>
+    <ClickSpark
+  sparkColor='#fff'
+  sparkSize={10}
+  sparkRadius={15}
+  sparkCount={8}
+  duration={400}
+  
+/>
     <Box sx={{ display: "flex", height: "100vh", backgroundColor: "#3f8fc0" }}>
       {/* Left Section */}
       <Box sx={{
@@ -111,19 +120,19 @@ export default function SignUp() {
             value={formData.firstName} onChange={handleChange}
             error={!!errors.firstName} helperText={errors.firstName}
             sx={{ mb: 3, input: { color: 'white' }, '& .MuiInput-underline:before': { borderBottomColor: 'white' } }}
-          />
+            />
 
           <TextField fullWidth name="lastName" placeholder="Last Name" variant="standard"
             value={formData.lastName} onChange={handleChange}
             error={!!errors.lastName} helperText={errors.lastName}
             sx={{ mb: 3, input: { color: 'white' }, '& .MuiInput-underline:before': { borderBottomColor: 'white' } }}
-          />
+            />
 
           <TextField fullWidth name="email" placeholder="Email Address" variant="standard"
             value={formData.email} onChange={handleChange}
             error={!!errors.email} helperText={errors.email}
             sx={{ mb: 3, input: { color: 'white' }, '& .MuiInput-underline:before': { borderBottomColor: 'white' } }}
-          />
+            />
 
           <TextField fullWidth type={showPassword ? 'text' : 'password'} name="password"
             placeholder="Password" variant="standard" value={formData.password} onChange={handleChange}
@@ -138,13 +147,13 @@ export default function SignUp() {
               ),
             }}
             sx={{ mb: 3, input: { color: 'white' }, '& .MuiInput-underline:before': { borderBottomColor: 'white' } }}
-          />
+            />
 
           <TextField fullWidth type="password" name="confirmPassword"
             placeholder="Confirm Password" variant="standard" value={formData.confirmPassword} onChange={handleChange}
             error={!!errors.confirmPassword} helperText={errors.confirmPassword}
             sx={{ mb: 4, input: { color: 'white' }, '& .MuiInput-underline:before': { borderBottomColor: 'white' } }}
-          />
+            />
 
           <Button fullWidth type="submit" variant="contained"
             sx={{ backgroundColor: "#d9d9d9", color: "#333", py: 1.5, mb: 3, '&:hover': { backgroundColor: "#c0c0c0" } }}>
@@ -172,12 +181,19 @@ export default function SignUp() {
 
           <Typography sx={{ color: 'white', textAlign: 'center' }}>
             Already have an account?{' '}
-            <Link to="/sign-in" style={{ color: 'white', fontWeight: 'bold' }}>
+            <Link to="/sign-in" style={{
+    color: 'white',
+    fontWeight: 'bold',
+    textDecoration: 'none',
+    position: 'relative', 
+    
+  }}>
               Sign in
             </Link>
           </Typography>
         </Box>
       </Box>
     </Box>
+                  </>
   );
 }
