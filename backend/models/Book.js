@@ -15,3 +15,13 @@ const bookSchema = new mongoose.Schema({
 
 const Book = mongoose.model("Book", bookSchema); //table
 module.exports = Book;
+
+/*reviews fatma*/
+bookSchema.virtual("averageRating").get(function () {
+  if (this.reviews.length === 0) return 0;
+  return (
+    this.reviews.reduce((acc, review) => acc + review.rating, 0) /
+    this.reviews.length
+  );
+});
+/*reviews fatma*/

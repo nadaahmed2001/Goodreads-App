@@ -2,28 +2,69 @@
 import React from "react";
 import { Card, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import StarRating from "./StarRating";
 
 const BookCard = ({ book }) => {
+  // const { bookId } = useParams();
+  // const [reviews, setReviews] = useState([]);
+  // const [loadingReviews, setLoadingReviews] = useState(true);
+
+  // useEffect(() => {
+  //   // const getBook = async () => {
+  //   //   try {
+  //   //     const response = await fetchBookById(bookId);
+  //   //     setBook(response.data);
+  //   //   } catch (error) {
+  //   //     console.error("Error fetching book details:", error.response || error);
+  //   //   }
+  //   // };
+  //   // getBook();
+
+  //   const fetchReviews = async () => {
+  //     try {
+  //       const response = await fetchBookReviews(bookId);
+  //       setReviews(response.data);
+  //       setLoadingReviews(false);
+  //     } catch (error) {
+  //       console.error("Error fetching reviews:", error);
+  //       setLoadingReviews(false);
+  //     }
+  //   };
+  //   if (bookId) {
+  //     fetchReviews();
+  //   }
+  // }, [bookId]);
+
   return (
-    <Card className="h-100 shadow-sm book-card">
+    <Card className='h-100 shadow-sm book-card'>
       <Card.Img
-        variant="top"
+        variant='top'
         src={book.coverImage}
         alt={book.title}
-        className="card-img-top"
+        className='card-img-top'
         style={{ height: "300px", objectFit: "cover" }}
       />
-      <Card.Body className="d-flex flex-column">
-        <Card.Title className="card-title">{book.title}</Card.Title>
-        <Card.Text className="text-muted">Author: {book.author?.name}</Card.Text>
+      <Card.Body className='d-flex flex-column'>
+        <Card.Title className='card-title'>{book.title}</Card.Title>
+        <Card.Text className='text-muted'>
+          Author: {book.author?.name}
+        </Card.Text>
 
-        <div className="d-flex justify-content-between mt-2">
-          <span className="text-muted">⭐⭐⭐⭐⭐</span>
+        <div className='d-flex justify-content-between mt-2'>
+          <StarRating
+            className='mb-4'
+            maxRating={5}
+            size={30}
+            defaultRating={book.rating}
+            isReadOnly={true}
+          >
+            {book.rating}/5
+          </StarRating>
         </div>
 
-        <div className="d-grid">
+        <div className='d-grid'>
           <Link to={`/books/${book._id}`}>
-            <Button variant="outline-primary" className="mt-2">
+            <Button variant='outline-primary' className='mt-2'>
               View Details
             </Button>
           </Link>

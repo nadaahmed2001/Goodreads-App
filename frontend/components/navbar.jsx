@@ -20,16 +20,16 @@ const Navbar = () => {
 
   useEffect(() => {
     // Fetch user profile if token exists
-    let token = localStorage.getItem('token');
+    let token = localStorage.getItem("token");
     if (!token) {
-      token = sessionStorage.getItem('token');
+      token = sessionStorage.getItem("token");
     }
     if (token) {
-      axios.get('http://localhost:5000/profile', {
-        headers: { Authorization: `Bearer ${token}` }
-      })
-        .then(result => {
-
+      axios
+        .get("http://localhost:5000/profile", {
+          headers: { Authorization: `Bearer ${token}` },
+        })
+        .then((result) => {
           setUser(result.data); // Set user data
         })
         .catch((error) => console.log(error));
@@ -43,12 +43,10 @@ const Navbar = () => {
   };
   return (
     <>
-
-
       <nav>
-        <div className="nav-top">
-          <div className="imgLogo">
-            <img src="./public/BookAppLogo.png" alt="logo" />
+        <div className='nav-top'>
+          <div className='imgLogo'>
+            <img src='../BookAppLogo.png' alt='logo' />
           </div>
           <div className='Searchinput'>
             <input
@@ -70,16 +68,18 @@ const Navbar = () => {
 
             {user ? (
               <>
-                <Link to="/Payment">
-                  <button className="button-85" role="button">Subscribe</button>
+                <Link to='/Payment'>
+                  <button className='button-85' role='button'>
+                    Subscribe
+                  </button>
                 </Link>
                 {/* My Lists Dropdown */}
-                <Dropdown align='end' >
-                  <Dropdown.Toggle id='dropdown-lists' className="sign-in-btn">
+                <Dropdown align='end'>
+                  <Dropdown.Toggle id='dropdown-lists' className='sign-in-btn'>
                     <span className='me-2 fw-medium'>My Lists</span>
                   </Dropdown.Toggle>
 
-                  <Dropdown.Menu >
+                  <Dropdown.Menu>
                     <Dropdown.Item
                       onClick={() => navigate("/list/currently_reading")}
                     >
@@ -99,7 +99,7 @@ const Navbar = () => {
                 {/* User Dropdown */}
 
                 <Dropdown align='end'>
-                  <Dropdown.Toggle id='dropdown-user' className="sign-in-btn">
+                  <Dropdown.Toggle id='dropdown-user' className='sign-in-btn'>
                     <span className='me-2 fw-medium'>{user.first_name}</span>
                   </Dropdown.Toggle>
 
@@ -113,12 +113,11 @@ const Navbar = () => {
               </>
             ) : (
               <>
-
-                <Link to="/sign-up">
-                  <button className="sign-in-btn">Sign up</button>
+                <Link to='/sign-up'>
+                  <button className='sign-in-btn'>Sign up</button>
                 </Link>
-                <Link to="/sign-in">
-                  <button className="log-in-btn">Log in</button>
+                <Link to='/sign-in'>
+                  <button className='log-in-btn'>Log in</button>
                 </Link>
               </>
             )}
@@ -128,19 +127,29 @@ const Navbar = () => {
         <div className='NavList'>
           <ul>
             <li>
-              <Link to='/' className="hoverlink">Home</Link>
+              <Link to='/' className='hoverlink'>
+                Home
+              </Link>
             </li>
             <li>
-              <Link to='/Categories' className="hoverlink">Category</Link>
+              <Link to='/Categories' className='hoverlink'>
+                Category
+              </Link>
             </li>
             <li>
-              <Link to='/AuthorsBook' className="hoverlink">Authors</Link>
+              <Link to='/AuthorsBook' className='hoverlink'>
+                Authors
+              </Link>
             </li>
             <li>
-              <Link to='/AboutUs' className="hoverlink">About Us</Link>
+              <Link to='/AboutUs' className='hoverlink'>
+                About Us
+              </Link>
             </li>
             <li>
-              <Link to='/TermsConditions' className="hoverlink">Terms & Conditions</Link>
+              <Link to='/TermsConditions' className='hoverlink'>
+                Terms & Conditions
+              </Link>
             </li>
           </ul>
         </div>
@@ -150,4 +159,3 @@ const Navbar = () => {
 };
 
 export default Navbar;
-

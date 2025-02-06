@@ -27,6 +27,16 @@ export const removeBookFromList = async (bookId, token) => {
   });
 };
 
+/*reviews fatma*/
+export const fetchBookReviews = (bookId) =>
+  axios.get(`${API_BASE_URL}/api/books/${bookId}/reviews`);
+
+export const submitReview = (bookId, reviewData, token) =>
+  axios.post(`${API_BASE_URL}/api/books/${bookId}/reviews`, reviewData, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+/*reviews fatma*/
+
 // export const fetchFeaturedBooks = () => axios.get(`${API_BASE_URL}/books/featured`);
 // export const fetchTrendingBooks = () => axios.get(`${API_BASE_URL}/books/trending`);
 // export const fetchBooksByCategory = (categoryId) => axios.get(`${API_BASE_URL}/books/category/${categoryId}`);
