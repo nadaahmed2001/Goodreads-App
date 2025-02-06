@@ -1,11 +1,45 @@
 import React from "react";
+import { useState, useEffect } from "react";
 import Sidebar from "./Sidebar";
 import Table from "react-bootstrap/Table";
 import ModalBtn from "../../assets/Reusable";
 import axios from "axios";
 import Modify from "./Modify"
+import Denied from "../Profile/Denied";
+import DeniedA from "../Profile/DeniedA";
+import IsLogged from "../../../components/Authentication/IsLogged";
 
 export default function Authors({ author, setFetchTrigger }) {
+
+    const [user, setUser] = useState(null);
+    const isUserLogged = IsLogged();
+
+    useEffect(() => {
+        if (isUserLogged) {
+            let token = localStorage.getItem("token") || sessionStorage.getItem("token");
+            axios
+                .get("http://localhost:5000/profile", {
+                    headers: { Authorization: `Bearer ${token}` },
+                })
+                .then((result) => {
+                    setUser(result.data);
+                })
+                .catch((error) => console.log(error));
+        }
+    }, [isUserLogged]);
+
+    if (!isUserLogged || !user) {
+        return <Denied />;
+    }
+
+    if (user.role !== "admin") {
+        return <>
+        
+        <DeniedA />
+        </>;
+    }
+
+    
     const handleSaveAuthor = (formData) => {
         const imageFile = formData.image;
 
