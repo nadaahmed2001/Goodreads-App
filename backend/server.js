@@ -5,7 +5,6 @@ const connectDB = require("./config/db");
 require("dotenv").config(); // Load environment variables from .env file
 const Book = require("./models/Book");
 const Author = require("./models/Author");
-const UserModel = require("./models/User");
 const Category = require("./models/Category");
 const jwt = require("jsonwebtoken");
 const TempBooks = require("./models/TempBooks");
@@ -19,30 +18,8 @@ const {
 const userProfileController = require("./controllers/userProfileController/userProfile");
 const UserBookList = require("./models/UserBookList");
 // const {allbooks} = require("./controllers/admin/crud"); 
-
-const {
-  getBooks,
-  postBook,
-  updateBook,
-  deleteBook,
-} = require("./controllers/admin/Book");
-
-const {
-  getCategories,
-  postCategory,
-  updateCategory,
-  deleteCategory,
-} = require("./controllers/admin/Category");
-
-const {
-  getAuthors,
-  postAuthor,
-  updateAuthor,
-  deleteAuthor,
-} = require("./controllers/admin/Author");
-
-const { getBookById } = require("./controllers/getBookbyID/bookID");
-
+const {getBooks} = require("./controllers/admin/Book"); 
+const {getBookById} = require("./controllers/getBookbyID/bookID");
 const app = express();
 
 // CORS configuration
@@ -85,10 +62,10 @@ app.get("/books/:bookId", bookID.getBookById);
 
 
 //register and login & profile
-
 app.post("/login", authController.login); // Use the controller for the /login route
 app.post("/register", authController.register); // Use the controller for the /register route
 app.get("/profile", verifyToken, userProfileController.profile);
+
 
 //retreive the user data by verifying its token
 
@@ -151,45 +128,152 @@ app.delete("/remove-from-list/:bookId", verifyToken, async (req, res) => {
 
 // ======== Category ========
 
-// Post Category through Admin Panel  ^T Execute
-app.post("/category", postCategory);
+// Post Category through Admin Panel
+app.post("/category", (req, res) => {
+  Category.create(req.body)
+    .then((cat) => {
+      console.log("category added:", cat); // Log full book details
+      res.json(cat); // Send full book object to frontend
+    })
+    .catch((err) => res.status(500).json({ error: err.message }));
+});
 
 // Get Category through Admin Panel
-app.get("/categories", getCategories);
+app.get("/categories", async (req, res) => {
+  try {
+    const categories = await Category.find();
+    res.json(categories);
+  } catch (err) {
+    res.status(500).json({ error: "Failed to fetch categories" });
+  }
+});
 // Delete Category through Admin Panel
-app.delete("/category/:id", deleteCategory);
+app.delete("/category/:id", async (req, res) => {
+  try {
+    const categoryId = req.params.id;
+    const deletedCategory = await Category.findByIdAndDelete(categoryId);
+    if (!deletedCategory) {
+      return res.status(404).json({ error: "Category not found" });
+    }
+    res.json({
+      message: "Category deleted successfully",
+      category: deletedCategory,
+    });
+  } catch (err) {
+    res.status(500).json({ error: "Failed to delete category" });
+  }
+});
 
 // Put Category through Admin Panel
 
-app.put("/category/:id", updateCategory);
+app.put("/category/:id", (req, res) => {
+  Category.findByIdAndUpdate(req.params.id, req.body, { new: true }) //first parameter is ID , second parameter is the updated changes , third parameter `new: true` returns updated doc
+    .then((updatedCategory) => {
+      if (!updatedCategory) {
+        return res.status(404).json({ error: "Category not found" });
+      }
+      console.log("Category updated:", updatedCategory);
+      res.json(updatedCategory);
+    })
+    .catch((err) => res.status(500).json({ error: err.message }));
+});
 
 // ======== Book ========
+// Post Book through Admin Panel
+
+app.post("/book", (req, res) => {
+  Book.create(req.body)
+    .then((book) => {
+      console.log("Book added:", book); // Log full book details
+      res.json(book); // Send full book object to frontend
+    })
+    .catch((err) => res.status(500).json({ error: err.message }));
+});
 
 // Get Book through Admin Panel
-app.get("/books", getBooks);
-
-// Post Book through Admin Panel
-app.post("/book", postBook);
-
-// Put Book through Admin Panel
-app.put("/book/:id", updateBook);
+app.get("/books",getBooks);
 
 // Delete Book through Admin Panel
-app.delete("/book/:id", deleteBook);
+
+app.delete("/book/:id", async (req, res) => {
+  try {
+    const bookId = req.params.id;
+    const deletedBook = await Book.findByIdAndDelete(bookId);
+    if (!deletedBook) {
+      return res.status(404).json({ error: "Category not found" });
+    }
+    res.json({
+      message: "Book deleted successfully",
+      category: deletedBook,
+    });
+  } catch (err) {
+    res.status(500).json({ error: "Failed to delete book" });
+  }
+});
+
+app.put("/book/:id", (req, res) => {
+  Book.findByIdAndUpdate(req.params.id, req.body, { new: true }) //first parameter is ID , second parameter is the updated changes , third parameter `new: true` returns updated doc
+    .then((updatedBook) => {
+      if (!updatedBook) {
+        return res.status(404).json({ error: "Bood not found" });
+      }
+      console.log("Book updated:", updatedBook);
+      res.json(updatedBook);
+    })
+    .catch((err) => res.status(500).json({ error: err.message }));
+});
 
 // ======== Author ========
 
 // Add Author through Admin Panel
-app.post("/author", postAuthor);
+app.post("/author", (req, res) => {
+  Author.create(req.body)
+    .then((author) => {
+      console.log("Author added:", author); // Log full book details
+      res.json(author); // Send full book object to frontend
+    })
+    .catch((err) => res.status(500).json({ error: err.message }));
+});
 
 // Get Author through Admin Panel
-app.get("/authors", getAuthors);
+app.get("/authors", async (req, res) => {
+  try {
+    const authors = await Author.find();
+    res.json(authors);
+  } catch (err) {
+    res.status(500).json({ error: "Failed to fetch authors" });
+  }
+});
 
 // Delete Author through Admin Panel
 
-app.delete("/authorsAdmin/:id", deleteAuthor);
+app.delete("/authorsAdmin/:id", async (req, res) => {
+  try {
+    const authorId = req.params.id;
+    const deletedAuthor = await Author.findByIdAndDelete(authorId);
+    if (!deletedAuthor) {
+      return res.status(404).json({ error: "Author not found" });
+    }
+    res.json({
+      message: "Author deleted successfully",
+      category: deletedAuthor,
+    });
+  } catch (err) {
+    res.status(500).json({ error: "Failed to delete author" });
+  }
+});
 
-app.put("/authorsAdmin/:id", updateAuthor);
+app.put("/authorsAdmin/:id", async (req, res) => {
+  Author.findByIdAndUpdate(req.params.id, req.body, { new: true })
+    .then((updatedAuthor) => {
+      if (!updatedAuthor) {
+        return res.status(404).json({ error: "Author not found" });
+      }
+      console.log("Author updated:", updatedAuthor);
+      res.json(updatedAuthor);
+    })
+    .catch((err) => res.status(500).json({ error: err.message }));
+});
 
 // const PORT = process.env.PORT || 5000;
 const PORT = 5000;

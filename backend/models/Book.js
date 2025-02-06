@@ -6,9 +6,12 @@ const bookSchema = new mongoose.Schema({
   author: { type: mongoose.Schema.Types.ObjectId, ref: "Author" },
   description: String,
   coverImage: String,
-  rating: Number,
-  featured: Boolean,
-  trending: Boolean,
+  demo: String,
+  fullBook: String,
+  rating: { type: Number, default: 0 },
+  rating: { type: String, default: 0 },
+  featured: { type: Boolean, default: false },
+  trending: { type: Boolean, default: false },
 });
 
 const Book = mongoose.model("Book", bookSchema); //table

@@ -6,10 +6,38 @@ import Button from 'react-bootstrap/Button';
 import ModalBtn from '../../assets/Reusable';
 import Modify from '../Admin/Modify';
 import axios from 'axios';
+import IsLogged from "../../../components/Authentication/IsLogged";
+import DeniedA from "../Profile/DeniedA";
+import Denied from "../Profile/Denied";
 
 
 export default function Categories({ category, setFetchTrigger }) {
+    const [user, setUser] = useState(null);
+    const isUserLogged = IsLogged();
 
+    useEffect(() => {
+        if (isUserLogged) {
+            let token = localStorage.getItem("token") || sessionStorage.getItem("token");
+            axios
+                .get("http://localhost:5000/profile", {
+                    headers: { Authorization: `Bearer ${token}` },
+                })
+                .then((result) => {
+                    setUser(result.data);
+                })
+                .catch((error) => console.log(error));
+        }
+    }, [isUserLogged]);
+
+    if (!isUserLogged || !user) {
+        return <Denied />;
+    }
+
+    if (user.role !== "admin") {
+        return <>
+            <DeniedA />
+        </>;
+    }
     const handleSaveCategory = (formData) => {
         axios.post(`http://localhost:5000/category`, { name: formData.name })
             .then((response) => {

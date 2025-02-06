@@ -2,8 +2,10 @@ import { useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
+
 import axios from "axios";
 import Dropdown from "react-bootstrap/Dropdown";
+import SplashCursor from "../Pages/Profile/SplashCursor";
 
 export default function ModalBtn({ title, fields, onSave, category, author }) {
     const [show, setShow] = useState(false);
@@ -59,7 +61,8 @@ export default function ModalBtn({ title, fields, onSave, category, author }) {
 
     return (
         <>
-            <Button className="fs-5" variant="dark" onClick={handleShow}>
+            <SplashCursor />
+            <Button className="fs-" variant="dark" onClick={handleShow}>
                 Add {title}
             </Button>
 
