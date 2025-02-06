@@ -286,6 +286,10 @@ const BookDetails = () => {
     };
     getBook();
 
+      if (token) {
+    setIsAuthenticated(true);
+  }
+
     const fetchReviews = async () => {
       try {
         const response = await fetchBookReviews(bookId);

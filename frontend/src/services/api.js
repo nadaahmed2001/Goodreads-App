@@ -16,13 +16,14 @@ export const addBookToList = async (bookId, shelf, token) => {
 };
 
 export const getUserList = async (shelf, token) => {
+  console.log("From api.js: now will request the books from server");
   return axios.get(`${API_BASE_URL}/get-list/${shelf}`, {
     headers: { Authorization: `Bearer ${token}` },
   });
 };
 
-export const removeBookFromList = async (bookId, token) => {
-  return axios.delete(`${API_BASE_URL}/remove-from-list/${bookId}`, {
+export const removeBookFromList = async (bookId, shelf, token) => {
+  return axios.delete(`${API_BASE_URL}/remove-from-list/${bookId}/${shelf}`, {
     headers: { Authorization: `Bearer ${token}` },
   });
 };
