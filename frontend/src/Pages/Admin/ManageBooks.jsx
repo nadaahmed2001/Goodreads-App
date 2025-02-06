@@ -5,6 +5,8 @@ import ModalBtn from "../../assets/Reusable";
 import Placeholder from "react-bootstrap/Placeholder";
 import Modify from './Modify'
 import axios from "axios";
+import { Button } from "react-bootstrap";
+
 
 export default function Books({ category, author }) {
     const [books, setBooks] = useState([]);
@@ -110,6 +112,8 @@ export default function Books({ category, author }) {
                             { name: "description", label: "Book Description", type: "text" },
                             { name: "category", label: "Choose Category", type: "dropdown" },
                             { name: "author", label: "Choose Author", type: "dropdown" },
+                            { name: "demo", label: "Demo", type: "text" },
+                            { name: "fullBook", label: "Full Book", type: "file" },
                             { name: "image", label: "Upload Cover Image", type: "file" }, // Add file input
                         ]}
                         onSave={handleSaveBook}
@@ -125,6 +129,8 @@ export default function Books({ category, author }) {
                             <th>Description</th>
                             <th>Category</th>
                             <th>Author</th>
+                            <th>Demo</th>
+                            <th>Full Book</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -165,8 +171,10 @@ export default function Books({ category, author }) {
                                     <td>{book.title}</td>
                                     <td>{book.description}</td>
                                     <td>{category?.find(cat => cat._id === book?.category)?.name || '-'}</td>
-                                    {/* <td>{book.author.name}</td> */}
-                                    <td>{author?.find(a => a._id === book?.author)?.name || book?.author?.name || '-'}</td>
+                                    <td>{book.author.name}</td>
+                                    <td>{book.demo}</td>
+                                    <td>{book.fullBook}</td>
+                                    {/* <td>{author?.find(a => a._id === book?.author)?.name || book?.author?.name || '-'}</td> */}
                                     <td>
                                         <Modify
                                             title="Book"
@@ -181,7 +189,7 @@ export default function Books({ category, author }) {
                                                 { name: "author", label: "Author", type: "dropdown" },
                                             ]}
                                         />
-                                        <button onClick={() => handleDelete(book._id)}>❌</button>
+                                        <Button variant="outline-dark" onClick={() => handleDelete(book._id)}>❌</Button>
                                     </td>
                                 </tr>
                             ))}

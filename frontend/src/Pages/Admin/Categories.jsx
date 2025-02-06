@@ -81,7 +81,7 @@ export default function Categories({ category, setFetchTrigger }) {
                                             { name: "name", label: "Category", type: "text" },
                                         ]}
                                     />
-                                    <button onClick={() => handleDelete(c._id)}>❌</button>
+                                    <Button variant="outline-dark" onClick={() => handleDelete(c._id)}>❌</Button>
 
                                 </td>
                             </tr>

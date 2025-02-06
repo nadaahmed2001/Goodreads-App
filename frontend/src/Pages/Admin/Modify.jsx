@@ -34,7 +34,7 @@ function Modify({ fields, handleUpdate, initialData, category, author }) {
 
     return (
         <>
-            <button onClick={handleShow}>✏️</button>
+            <Button className='me-2' variant="outline-dark" onClick={handleShow}>✏️</Button>
 
             <Modal show={show} onHide={handleClose} centered>
                 <Modal.Header closeButton>

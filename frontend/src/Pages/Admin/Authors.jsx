@@ -4,6 +4,8 @@ import Table from "react-bootstrap/Table";
 import ModalBtn from "../../assets/Reusable";
 import axios from "axios";
 import Modify from "./Modify"
+import { Button } from "react-bootstrap";
+
 
 export default function Authors({ author, setFetchTrigger }) {
     const handleSaveAuthor = (formData) => {
@@ -122,11 +124,11 @@ export default function Authors({ author, setFetchTrigger }) {
                                         ]}
                                     />
 
-                                    <button
+                                    <Button
+                                        variant="outline-dark"
                                         onClick={() => handleDelete(a._id)}>
                                         ❌
-
-                                    </button>
+                                    </Button>
                                 </td>
                             </tr>
                         ))}
