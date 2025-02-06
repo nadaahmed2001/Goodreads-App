@@ -13,21 +13,24 @@ import Denied from "../Profile/Denied";
 
 export default function Categories({ category, setFetchTrigger }) {
     const [user, setUser] = useState(null);
+
     const isUserLogged = IsLogged();
 
-    useEffect(() => {
-        if (isUserLogged) {
-            let token = localStorage.getItem("token") || sessionStorage.getItem("token");
-            axios
-                .get("http://localhost:5000/profile", {
-                    headers: { Authorization: `Bearer ${token}` },
-                })
-                .then((result) => {
-                    setUser(result.data);
-                })
-                .catch((error) => console.log(error));
-        }
-    }, [isUserLogged]);
+ 
+useEffect(() => {
+    if (isUserLogged) {
+        let token = localStorage.getItem("token") || sessionStorage.getItem("token");
+        axios
+            .get("http://localhost:5000/profile", {
+                headers: { Authorization: `Bearer ${token}` },
+            })
+            .then((result) => {
+                setUser(result.data);
+            })
+            .catch((error) => console.log(error))
+        
+    } 
+}, [isUserLogged]);
 
     if (!isUserLogged || !user) {
         return <Denied />;
