@@ -21,9 +21,10 @@ const UserBookList = require("./models/UserBookList");
 const { getBooks } = require("./controllers/admin/Book");
 const { getBookById } = require("./controllers/getBookbyID/bookID");
 
+
 /*reviews fatma*/
-const reviewRoutes = require("./routes/reviewRoutes");
-app.use("/api", reviewRoutes);
+// const reviewRoutes = require("./routes/reviewRoutes");
+// app.use("/api", reviewRoutes);
 /*reviews fatma*/
 
 const app = express();
