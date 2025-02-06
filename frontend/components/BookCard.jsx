@@ -4,7 +4,9 @@ import { Card, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import StarRating from "./StarRating";
 
+
 const BookCard = ({ book }) => {
+ 
   // const { bookId } = useParams();
   // const [reviews, setReviews] = useState([]);
   // const [loadingReviews, setLoadingReviews] = useState(true);
@@ -34,10 +36,14 @@ const BookCard = ({ book }) => {
   //     fetchReviews();
   //   }
   // }, [bookId]);
+ 
+  const bookData = book.book || book; // Handle both nested and non-nested book objects
+ 
 
   return (
     <Card className='h-100 shadow-sm book-card'>
       <Card.Img
+ 
         variant='top'
         src={book.coverImage}
         alt={book.title}
@@ -49,6 +55,7 @@ const BookCard = ({ book }) => {
         <Card.Text className='text-muted'>
           Author: {book.author?.name}
         </Card.Text>
+ 
 
         <div className='d-flex justify-content-between mt-2'>
           <StarRating
@@ -62,9 +69,11 @@ const BookCard = ({ book }) => {
           </StarRating>
         </div>
 
+ 
         <div className='d-grid'>
           <Link to={`/books/${book._id}`}>
             <Button variant='outline-primary' className='mt-2'>
+ 
               View Details
             </Button>
           </Link>
