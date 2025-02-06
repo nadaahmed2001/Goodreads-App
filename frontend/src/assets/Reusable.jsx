@@ -3,11 +3,10 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
 
-import axios from "axios";
 import Dropdown from "react-bootstrap/Dropdown";
-import SplashCursor from "../Pages/Profile/SplashCursor";
 
 export default function ModalBtn({ title, fields, onSave, category, author }) {
+    
     const [show, setShow] = useState(false);
     const [formData, setFormData] = useState({});
     // const [author, setAuthor] = useState([]);
@@ -58,11 +57,11 @@ export default function ModalBtn({ title, fields, onSave, category, author }) {
     const handleSubmit = (e) => {
         e.preventDefault();
     };
-
+ 
     return (
+        
         <>
-            <SplashCursor />
-            <Button className="fs-" variant="dark" onClick={handleShow}>
+        <Button className="fs-" variant="dark" onClick={handleShow}>
                 Add {title}
             </Button>
 
@@ -71,6 +70,7 @@ export default function ModalBtn({ title, fields, onSave, category, author }) {
                     <Modal.Title>{title}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
+                    
                     <Form onSubmit={handleSubmit}>
 
                         {fields.map((field, index) => (
