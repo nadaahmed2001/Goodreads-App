@@ -24,6 +24,7 @@ import Payment from "./Pages/Payment/Payment";
 import UserList from "./Pages/UserBookLists/UserList";
 // import { Helmet } from "react-helmet";
 import Profile from "./Pages/Profile/Profile";
+import { AuthProvider } from "./AuthContext";
 
 function App() {
   const [category, setCategory] = useState([]);
@@ -49,12 +50,12 @@ function App() {
 
   return (
     <>
-
+    
       <Router>
 
-
+      <AuthProvider>
    <Routes>
-    
+
           {/* <Route path='/' element={<Home />} /> */}
           <Route path='/' element={<Homerahma />} />
           <Route path='/AdminLogin' element={<AdminLogin />} />
@@ -75,7 +76,9 @@ function App() {
           <Route path='/AuthorDetails/:authorId' element={<AuthorDetails />} />
           <Route path='/profile' element={<Profile />} />
           <Route path='*' element={<NotFound />} />
+         
         </Routes>
+        </AuthProvider>
       </Router>
       {/* <Helmet>
         <link
@@ -83,6 +86,7 @@ function App() {
           rel="stylesheet"
         />
       </Helmet> */}
+      
     </>
   );
 }
