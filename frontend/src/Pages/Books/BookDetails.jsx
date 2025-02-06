@@ -1,10 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import {
-  fetchBookById,
-  addBookToList,
-  fetchReviewsByBookId,
-} from "../../services/api"; // Add the API function
+import { fetchBookById, addBookToList } from "../../services/api"; // Add the API function
 
 import {
   Container,
@@ -98,17 +94,7 @@ const BookDetails = () => {
       }
     };
 
-    const getReviews = async () => {
-      try {
-        const reviewsData = await fetchReviewsByBookId(bookId);
-        setReviews(reviewsData);
-      } catch (error) {
-        console.error("Error fetching reviews:", error);
-      }
-    };
-
     getBook();
-    getReviews();
 
     if (token) {
       setIsAuthenticated(true);
@@ -121,7 +107,7 @@ const BookDetails = () => {
         alert("Please log in to add books to your list.");
         return;
       }
-  
+
       const response = await addBookToList(bookId, shelf, token);
       if (response.data.success) {
         alert(`Book moved to ${shelf.replace("_", " ")} list!`);
@@ -131,7 +117,6 @@ const BookDetails = () => {
       alert(error.response?.data?.message || "Failed to add book to list.");
     }
   };
-  
 
   if (!book)
     return <p className='text-center mt-4 fs-5 fw-semibold'>Loading...</p>;
