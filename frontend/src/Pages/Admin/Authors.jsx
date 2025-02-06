@@ -1,11 +1,46 @@
 import React from "react";
+import { useState, useEffect } from "react";
 import Sidebar from "./Sidebar";
 import Table from "react-bootstrap/Table";
 import ModalBtn from "../../assets/Reusable";
 import axios from "axios";
 import Modify from "./Modify"
+import Denied from "../Profile/Denied";
+import DeniedA from "../Profile/DeniedA";
+import IsLogged from "../../../components/Authentication/IsLogged";
+import { Button } from "react-bootstrap";
 
 export default function Authors({ author, setFetchTrigger }) {
+
+    const [user, setUser] = useState(null);
+    const isUserLogged = IsLogged();
+
+    useEffect(() => {
+        if (isUserLogged) {
+            let token = localStorage.getItem("token") || sessionStorage.getItem("token");
+            axios
+                .get("http://localhost:5000/profile", {
+                    headers: { Authorization: `Bearer ${token}` },
+                })
+                .then((result) => {
+                    setUser(result.data);
+                })
+                .catch((error) => console.log(error));
+        }
+    }, [isUserLogged]);
+
+    if (!isUserLogged || !user) {
+        return <Denied />;
+    }
+
+    if (user.role !== "admin") {
+        return <>
+
+            <DeniedA />
+        </>;
+    }
+
+
     const handleSaveAuthor = (formData) => {
         const imageFile = formData.image;
 
@@ -16,9 +51,7 @@ export default function Authors({ author, setFetchTrigger }) {
 
         const imageData = new FormData();
         imageData.append("file", imageFile);
-        imageData.append("upload_preset", "Goodreads-imgs"); // Make sure this matches exactly
-        // Replace with your actual preset
-        // imageData.append("folder", "author_images"); // Organize images in Cloudinary
+        imageData.append("upload_preset", "Goodreads-imgs");
         console.log("Uploading file:", imageFile);
         axios.post("https://api.cloudinary.com/v1_1/dl14s4ipy/image/upload", imageData)
             .then(uploadRes => {
@@ -37,18 +70,11 @@ export default function Authors({ author, setFetchTrigger }) {
             .catch(err => console.log("Unable to add author", err.response?.data || err.message));
     };
 
-
-
-    console.log(author);
-
     const handleDelete = async (authorId) => {
         try {
             await axios.delete(`http://localhost:5000/authorsAdmin/${authorId}`);
             alert("author deleted successfully!");
-            // setBooks(books.filter((b) => b._id !== book._id))
-            // After deleting, trigger a refetch to update the categories list
             setFetchTrigger((prev) => !prev);
-            // setBooks(books.filter(b => b._id !== book._id))
         } catch (err) {
             console.error("Unable to delete author:", err);
         }
@@ -57,8 +83,6 @@ export default function Authors({ author, setFetchTrigger }) {
         try {
             await axios.put(`http://localhost:5000/authorsAdmin/${authorId}`, updatedData);
             alert("Author updated successfully!");
-
-            // Refetch the data to reflect changes
             setFetchTrigger((prev) => !prev);
         } catch (err) {
             console.error("Unable to update author:", err);
@@ -83,7 +107,7 @@ export default function Authors({ author, setFetchTrigger }) {
                         onSave={handleSaveAuthor}
                     />
                 </div>
-                <Table striped bordered hover>
+                <Table striped bordered hover className="mt-3">
                     <thead>
                         <tr className="bg-light-subtle">
                             <th>ID</th>
@@ -122,21 +146,22 @@ export default function Authors({ author, setFetchTrigger }) {
                                             name: a.name,
                                             bio: a.bio,
                                             birthDate: a.birthDate,
+                                            // image: a.imageUrl
                                         }}
                                         handleUpdate={(data) => handleUpdate(a._id, data)}
                                         fields={[
                                             { name: "name", label: "Fullname", type: "text" },
                                             { name: "bio", label: "bio", type: "text" },
                                             { name: "birthDate", label: "Date of Birth", type: "date" },
+                                            // { name: "image", label: "Upload Photo", type: "file" }
                                         ]}
                                     />
 
-                                    {/* {name: "image", label: "Upload Photo", type: "file" } */}
-                                    <button
+                                    <Button variant="outline-dark"
                                         onClick={() => handleDelete(a._id)}>
                                         ❌
 
-                                    </button>
+                                    </Button>
                                 </td>
                             </tr>
                         ))}

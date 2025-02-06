@@ -117,21 +117,21 @@ const BookDetails = () => {
 
   const handleAddToList = async (shelf) => {
     try {
-      console.log(token);
       if (!token) {
         alert("Please log in to add books to your list.");
         return;
       }
-
+  
       const response = await addBookToList(bookId, shelf, token);
       if (response.data.success) {
         alert(`Book moved to ${shelf.replace("_", " ")} list!`);
       }
     } catch (error) {
-      console.error("Error adding book to list:", error.response || error);
-      alert("Failed to add book to list.");
+      console.error("Error adding book to list:", error);
+      alert(error.response?.data?.message || "Failed to add book to list.");
     }
   };
+  
 
   if (!book)
     return <p className='text-center mt-4 fs-5 fw-semibold'>Loading...</p>;
@@ -223,9 +223,9 @@ const BookDetails = () => {
                   </Dropdown.Menu>
                 </Dropdown>
               )}
-              <CustomButton color='blue' icon={<FaHeart />}>
+              {/* <CustomButton color='blue' icon={<FaHeart />}>
                 Add to Wishlist
-              </CustomButton>
+              </CustomButton> */}
             </Stack>
           </Col>
         </Row>

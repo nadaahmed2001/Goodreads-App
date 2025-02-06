@@ -10,6 +10,7 @@ import {
   ShoppingCart,
 } from "lucide-react";
 import "./Navbar.css";
+// import { Helmet } from "react-helmet";
 // import "./Navbar.css";
 import "./Navbar.css";
 
@@ -28,7 +29,7 @@ const Navbar = () => {
         headers: { Authorization: `Bearer ${token}` }
       })
         .then(result => {
- 
+
           setUser(result.data); // Set user data
         })
         .catch((error) => console.log(error));
@@ -42,10 +43,12 @@ const Navbar = () => {
   };
   return (
     <>
+
+
       <nav>
-        <div className='nav-top'>
-          <div className='imgLogo'>
-            <img src='/Untitled.png' alt='logo' />
+        <div className="nav-top">
+          <div className="imgLogo">
+            <img src="./public/BookAppLogo.png" alt="logo" />
           </div>
           <div className='Searchinput'>
             <input
@@ -67,13 +70,16 @@ const Navbar = () => {
 
             {user ? (
               <>
+                <Link to="/Payment">
+                  <button className="button-85" role="button">Subscribe</button>
+                </Link>
                 {/* My Lists Dropdown */}
-                <Dropdown align='end'>
-                  <Dropdown.Toggle id='dropdown-lists'>
+                <Dropdown align='end' >
+                  <Dropdown.Toggle id='dropdown-lists' className="sign-in-btn">
                     <span className='me-2 fw-medium'>My Lists</span>
                   </Dropdown.Toggle>
 
-                  <Dropdown.Menu>
+                  <Dropdown.Menu >
                     <Dropdown.Item
                       onClick={() => navigate("/list/currently_reading")}
                     >
@@ -91,8 +97,9 @@ const Navbar = () => {
                 </Dropdown>
 
                 {/* User Dropdown */}
+
                 <Dropdown align='end'>
-                  <Dropdown.Toggle id='dropdown-user'>
+                  <Dropdown.Toggle id='dropdown-user' className="sign-in-btn">
                     <span className='me-2 fw-medium'>{user.first_name}</span>
                   </Dropdown.Toggle>
 
@@ -106,13 +113,12 @@ const Navbar = () => {
               </>
             ) : (
               <>
-                <Link to='/sign-up'>
-                  <button className='btn btn-light text-primary ms-2'>
-                    Sign up
-                  </button>
+
+                <Link to="/sign-up">
+                  <button className="sign-in-btn">Sign up</button>
                 </Link>
-                <Link to='/sign-in'>
-                  <button className='btn btn-outline-light ms-2'>Log in</button>
+                <Link to="/sign-in">
+                  <button className="log-in-btn">Log in</button>
                 </Link>
               </>
             )}
@@ -122,19 +128,19 @@ const Navbar = () => {
         <div className='NavList'>
           <ul>
             <li>
-              <a href=''>Home</a>
+              <Link to='/' className="hoverlink">Home</Link>
             </li>
             <li>
-              <a href=''>Category</a>
+              <Link to='/Categories' className="hoverlink">Category</Link>
             </li>
             <li>
-              <a href=''>Authors</a>
+              <Link to='/AuthorsBook' className="hoverlink">Authors</Link>
             </li>
             <li>
-              <a href=''>About Us</a>
+              <Link to='/AboutUs' className="hoverlink">About Us</Link>
             </li>
             <li>
-              <a href=''>Terms & Conditions</a>
+              <Link to='/TermsConditions' className="hoverlink">Terms & Conditions</Link>
             </li>
           </ul>
         </div>
@@ -144,3 +150,4 @@ const Navbar = () => {
 };
 
 export default Navbar;
+

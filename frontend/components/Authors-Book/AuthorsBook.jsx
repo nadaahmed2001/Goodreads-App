@@ -9,7 +9,7 @@ export default function AuthorsBook() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    
+
     const apiUrl = 'http://localhost:5000/authors';
 
     const fetchAuthors = async () => {
@@ -19,7 +19,7 @@ export default function AuthorsBook() {
           throw new Error('Network response was not ok');
         }
         const data = await response.json();
-        setAuthors(data); 
+        setAuthors(data);
       } catch (error) {
         setError(error.message);
       } finally {
@@ -31,7 +31,10 @@ export default function AuthorsBook() {
   }, []);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <div className="loading-container">
+      <div className="spinner"></div>
+      <p className="loading-text">Loading...</p>
+    </div>;
   }
 
   if (error) {
@@ -42,8 +45,8 @@ export default function AuthorsBook() {
     <>
       <Navbar />
       <Author authors={authors} /> {/* Pass authors array as props */}
-      
-     
+
+
     </>
   );
 }
