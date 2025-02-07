@@ -29,15 +29,42 @@ const BooksList = () => {
     <>
       <Navbar />
 
-      <Container className='my-5'>
-        <h2 className='mb-4'>All Books</h2>
-        <Row xs={1} md={2} lg={3} xl={4} className='g-4'>
-          {books.map((book) => (
-            <Col key={book._id}>
-              <BookCard book={book} />
-            </Col>
-          ))}
-        </Row>
+      <Container fluid='xxl' className='my-5 py-3 py-lg-4 min-vh-100'>
+        <h2 className='display-5 display-md-4 display-lg-3 text-center text-md-start mb-4 px-2 px-md-0'>
+          All Books
+        </h2>
+
+        {loading ? (
+          <div className='text-center my-5'>
+            <Spinner animation='border' role='status'>
+              <span className='visually-hidden'>Loading...</span>
+            </Spinner>
+          </div>
+        ) : (
+          <Row className='g-4 justify-content-center flex-wrap'>
+            {books.map((book) => (
+              <Col
+                key={book._id}
+                xs={12}
+                sm={6}
+                md={4}
+                lg={3}
+                xl={2}
+                xxl={2}
+                className='d-flex'
+              >
+                <BookCard book={book} className='flex-grow-1 shadow-hover' />
+              </Col>
+            ))}
+          </Row>
+        )}
+
+        {!loading && books.length === 0 && (
+          <div className='text-center py-5'>
+            <h3 className='text-muted'>No books found</h3>
+            <p className='lead'>Check back later for new additions!</p>
+          </div>
+        )}
       </Container>
     </>
   );

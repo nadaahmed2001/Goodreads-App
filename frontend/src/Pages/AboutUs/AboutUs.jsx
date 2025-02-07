@@ -1,4 +1,5 @@
 import Navbar from "../../../components/navbar";
+import FooterPage from "../Footer/FooterPage";
 export default function AboutUs() {
     return (
         <>
@@ -20,6 +21,7 @@ export default function AboutUs() {
                     Thank you for being a part of our community. Happy reading! 📚
                 </p>
             </div>
+            <FooterPage />
         </>
     );
 }

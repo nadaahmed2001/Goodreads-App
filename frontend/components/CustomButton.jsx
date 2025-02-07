@@ -4,11 +4,11 @@ import Button from "react-bootstrap/Button";
 const CustomButton = ({ color = "blue", icon, children, onClick }) => {
   const buttonStyles = {
     blue: {
-      backgroundColor: "#3F8FC0",
-      borderColor: "#3F8FC0",
+      backgroundColor: "#088178",
+      borderColor: "#088178",
       ":hover": {
-        backgroundColor: "#3578A0",
-        borderColor: "#3578A0",
+        backgroundColor: "#088178",
+        borderColor: "#088178",
       },
     },
     gray: {

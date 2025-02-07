@@ -111,9 +111,9 @@ img {
     transition: 0.3s;
 }
 
-img:hover {
+/* img:hover {
     transform: scale(1.1);
-}
+} */
 
 /* Placeholder Animation */
 .placeholder {

@@ -42,10 +42,11 @@ const {
   deleteAuthor,
 } = require("./controllers/admin/Author");
 
-// const {
-//   CreateCheckout,
-//   VerifyPayment,
-// } = require("./controllers/Payment/Payment");
+const {
+  CreateCheckout,
+  VerifyPayment,
+} = require("./controllers/Payment/Payment");
+
 /*reviews fatma*/
 // const reviewRoutes = require("./routes/reviewRoutes");
 // app.use("/api", reviewRoutes);

@@ -29,16 +29,16 @@ export default function Authors({ author, setFetchTrigger }) {
         }
     }, [isUserLogged]);
 
-    if (!isUserLogged || !user) {
-        return <Denied />;
-    }
+    // if (!isUserLogged || !user) {
+    //     return <Denied />;
+    // }
 
-    if (user.role !== "admin") {
-        return <>
+    // if (user.role !== "admin") {
+    //     return <>
 
-            <DeniedA />
-        </>;
-    }
+    //         <DeniedA />
+    //     </>;
+    // }
 
 
     const handleSaveAuthor = (formData) => {
