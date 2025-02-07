@@ -20,12 +20,6 @@ const bookSchema = new mongoose.Schema(
   }
 );
 
-bookSchema.virtual("reviews", {
-  ref: "Review",
-  localField: "_id",
-  foreignField: "book",
-});
-
 bookSchema.virtual("averageRating").get(function () {
   if (!this.reviews || this.reviews.length === 0) return 0;
   const total = this.reviews.reduce((acc, review) => acc + review.rating, 0);
