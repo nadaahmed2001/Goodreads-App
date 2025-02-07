@@ -22,6 +22,14 @@ const UserBookList = require("./models/UserBookList");
 // const { getBooks } = require("./controllers/admin/Book");
 
 const app = express();
+
+// CORS configuration
+const corsOptions = {
+  origin: "http://localhost:5173", // Allow requests from frontend
+  methods: "GET,POST,PUT,DELETE",
+  credentials: true, // Allow cookies and credentials
+};
+
 app.use(cors(corsOptions)); // Apply CORS middleware
 app.use(express.json());
 
@@ -58,13 +66,6 @@ const {
   CreateCheckout,
   VerifyPayment,
 } = require("./controllers/Payment/Payment");
-
-// CORS configuration
-const corsOptions = {
-  origin: "http://localhost:5173", // Allow requests from frontend
-  methods: "GET,POST,PUT,DELETE",
-  credentials: true, // Allow cookies and credentials
-};
 
 // Connect to MongoDB
 connectDB();
