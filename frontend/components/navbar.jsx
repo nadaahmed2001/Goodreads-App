@@ -16,7 +16,7 @@ const Navbar = () => {
     <nav>
       <div className="nav-top">
         <div className="imgLogo">
-          <img src="../BookAppLogo.png" alt="logo" />
+          <img src="/BookAppLogoImg.png" alt="logo" />
         </div>
         <div className="Searchinput">
           <input

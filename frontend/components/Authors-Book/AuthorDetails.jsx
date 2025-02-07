@@ -72,13 +72,13 @@ export default function AuthorDetails() {
 
       {/* Section to display books by the author */}
        <section className="books">
-        <h2 className='bookname'>Books by {author.name}</h2>
+            <h2 className='bookname'>Books by : {author.name}</h2>
         {books.length > 0 ? (
            <ul >
             {books.map((book) => (
-            <span className="BookCard-style">
-            <BookCard book={book} />
-          </span>
+            <div className="BookCard-style">
+            <BookCard  book={book} />
+          </div>
           
             
 
