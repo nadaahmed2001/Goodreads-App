@@ -120,7 +120,7 @@ export default function Authors({ author, setFetchTrigger }) {
 
                                 <td>{a.name}</td>
                                 <td>{a.bio}</td>
-                                <td>{a.birthDate}</td>
+                                <td>{new Date(a.birthDate).toISOString().split("T")[0]}</td>
                                 <td>
                                     <Modify
                                         initialData={{
