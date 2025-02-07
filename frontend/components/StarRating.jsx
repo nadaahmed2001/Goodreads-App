@@ -58,11 +58,11 @@ export default function StarRating({
           />
         ))}
       </div>
-      <p style={{ color, fontSize: `${size / 1.5}px`, margin: "0" }}>
+      {/* <p style={{ color, fontSize: `${size / 1.5}px`, margin: "0" }}>
         {messages.length === maxRating
           ? messages[tempRating ? tempRating - 1 : rating - 1]
           : tempRating || rating || ""}
-      </p>
+      </p> */}
     </div>
   );
 }
