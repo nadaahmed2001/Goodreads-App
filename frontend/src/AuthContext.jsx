@@ -7,6 +7,7 @@ export const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [role, setRole] = useState(null);
+  const [subscription, setSubscription] = useState('');
   const [loading, setLoading] = useState(true);
   const [authors, setAuthors] = useState([]);  // Manage authors' state
   const [authorsLoading, setAuthorsLoading] = useState(true);  // Authors loading state
@@ -24,6 +25,7 @@ export const AuthProvider = ({ children }) => {
         .then((result) => {
           setUser(result.data);
           setRole(result.data.role);
+          setSubscription(result.data.subscription)
         })
         .catch((error) => console.log(error))
         .finally(() => setLoading(false));
@@ -65,6 +67,7 @@ export const AuthProvider = ({ children }) => {
       value={{
         user,
         role,
+        subscription,
         loading,
         authors,
         authorsLoading,

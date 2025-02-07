@@ -20,7 +20,6 @@ const userProfileController = require("./controllers/userProfileController/userP
 const UserBookList = require("./models/UserBookList");
 // const {allbooks} = require("./controllers/admin/crud");
 // const { getBooks } = require("./controllers/admin/Book");
-
 const app = express();
 
 // CORS configuration
@@ -251,9 +250,9 @@ app.delete("/authorsAdmin/:id", deleteAuthor);
 app.put("/authorsAdmin/:id", updateAuthor);
 
 // ============= Payment ==================
-// app.post("/create-checkout-session", CreateCheckout);
+app.post("/create-checkout-session", CreateCheckout);
 
-// app.get("/verify-payment", VerifyPayment);
+app.get("/verify-payment", VerifyPayment);
 
 // const PORT = process.env.PORT || 5000;
 const PORT = 5000;
