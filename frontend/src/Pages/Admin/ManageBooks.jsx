@@ -9,6 +9,7 @@ import Denied from "../Profile/Denied";
 import Button from 'react-bootstrap/Button';
 import DeniedA from "../Profile/DeniedA";
 import IsLogged from "../../../components/Authentication/IsLogged";
+import { AuthContext } from "../../../src/AuthContext"; // Use AuthContext
 import { Viewer } from '@react-pdf-viewer/core';
 import '@react-pdf-viewer/core/lib/styles/index.css';
 
@@ -16,10 +17,18 @@ import "./Books.css"
 
 
 export default function Books({ category, author }) {
+       const { user, role } = useContext(AuthContext); // Get user and role from context
+    
+        if (!user) {
+            return <Denied />; // Show access denied if no user is logged in
+        }
+    
+        if (role !== "admin") {
+            return <DeniedA />; // Show a different access denied message for non-admin users
+        }
     const [books, setBooks] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
-    const [user, setUser] = useState(null);
-    const isUserLogged = IsLogged();
+   
 
     useEffect(() => {
         const fetchBooks = async () => {
@@ -40,30 +49,8 @@ export default function Books({ category, author }) {
         fetchBooks();
     }, []);
 
-    useEffect(() => {
-        if (isUserLogged) {
-            let token = localStorage.getItem("token") || sessionStorage.getItem("token");
-            axios
-                .get("http://localhost:5000/profile", {
-                    headers: { Authorization: `Bearer ${token}` },
-                })
-                .then((result) => {
-                    setUser(result.data);
-                })
-                .catch((error) => console.log(error));
-        }
-    }, [isUserLogged]);
+  
 
-    // if (!isUserLogged || !user) {
-    //     return <Denied />;
-    // }
-
-    // if (user.role !== "admin") {
-    //     return <>
-
-    //         <DeniedA />
-    //     </>;
-    // }
     const handleSaveBook = async (formData) => {
         try {
             let pdfUrl = "";
