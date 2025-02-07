@@ -13,15 +13,15 @@ import { AuthContext } from "../../../src/AuthContext"; // Use AuthContext
 
 export default function Authors({ author, setFetchTrigger }) {
     const { user, role } = useContext(AuthContext); // Get user and role from context
-    
-        if (!user) {
-            return <Denied />; // Show access denied if no user is logged in
-        }
-    
-        if (role !== "admin") {
-            return <DeniedA />; // Show a different access denied message for non-admin users
-        }
-   
+
+    if (!user) {
+        return <Denied />; // Show access denied if no user is logged in
+    }
+
+    if (role !== "admin") {
+        return <DeniedA />; // Show a different access denied message for non-admin users
+    }
+
     const handleSaveAuthor = (formData) => {
         const imageFile = formData.image;
 
@@ -34,14 +34,14 @@ export default function Authors({ author, setFetchTrigger }) {
         imageData.append("file", imageFile);
         imageData.append("upload_preset", "Goodreads-imgs");
         console.log("Uploading file:", imageFile);
-        axios.post("https://api.cloudinary.com/v1_1/dl14s4ipy/image/upload", imageData)
+        axios.post("https://api.cloudinary.com/v1_1/mano22/image/upload", imageData)
             .then(uploadRes => {
                 const imageUrl = uploadRes.data.secure_url;
                 return axios.post(`http://localhost:5000/author`, {
                     name: formData.name,
                     bio: formData.bio,
+                    image: imageUrl, // Save the uploaded image URL in DB
                     birthDate: formData.birthDate,
-                    image: imageUrl // Save the uploaded image URL in DB
                 });
             })
             .then(() => {
