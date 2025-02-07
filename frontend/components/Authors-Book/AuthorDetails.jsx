@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import Navbar from '../navbar';
 import './Authors-Book.css';
+import BookCard from '../BookCard';
+import FooterPage from '../../src/Pages/Footer/FooterPage';
 
 export default function AuthorDetails() {
   const { authorId } = useParams(); // This gets the authorId from the URL
@@ -53,8 +55,7 @@ export default function AuthorDetails() {
 
   return (
     <>
-      <Navbar />
-      
+    <Navbar/>
       {/* Section to display author details */}
       <section className="author-details">
         <div className="author-details-card">
@@ -75,23 +76,31 @@ export default function AuthorDetails() {
         {books.length > 0 ? (
            <ul >
             {books.map((book) => (
-              <li key={book._id}>
-                <img className="bookimg"src={book.coverImage} alt={book.title} />
-               <h3 className='booktitle'>{book.title}</h3>
-              <p className='bookdes'>{book.description}</p>
-              <p className="bookcategory">Category: {book.category?.name}</p>
-              <p className="bookrating">Rating: {book.rating}</p>
-              <p className="bookfeatured">{book.featured ? 'Featured' : 'Not Featured'}</p>
-              <p className="booktrending">{book.trending ? 'Trending' : 'Not Trending'}</p>
-            </li>
+            <span className="BookCard-style">
+            <BookCard book={book} />
+          </span>
+          
+            
+
+            //   <li key={book._id}>
+            //     <img className="bookimg"src={book.coverImage} alt={book.title} />
+            //    <h3 className='booktitle'>{book.title}</h3>
+            //   <p className='bookdes'>{book.description}</p>
+            //   <p className="bookcategory">Category: {book.category?.name}</p>
+            //   <p className="bookrating">Rating: {book.rating}</p>
+            //   <p className="bookfeatured">{book.featured ? 'Featured' : 'Not Featured'}</p>
+            //   <p className="booktrending">{book.trending ? 'Trending' : 'Not Trending'}</p>
+            // </li>
             
         ))}
+        
           </ul>
+          
          ) : (
            <p>No books available for this author.</p>
       )}
      </section> 
-   
+   <FooterPage />
     </>
   );
 }
