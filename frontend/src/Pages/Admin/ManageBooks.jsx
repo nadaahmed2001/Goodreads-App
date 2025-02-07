@@ -174,7 +174,7 @@ export default function Books({ category, author }) {
                         <tbody>
                             {[...Array(3)].map((_, index) => (
                                 <tr key={index}>
-                                    {[...Array(7)].map((_, i) => (
+                                    {[...Array(9)].map((_, i) => (
                                         <td key={i}>
                                             <Placeholder as="p" animation="glow">
                                                 <Placeholder xs={12} />
@@ -208,7 +208,12 @@ export default function Books({ category, author }) {
                                     <td>{category?.find(cat => cat._id === book?.category)?.name || '-'}</td>
                                     {/* <td>{book.author.name}</td> */}
                                     <td>{author?.find(a => a._id === book?.author)?.name || book?.author?.name || '-'}</td>
-                                    <td>{book.demo}</td>
+                                    <td>
+                                        <div style={{ maxHeight: '120px', overflowY: 'auto' }}>
+                                            {book.demo}
+                                        </div>
+                                    </td>
+
                                     <td>
                                         {book.fullBook ? (
                                             <a href={book.fullBook} target="_blank" download={book.title || "book.pdf"}>
@@ -242,6 +247,6 @@ export default function Books({ category, author }) {
                     )}
                 </Table>
             </div>
-        </div>
+        </div >
     );
 }
