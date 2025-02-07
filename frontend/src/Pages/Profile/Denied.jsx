@@ -91,7 +91,7 @@ export default function Denied() {
   useEffect(() => {
     setTimeout(() => {
       setFadeIn(true);
-    }, 1500); // Delay of 1.5 seconds for fade-in effect
+    }, 0); // Delay of 1.5 seconds for fade-in effect
   }, []);
 
   const handleSignInRedirect = () => {
