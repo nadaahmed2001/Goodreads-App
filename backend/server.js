@@ -34,11 +34,10 @@ app.use(cors(corsOptions)); // Apply CORS middleware
 app.use(express.json());
 
 /*Fatma*/
-const bookID = require("./controllers/books/bookRoute");
-app.get("/books/:bookId", bookID.getBookById);
-
-const reviewRoutes = require("./controllers/reviews/reviewRoute");
-app.use("/books", reviewRoutes);
+const booksRoutes = require("./controllers/books/bookRoute");
+const reviewsRoutes = require("./controllers/reviews/reviewRoute");
+app.use("/books", booksRoutes);
+app.use("/reviews", reviewsRoutes);
 /*Fatma*/
 
 const {
