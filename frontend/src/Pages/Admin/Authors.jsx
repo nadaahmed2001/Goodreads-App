@@ -37,11 +37,12 @@ export default function Authors({ author, setFetchTrigger }) {
         axios.post("https://api.cloudinary.com/v1_1/mano22/image/upload", imageData)
             .then(uploadRes => {
                 const imageUrl = uploadRes.data.secure_url;
+                const formattedBirthDate = new Date(formData.birthDate).toISOString().split("T")[0]; // Convert date
                 return axios.post(`http://localhost:5000/author`, {
                     name: formData.name,
                     bio: formData.bio,
                     image: imageUrl, // Save the uploaded image URL in DB
-                    birthDate: formData.birthDate,
+                    birthDate: formattedBirthDate,
                 });
             })
             .then(() => {
@@ -62,13 +63,20 @@ export default function Authors({ author, setFetchTrigger }) {
     };
     const handleUpdate = async (authorId, updatedData) => {
         try {
-            await axios.put(`http://localhost:5000/authorsAdmin/${authorId}`, updatedData);
+            const formattedBirthDate = new Date(updatedData.birthDate).toISOString().split("T")[0]; // Format date
+
+            await axios.put(`http://localhost:5000/authorsAdmin/${authorId}`, {
+                ...updatedData,
+                birthDate: formattedBirthDate, // Store only YYYY-MM-DD
+            });
+
             alert("Author updated successfully!");
             setFetchTrigger((prev) => !prev);
         } catch (err) {
             console.error("Unable to update author:", err);
         }
     };
+
 
     return (
         <div className="d-flex">
@@ -120,7 +128,8 @@ export default function Authors({ author, setFetchTrigger }) {
 
                                 <td>{a.name}</td>
                                 <td>{a.bio}</td>
-                                <td>{new Date(a.birthDate).toISOString().split("T")[0]}</td>
+                                <td>{a.birthDate}</td>
+                                {/* <td>{new Date(a.birthDate).toISOString().split("T")[0]}</td> */}
                                 <td>
                                     <Modify
                                         initialData={{
