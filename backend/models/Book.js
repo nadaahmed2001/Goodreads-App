@@ -10,6 +10,7 @@ const bookSchema = new mongoose.Schema(
     demo: String,
     fullBook: String,
     rating: { type: Number, default: 0 },
+    reviews: [{ type: mongoose.Schema.Types.ObjectId, ref: "Review" }],
     featured: { type: Boolean, default: false },
     trending: { type: Boolean, default: false },
   },
@@ -18,11 +19,6 @@ const bookSchema = new mongoose.Schema(
     toObject: { virtuals: true },
   }
 );
-
-const Book = mongoose.model("Book", bookSchema); //table
-module.exports = Book;
-
-/*reviews fatma*/
 
 bookSchema.virtual("reviews", {
   ref: "Review",
@@ -36,4 +32,5 @@ bookSchema.virtual("averageRating").get(function () {
   return total / this.reviews.length;
 });
 
-/*reviews fatma*/
+const Book = mongoose.model("Book", bookSchema);
+module.exports = Book;
