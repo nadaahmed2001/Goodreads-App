@@ -16,31 +16,31 @@ export default function Categories({ category, setFetchTrigger }) {
 
     const isUserLogged = IsLogged();
 
- 
-useEffect(() => {
-    if (isUserLogged) {
-        let token = localStorage.getItem("token") || sessionStorage.getItem("token");
-        axios
-            .get("http://localhost:5000/profile", {
-                headers: { Authorization: `Bearer ${token}` },
-            })
-            .then((result) => {
-                setUser(result.data);
-            })
-            .catch((error) => console.log(error))
-        
-    } 
-}, [isUserLogged]);
 
-    if (!isUserLogged || !user) {
-        return <Denied />;
-    }
+    useEffect(() => {
+        if (isUserLogged) {
+            let token = localStorage.getItem("token") || sessionStorage.getItem("token");
+            axios
+                .get("http://localhost:5000/profile", {
+                    headers: { Authorization: `Bearer ${token}` },
+                })
+                .then((result) => {
+                    setUser(result.data);
+                })
+                .catch((error) => console.log(error))
 
-    if (user.role !== "admin") {
-        return <>
-            <DeniedA />
-        </>;
-    }
+        }
+    }, [isUserLogged]);
+
+    // if (!isUserLogged || !user) {
+    //     return <Denied />;
+    // }
+
+    // if (user.role !== "admin") {
+    //     return <>
+    //         <DeniedA />
+    //     </>;
+    // }
     const handleSaveCategory = (formData) => {
         axios.post(`http://localhost:5000/category`, { name: formData.name })
             .then((response) => {
@@ -79,6 +79,7 @@ useEffect(() => {
     return (
         <div className='d-flex'>
             <Sidebar />
+
             <div className="flex-grow-1 p-5 ">
                 <div className='d-flex justify-content-between'>
                     <h1>Manage Categories</h1>
