@@ -1,19 +1,19 @@
+const express = require("express");
+const router = express.Router();
 const Book = require("../../models/Book");
 
-const getBookById = async (req, res) => {
-  const bookId = req.params.bookId;
-  console.log(`Looking for book with ID: ${bookId}`);
-
+router.get("/:bookId", async (req, res) => {
   try {
-    const book = await Book.findById(bookId)
-      .populate("author", "name")
-      .populate("category", "name")
-      .populate("reviews");
+    const book = await Book.findById(req.params.bookId).populate(
+      "category author reviews"
+    );
+    if (!book) {
+      return res.status(404).json({ message: "Book not found" });
+    }
     res.json(book);
-    console.log("Book fetched successfully from server.js");
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    res.status(500).json({ message: "Error fetching book", error });
   }
-};
+});
 
-module.exports = { getBookById };
+module.exports = router;
