@@ -43,7 +43,6 @@ const BookCard = ({ book }) => {
   return (
     <Card className='h-100 shadow-sm book-card'>
       <Card.Img
-
         variant='top'
         src={bookData.coverImage}
         alt={bookData.title}

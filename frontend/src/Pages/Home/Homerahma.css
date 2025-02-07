@@ -1,25 +1,29 @@
 /* .homepage {
     min-height: 100vh;
   } */
- 
-  .containeri {
-    background-image: url(../../../public/CoverPhoto.jpg);
-    background-size: cover;
-    background-position: center; /* Centers the background image */
-    width: 70%; /* Ensures the container takes full width */
-    margin: auto;
-    height: 100vh; /* Ensures the container takes full height of the viewport */
-    position: relative; /* Optional, depending on what you need */
-  }
-  
-  /* Navigation */
-  .search-input {
-    max-width: 500px;
-    width: 100%;
-  }
-  
-  /* Hero Section */
-  /* .hero-image {
+
+.containeri {
+  background-image: url(../../../public/CoverPhoto.jpg);
+  background-size: cover;
+  background-position: center;
+  /* Centers the background image */
+  width: 70%;
+  /* Ensures the container takes full width */
+  margin: auto;
+  height: 100vh;
+  /* Ensures the container takes full height of the viewport */
+  position: relative;
+  /* Optional, depending on what you need */
+}
+
+/* Navigation */
+.search-input {
+  max-width: 500px;
+  width: 100%;
+}
+
+/* Hero Section */
+/* .hero-image {
     width: 100%;
     height: 400px;
     object-fit: cover;
@@ -183,8 +187,7 @@
 }
 
 .Best-Selling-Books {
-  margin-top: 50px;
-  margin-bottom: 50px;
+  margin: 50px;
   color: #465b52;
   font-size: 30px;
   font-weight: 500;
@@ -244,7 +247,8 @@
   font-weight: 500;
 
 }
-.GoodReads{
+
+.GoodReads {
   color: #fff
 }
 
@@ -256,13 +260,15 @@
   }
 
   .GoodReads {
-    font-size: 2rem; /* Make the heading smaller for mobile screens */
+    font-size: 2rem;
+    /* Make the heading smaller for mobile screens */
     color: #000000;
   }
 
   .lead1 {
     color: rgb(0, 0, 0);
-    font-size: 1rem; /* Adjust text size on smaller screens */
-    
+    font-size: 1rem;
+    /* Adjust text size on smaller screens */
+
   }
 }

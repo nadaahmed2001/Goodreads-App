@@ -8,7 +8,7 @@ import "./Navbar.css";
 import CheckoutButton from "../src/Pages/Payment/CheckoutButton";
 
 const Navbar = () => {
-  const { user, role, logout } = useContext(AuthContext); // Get user, role, and logout function from context
+  const { user, role, subscription, logout } = useContext(AuthContext); // Get user, role, and logout function from context
   const navigate = useNavigate();
 
 
@@ -36,10 +36,10 @@ const Navbar = () => {
             <ShoppingCart size={20} />
           </button>
 
+          {/* Use the CheckoutButton here */}
           {user ? (
             <>
-              {/* Use the CheckoutButton here */}
-              <CheckoutButton />
+              {(subscription === 'InActive' && role === "user") && <CheckoutButton />}
               {/* My Lists Dropdown */}
               <Dropdown align="end">
                 <Dropdown.Toggle id="dropdown-lists" className="sign-in-btn">

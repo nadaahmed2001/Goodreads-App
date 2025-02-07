@@ -25,6 +25,9 @@ import UserList from "./Pages/UserBookLists/UserList";
 // import { Helmet } from "react-helmet";
 import Profile from "./Pages/Profile/Profile";
 import { AuthProvider } from "./AuthContext";
+import CancelPage from "./Pages/Payment/CancelPage";
+import SuccessPage from './Pages/Payment/SuccessPage';
+
 
 function App() {
   const [category, setCategory] = useState([]);
@@ -61,6 +64,8 @@ function App() {
             <Route path='/AdminLogin' element={<AdminLogin />} />
             <Route path='/AboutUs' element={<AboutUs />} />
             <Route path="/list/:shelf" element={<UserList />} />
+            <Route path="/CancelPage" element={<CancelPage />} />
+            <Route path="/SuccessPage" element={<SuccessPage />} />
             <Route path='/Register' element={<Register />} />
             {/* <Route path="/Payment" element={<Payment />} /> */}
             <Route path='/Categories' element={<Categories category={category} setFetchTrigger={setFetchTrigger} />} />

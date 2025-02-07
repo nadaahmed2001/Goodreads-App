@@ -1,5 +1,6 @@
 import React from "react";
 import Navbar from "../../../components/navbar";
+import FooterPage from "../Footer/FooterPage";
 
 
 export default function TermsAndConditions() {
@@ -40,6 +41,7 @@ export default function TermsAndConditions() {
                     If you have any questions, please contact us at "abdelrahmann.ramadann@gmail.com"
                 </p>
             </div>
+            <FooterPage />
         </>
     );
 }
