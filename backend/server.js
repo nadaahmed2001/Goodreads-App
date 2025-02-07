@@ -4,6 +4,7 @@ const cors = require("cors");
 const connectDB = require("./config/db");
 require("dotenv").config(); // Load environment variables from .env file
 const Book = require("./models/Book");
+const Review = require("./models/Review");
 const Author = require("./models/Author");
 const Category = require("./models/Category");
 const jwt = require("jsonwebtoken");
@@ -11,7 +12,6 @@ const TempBooks = require("./models/TempBooks");
 const nodemailer = require("nodemailer");
 const authController = require("./controllers/authencation/authController"); // Import the controller
 const BookAuthor = require("./controllers/authorBookController/BookAuthor");
-const bookID = require("./controllers/getBookbyID/bookID");
 
 const {
   verifyToken,
@@ -20,7 +20,19 @@ const userProfileController = require("./controllers/userProfileController/userP
 const UserBookList = require("./models/UserBookList");
 // const {allbooks} = require("./controllers/admin/crud");
 // const { getBooks } = require("./controllers/admin/Book");
-const { getBookById } = require("./controllers/getBookbyID/bookID");
+
+const app = express();
+app.use(cors(corsOptions)); // Apply CORS middleware
+app.use(express.json());
+
+/*Fatma*/
+const bookID = require("./controllers/books/bookRoute");
+app.get("/books/:bookId", bookID.getBookById);
+
+const reviewRoutes = require("./controllers/reviews/reviewRoute");
+app.use("/books", reviewRoutes);
+/*Fatma*/
+
 const {
   getBooks,
   postBook,
@@ -47,13 +59,6 @@ const {
   VerifyPayment,
 } = require("./controllers/Payment/Payment");
 
-/*reviews fatma*/
-// const reviewRoutes = require("./routes/reviewRoutes");
-// app.use("/api", reviewRoutes);
-/*reviews fatma*/
-
-const app = express();
-
 // CORS configuration
 const corsOptions = {
   origin: "http://localhost:5173", // Allow requests from frontend
@@ -61,13 +66,8 @@ const corsOptions = {
   credentials: true, // Allow cookies and credentials
 };
 
-app.use(cors(corsOptions)); // Apply CORS middleware
-app.use(express.json());
-
 // Connect to MongoDB
 connectDB();
-
-// Routes
 
 // Home page
 app.get("/", async (req, res) => {
@@ -87,10 +87,7 @@ app.get("/", async (req, res) => {
 
 // Author endpoint to get all authors in books
 app.get("/authors", BookAuthor.getAuthors);
-
 app.get("/authors/:authorId", BookAuthor.getBooksByAuthId);
-
-app.get("/books/:bookId", bookID.getBookById);
 
 //register and login & profile
 app.post("/login", authController.login); // Use the controller for the /login route
