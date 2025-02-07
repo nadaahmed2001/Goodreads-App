@@ -6,7 +6,7 @@ import Modal from "react-bootstrap/Modal";
 import Dropdown from "react-bootstrap/Dropdown";
 
 export default function ModalBtn({ title, fields, onSave, category, author }) {
-    
+
     const [show, setShow] = useState(false);
     const [formData, setFormData] = useState({});
     // const [author, setAuthor] = useState([]);
@@ -57,11 +57,11 @@ export default function ModalBtn({ title, fields, onSave, category, author }) {
     const handleSubmit = (e) => {
         e.preventDefault();
     };
- 
+
     return (
-        
+
         <>
-        <Button className="fs-" variant="dark" onClick={handleShow}>
+            <Button className="fs-" variant="dark" onClick={handleShow}>
                 Add {title}
             </Button>
 
@@ -70,13 +70,13 @@ export default function ModalBtn({ title, fields, onSave, category, author }) {
                     <Modal.Title>{title}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    
+
                     <Form onSubmit={handleSubmit}>
                         {fields.map((field, index) => (
                             <Form.Group className="mb-3" key={index}>
                                 <Form.Label>{field.label}</Form.Label>
                                 {field.type === "dropdown" && field.name === 'author' ? (
-                                    <div className="d-flex justify-content-around">
+                                    <div >
                                         <Dropdown> {/* margin to space out dropdowns */}
                                             {/* style={{ margin: '0px 80px' }} */}
                                             <Dropdown.Toggle variant="dark" id="dropdown-basic">
@@ -95,29 +95,29 @@ export default function ModalBtn({ title, fields, onSave, category, author }) {
                                         </Dropdown>
 
                                         {/* Second dropdown */}
-                                        <Dropdown>
-                                            <Dropdown.Toggle variant="dark" id="dropdown-basic">
-                                                {selectedCat}
-                                            </Dropdown.Toggle>
-                                            <Dropdown.Menu>
-                                                {category.map((cat) => (
-                                                    <Dropdown.Item key={cat._id} onClick={() => {
-                                                        setSelectedCat(cat.name);
-                                                        setFormData({ ...formData, category: cat._id });
-                                                    }}>
-                                                        {cat.name}
-                                                    </Dropdown.Item>
-                                                ))}
-                                            </Dropdown.Menu>
-                                        </Dropdown>
+
                                     </div>
-                                ) : (
+                                ) : field.type === "dropdown" && field.name === 'category' ? <Dropdown>
+                                    <Dropdown.Toggle variant="dark" id="dropdown-basic">
+                                        {selectedCat}
+                                    </Dropdown.Toggle>
+                                    <Dropdown.Menu>
+                                        {category.map((cat) => (
+                                            <Dropdown.Item key={cat._id} onClick={() => {
+                                                setSelectedCat(cat.name);
+                                                setFormData({ ...formData, category: cat._id });
+                                            }}>
+                                                {cat.name}
+                                            </Dropdown.Item>
+                                        ))}
+                                    </Dropdown.Menu>
+                                </Dropdown> : (
                                     <Form.Control
                                         type={field.type}
                                         name={field.name}
                                         onChange={handleChange}
                                         autoFocus={index === 0}
-                                        accept={field.type === "file" ? "image/*" : undefined}
+                                        accept={field.name === "image" ? "image/*" : field.name === "fullBook" ? "application/pdf" : undefined}
                                     />
                                 )}
                             </Form.Group>

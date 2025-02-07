@@ -22,29 +22,14 @@ import TermsConditions from "./Pages/TermsConditions/TermsConditions";
 import Login from "../components/Authentication/SignIn/Login";
 // import Payment from "./Pages/Payment/Payment";
 import UserList from "./Pages/UserBookLists/UserList";
-// import CheckoutButton from "./Pages/Payment/CheckoutButton";
 // import { Helmet } from "react-helmet";
 import Profile from "./Pages/Profile/Profile";
-// import Validatio from "../components/Authentication/IsLogged";
-import IsLogged from './Pages/Admin/Validation'
-import DeniedA from "./Pages/Profile/DeniedA";
-import Denied from "./Pages/Profile/Denied";
-
 import { AuthProvider } from "./AuthContext";
 
 function App() {
   const [category, setCategory] = useState([]);
   const [author, setAuthor] = useState([]);
   const [fetchTrigger, setFetchTrigger] = useState(false); // Trigger for refetching data
-  const user = IsLogged();
-  const products = [
-    {
-      title: "Full Access Subscription",
-      price: 10000,  // Price in smallest currency unit (e.g., cents for USD)
-      image: "https://via.placeholder.com/150",
-      quantity: 1,
-    }
-  ];
 
   useEffect(() => {
     fetch("http://localhost:5000/categories")
@@ -52,6 +37,7 @@ function App() {
       .then((data) => setCategory(data))
       .catch((err) => console.error("Error fetching categories:", err));
   }, [fetchTrigger]); // Re-fetch when fetchTrigger changes
+
 
   // Fetch Authors
   useEffect(() => {
@@ -62,50 +48,45 @@ function App() {
   }, [fetchTrigger]); // Re-fetch when fetchTrigger changes
   // console.log(category);
 
-  const successUrl = "http://localhost:3000/success";
-  const cancelUrl = "http://localhost:3000/cancel";
   return (
     <>
+
       <Router>
 
-<<<<<<< HEAD
-  <Routes>
-    <Route path="/checkout" element={<CheckoutPage />} />
-    <Route path='/' element={<Home />} />
-    {/* <Route path='/' element={<Homerahma />} /> */}
-=======
+        <AuthProvider>
+          <Routes>
 
-   <Routes>
+            {/* <Route path='/' element={<Home />} /> */}
+            <Route path='/' element={<Homerahma />} />
+            <Route path='/AdminLogin' element={<AdminLogin />} />
+            <Route path='/AboutUs' element={<AboutUs />} />
+            <Route path="/list/:shelf" element={<UserList />} />
+            <Route path='/Register' element={<Register />} />
+            {/* <Route path="/Payment" element={<Payment />} /> */}
+            <Route path='/Categories' element={<Categories category={category} setFetchTrigger={setFetchTrigger} />} />
+            <Route path='/ManageBooks' element={<ManageBooks category={category} author={author} />} />
+            <Route path='/Authors' element={<Authors author={author} setFetchTrigger={setFetchTrigger} />} />
+            <Route path='/books' element={<BookList />} />
+            <Route path='/books/:bookId' element={<BookDetails />} />
+            <Route path="/TermsConditions" element={<TermsConditions />} />
+            <Route path='/sign-up' element={<SignUp />} />
+            <Route path='/sign-in' element={<SignIn />} />
+            <Route path='/login' element={<Login />} />
+            <Route path='/AuthorsBook' element={<AuthorsBook />} />
+            <Route path='/AuthorDetails/:authorId' element={<AuthorDetails />} />
+            <Route path='/profile' element={<Profile />} />
+            <Route path='*' element={<NotFound />} />
 
-      {/* <Route path='/' element={<Home />} /> */}
-      <Route path='/' element={<Homerahma />} />
->>>>>>> bb5f235bc405b3c7917c431c844f2bc34ba2840a
-      <Route path='/AdminLogin' element={<AdminLogin />} />
-      <Route path='/AboutUs' element={<AboutUs />} />
-      <Route path="/list/:shelf" element={<UserList />} />
-      <Route path='/Register' element={<Register />} />
-      {/* <Route path="/Payment" element={<Payment />} /> */}
-      <Route path='/Categories' element={<Categories category={category} setFetchTrigger={setFetchTrigger} />} />
-      <Route path='/ManageBooks' element={<ManageBooks category={category} author={author} />} />
-      <Route path='/Authors' element={<Authors author={author} setFetchTrigger={setFetchTrigger} />} />
-      <Route path='/books' element={<BookList />} />
-      <Route path='/books/:bookId' element={<BookDetails />} />
-      <Route path="/TermsConditions" element={<TermsConditions />} />
-      <Route path='/sign-up' element={<SignUp />} />
-      <Route path='/sign-in' element={<SignIn />} />
-      <Route path='/login' element={<Login />} />
-      <Route path='/AuthorsBook' element={<AuthorsBook />} />
-      <Route path='/AuthorDetails/:authorId' element={<AuthorDetails />} />
-      <Route path='/profile' element={<Profile />} />
-      <Route path='*' element={<NotFound />} />
-    </Routes>
-  </Router>
-  {/* <Helmet>
+          </Routes>
+        </AuthProvider>
+      </Router>
+      {/* <Helmet>
         <link
           href="https://fonts.googleapis.com/css2?family=Spartan:wght@300;400;600&display=swap"
           rel="stylesheet"
         />
       </Helmet> */}
+
     </>
   );
 }
