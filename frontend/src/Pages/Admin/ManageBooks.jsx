@@ -10,6 +10,9 @@ import Button from 'react-bootstrap/Button';
 import DeniedA from "../Profile/DeniedA";
 import IsLogged from "../../../components/Authentication/IsLogged";
 import "./Books.css"
+import ClickSpark from "../Profile/ClickSpark";
+import zIndex from "@mui/material/styles/zIndex";
+
 
 export default function Books({ category, author }) {
     const [books, setBooks] = useState([]);
@@ -50,16 +53,16 @@ export default function Books({ category, author }) {
         }
     }, [isUserLogged]);
 
-    if (!isUserLogged || !user) {
-        return <Denied />;
-    }
+    // if (!isUserLogged || !user) {
+    //     return <Denied />;
+    // }
 
-    if (user.role !== "admin") {
-        return <>
+    // if (user.role !== "admin") {
+    //     return <>
 
-            <DeniedA />
-        </>;
-    }
+    //         <DeniedA />
+    //     </>;
+    // }
     const handleSaveBook = async (formData) => {
         try {
             let imageUrl = "";
@@ -126,106 +129,118 @@ export default function Books({ category, author }) {
     }
 
     return (
-        <div className="d-flex">
-            <Sidebar />
-            <div className="flex-grow-1 p-5">
-                <div className="d-flex justify-content-between">
-                    <h1>Manage Books</h1>
-                    <ModalBtn
-                        title="Book"
-                        category={category}
-                        author={author}
-                        book={books}
-                        fields={[
-                            { name: "name", label: "Book Name", type: "text" },
-                            { name: "description", label: "Book Description", type: "text" },
-                            { name: "category", label: "Choose Category", type: "dropdown" },
-                            { name: "author", label: "Choose Author", type: "dropdown" },
-                            { name: "demo", label: "Demo", type: "text" },
-                            { name: "fullBook", label: "Full Book", type: "file" },
-                            { name: "image", label: "Upload Cover Image", type: "file" }, // Add file input
-                        ]}
-                        onSave={handleSaveBook}
-                    />
-                </div>
+        <>
+            <div className="d-flex" style={{ position: "relative", zIndex: '1' }}>
+                <ClickSpark
+                    sparkColor='#eee'
+                    sparkSize={12}
+                    sparkRadius={25}
+                    sparkCount={10}
+                    duration={900}
+                />
 
-                <Table className="mt-3" striped bordered hover>
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Photo</th>
-                            <th>Name</th>
-                            <th>Description</th>
-                            <th>Category</th>
-                            <th>Author</th>
-                            <th>Demo</th>
-                            <th>Full Book</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
+                <div className="d-flex" style={{ position: "relative", zIndex: '-1' }}>
+                    <Sidebar />
+                    <div className="flex-grow-1 p-5">
+                        <div className="d-flex justify-content-between">
+                            <h1>Manage Books</h1>
+                            <ModalBtn
+                                title="Book"
+                                category={category}
+                                author={author}
+                                book={books}
+                                fields={[
+                                    { name: "name", label: "Book Name", type: "text" },
+                                    { name: "description", label: "Book Description", type: "text" },
+                                    { name: "category", label: "Choose Category", type: "dropdown" },
+                                    { name: "author", label: "Choose Author", type: "dropdown" },
+                                    { name: "demo", label: "Demo", type: "text" },
+                                    { name: "fullBook", label: "Full Book", type: "file" },
+                                    { name: "image", label: "Upload Cover Image", type: "file" }, // Add file input
+                                ]}
+                                onSave={handleSaveBook}
+                            />
+                        </div>
 
-                    {isLoading ? (
-                        <tbody>
-                            {[...Array(3)].map((_, index) => (
-                                <tr key={index}>
-                                    {[...Array(7)].map((_, i) => (
-                                        <td key={i}>
-                                            <Placeholder as="p" animation="glow">
-                                                <Placeholder xs={12} />
-                                            </Placeholder>
-                                        </td>
+                        <Table className="mt-3" striped bordered hover>
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Photo</th>
+                                    <th>Name</th>
+                                    <th>Description</th>
+                                    <th>Category</th>
+                                    <th>Author</th>
+                                    <th>Demo</th>
+                                    <th>Full Book</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+
+                            {isLoading ? (
+                                <tbody>
+                                    {[...Array(3)].map((_, index) => (
+                                        <tr key={index}>
+                                            {[...Array(7)].map((_, i) => (
+                                                <td key={i}>
+                                                    <Placeholder as="p" animation="glow">
+                                                        <Placeholder xs={12} />
+                                                    </Placeholder>
+                                                </td>
+                                            ))}
+                                        </tr>
                                     ))}
-                                </tr>
-                            ))}
-                        </tbody>
-                    ) : (
-                        <tbody>
-                            {books.map((book, index) => (
-                                <tr key={book._id}>
-                                    <td>{index + 1}</td>
-                                    <td>
-                                        {book.coverImage ? (
-                                            <img
-                                                src={book.coverImage}
-                                                alt={book}
-                                                width="50"
-                                                height="60"
-                                                style={{ cursor: "pointer" }}
-                                                onClick={() => window.open(book.coverImage, "_blank")}
-                                            />
-                                        ) : (
-                                            "No Image"
-                                        )}
-                                    </td>
-                                    <td>{book.title}</td>
-                                    <td>{book.description}</td>
-                                    <td>{category?.find(cat => cat._id === book?.category)?.name || '-'}</td>
-                                    <td>{book.author.name}</td>
-                                    <td>{book.demo}</td>
-                                    <td>{book.fullBook}</td>
-                                    {/* <td>{author?.find(a => a._id === book?.author)?.name || book?.author?.name || '-'}</td> */}
-                                    <td>
-                                        <Modify
-                                            title="Book"
-                                            category={category}
-                                            author={author}
-                                            // book={books}
-                                            handleUpdate={(data) => handleUpdate(book._id, data)}
-                                            fields={[
-                                                { name: "title", label: "name", type: "text" },
-                                                { name: "description", label: "Discroption", type: "text" },
-                                                { name: "category", label: "Category", type: "dropdown" },
-                                                { name: "author", label: "Author", type: "dropdown" },
-                                            ]}
-                                        />
-                                        <Button variant="outline-dark" onClick={() => handleDelete(book._id)}>❌</Button>
-                                    </td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    )}
-                </Table>
+                                </tbody>
+                            ) : (
+                                <tbody>
+                                    {books.map((book, index) => (
+                                        <tr key={book._id}>
+                                            <td>{index + 1}</td>
+                                            <td>
+                                                {book.coverImage ? (
+                                                    <img
+                                                        src={book.coverImage}
+                                                        alt={book}
+                                                        width="50"
+                                                        height="60"
+                                                        style={{ cursor: "pointer" }}
+                                                        onClick={() => window.open(book.coverImage, "_blank")}
+                                                    />
+                                                ) : (
+                                                    "No Image"
+                                                )}
+                                            </td>
+                                            <td>{book.title}</td>
+                                            <td>{book.description}</td>
+                                            <td>{category?.find(cat => cat._id === book?.category)?.name || '-'}</td>
+                                            <td>{book.author.name}</td>
+                                            <td>{book.demo}</td>
+                                            <td>{book.fullBook}</td>
+                                            {/* <td>{author?.find(a => a._id === book?.author)?.name || book?.author?.name || '-'}</td> */}
+                                            <td>
+                                                <Modify
+                                                    title="Book"
+                                                    category={category}
+                                                    author={author}
+                                                    // book={books}
+                                                    handleUpdate={(data) => handleUpdate(book._id, data)}
+                                                    fields={[
+                                                        { name: "title", label: "name", type: "text" },
+                                                        { name: "description", label: "Discroption", type: "text" },
+                                                        { name: "category", label: "Category", type: "dropdown" },
+                                                        { name: "author", label: "Author", type: "dropdown" },
+                                                    ]}
+                                                />
+                                                <Button variant="outline-dark" onClick={() => handleDelete(book._id)}>❌</Button>
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            )}
+                        </Table>
+                    </div>
+                </div>
             </div>
-        </div>
+        </>
     );
 }

@@ -1,11 +1,13 @@
 import React from 'react';
 import { Facebook, Twitter, Instagram, Youtube } from 'lucide-react';
+import TermsConditions from "../TermsConditions/TermsConditions";
 import './FooterPage.css';
+
 export default function FooterPage() {
     return (
         <>
             <footer className='footer'>
-                <a href="/terms">Terms & Conditions</a>
+                <a href="/TermsConditions">Terms & Conditions</a>
                 <ul className='row1'>
 
                     <h3><li><a>Company</a></li></h3>

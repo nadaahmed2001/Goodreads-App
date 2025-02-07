@@ -2,12 +2,38 @@ import React, { useContext } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { Dropdown } from "react-bootstrap";
 import { ChevronLeft, ChevronRight, Globe, Moon, ShoppingCart } from "lucide-react";
+// import CheckoutButton from "./CheckoutButton"; // Import CheckoutButton
 import { AuthContext } from "../src/AuthContext"; // Import the context
 import "./Navbar.css";
+import CheckoutButton from "../src/Pages/Payment/CheckoutButton";
 
 const Navbar = () => {
   const { user, role, logout } = useContext(AuthContext); // Get user, role, and logout function from context
   const navigate = useNavigate();
+
+  useEffect(() => {
+    // Fetch user profile if token exists
+    let token = localStorage.getItem("token");
+    if (!token) {
+      token = sessionStorage.getItem("token");
+    }
+    if (token) {
+      axios
+        .get("http://localhost:5000/profile", {
+          headers: { Authorization: `Bearer ${token}` },
+        })
+        .then((result) => {
+          setUser(result.data); // Set user data
+        })
+        .catch((error) => console.log(error));
+    }
+  }, []);
+
+  const logout = () => {
+    localStorage.removeItem("token");
+    sessionStorage.removeItem("token");
+    navigate("/sign-in");
+  };
 
   return (
     <nav>
@@ -35,12 +61,8 @@ const Navbar = () => {
 
           {user ? (
             <>
-              <Link to="/Payment">
-                <button className="button-85" role="button">
-                  Subscribe
-                </button>
-              </Link>
-
+              {/* Use the CheckoutButton here */}
+              <CheckoutButton />
               {/* My Lists Dropdown */}
               <Dropdown align="end">
                 <Dropdown.Toggle id="dropdown-lists" className="sign-in-btn">
@@ -54,9 +76,7 @@ const Navbar = () => {
                   <Dropdown.Item onClick={() => navigate("/list/want_to_read")}>
                     Want to Read
                   </Dropdown.Item>
-                  <Dropdown.Item onClick={() => navigate("/list/read")}>
-                    Read
-                  </Dropdown.Item>
+                  <Dropdown.Item onClick={() => navigate("/list/read")}>Read</Dropdown.Item>
                 </Dropdown.Menu>
               </Dropdown>
 

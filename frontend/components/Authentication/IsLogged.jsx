@@ -3,7 +3,7 @@ import axios from "axios";
 
 const IsLogged = () => {
   const [user, setUser] = useState(null);
-  
+
   useEffect(() => {
     let token = localStorage.getItem("token") || sessionStorage.getItem("token");
     if (token) {
