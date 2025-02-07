@@ -16,6 +16,8 @@
     "@mui/material": "^6.4.3",
     "@mui/system": "^6.4.2",
     "@mui/toolpad-core": "^0.1.23",
+    "@react-pdf-viewer/core": "^3.12.0",
+    "@react-pdf-viewer/default-layout": "^3.12.0",
     "@stripe/react-stripe-js": "^3.1.1",
     "@stripe/stripe-js": "^5.6.0",
     "@toolpad/studio-runtime": "^0.12.0",

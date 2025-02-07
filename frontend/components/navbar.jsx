@@ -11,29 +11,6 @@ const Navbar = () => {
   const { user, role, logout } = useContext(AuthContext); // Get user, role, and logout function from context
   const navigate = useNavigate();
 
-  useEffect(() => {
-    // Fetch user profile if token exists
-    let token = localStorage.getItem("token");
-    if (!token) {
-      token = sessionStorage.getItem("token");
-    }
-    if (token) {
-      axios
-        .get("http://localhost:5000/profile", {
-          headers: { Authorization: `Bearer ${token}` },
-        })
-        .then((result) => {
-          setUser(result.data); // Set user data
-        })
-        .catch((error) => console.log(error));
-    }
-  }, []);
-
-  const logout = () => {
-    localStorage.removeItem("token");
-    sessionStorage.removeItem("token");
-    navigate("/sign-in");
-  };
 
   return (
     <nav>

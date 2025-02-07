@@ -19,32 +19,32 @@ const stripe = Stripe(
 
 // Create a route to handle the checkout session
 const CreateCheckout = async (req, res) => {
+  const { products, currency, success_url, cancel_url } = req.body;
+
   try {
+    const line_items = products.map((product) => ({
+      price_data: {
+        currency: currency,
+        product_data: {
+          name: product.title,
+        },
+        unit_amount: product.price * 100, // Stripe expects the amount in the smallest currency unit (cents)
+      },
+      quantity: product.quantity,
+    }));
+
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ["card"],
-      line_items: [
-        {
-          price_data: {
-            currency: "USD",
-            product_data: {
-              name: "Premium Subscription",
-              description: "Access to premium features for one month",
-            },
-            unit_amount: 10000, // $100 in cents
-          },
-          quantity: 1,
-        },
-      ],
-      mode: "payment", // One-time payment
-      success_url:
-        "http://localhost:3000/success?session_id={CHECKOUT_SESSION_ID}",
-      cancel_url: "http://localhost:3000/cancel",
+      line_items,
+      mode: "subscription", // Make sure it's set to "subscription" for recurring payments
+      success_url: success_url,
+      cancel_url: cancel_url,
     });
 
-    res.json({ url: session.url }); // ✅ Return session URL for direct redirection
+    res.json({ id: session.id });
   } catch (error) {
-    console.error("Error creating checkout session:", error);
-    res.status(500).json({ error: error.message });
+    console.error("Stripe Session Creation Error:", error);
+    res.status(500).send("Internal Server Error");
   }
 };
 
