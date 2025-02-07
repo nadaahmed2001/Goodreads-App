@@ -2,6 +2,7 @@ import React from "react";
 import { Nav, Navbar } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { FaTachometerAlt, FaUsers, FaBook, FaList } from "react-icons/fa";
+import ShinyText from "../../services/Style/ShinyText";
 
 const Sidebar = () => {
     return (
@@ -12,13 +13,13 @@ const Sidebar = () => {
             className="d-flex flex-column vh-100 p-3"
             style={{ width: "240px", position: "sticky", top: 0 }}
         >
-            <Navbar.Brand className="my-3">Admin Panel</Navbar.Brand>
+            <Navbar.Brand className="my-3">Admin Panel </Navbar.Brand>
             <Nav.Link as={Link} to="/" className="text-white mb-5">
                 <button className="learn-more">
                     <span className="circle" aria-hidden="true">
                         <span className="icon arrow"></span>
                     </span>
-                    <span className="button-text">Home</span>
+                    <span className="button-text"><ShinyText text=" Home" disabled={false} speed={5} className='custom-class' /> </span>
                 </button>
             </Nav.Link>
             <Nav className="flex-column w-100">
@@ -27,6 +28,8 @@ const Sidebar = () => {
                 </Nav.Link> */}
                 <Nav.Link as={Link} to="/categories" className="text-white nv">
                     <FaList className="me-2" /> Categories
+                    
+
                 </Nav.Link>
                 <Nav.Link as={Link} to="/ManageBooks" className="text-white nv">
                     <FaUsers className="me-2" /> Books

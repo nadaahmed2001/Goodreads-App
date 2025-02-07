@@ -9,6 +9,7 @@ import axios from "axios";
 import { AuthContext } from "../../../src/AuthContext"; // Use AuthContext
 import DeniedA from "../Profile/DeniedA";
 import Denied from "../Profile/Denied";
+import ShinyText from "../../services/Style/ShinyText";
 
 export default function Categories({ category, setFetchTrigger }) {
     const { user, role } = useContext(AuthContext); // Get user and role from context
@@ -53,11 +54,13 @@ export default function Categories({ category, setFetchTrigger }) {
 
     return (
         <div className="d-flex">
+            
             <Sidebar />
 
             <div className="flex-grow-1 p-5">
                 <div className="d-flex justify-content-between">
                     <h1>Manage Categories</h1>
+                    
                     <ModalBtn
                         title="Category"
                         category={category}
@@ -66,8 +69,11 @@ export default function Categories({ category, setFetchTrigger }) {
                     />
                 </div>
                 <Table striped bordered hover className="mt-3">
+                    
                     <thead>
+                        
                         <tr>
+                            
                             <th>ID</th>
                             <th>Name</th>
                             <th>Actions</th>

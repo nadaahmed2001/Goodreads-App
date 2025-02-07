@@ -93,8 +93,9 @@ app.get("/authors/:authorId", BookAuthor.getBooksByAuthId);
 app.post("/login", authController.login); // Use the controller for the /login route
 app.post("/register", authController.register); // Use the controller for the /register route
 app.post("/verify-otp", authController.verifyOTP); // New route
-
 app.get("/profile", verifyToken, userProfileController.profile);
+app.post("/forgot-password", authController.forgotPassword);
+app.post("/reset-password", authController.resetPassword);
 
 //retreive the user data by verifying its token
 

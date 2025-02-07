@@ -4,6 +4,7 @@ const nodemailer = require("nodemailer"); // Import nodemailer for email functio
 const UserModel = require("../../models/User");
 const crypto = require("crypto"); // To generate OTP
 const OTPModel = require("../../models/OTP"); // Create a new model for OTPs
+const bcrypt = require("bcrypt");
 
 const login = (req, res) => {
   const { email, password, role } = req.body;
@@ -145,9 +146,103 @@ const cleanExpiredOTPs = async () => {
 
 // Run cleanup every 10 minutes
 setInterval(cleanExpiredOTPs, 10 * 60 * 1000);
+///////////////////////////////////////////////////////////////// ForgotPassword ////////////////////////
+
+
+const forgotPassword = async (req, res) => {
+  const { email } = req.body;
+
+  try {
+    const user = await UserModel.findOne({ email });
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    // Generate a plain text reset token
+    const resetToken = crypto.randomBytes(32).toString("hex");
+    const tokenExpiry = new Date(Date.now() + 15 * 60 * 1000); // Token expires in 15 mins
+
+    // Store plain text token in the database
+    user.resetPasswordToken = resetToken;
+    user.resetPasswordExpires = tokenExpiry;
+    await user.save();
+
+    // Send email with the reset link
+    const resetLink = `http://localhost:5173/reset-password?token=${resetToken}&email=${email}`;
+    sendResetEmail(email, resetLink);
+
+    res.status(200).json({ message: "Password reset email sent", token: resetToken }); // Include token for testing
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+
+const sendResetEmail = (userEmail, resetLink) => {
+  const transporter = nodemailer.createTransport({
+    service: "gmail",
+    auth: {
+      user: process.env.EMAIL_USER,
+      pass: process.env.EMAIL_PASS,
+    },
+  });
+
+  const mailOptions = {
+    from: process.env.EMAIL_USER,
+    to: userEmail,
+    subject: "Password Reset Request",
+    text: `Click the link to reset your password: ${resetLink} \nThis link is valid for 15 minutes.`,
+  };
+
+  transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+      console.log("Error sending reset email:", error);
+    } else {
+      console.log("Reset email sent: " + info.response);
+    }
+  });
+};
+//////////////////////////////// Reset Password //////////////////////////////////////////////////////////////////
+const resetPassword = async (req, res) => {
+  const { email, token, newPassword } = req.body;
+
+  try {
+    const user = await UserModel.findOne({ email });
+
+    if (!user || !user.resetPasswordToken || !user.resetPasswordExpires) {
+      return res.status(400).json({ message: "Invalid or expired token" });
+    }
+
+    // Check if the token is expired
+    if (new Date() > user.resetPasswordExpires) {
+      return res.status(400).json({ message: "Token expired" });
+    }
+
+
+    if (token !== user.resetPasswordToken) {
+      return res.status(400).json({ message: "Invalid token" });
+    }
+
+    user.password = newPassword;
+
+    // Clear the reset token fields
+    user.resetPasswordToken = undefined;
+    user.resetPasswordExpires = undefined;
+    
+    await user.save();
+
+    res.status(200).json({ message: "Password reset successfully" });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
 
 module.exports = {
   login,
   register,
   verifyOTP,
+  forgotPassword,
+  resetPassword,
 };

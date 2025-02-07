@@ -16,6 +16,12 @@ import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import CreateBtn from "./CreateBtn";
+import ShinyText from "../../../src/services/Style/ShinyText";
+
+import RotatingText from "./Rotating";
+
+
 
 export default function SignUp() {
   const [showPassword, setShowPassword] = useState(false);
@@ -136,7 +142,18 @@ export default function SignUp() {
         backgroundSize: 'cover', backgroundPosition: 'center',
       }}>
         <Typography variant="h2" sx={{ color: "#000", fontWeight: "bold", lineHeight: 1.2 }}>
-          Join With us<br />and <br /> Enjoy<br />The Experience !
+          
+        
+
+          <ShinyText text=" Join With us " disabled={false} speed={2} className='custom-class' /> 
+          <br></br>
+          <ShinyText text=" and " disabled={false} speed={2.5} className='custom-class' />
+          <br></br>
+          <ShinyText text=" Enjoy " disabled={false} speed={3} className='custom-class' />
+          <br></br>
+          <ShinyText text=" The Experience ! " disabled={false} speed={3.5} className='custom-class' />
+
+
         </Typography>
       </Box>
 
@@ -170,11 +187,15 @@ export default function SignUp() {
             value={formData.confirmPassword} onChange={handleChange} error={!!errors.confirmPassword} helperText={errors.confirmPassword}
             sx={{ mb: 4, input: { color: 'white' } }} />
 
-          <Button fullWidth type="submit" variant="contained"
-            sx={{ backgroundColor: "#d9d9d9", color: "#333", py: 1.5, mb: 3 }}>
-            Create Account
-          </Button>
+<CreateBtn onClick={handleSubmit} />
+
         </Box>
+        <Typography mt={2} fontSize="14px" color="#fff">
+            Already have an account?{"  "}
+            <Link to="/sign-in" style={{ color: 'white', fontWeight: 'bold', textDecoration: 'none', position: 'relative' }}>
+            <ShinyText text=" SignIn" disabled={false} speed={1.5} className='custom-class' />
+            </Link>
+          </Typography>
       </Box>
 
       <Modal open={openModal} onClose={() => setOpenModal(false)} sx={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
@@ -185,6 +206,7 @@ export default function SignUp() {
           <Button fullWidth onClick={verifyOtp} variant="contained" sx={{ mt: 2 }}>Verify</Button>
         </Box>
       </Modal>
+      
     </Box>
   );
 }

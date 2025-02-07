@@ -25,6 +25,10 @@ import UserList from "./Pages/UserBookLists/UserList";
 // import { Helmet } from "react-helmet";
 import Profile from "./Pages/Profile/Profile";
 import { AuthProvider } from "./AuthContext";
+import ForgotPassword from "./Pages/PasswordReset/ForgotPassword";
+import ResetPassword from "./Pages/PasswordReset/ResetPassword";
+
+
 
 function App() {
   const [category, setCategory] = useState([]);
@@ -50,10 +54,11 @@ function App() {
 
   return (
     <>
+     
 
       <Router>
-
         <AuthProvider>
+          
           <Routes>
 
             {/* <Route path='/' element={<Home />} /> */}
@@ -75,6 +80,8 @@ function App() {
             <Route path='/AuthorsBook' element={<AuthorsBook />} />
             <Route path='/AuthorDetails/:authorId' element={<AuthorDetails />} />
             <Route path='/profile' element={<Profile />} />
+            <Route path='/forgot-password' element={<ForgotPassword />} />
+            <Route path='/reset-password' element={<ResetPassword />} />
             <Route path='*' element={<NotFound />} />
 
           </Routes>
