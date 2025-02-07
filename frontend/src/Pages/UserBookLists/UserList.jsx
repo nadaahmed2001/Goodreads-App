@@ -36,7 +36,7 @@ const UserList = () => {
   const handleRemove = async (bookId) => {
     try {
       console.log("Removing book with ID:", bookId);
-      const response = await removeBookFromList(bookId,shelf, token);
+      const response = await removeBookFromList(bookId, shelf, token);
       console.log("Response from server:", response.data); // Debugging line
       if (response.data.success) {
         setBooks(books.filter((book) => book.book._id !== bookId)); // Ensure correct book object reference
@@ -55,27 +55,35 @@ const UserList = () => {
 
         {error && <Alert variant="danger">{error}</Alert>} {/* Show error messages */}
 
-        <Row xs={1} md={2} lg={3} xl={4} className='g-4'>
-          {/* If books array has items */}
-          {books.length > 0 ? (
+
+        <Row xs={1} md={2} lg={3} xl={4} className="g-4">
+          {books.length > 0 && 
+          books.filter((book) => book.book).length > 0 ? ( // Filter out null/undefined
+            console.log("Books:", books),
             books
-            .filter((book) => book.book) // Filter out books where book.book is null
-            .map((book) => (
-              <Col key={book.book._id}>
-                <BookCard book={book} />
-                <Button
-                  variant="danger"
-                  className="w-100"
-                  onClick={() => handleRemove(book.book._id)}
-                >
-                  Remove
-                </Button>
-              </Col>
-              ))
+              .filter((book) => book.book ) // Remove null/undefined books
+              .map((book) => {
+                const bookData = book.book || book;
+                return bookData ? (
+                  <Col key={bookData._id}>
+                    <BookCard book={bookData} />
+                    <Button
+                      variant="danger"
+                      className="w-100"
+                      onClick={() => handleRemove(bookData._id)}
+                    >
+                      Remove
+                    </Button>
+                  </Col>
+                ) : null;
+              })
           ) : (
-            <p className="text-center">No books in this list.</p>
+            <p className="text-center">No books in this list.</p> // Correctly renders when all books are null
           )}
         </Row>
+
+
+
 
       </Container>
       <FooterPage />

@@ -255,6 +255,7 @@ import StarRating from "../../../components/StarRating";
 import Navbar from "./../../../components/navbar";
 import ReviewForm from "../../../components/ReviewForm";
 import ReviewList from "../../../components/ReviewList";
+import axios from "axios";
 
 const BookDetails = () => {
   // Check if the user is authenticated
