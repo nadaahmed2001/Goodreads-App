@@ -16,19 +16,42 @@ export default function Author({ authors }) {
 
       <section className="authors-card">
         {authors.map((author) => (
-          <div className="author-card" key={author._id}> {/* Use author._id as the key */}
-
+          <div className="author-card" key={author._id}> 
             <Link to={`/AuthorDetails/${author._id}`} className="Auname"><h3>{author.name}</h3></Link>
-
-            {/* Use author._id in the Link */}
             <div className='container d-flex'>
               <img src={author.image} alt={author.name} />
               <p><span>{author.birthDate}</span><br></br>{author.bio}</p>
             </div>
           </div>
         ))}
-
       </section>
+      
+      {/* start */}
+      {/* <section className="authors-card">
+  {authors
+    .filter((author) => {
+      return search.toLowerCase() === '' 
+        ? true 
+        : author.name.toLowerCase().includes(search.toLowerCase());
+    })
+    .map((author) => (
+      <div className="author-card" key={author._id}>
+        <Link to={`/AuthorDetails/${author._id}`} className="Auname">
+          <h3>{author.name}</h3>
+        </Link>
+        <div className="container d-flex">
+          <img src={author.image} alt={author.name} />
+          <p>
+            <span>{author.birthDate}</span>
+            <br />
+            {author.bio}
+          </p>
+        </div>
+      </div>
+    ))}
+</section> */}
+
+      {/* end */}
       <Stack spacing={2}>
         <Pagination className='pagination'
           count={10}
