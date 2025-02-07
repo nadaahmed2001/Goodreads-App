@@ -95,6 +95,8 @@ app.get("/books/:bookId", bookID.getBookById);
 //register and login & profile
 app.post("/login", authController.login); // Use the controller for the /login route
 app.post("/register", authController.register); // Use the controller for the /register route
+app.post("/verify-otp", authController.verifyOTP); // New route
+
 app.get("/profile", verifyToken, userProfileController.profile);
 
 //retreive the user data by verifying its token
