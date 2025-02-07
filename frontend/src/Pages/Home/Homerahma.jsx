@@ -93,7 +93,7 @@ const HomePage = () => {
     <>
       <div className="homepage">
         <Navbar />
-        
+
         {/* Hero Section */}
         <div className="container mt-5">
           <div className="row align-items-center">
@@ -122,77 +122,77 @@ const HomePage = () => {
                   <Typography variant="body2" sx={{ color: "text.secondary" }}>{currentAuthor.bio}</Typography>
                 </CardContent>
                 <CardActions>
-                  <ArrowBackIosNewIcon onClick={handlePrevAuthor} />
-                  <ArrowForwardIosIcon onClick={handleNextAuthor} />
+                  <ArrowBackIosNewIcon className="cursorClick" onClick={handlePrevAuthor} />
+                  <ArrowForwardIosIcon className="cursorClick" onClick={handleNextAuthor} />
                 </CardActions>
               </Card>
             )}
           </section>
-    {/* Popular Categories Section */}
-        <section className="PopularCategoriesSection">
-           <Link to="/AuthorsBook" className="removeUnderline">
-            <h3 className="PopularCategories">Most Popular Categories</h3>
-          </Link>
-          <Card sx={{ maxWidth: 500 }} className="Card-home">
-           
-           
-          <div className="catIcons">
-  <div className="icon-item">
-    <FastfoodIcon />
-    <h5>Food</h5>
-  </div>
-   <div className="icon-item">
-     <SportsSoccerIcon />
-    <h5>Sports</h5>
-  </div>
-  <div className="icon-item">
-    <FavoriteIcon />
-    <h5>Love</h5>
-  </div>
-   <div className="icon-item">
-    <MedicalInformationIcon />
-    <h5>Health</h5>
-   </div>
-  <div className="icon-item">
-    <BiotechIcon />
-    <h5>Science</h5>
-  </div>
-  <div className="icon-item">
-    <BalanceIcon />
-    <h5>Law</h5>
-  </div>
-  <div className="icon-item">
-     <PaletteIcon />
-   <h5>Art</h5>
-  </div>
-</div>
-
-           
-          </Card>
-     
- 
-     
-          {/* Quotes Section */}
-          <section className="PopularQuotes">
+          {/* Popular Categories Section */}
+          <section className="PopularCategoriesSection">
             <Link to="/AuthorsBook" className="removeUnderline">
-              <h3 className="PopularQuotes">Quotes</h3>
+              <h3 className="PopularCategories">Most Popular Categories</h3>
             </Link>
             <Card sx={{ maxWidth: 500 }} className="Card-home">
-              
-              <CardContent>
-               
-                <Typography variant="body2" sx={{ color: "text.secondary" }} >
-                 <p className="Quote-body" >"{currentQuote.quote}"</p> 
-                  <br />
-                  <em className="Quote-author2">- <b className="Quote-author">Author</b>:{currentQuote.author}</em>
-                </Typography>
-              </CardContent>
-              <CardActions>
-                <ArrowBackIosNewIcon onClick={handlePrevQuote} />
-                <ArrowForwardIosIcon onClick={handleNextQuote} />
-              </CardActions>
+
+
+              <div className="catIcons">
+                <div className="icon-item">
+                  <FastfoodIcon />
+                  <h5>Food</h5>
+                </div>
+                <div className="icon-item">
+                  <SportsSoccerIcon />
+                  <h5>Sports</h5>
+                </div>
+                <div className="icon-item">
+                  <FavoriteIcon />
+                  <h5>Love</h5>
+                </div>
+                <div className="icon-item">
+                  <MedicalInformationIcon />
+                  <h5>Health</h5>
+                </div>
+                <div className="icon-item">
+                  <BiotechIcon />
+                  <h5>Science</h5>
+                </div>
+                <div className="icon-item">
+                  <BalanceIcon />
+                  <h5>Law</h5>
+                </div>
+                <div className="icon-item">
+                  <PaletteIcon />
+                  <h5>Art</h5>
+                </div>
+              </div>
+
+
             </Card>
-          </section>
+
+
+
+            {/* Quotes Section */}
+            <section className="PopularQuotes">
+              <Link to="/AuthorsBook" className="removeUnderline">
+                <h3 className="PopularQuotes">Quotes</h3>
+              </Link>
+              <Card sx={{ maxWidth: 500 }} className="Card-home">
+
+                <CardContent>
+
+                  <Typography variant="body2" sx={{ color: "text.secondary" }} >
+                    <p className="Quote-body" >"{currentQuote.quote}"</p>
+                    <br />
+                    <em className="Quote-author2">- <b className="Quote-author">Author</b>:{currentQuote.author}</em>
+                  </Typography>
+                </CardContent>
+                <CardActions>
+                  <ArrowBackIosNewIcon className="cursorClick" onClick={handlePrevQuote} />
+                  <ArrowForwardIosIcon className="cursorClick" onClick={handleNextQuote} />
+                </CardActions>
+              </Card>
+            </section>
           </section>
         </div>
 
@@ -229,37 +229,37 @@ const HomePage = () => {
           </div>
         </section> */}
 
-<section className="Best-Selling-Books">
-  <h2 className="fw-bold mb-4">Best-Selling Books</h2>
-  <div className="containerBooks mt-5">
-    <div className="row g-4">
-      {books.map((book, index) => (
-        <div key={index} className="col-12 col-sm-6 col-md-4 col-lg-3">
-          <div className="card book-card">
-            <img src={book.coverImage} className="card-img-top" alt={book.title} />
-            <div className="card-body">
-              <h4 className="card-title">{book.title}</h4>
-              <p className="text-muted">Author: {book.author?.name}</p>
-              <div className="d-flex justify-content-between mt-2">
-                <span className="text-muted">⭐⭐⭐⭐⭐</span>
-              </div>
-              <div className="d-grid">
-                <Link to={`/books/${book._id}`}>
-                  <button className="btn btn-outline-primary mt-2 view-details">View Details</button>
-                </Link>
-              </div>
+        <section className="Best-Selling-Books">
+          <h2 className="fw-bold mb-4">Best-Selling Books</h2>
+          <div className="containerBooks mt-5">
+            <div className="row g-4">
+              {books.map((book, index) => (
+                <div key={index} className="col-12 col-sm-6 col-md-4 col-lg-3">
+                  <div className="card book-card">
+                    <img src={book.coverImage} className="card-img-top" alt={book.title} />
+                    <div className="card-body">
+                      <h4 className="card-title">{book.title}</h4>
+                      <p className="text-muted">Author: {book.author?.name}</p>
+                      <div className="d-flex justify-content-between mt-2">
+                        <span className="text-muted">⭐⭐⭐⭐⭐</span>
+                      </div>
+                      <div className="d-grid">
+                        <Link to={`/books/${book._id}`}>
+                          <button className="btn btn-outline-primary mt-2 view-details">View Details</button>
+                        </Link>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
-        </div>
-      ))}
-    </div>
-  </div>
-  <div className="text-center mt-5">
-    <Link to="/books">
-      <button className="btn btn-primary btn-lg View-All-Books">View All Books</button>
-    </Link>
-  </div>
-</section>
+          <div className="text-center mt-5">
+            <Link to="/books">
+              <button className="btn btn-primary btn-lg View-All-Books">View All Books</button>
+            </Link>
+          </div>
+        </section>
 
 
         <FooterPage />
