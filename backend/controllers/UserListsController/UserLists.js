@@ -1,4 +1,5 @@
 const Books = require('../../models/Book');
+const UserBookList = require('../../models/UserBookList');
 
 const addToList = async (req, res) => {
     const { bookId, shelf } = req.body;
@@ -44,10 +45,20 @@ const getList = async (req, res) => {
     const userId = req.user.id; // Extract user ID from JWT
   
     try {
-      console.log("Fetching books from server --> get-list");
-      const books = await UserBookList.find({ user: userId, shelf }).populate(
-        "book"
-      ).exec();
+      console.log("-------------------Fetching books from server --> get-list");
+
+
+      //Send the books from the user's list along with the author of the book
+        // Fetch the books from the user's list along with the author's name
+        const books = await UserBookList.find({ user: userId, shelf })
+            .populate({
+                path: "book",
+                populate: { 
+                    path: "author", 
+                    select: "name" // Ensure only the 'name' field is selected
+                }
+            });
+
       console.log("------------------Fetchedbooks from server --> get-list", books);
       res.json({ success: true, books });
     } catch (error) {

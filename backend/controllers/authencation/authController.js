@@ -2,6 +2,8 @@
 const jwt = require("jsonwebtoken");
 const nodemailer = require("nodemailer"); // Import nodemailer for email functionality
 const UserModel = require("../../models/User");
+const crypto = require("crypto"); // To generate OTP
+const OTPModel = require("../../models/OTP"); // Create a new model for OTPs
 
 const login = (req, res) => {
   const { email, password, role } = req.body;
@@ -33,10 +35,15 @@ const login = (req, res) => {
     })
     .catch((err) => res.status(500).json({ error: err.message }));
 };
-// Send welcome email
-const sendWelcomeEmail = (userEmail) => {
+
+const generateOTP = () => {
+  return crypto.randomInt(100000, 999999).toString();
+};
+
+// Function to send OTP email
+const sendOTPEmail = (userEmail, otp) => {
   const transporter = nodemailer.createTransport({
-    service: "gmail", // You can use another SMTP service, Gmail is just an example
+    service: "gmail",
     auth: {
       user: process.env.EMAIL_USER,
       pass: process.env.EMAIL_PASS,
@@ -44,50 +51,103 @@ const sendWelcomeEmail = (userEmail) => {
   });
 
   const mailOptions = {
-    from: process.env.EMAIL_USER,  // Use environment variable for email address
+    from: process.env.EMAIL_USER,
     to: userEmail,
-    subject: "Welcome to Shelf-Sphere!",
-    text: `Hello,
-
-Your account has been successfully created at Shelf-Sphere!
-
-You can now log in to your account by clicking the link below:
-http://localhost:5173/sign-in
-
-Best regards,
-Shelf-Sphere Team`,
+    subject: "Your OTP Code for Registration",
+    text: `Your OTP code for Shelf-Sphere registration is: ${otp}. This OTP is valid for 5 minutes.`,
   };
 
   transporter.sendMail(mailOptions, (error, info) => {
     if (error) {
-      console.log("Error sending email:", error);
+      console.log("Error sending OTP email:", error);
     } else {
-      console.log("Email sent: " + info.response);
+      console.log("OTP email sent: " + info.response);
     }
   });
 };
 
-// Register user
-const register = (req, res) => {
-  UserModel.findOne({ email: req.body.email })
-    .then((existingUser) => {
-      if (existingUser) {
-        // If user exists, return an error message
-        return res.json("Email Already Exist");
-      }
-      // If user doesn't exist, create a new user
-      UserModel.create(req.body) // Create user in the database
-        .then((user) => {
-          // Send the welcome email after user is created
-          sendWelcomeEmail(user.email);
-          res.json(user); // Respond with the created user object
-        })
-        .catch((err) => res.status(500).json({ error: err.message })); // Handle any errors
-    })
-    .catch((err) => res.status(500).json({ error: err.message })); // Handle errors in finding the user
+// Step 1: Register and send OTP
+const register = async (req, res) => {
+  const { email } = req.body;
+
+  try {
+    // Check if user already exists
+    const existingUser = await UserModel.findOne({ email });
+    if (existingUser) {
+      return res.status(400).json({ message: "Email already exists" });
+    }
+
+    // Generate OTP
+    const otp = generateOTP();
+    const otpExpiry = new Date(Date.now() + 5 * 60 * 1000); // OTP expires in 5 minutes
+    console.log("Generated OTP for", email, ":", otp);
+
+    // Save OTP in the database
+    await OTPModel.create({ email, otp, expiresAt: otpExpiry });
+
+    // Send OTP to user's email
+    sendOTPEmail(email, otp);
+
+    res.status(200).json({ message: "OTP sent to email" });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
 };
+
+const verifyOTP = async (req, res) => {
+  const { email, otp } = req.body;
+
+  try {
+    // Find OTP record
+    const otpRecord = await OTPModel.findOne({ email, otp });
+
+    if (!otpRecord ) {
+      return res.status(400).json({ message: "Invalid OTP" });
+    }
+
+    // Check if OTP is expired
+    if (new Date() > otpRecord.expiresAt) {
+      return res.status(400).json({ message: "OTP expired" });
+    }
+    // console.log("Received email:", req.body.email);
+    // console.log("Received OTP:", req.body.otp);
+    // console.log("Stored OTP:", otpRecord.otp);
+
+    // Create the user
+    const newUser = await UserModel.create({
+      first_name: req.body.first_name,
+      last_name: req.body.last_name,
+      email,
+      password: req.body.password, // In production, hash this password
+      role: "user", 
+      created_at: new Date(),
+    });
+
+    // Delete OTP record after successful verification
+    await OTPModel.deleteOne({ email });
+
+    // Generate JWT token for the user
+    const token = jwt.sign(
+      { id: newUser._id, email: newUser.email, role: newUser.role },
+      process.env.JWT_SECRET,
+      { expiresIn: "1h" }
+    );
+
+    res.status(201).json({ message: "OTP Verified", token });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+const cleanExpiredOTPs = async () => {
+  await OTPModel.deleteMany({ expiresAt: { $lt: new Date() } }); //lt less than
+};
+
+// Run cleanup every 10 minutes
+setInterval(cleanExpiredOTPs, 10 * 60 * 1000);
 
 module.exports = {
   login,
   register,
+  verifyOTP,
 };
