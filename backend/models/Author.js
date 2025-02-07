@@ -5,6 +5,7 @@ const authorSchema = new mongoose.Schema({
   image: String,
   bio: String,
   birthDate: String,
+  // fake:fake,
 });
 
 const Author = mongoose.model("Author", authorSchema);
