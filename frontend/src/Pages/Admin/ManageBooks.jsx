@@ -206,7 +206,8 @@ export default function Books({ category, author }) {
                                     <td>{book.title}</td>
                                     <td>{book.description}</td>
                                     <td>{category?.find(cat => cat._id === book?.category)?.name || '-'}</td>
-                                    <td>{book.author.name}</td>
+                                    {/* <td>{book.author.name}</td> */}
+                                    <td>{author?.find(a => a._id === book?.author)?.name || book?.author?.name || '-'}</td>
                                     <td>{book.demo}</td>
                                     <td>
                                         {book.fullBook ? (
@@ -219,7 +220,6 @@ export default function Books({ category, author }) {
                                             <span>No PDF available</span>
                                         )}
                                     </td>
-                                    {/* <td>{author?.find(a => a._id === book?.author)?.name || book?.author?.name || '-'}</td> */}
                                     <td>
                                         <Modify
                                             title="Book"
