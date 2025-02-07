@@ -246,7 +246,8 @@ import { useParams } from "react-router-dom";
 import {
   fetchBookById,
   addBookToList,
-  fetchBookReviews,
+  //fetchBookReviews,
+  submitReview,
 } from "../../services/api";
 
 import { Container, Row, Col, Stack, Dropdown } from "react-bootstrap";
@@ -286,34 +287,41 @@ const BookDetails = () => {
     };
     getBook();
 
-      if (token) {
-    setIsAuthenticated(true);
-  }
-
-    const fetchReviews = async () => {
-      try {
-        const response = await fetchBookReviews(bookId);
-        setReviews(response.data);
-        setLoadingReviews(false);
-      } catch (error) {
-        console.error("Error fetching reviews:", error);
-        setLoadingReviews(false);
-      }
-    };
-    if (bookId) {
-      fetchReviews();
+    if (token) {
+      setIsAuthenticated(true);
     }
+
+    // const fetchReviews = async () => {
+    //   try {
+    //     const response = await fetchBookReviews(bookId);
+    //     setReviews(response.data);
+    //     setLoadingReviews(false);
+    //   } catch (error) {
+    //     console.error("Error fetching reviews:", error);
+    //     setLoadingReviews(false);
+    //   }
+    // };
+    // if (bookId) {
+    //   fetchReviews();
+    // }
   }, [bookId]);
 
   const handleAddReview = async () => {
+    if (!newReview.user || !newReview.rating || !newReview.comment) return;
+
     try {
       const token =
         localStorage.getItem("token") || sessionStorage.getItem("token");
-      const response = await submitReview(bookId, newReview, token);
 
+      const formattedReview = {
+        ...newReview,
+        rating: Number(newReview.rating),
+      };
+
+      const response = await submitReview(bookId, formattedReview, token);
       setReviews((prev) => [...prev, response.data]);
       setShowModal(false);
-      setNewReview({ rating: "", comment: "" });
+      setNewReview({ user: "", rating: "", comment: "" });
     } catch (error) {
       console.error("Error submitting review:", error);
       alert("Failed to submit review");
@@ -353,84 +361,98 @@ const BookDetails = () => {
   return (
     <>
       <Navbar />
-
-      <Container className='my-5 max-w-5xl'>
-        <Row className='g-4 bg-white  rounded-3 p-4'>
-          <Col
-            md={6}
-            className='d-flex justify-content-center align-items-center'
-          >
+      <Container fluid='lg' className='my-5'>
+        <Row className='g-4 p-3'>
+          <Col xs={12} md={6} lg={4} className='d-flex justify-content-center'>
             <img
               src={book.coverImage}
               alt={book.title}
-              className='img-fluid rounded-3 shadow'
-              style={{ maxWidth: "400px", width: "400px" }}
+              className='img-fluid rounded-4 shadow'
+              style={{
+                maxWidth: "100%",
+                height: "auto",
+                aspectRatio: "2/3",
+                objectFit: "cover",
+              }}
             />
           </Col>
-          <Col md={6}>
-            <h1 className='display-4 fw-bold mb-3'>{book.title}</h1>
 
-            <StarRating
-              className='mb-4'
-              maxRating={5}
-              size={30}
-              defaultRating={book.rating}
-              isReadOnly={true}
-            >
-              {averageRating.toFixed(1)}/5
-              {book.rating}/5
-            </StarRating>
+          <Col xs={12} md={6} lg={8}>
+            <div className='ps-lg-4'>
+              <h1 className='display-5 display-md-4 fw-bold mb-3'>
+                {book.title}
+              </h1>
 
-            <h4 className='lead text-muted mb-4  '>
-              Category: {book.category.name}
-            </h4>
-            <p className='lead text-muted mb-4  '>By: author</p>
-            {/* <p className='lead text-muted mb-4  '>By: {book.author.name}</p> */}
+              <div className='d-flex flex-wrap align-items-center gap-3 mb-4'>
+                <StarRating
+                  className='mb-2 mb-md-0'
+                  maxRating={5}
+                  size={24}
+                  defaultRating={averageRating}
+                  isReadOnly={true}
+                />
 
-            {/* <p className='text-secondary fs-5 mb-4'>{book.description}</p> */}
-            <p>
-              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Corrupti
-              quam deleniti, doloribus unde, repellat neque dolore sapiente sit
-              totam, nemo porro minus assumenda! Fugit molestias sunt
-              laboriosam, perferendis architecto amet.
-            </p>
-            <hr />
-            <Stack direction='horizontal' className='mt-4' gap={2}>
-              {isAuthenticated && (
-                <Dropdown>
-                  <Dropdown.Toggle variant='primary' id='dropdown-add-to-list'>
-                    Add to List
-                  </Dropdown.Toggle>
-                  <Dropdown.Menu>
-                    <Dropdown.Item onClick={() => handleAddToList("read")}>
-                      Read
-                    </Dropdown.Item>
-                    <Dropdown.Item
-                      onClick={() => handleAddToList("currently_reading")}
+                <span className='fs-5 text-muted'>
+                  {Number(averageRating).toFixed(1)}/5
+                </span>
+              </div>
+
+              <div className='mb-4'>
+                <h4 className='h5 text-muted mb-2'>
+                  Category: {book.category.name}
+                </h4>
+                <h4 className='h5 text-muted'>By: {book.author?.name}</h4>
+              </div>
+
+              <hr className='my-4' />
+
+              <p className='lead text-secondary mb-4'>
+                {book.description || `Lorem ipsum...`}
+              </p>
+
+              <Stack direction='horizontal' className='flex-wrap gap-3 mt-4'>
+                {isAuthenticated && (
+                  <Dropdown className='me-2'>
+                    <Dropdown.Toggle
+                      variant='primary'
+                      className='text-nowrap'
+                      id='dropdown-add-to-list'
                     >
-                      Currently Reading
-                    </Dropdown.Item>
-                    <Dropdown.Item
-                      onClick={() => handleAddToList("want_to_read")}
-                    >
-                      Want to Read
-                    </Dropdown.Item>
-                  </Dropdown.Menu>
-                </Dropdown>
-              )}
-            </Stack>
+                      Add to List
+                    </Dropdown.Toggle>
+                    <Dropdown.Menu className='w-100'>
+                      <Dropdown.Item onClick={() => handleAddToList("read")}>
+                        Read
+                      </Dropdown.Item>
+                      <Dropdown.Item
+                        onClick={() => handleAddToList("currently_reading")}
+                      >
+                        Currently Reading
+                      </Dropdown.Item>
+                      <Dropdown.Item
+                        onClick={() => handleAddToList("want_to_read")}
+                      >
+                        Want to Read
+                      </Dropdown.Item>
+                    </Dropdown.Menu>
+                  </Dropdown>
+                )}
+              </Stack>
+            </div>
           </Col>
         </Row>
-        <hr />
 
-        {/* Reviews Section */}
+        <hr className='my-5' />
+
         <Row>
-          <ReviewList
-            reviews={reviews}
-            visibleReviews={visibleReviews}
-            setVisibleReviews={setVisibleReviews}
-            setShowModal={setShowModal}
-          />
+          <Col xs={12}>
+            <ReviewList
+              reviews={reviews}
+              visibleReviews={visibleReviews}
+              setVisibleReviews={setVisibleReviews}
+              setShowModal={setShowModal}
+            />
+          </Col>
         </Row>
 
         <ReviewForm
@@ -441,6 +463,7 @@ const BookDetails = () => {
           handleAddReview={handleAddReview}
         />
       </Container>
+      ;
     </>
   );
 };
