@@ -1,64 +1,41 @@
-import { useState, useEffect } from "react";
-import React from 'react'
+import { useContext } from "react";
+import React from "react";
 import Sidebar from "./Sidebar";
 import Table from "react-bootstrap/Table";
-import Button from 'react-bootstrap/Button';
-import ModalBtn from '../../assets/Reusable';
-import Modify from '../Admin/Modify';
-import axios from 'axios';
-import IsLogged from "../../../components/Authentication/IsLogged";
+import Button from "react-bootstrap/Button";
+import ModalBtn from "../../assets/Reusable";
+import Modify from "../Admin/Modify";
+import axios from "axios";
+import { AuthContext } from "../../../src/AuthContext"; // Use AuthContext
 import DeniedA from "../Profile/DeniedA";
 import Denied from "../Profile/Denied";
 
-
 export default function Categories({ category, setFetchTrigger }) {
-    const [user, setUser] = useState(null);
+    const { user, role } = useContext(AuthContext); // Get user and role from context
 
-    const isUserLogged = IsLogged();
-
-
-    useEffect(() => {
-        if (isUserLogged) {
-            let token = localStorage.getItem("token") || sessionStorage.getItem("token");
-            axios
-                .get("http://localhost:5000/profile", {
-                    headers: { Authorization: `Bearer ${token}` },
-                })
-                .then((result) => {
-                    setUser(result.data);
-                })
-                .catch((error) => console.log(error))
-
-        }
-    }, [isUserLogged]);
-
-    // if (!isUserLogged || !user) {
-    //     return <Denied />;
-    // }
-
-    // if (user.role !== "admin") {
-    //     return <>
-    //         <DeniedA />
-    //     </>;
-    // }
-    const handleSaveCategory = (formData) => {
-        axios.post(`http://localhost:5000/category`, { name: formData.name })
-            .then((response) => {
-                console.log("Category added:", response.data);
-                alert("Category added successfully!");
-                setFetchTrigger((prev) => !prev)
-            })
-            .catch((err) => console.log("unable to add category", err));
+    if (!user) {
+        return <Denied />; // Show access denied if no user is logged in
     }
 
-    // console.log("Categories in category component:", category);
+    if (role !== "admin") {
+        return <DeniedA />; // Show a different access denied message for non-admin users
+    }
+
+    const handleSaveCategory = (formData) => {
+        axios
+            .post("http://localhost:5000/category", { name: formData.name })
+            .then((response) => {
+                alert("Category added successfully!");
+                setFetchTrigger((prev) => !prev);
+            })
+            .catch((err) => console.log("Unable to add category", err));
+    };
+
     const handleDelete = async (categoryId) => {
         try {
             await axios.delete(`http://localhost:5000/category/${categoryId}`);
             alert("Category deleted successfully!");
-            // After deleting, trigger a refetch to update the categories list
             setFetchTrigger((prev) => !prev);
-            // setBooks(books.filter(b => b._id !== book._id))
         } catch (err) {
             console.error("Unable to delete category:", err);
         }
@@ -68,8 +45,6 @@ export default function Categories({ category, setFetchTrigger }) {
         try {
             await axios.put(`http://localhost:5000/category/${categoryId}`, updatedData);
             alert("Category updated successfully!");
-
-            // Refetch the data to reflect changes
             setFetchTrigger((prev) => !prev);
         } catch (err) {
             console.error("Unable to update category:", err);
@@ -77,24 +52,21 @@ export default function Categories({ category, setFetchTrigger }) {
     };
 
     return (
-        <div className='d-flex'>
+        <div className="d-flex">
             <Sidebar />
 
-            <div className="flex-grow-1 p-5 ">
-                <div className='d-flex justify-content-between'>
+            <div className="flex-grow-1 p-5">
+                <div className="d-flex justify-content-between">
                     <h1>Manage Categories</h1>
-                    {/* <Button variant="dark">Add Category</Button> */}
                     <ModalBtn
                         title="Category"
                         category={category}
-                        fields={[
-                            { name: "name", label: "Category", type: "text" },
-                        ]}
+                        fields={[{ name: "name", label: "Category", type: "text" }]}
                         onSave={handleSaveCategory}
                     />
                 </div>
                 <Table striped bordered hover className="mt-3">
-                    <thead >
+                    <thead>
                         <tr>
                             <th>ID</th>
                             <th>Name</th>
@@ -107,21 +79,20 @@ export default function Categories({ category, setFetchTrigger }) {
                                 <td>{index + 1}</td>
                                 <td>{c.name}</td>
                                 <td>
-                                    <Modify initialData={{ name: c.name }}
+                                    <Modify
+                                        initialData={{ name: c.name }}
                                         handleUpdate={(data) => handleUpdate(c._id, data)}
-                                        fields={[
-                                            { name: "name", label: "Category", type: "text" },
-                                        ]}
+                                        fields={[{ name: "name", label: "Category", type: "text" }]}
                                     />
-                                    <Button variant="outline-dark" onClick={() => handleDelete(c._id)}>❌</Button>
-
+                                    <Button variant="outline-dark" onClick={() => handleDelete(c._id)}>
+                                        ❌
+                                    </Button>
                                 </td>
                             </tr>
-                        ))
-                        }
-                    </tbody >
-                </Table >
-            </div >
-        </div >
-    )
+                        ))}
+                    </tbody>
+                </Table>
+            </div>
+        </div>
+    );
 }

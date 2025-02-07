@@ -9,38 +9,19 @@ import Denied from "../Profile/Denied";
 import DeniedA from "../Profile/DeniedA";
 import IsLogged from "../../../components/Authentication/IsLogged";
 import { Button } from "react-bootstrap";
+import { AuthContext } from "../../../src/AuthContext"; // Use AuthContext
 
 export default function Authors({ author, setFetchTrigger }) {
-
-    const [user, setUser] = useState(null);
-    const isUserLogged = IsLogged();
-
-    useEffect(() => {
-        if (isUserLogged) {
-            let token = localStorage.getItem("token") || sessionStorage.getItem("token");
-            axios
-                .get("http://localhost:5000/profile", {
-                    headers: { Authorization: `Bearer ${token}` },
-                })
-                .then((result) => {
-                    setUser(result.data);
-                })
-                .catch((error) => console.log(error));
+    const { user, role } = useContext(AuthContext); // Get user and role from context
+    
+        if (!user) {
+            return <Denied />; // Show access denied if no user is logged in
         }
-    }, [isUserLogged]);
-
-    // if (!isUserLogged || !user) {
-    //     return <Denied />;
-    // }
-
-    // if (user.role !== "admin") {
-    //     return <>
-
-    //         <DeniedA />
-    //     </>;
-    // }
-
-
+    
+        if (role !== "admin") {
+            return <DeniedA />; // Show a different access denied message for non-admin users
+        }
+   
     const handleSaveAuthor = (formData) => {
         const imageFile = formData.image;
 
