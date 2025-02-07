@@ -20,11 +20,9 @@ const Navbar = () => {
         </div>
         <div className="Searchinput">
           <input
-           onChange={(e)=>setSearch(e.target.value)}
             type="search"
             placeholder="Search titles, authors, publishers..."
             className="form-control search-input"
-           
           />
         </div>
         <div className="d-flex align-items-center icons">
