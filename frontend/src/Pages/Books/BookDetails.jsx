@@ -287,23 +287,22 @@ const BookDetails = () => {
     };
     getBook();
 
+    const fetchReviews = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:5000/api/books/${bookId}/reviews`
+        );
+        setReviews(response.data);
+      } catch (error) {
+        console.error("Error fetching reviews:", error);
+      }
+    };
+
+    fetchReviews();
+
     if (token) {
       setIsAuthenticated(true);
     }
-
-    // const fetchReviews = async () => {
-    //   try {
-    //     const response = await fetchBookReviews(bookId);
-    //     setReviews(response.data);
-    //     setLoadingReviews(false);
-    //   } catch (error) {
-    //     console.error("Error fetching reviews:", error);
-    //     setLoadingReviews(false);
-    //   }
-    // };
-    // if (bookId) {
-    //   fetchReviews();
-    // }
   }, [bookId]);
 
   const handleAddReview = async () => {
@@ -446,6 +445,21 @@ const BookDetails = () => {
 
         <Row>
           <Col xs={12}>
+            <h2>Book Reviews</h2>
+            <StarRating defaultRating={averageRating} isReadOnly={true} />
+
+            {reviews.map((review) => (
+              <div key={review._id}>
+                <p>
+                  <strong>{review.user}</strong>: {review.comment}
+                </p>
+                <StarRating defaultRating={review.rating} isReadOnly={true} />
+              </div>
+            ))}
+          </Col>
+        </Row>
+        {/* <Row>
+          <Col xs={12}>
             <ReviewList
               reviews={reviews}
               visibleReviews={visibleReviews}
@@ -453,7 +467,7 @@ const BookDetails = () => {
               setShowModal={setShowModal}
             />
           </Col>
-        </Row>
+        </Row> */}
 
         <ReviewForm
           showModal={showModal}
