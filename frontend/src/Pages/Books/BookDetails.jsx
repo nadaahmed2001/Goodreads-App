@@ -390,7 +390,7 @@ const BookDetails = () => {
                   isReadOnly={true}
                 />
 
-                <span className='fs-5 text-muted'>
+                <span className='fs-6 text-muted mt-1'>
                   {Number(averageRating).toFixed(1)}/5
                 </span>
               </div>
