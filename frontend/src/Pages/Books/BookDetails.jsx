@@ -245,10 +245,11 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import {
   fetchBookById,
+  fetchBookReviews,
   addBookToList,
-  //fetchBookReviews,
   submitReview,
 } from "../../services/api";
+import axios from "axios";
 
 import { Container, Row, Col, Stack, Dropdown } from "react-bootstrap";
 import StarRating from "../../../components/StarRating";
@@ -263,12 +264,12 @@ const BookDetails = () => {
     token = sessionStorage.getItem("token");
   }
 
-  const [reviews, setReviews] = useState([]);
   const [loadingReviews, setLoadingReviews] = useState(true);
   const { bookId } = useParams();
   const [book, setBook] = useState(null);
-  const [visibleReviews, setVisibleReviews] = useState(4);
   const [showModal, setShowModal] = useState(false);
+  const [visibleReviews, setVisibleReviews] = useState(3);
+  const [reviews, setReviews] = useState([]);
   const [newReview, setNewReview] = useState({
     user: "",
     rating: "",
@@ -289,15 +290,12 @@ const BookDetails = () => {
 
     const fetchReviews = async () => {
       try {
-        const response = await axios.get(
-          `http://localhost:5000/api/books/${bookId}/reviews`
-        );
+        const response = await fetchBookReviews(bookId);
         setReviews(response.data);
       } catch (error) {
         console.error("Error fetching reviews:", error);
       }
     };
-
     fetchReviews();
 
     if (token) {
@@ -445,21 +443,6 @@ const BookDetails = () => {
 
         <Row>
           <Col xs={12}>
-            <h2>Book Reviews</h2>
-            <StarRating defaultRating={averageRating} isReadOnly={true} />
-
-            {reviews.map((review) => (
-              <div key={review._id}>
-                <p>
-                  <strong>{review.user}</strong>: {review.comment}
-                </p>
-                <StarRating defaultRating={review.rating} isReadOnly={true} />
-              </div>
-            ))}
-          </Col>
-        </Row>
-        {/* <Row>
-          <Col xs={12}>
             <ReviewList
               reviews={reviews}
               visibleReviews={visibleReviews}
@@ -467,7 +450,7 @@ const BookDetails = () => {
               setShowModal={setShowModal}
             />
           </Col>
-        </Row> */}
+        </Row>
 
         <ReviewForm
           showModal={showModal}
