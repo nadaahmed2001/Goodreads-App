@@ -42,10 +42,10 @@ const {
   deleteAuthor,
 } = require("./controllers/admin/Author");
 
-const {
-  CreateCheckout,
-  VerifyPayment,
-} = require("./controllers/Payment/Payment");
+// const {
+//   CreateCheckout,
+//   VerifyPayment,
+// } = require("./controllers/Payment/Payment");
 /*reviews fatma*/
 // const reviewRoutes = require("./routes/reviewRoutes");
 // app.use("/api", reviewRoutes);
@@ -251,9 +251,9 @@ app.delete("/authorsAdmin/:id", deleteAuthor);
 app.put("/authorsAdmin/:id", updateAuthor);
 
 // ============= Payment ==================
-app.post("/create-checkout-session", CreateCheckout);
+// app.post("/create-checkout-session", CreateCheckout);
 
-app.get("/verify-payment", VerifyPayment);
+// app.get("/verify-payment", VerifyPayment);
 
 // const PORT = process.env.PORT || 5000;
 const PORT = 5000;
