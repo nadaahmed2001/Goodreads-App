@@ -76,9 +76,30 @@ const ResetPassword = () => {
         </Typography>
 
         {error && (
+          <>
           <Alert severity="error" sx={{ mb: 3 }}>
             {error}
           </Alert>
+          <Button
+              variant="outlined"
+              fullWidth
+              sx={{
+                color: "#3f51b5",
+                borderColor: "#3f51b5",
+                padding: "10px",
+                fontSize: "16px",
+                fontWeight: "bold",
+                "&:hover": {
+                  backgroundColor: "#3f51b5",
+                  color: "#fff",
+                },
+              }}
+              onClick={() => navigate("/sign-in")} // Redirect to /sign-in
+            >
+              Back to Login
+            </Button>
+          </>
+          
         )}
 
         {message && (
