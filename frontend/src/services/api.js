@@ -29,13 +29,31 @@ export const removeBookFromList = async (bookId, shelf, token) => {
 };
 
 /*reviews fatma*/
-export const fetchBookReviews = (bookId) =>
-  axios.get(`${API_BASE_URL}/api/books/${bookId}/reviews`);
+// export const fetchBookReviews = (bookId) =>
+//   axios.get(`${API_BASE_URL}/api/books/${bookId}/reviews`);
 
-export const submitReview = (bookId, reviewData, token) =>
-  axios.post(`${API_BASE_URL}/api/books/${bookId}/reviews`, reviewData, {
-    headers: { Authorization: `Bearer ${token}` },
-  });
+export const submitReview = async (bookId, review, token) => {
+  try {
+    const response = await axios.post(
+      `${API_BASE_URL}/reviews`,
+      {
+        bookId,
+        ...review,
+        rating: Number(review.rating),
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return response;
+  } catch (error) {
+    console.error("Error in submitReview:", error.response || error);
+    throw error;
+  }
+};
+
 /*reviews fatma*/
 
 // export const fetchFeaturedBooks = () => axios.get(`${API_BASE_URL}/books/featured`);
