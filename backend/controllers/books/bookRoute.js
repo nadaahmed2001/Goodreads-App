@@ -9,7 +9,6 @@ const getBookById = async (req, res) => {
       .populate("author", "name")
       .populate("category", "name")
       .populate("reviews");
-
     res.json(book);
     console.log("Book fetched successfully from server.js");
   } catch (error) {
