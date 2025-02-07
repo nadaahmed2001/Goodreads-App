@@ -210,9 +210,11 @@ export default function Books({ category, author }) {
                                     <td>{book.demo}</td>
                                     <td>
                                         {book.fullBook ? (
-                                            <a href={`https://res-console.cloudinary.com/mano22/media_explorer_thumbnails/${book.fullBook}/download`} download={book.title || "book.pdf"}>
-                                                Download PDF
+                                            <a href={book.fullBook} target="_blank" download={book.title || "book.pdf"}>
+                                                View PDF
                                             </a>
+                                            //{/* https://res.cloudinary.com/mano22/image/upload/v1738902613/book_pdfs/ltpajzp1ah8lahmc3qzp.pdf */}
+                                            // https://res.cloudinary.com/mano22/image/upload/v1738902058/book_pdfs/knkdenahfkabxmf1mqro.pdf
                                         ) : (
                                             <span>No PDF available</span>
                                         )}
