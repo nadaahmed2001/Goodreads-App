@@ -24,7 +24,6 @@ export default function SignIn() {
   const [errorMessage, setErrorMessage] = useState('');
   const [role, setRole] = useState('user'); // Default role is 'user'
   const navigate = useNavigate();
-
   const handleRoleChange = (e) => {
     setRole(e.target.checked ? 'admin' : 'user');
   };
@@ -43,6 +42,8 @@ export default function SignIn() {
         }
         alert("Logged in successfully");
         navigate('/');
+        window.location.reload(); // 🔥 Force full page reload
+
       } 
     })
     .catch(error => {
