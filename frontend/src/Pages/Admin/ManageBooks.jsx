@@ -79,7 +79,7 @@ export default function Books({ category, author }) {
                 imageData.append("folder", "book_covers");
 
                 const imageUploadRes = await axios.post(
-                    "https://api.cloudinary.com/v1_1/Mano22/image/upload",
+                    "https://api.cloudinary.com/v1_1/mano22/image/upload",
                     imageData
                 );
 
