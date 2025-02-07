@@ -91,7 +91,7 @@
 .books {
 
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: space-evenly;
   align-items: center;
 }
 
@@ -119,6 +119,7 @@
   font-size: 30px;
 }
 .BookCard-style{
+  margin: 25px;
   width: 20%;
  display: inline-block;
 }
