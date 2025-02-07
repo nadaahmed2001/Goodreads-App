@@ -45,15 +45,15 @@ const BookCard = ({ book }) => {
       <Card.Img
  
         variant='top'
-        src={book.coverImage}
-        alt={book.title}
+        src={bookData.coverImage}
+        alt={bookData.title}
         className='card-img-top'
         style={{ height: "300px", objectFit: "cover" }}
       />
       <Card.Body className='d-flex flex-column'>
-        <Card.Title className='card-title'>{book.title}</Card.Title>
+        <Card.Title className='card-title'>{bookData.title}</Card.Title>
         <Card.Text className='text-muted'>
-          Author: {book.author?.name}
+          Author: {bookData.author?.name}
         </Card.Text>
  
 
@@ -62,16 +62,16 @@ const BookCard = ({ book }) => {
             className='mb-4'
             maxRating={5}
             size={30}
-            defaultRating={book.rating}
+            defaultRating={bookData.rating}
             isReadOnly={true}
           >
-            {book.rating}/5
+            {bookData.rating}/5
           </StarRating>
         </div>
 
  
         <div className='d-grid'>
-          <Link to={`/books/${book._id}`}>
+          <Link to={`/books/${bookData._id}`}>
             <Button variant='outline-primary' className='mt-2'>
  
               View Details
