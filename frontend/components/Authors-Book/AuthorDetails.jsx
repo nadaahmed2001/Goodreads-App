@@ -71,8 +71,9 @@ export default function AuthorDetails() {
       </section>
 
       {/* Section to display books by the author */}
+      <h2 className='bookname'>Books by : {author.name}</h2>
        <section className="books">
-            <h2 className='bookname'>Books by : {author.name}</h2>
+            
         {books.length > 0 ? (
            <ul >
             {books.map((book) => (
