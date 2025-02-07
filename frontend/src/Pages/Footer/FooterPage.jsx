@@ -55,7 +55,7 @@ export default function FooterPage() {
                 </ul>
 
                 <div className='footer-bottom'>
-                    <img src='../public/BookAppLogo.png'></img>
+                    <img src='/BookAppLogoImg.png'></img>
                 </div>
             </footer>
 

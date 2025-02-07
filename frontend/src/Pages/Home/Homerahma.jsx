@@ -21,6 +21,7 @@ import MedicalInformationIcon from '@mui/icons-material/MedicalInformation';
 import BiotechIcon from '@mui/icons-material/Biotech';
 import BalanceIcon from '@mui/icons-material/Balance';
 import PaletteIcon from '@mui/icons-material/Palette';
+import { color } from "@mui/system";
 
 const HomePage = () => {
   const navigate = useNavigate();
@@ -95,14 +96,16 @@ const HomePage = () => {
         <Navbar />
 
         {/* Hero Section */}
-        <div className="container mt-5">
+        <div className="containeri mt-5">
           <div className="row align-items-center">
             <div className="col-md-6">
-              <img src="https://i.pinimg.com/736x/7a/11/f5/7a11f5274c6de6f11292725c5a7458a7.jpg" alt="Library" className="img-fluid rounded hero-image" style={{ width: "100%", height: "25rem", objectFit: "cover" }} />
+              
             </div>
             <div className="col-md-6">
               <h1 className="display-4 fw-bold GoodReads">GoodReads</h1>
-              <p className="lead">A place where book lovers can find, review, and buy books easily. Discover recommendations, keep reading lists, and shop for your next read—all in one place.</p>
+              <p className="lead1" style={{ color: 'white' }}>
+  A place where book lovers can find, review, and buy books easily. Discover recommendations, keep reading lists, and shop for your next read—all in one place.
+</p>
             </div>
           </div>
         </div>
