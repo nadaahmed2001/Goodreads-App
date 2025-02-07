@@ -30,8 +30,6 @@ function App() {
   const [category, setCategory] = useState([]);
   const [author, setAuthor] = useState([]);
   const [fetchTrigger, setFetchTrigger] = useState(false); // Trigger for refetching data
-  const [search,setSearch] = useState('');
-
 
   useEffect(() => {
     fetch("http://localhost:5000/categories")
