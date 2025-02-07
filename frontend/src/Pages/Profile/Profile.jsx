@@ -5,6 +5,7 @@ import IsLogged from "../../../components/Authentication/IsLogged";
 import SplashCursor from "./SplashCursor";
 import Denied from "./Denied"
 import "./Profile.css";
+
 import Navbar from "../../../components/navbar";
 
 const Profile = () => {
