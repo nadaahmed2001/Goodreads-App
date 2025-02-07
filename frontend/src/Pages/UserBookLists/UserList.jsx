@@ -22,10 +22,10 @@ const UserList = () => {
       try {
         // Fetch books from the user's list
         const response = await getUserList(shelf, token);
-        console.log("Fetched books:", response.data.books);
+        // console.log("Fetched books:", response.data.books);
         setBooks(response.data.books);
       } catch (error) {
-        console.error("Error fetching books:", error);
+        // console.error("Error fetching books:", error);
         setError("Failed to fetch books. Please try again.");
       }
     };
@@ -35,14 +35,14 @@ const UserList = () => {
 
   const handleRemove = async (bookId) => {
     try {
-      console.log("Removing book with ID:", bookId);
+      // console.log("Removing book with ID:", bookId);
       const response = await removeBookFromList(bookId, shelf, token);
-      console.log("Response from server:", response.data); // Debugging line
+      // console.log("Response from server:", response.data); // Debugging line
       if (response.data.success) {
         setBooks(books.filter((book) => book.book._id !== bookId)); // Ensure correct book object reference
       }
     } catch (error) {
-      console.error("Error removing book:", error);
+      // console.error("Error removing book:", error);
       setError("Could not remove book. It may not be in your list.");
     }
   };
