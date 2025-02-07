@@ -17,18 +17,18 @@ import "./Books.css"
 
 
 export default function Books({ category, author }) {
-       const { user, role } = useContext(AuthContext); // Get user and role from context
-    
-        if (!user) {
-            return <Denied />; // Show access denied if no user is logged in
-        }
-    
-        if (role !== "admin") {
-            return <DeniedA />; // Show a different access denied message for non-admin users
-        }
+    const { user, role } = useContext(AuthContext); // Get user and role from context
+
+    if (!user) {
+        return <Denied />; // Show access denied if no user is logged in
+    }
+
+    if (role !== "admin") {
+        return <DeniedA />; // Show a different access denied message for non-admin users
+    }
     const [books, setBooks] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
-   
+
 
     useEffect(() => {
         const fetchBooks = async () => {
@@ -49,7 +49,7 @@ export default function Books({ category, author }) {
         fetchBooks();
     }, []);
 
-  
+
 
     const handleSaveBook = async (formData) => {
         try {
