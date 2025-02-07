@@ -82,8 +82,6 @@
 import React from "react";
 import { Button, Modal, Form } from "react-bootstrap";
 import StarRating from "../components/StarRating";
-import CustomButton from "../components/CustomButton";
-
 const ReviewForm = ({
   showModal,
   setShowModal,
@@ -123,10 +121,18 @@ const ReviewForm = ({
       </Modal.Body>
 
       <Modal.Footer>
-        <Button variant='secondary' onClick={() => setShowModal(false)}>
+        <Button
+          variant='secondary'
+          onClick={() => setShowModal(false)}
+          style={{ background: "#828089", border: "#828089" }}
+        >
           Cancel
         </Button>
-        <Button variant='primary' onClick={handleAddReview}>
+        <Button
+          variant='primary'
+          onClick={handleAddReview}
+          style={{ background: "#088178", border: "#088178" }}
+        >
           Add Review
         </Button>
       </Modal.Footer>

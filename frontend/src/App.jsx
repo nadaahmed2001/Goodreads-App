@@ -38,7 +38,6 @@ function App() {
       .catch((err) => console.error("Error fetching categories:", err));
   }, [fetchTrigger]); // Re-fetch when fetchTrigger changes
 
-
   // Fetch Authors
   useEffect(() => {
     fetch("http://localhost:5000/authors")
@@ -50,33 +49,48 @@ function App() {
 
   return (
     <>
-
       <Router>
-
         <AuthProvider>
           <Routes>
-
             {/* <Route path='/' element={<Home />} /> */}
             <Route path='/' element={<Homerahma />} />
             <Route path='/AdminLogin' element={<AdminLogin />} />
             <Route path='/AboutUs' element={<AboutUs />} />
-            <Route path="/list/:shelf" element={<UserList />} />
+            <Route path='/list/:shelf' element={<UserList />} />
             <Route path='/Register' element={<Register />} />
-            {/* <Route path="/Payment" element={<Payment />} /> */}
-            <Route path='/Categories' element={<Categories category={category} setFetchTrigger={setFetchTrigger} />} />
-            <Route path='/ManageBooks' element={<ManageBooks category={category} author={author} />} />
-            <Route path='/Authors' element={<Authors author={author} setFetchTrigger={setFetchTrigger} />} />
+            <Route path='/Payment' element={<Payment />} />
+            <Route
+              path='/Categories'
+              element={
+                <Categories
+                  category={category}
+                  setFetchTrigger={setFetchTrigger}
+                />
+              }
+            />
+            <Route
+              path='/ManageBooks'
+              element={<ManageBooks category={category} author={author} />}
+            />
+            <Route
+              path='/Authors'
+              element={
+                <Authors author={author} setFetchTrigger={setFetchTrigger} />
+              }
+            />
             <Route path='/books' element={<BookList />} />
             <Route path='/books/:bookId' element={<BookDetails />} />
-            <Route path="/TermsConditions" element={<TermsConditions />} />
+            <Route path='/TermsConditions' element={<TermsConditions />} />
             <Route path='/sign-up' element={<SignUp />} />
             <Route path='/sign-in' element={<SignIn />} />
             <Route path='/login' element={<Login />} />
             <Route path='/AuthorsBook' element={<AuthorsBook />} />
-            <Route path='/AuthorDetails/:authorId' element={<AuthorDetails />} />
+            <Route
+              path='/AuthorDetails/:authorId'
+              element={<AuthorDetails />}
+            />
             <Route path='/profile' element={<Profile />} />
             <Route path='*' element={<NotFound />} />
-
           </Routes>
         </AuthProvider>
       </Router>
@@ -86,7 +100,6 @@ function App() {
           rel="stylesheet"
         />
       </Helmet> */}
-
     </>
   );
 }

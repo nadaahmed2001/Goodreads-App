@@ -11,45 +11,59 @@ const ReviewList = ({
   setShowModal,
 }) => {
   return (
-    <Row>
-      <div>
-        <div className='d-flex justify-content-between align-items-center mb-4'>
-          <h3>All Reviews ({reviews.length})</h3>
-          <CustomButton color='blue' onClick={() => setShowModal(true)}>
+    <Row className='mt-4'>
+      <Col xs={12}>
+        {/* Header Section */}
+        <div className='d-flex flex-column flex-md-row justify-content-md-between align-items-start align-items-md-center gap-3 gap-md-0 mb-4'>
+          <h3 className='h2 mb-0'>All Reviews ({reviews.length})</h3>
+          <CustomButton
+            color='blue'
+            onClick={() => setShowModal(true)}
+            className='w-100 w-md-auto'
+          >
             Write a Review
           </CustomButton>
         </div>
-        <Row className='mt-4 auto'>
+
+        {/* Reviews Grid */}
+        <Row className='g-4'>
           {reviews.slice(0, visibleReviews).map((review) => (
-            <Col md={6} key={review._id} className='mb-4'>
-              <Card className='rounded-4 w-auto p-3'>
-                <Card.Body>
+            <Col xs={12} md={6} lg={4} key={review._id}>
+              <Card className='h-100 rounded-4 shadow-sm'>
+                <Card.Body className='d-flex flex-column'>
                   <StarRating
-                    className='mb-4'
+                    className='mb-3'
                     maxRating={5}
-                    size={30}
+                    size={24}
                     defaultRating={review.rating}
                     isReadOnly={true}
                   />
-                  <Card.Title>{review.user}</Card.Title>
-                  <Card.Text>{review.comment}</Card.Text>
+                  <Card.Title className='fs-5'>{review.user}</Card.Title>
+                  <Card.Text className='text-secondary flex-grow-1'>
+                    {review.comment}
+                  </Card.Text>
+                  <small className='text-muted mt-2'>
+                    {new Date(review.createdAt).toLocaleDateString()}
+                  </small>
                 </Card.Body>
               </Card>
             </Col>
           ))}
         </Row>
 
+        {/* Load More Button */}
         {visibleReviews < reviews.length && (
-          <div className='text-center mt-3'>
+          <div className='text-center mt-5'>
             <CustomButton
               color='blue'
               onClick={() => setVisibleReviews((prev) => prev + 6)}
+              className='px-5 py-2'
             >
               Load More Reviews
             </CustomButton>
           </div>
         )}
-      </div>
+      </Col>
     </Row>
   );
 };
