@@ -118,3 +118,7 @@
   font-weight: 500;
   font-size: 30px;
 }
+.BookCard-style{
+  width: 20%;
+ display: inline-block;
+}
