@@ -97,7 +97,7 @@ const Navbar = () => {
             </Link>
           </li>
           <li>
-            <Link to="/" className="hoverlink">
+            <Link to="/categories-home" className="hoverlink">
               Category
             </Link>
           </li>
