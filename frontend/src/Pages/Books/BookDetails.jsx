@@ -1,5 +1,7 @@
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useContext, useEffect, useState } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import Button from "react-bootstrap/Button";
+
 import {
   fetchBookById,
   fetchBookReviews,
@@ -13,9 +15,13 @@ import Navbar from "./../../../components/navbar";
 import ReviewForm from "../../../components/ReviewForm";
 import ReviewList from "../../../components/ReviewList";
 import FooterPage from "../Footer/FooterPage";
+import { AuthContext } from "../../AuthContext";
 
 const BookDetails = () => {
   // Check if the user is authenticated
+  const { user, role, subscription } = useContext(AuthContext);
+  const navigate = useNavigate();
+
   let token = localStorage.getItem("token");
   if (!token) {
     token = sessionStorage.getItem("token");
@@ -161,31 +167,38 @@ const BookDetails = () => {
               </p>
 
               <Stack direction='horizontal' className='flex-wrap gap-3 mt-4'>
+
                 {isAuthenticated && (
-                  <Dropdown className='me-2'>
-                    <Dropdown.Toggle
-                      variant='primary'
-                      className='text-nowrap'
-                      id='dropdown-add-to-list'
-                    >
-                      Add to List
-                    </Dropdown.Toggle>
-                    <Dropdown.Menu className='w-100'>
-                      <Dropdown.Item onClick={() => handleAddToList("read")}>
-                        Read
-                      </Dropdown.Item>
-                      <Dropdown.Item
-                        onClick={() => handleAddToList("currently_reading")}
+                  <>
+                    <Dropdown className='me-2'>
+                      <Dropdown.Toggle
+                        variant='primary'
+                        className='text-nowrap'
+                        id='dropdown-add-to-list'
                       >
-                        Currently Reading
-                      </Dropdown.Item>
-                      <Dropdown.Item
-                        onClick={() => handleAddToList("want_to_read")}
-                      >
-                        Want to Read
-                      </Dropdown.Item>
-                    </Dropdown.Menu>
-                  </Dropdown>
+                        Add to List
+                      </Dropdown.Toggle>
+                      <Dropdown.Menu className='w-100'>
+                        <Dropdown.Item onClick={() => handleAddToList("read")}>
+                          Read
+                        </Dropdown.Item>
+                        <Dropdown.Item
+                          onClick={() => handleAddToList("currently_reading")}
+                        >
+                          Currently Reading
+                        </Dropdown.Item>
+                        <Dropdown.Item
+                          onClick={() => handleAddToList("want_to_read")}
+                        >
+                          Want to Read
+                        </Dropdown.Item>
+                      </Dropdown.Menu>
+                    </Dropdown>
+                    {
+                      (subscription === 'Active' && role === "user") &&
+                      <Button className="bg-success" onClick={() => navigate(`/BookPreview/${book._id}`)}>Read Full Book</Button>
+                    }
+                  </>
                 )}
               </Stack>
             </div>
