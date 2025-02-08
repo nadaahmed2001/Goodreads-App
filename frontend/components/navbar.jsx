@@ -1,18 +1,23 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react"; // Import useState
 import { useNavigate, Link } from "react-router-dom";
 import { Dropdown } from "react-bootstrap";
 import { ChevronLeft, ChevronRight, Globe, Moon, ShoppingCart } from "lucide-react";
-// import CheckoutButton from "./CheckoutButton"; // Import CheckoutButton
 import { AuthContext } from "../src/AuthContext"; // Import the context
 import "./Navbar.css";
 import CheckoutButton from "../src/Pages/Payment/CheckoutButton";
-import Searchfun from "./Search/Searchfun";
-
 
 const Navbar = () => {
   const { user, role, subscription, logout } = useContext(AuthContext); // Get user, role, and logout function from context
   const navigate = useNavigate();
+  
+  const [query, setQuery] = useState(""); //  Define query state
 
+  const handleSearch = (e) => {
+    e.preventDefault();
+    if (query.trim()) {
+      navigate(`/search?q=${encodeURIComponent(query)}`);
+    }
+  };
 
   return (
     <nav>
@@ -20,14 +25,21 @@ const Navbar = () => {
         <div className="imgLogo">
           <img src="/BookAppLogoImg.png" alt="logo" />
         </div>
+
         <div className="Searchinput">
-          <input
-            type="search"
-            placeholder="Search titles, authors, publishers..."
-            className="form-control search-input"
-          />
-        <Link to="/search"> <button>Search</button></Link> 
+          <form onSubmit={handleSearch}>
+            <input
+              type="search"
+              placeholder="Search titles, authors, publishers..."
+              className="form-control search-input"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)} //  Update query state
+            />
+            <button type="submit">Search</button>
+          </form>
         </div>
+
+
         <div className="d-flex align-items-center icons">
           <button className="btn text-white">
             <Globe size={20} />
