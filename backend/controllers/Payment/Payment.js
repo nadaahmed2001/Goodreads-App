@@ -79,21 +79,24 @@ const VerifyPayment = async (req, res) => {
       if (userEmail) {
         const user = await UserModel.findOne({ email: userEmail });
         // console.log("User Found in DB:", user);
-
+          
         if (user) {
           const updatedUser = await UserModel.findOneAndUpdate(
             { email: userEmail },
             { $set: { subscription: "Active" } },
             { new: true }
           );
+          
           console.log("✅ User Subscription Updated:", updatedUser);
+          res.status(200).json({ sessionId, status: orderStatus });
         } else {
+          res.status(200).json({ sessionId, status: "Failed" });
           console.error("❌ User not found in DB!");
         }
       }
     }
 
-    res.status(200).json({ sessionId, status: orderStatus });
+    
   } catch (error) {
     console.error("Error verifying payment:", error.message);
     res
