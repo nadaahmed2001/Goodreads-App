@@ -54,6 +54,7 @@ export default function ModalBtn({ title, fields, onSave, category, author }) {
         setSelectedCat('Category')
     };
 
+    
     const handleSubmit = (e) => {
         e.preventDefault();
     };

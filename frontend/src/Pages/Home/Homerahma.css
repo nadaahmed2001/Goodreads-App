@@ -153,14 +153,14 @@
 }
 
 /* Ensure a responsive design */
-@media (max-width: 768px) {
+/* @media (max-width: 768px) {
   .catIcons {
     gap: 10px;
   }
 
   .icon-item {
     width: 80px;
-    /* Reduce the size of the icons on smaller screens */
+   
   }
 
   .icon-item h5 {
@@ -170,7 +170,7 @@
   .icon-item svg {
     font-size: 30px;
   }
-}
+} */
 
 .PopularQuotes {
 
