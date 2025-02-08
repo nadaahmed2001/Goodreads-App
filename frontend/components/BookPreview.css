@@ -1,0 +1,77 @@
+.book-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #7c7c7c;
+    /* Neutral gray background */
+}
+
+.page {
+
+    padding: 30px;
+    font-family: "Georgia", serif;
+    font-size: 18px;
+    line-height: 1.6;
+    color: #3a3a3a;
+    text-align: justify;
+    background:
+        linear-gradient(160deg, rgba(255, 248, 225, 0.9) 0%, rgba(251, 238, 193, 0.9) 100%),
+        url('https://images.unsplash.com/photo-1615800098779-1be32e60cca3?q=80&w=2020&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+    background-blend-mode: multiply;
+    background-size: cover;
+    border-radius: 12px;
+    border: 1px solid #ddd;
+    box-shadow: 5px 10px 20px rgba(0, 0, 0, 0.2),
+        inset 2px 2px 6px rgba(255, 255, 255, 0.6);
+
+    overflow-y: auto;
+}
+
+/* Page Number Styling */
+.page h6 {
+    text-align: right;
+    font-size: 14px;
+    color: #666;
+    margin-top: auto;
+    /* Pushes it to the bottom */
+    padding-top: 20px;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    /* Optional: subtle separator */
+}
+
+.loader-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    /* background-color: #f5f5f5; */
+}
+
+.spinner {
+    width: 50px;
+    height: 50px;
+    border: 5px solid rgba(0, 0, 0, 0.1);
+    border-top-color: #007bff;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+h6 {
+    text-align: right;
+    font-size: 14px;
+    color: #666;
+    padding-top: 10px;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+}

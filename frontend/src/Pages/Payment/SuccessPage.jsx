@@ -27,13 +27,14 @@ const SuccessPage = () => {
         return <div className="loading">Processing Payment...</div>;
     }
 
+
     return (
         <div className="success-container">
             <div className="success-card">
                 <h1>✅ Payment Successful!</h1>
                 <p className="success-message">Thank you for your purchase.</p>
                 <p className="order-details">Order Details: <strong>Premium Subscription</strong></p>
-                <button onClick={() => navigate('/')} className="home-button">
+                <button onClick={() => { navigate('/'), window.location.reload() }} className="home-button">
                     Back to Home
                 </button>
             </div>
