@@ -1,190 +1,268 @@
-/* .homepage {
-    min-height: 100vh;
-  } */
-
-.containeri {
-  background-image: url(../../../public/CoverPhoto.jpg);
-  background-size: cover;
-  background-position: center;
-  /* Centers the background image */
-  width: 70%;
-  /* Ensures the container takes full width */
-  margin: auto;
-  height: 100vh;
-  /* Ensures the container takes full height of the viewport */
-  position: relative;
-  /* Optional, depending on what you need */
-}
-
-/* Navigation */
-.search-input {
-  max-width: 500px;
-  width: 100%;
-}
-
 /* Hero Section */
-/* .hero-image {
+.HeroSection{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 75%;
+  margin:auto;
+  margin-top: 40px;
+}
+
+.HeroSection .HeroSection-Img img{
+width: 70%;
+height: 70%;
+}
+.HeroSection .HeroSection-Con h1{
+  color: #465b52;
+}
+.HeroSection .HeroSection-Con p{
+  color: #465b52;
+  font-size: 25px;
+  }
+  /*media query for hero section */
+  /* Tablet Devices */
+@media (max-width: 768px) {
+  .HeroSection {
+    flex-direction: column;
+    margin: 40px;
+    text-align: center;
+  }
+
+  .HeroSection .HeroSection-Img {
+    margin: 20px;
+  }
+
+  .HeroSection .HeroSection-Img img {
     width: 100%;
-    height: 400px;
-    object-fit: cover;
-  } */
-
-/* Categories */
-.category-card {
-  background-color: #f8f9fa;
-  transition: all 0.3s ease;
-}
-
-.category-card:hover {
-  background-color: #e9ecef;
-  transform: translateY(-5px);
-}
-
-/* Books Section */
-.categories-scroll {
-  overflow-x: auto;
-  white-space: nowrap;
-  padding-bottom: 10px;
-}
-
-.book-card {
-  transition: all 0.3s ease;
-}
-
-.book-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-}
-
-.book-card img {
-  height: 250px;
-  object-fit: cover;
-}
-
-/* Social Icons */
-.social-icons span {
-  font-size: 1.5rem;
-  cursor: pointer;
-}
-
-.section2 {
-  display: flex;
-  flex-wrap: wrap;
-  width: 60%;
-  margin: auto;
-  justify-content: center;
-  margin-top: 50px;
-  margin-bottom: 50px;
-}
-
-/**/
-
-.Con-Au-cat-sec {
-  display: flex;
-  flex-wrap: wrap;
-  width: 60%;
-  margin: auto;
-  justify-content: center;
-  margin-top: 50px;
-  margin-bottom: 50px;
-}
-
-/**/
-.PopularAuthorsSection {
-  width: 50%;
-  text-align: left;
-}
-
-.PopularAuthors {
-  margin-top: 50px;
-  margin-bottom: 50px;
-  color: #465b52;
-  font-size: 30px;
-  font-weight: 700;
-  padding: 30px;
-
-}
-
-.removeUnderline {
-  text-decoration: none;
-}
-
-.PopularCategoriesSection {
-  width: 50%;
-  text-align: left;
-}
-
-.PopularCategories {
-  margin-top: 50px;
-  margin-bottom: 50px;
-  color: #465b52;
-  font-size: 30px;
-  font-weight: 700;
-  padding: 30px;
-}
-
-.catIcons {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-evenly;
-  gap: 20px;
-  margin-top: 20px;
-}
-
-.icon-item {
-  text-align: center;
-  width: 100px;
-}
-
-.icon-item h5 {
-  margin-top: 10px;
-  font-size: 14px;
-  color: #465b52;
-}
-
-.icon-item svg {
-  font-size: 40px;
-  /* Adjust icon size */
-  color: #088178;
-}
-
-.cursorClick {
-  cursor: pointer;
-}
-
-/* Ensure a responsive design */
-/* @media (max-width: 768px) {
-  .catIcons {
-    gap: 10px;
   }
 
-  .icon-item {
-    width: 80px;
-   
+  .HeroSection .HeroSection-Con p {
+    font-size: 20px;
+  }
+}
+
+/* Mobile Devices */
+@media (max-width: 480px) {
+  .HeroSection {
+    margin: 20px;
   }
 
-  .icon-item h5 {
-    font-size: 12px;
+  .HeroSection .HeroSection-Img {
+    margin: 10px;
   }
 
-  .icon-item svg {
+  .HeroSection .HeroSection-Con p {
+    font-size: 18px;
+  }
+
+  .HeroSection .HeroSection-Con h1 {
+    font-size: 2.5rem; 
+  }
+}
+  /* Popular section */
+  .Con-Au-cat-sec {
+    display: flex;
+    flex-wrap: wrap;
+    width: 60%;
+    margin: auto;
+    justify-content: center;
+    margin-top: 50px;
+    margin-bottom: 50px;
+  }
+  .PopularAuthorsSection {
+    width: 50%;
+    text-align: left;
+  }
+  .PopularAuthors {
+    color: #465b52;
     font-size: 30px;
+    font-weight: 700;
   }
-} */
+  .removeUnderline {
+    text-decoration: none;
+  }
+  .PopularCategories {
+    color: #465b52;
+    font-size: 30px;
+    font-weight: 700;
+  }
+  .icon-item {
+    text-align: center;
+    width: 100px;
+  }
+  .category-Icons{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+   padding-left: 20px;
+   padding-right: 20px;
 
+  }
+  .icon-item h5 {
+    font-size: 18px;
+    color: #465b52;
+  }
+  .icon-item svg {
+    font-size: 50px;
+    color: #088178;
+  }
+  .cursorClick {
+    cursor: pointer;
+  }
+/* Categories */
 .PopularQuotes {
-
   color: #465b52;
   font-size: 30px;
   margin-top: 100px;
   font-weight: 500;
-
   font-weight: 700;
 }
-
-.Card-home {
-  background-color: #e9ecef;
+.Quote-body {
+  font-size: 20px;
+  font-weight: 500;
+  color: #465b52;
 }
+
+.Quote-author {
+  font-size: 30px;
+  font-weight: 500;
+  color: #088178;
+}
+
+.Quote-author2 {
+  font-size: 25px;
+  font-weight: 500;
+}
+
+@media (max-width: 992px) {
+  .Con-Au-cat-sec {
+    width: 80%;
+  }
+  
+  .PopularAuthorsSection {
+    width: 100%;
+    margin-bottom: 30px;
+  }
+  
+  .category-Icons {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+  
+  .icon-item {
+    width: 80px;
+    margin: 10px;
+  }
+  
+  .PopularQuotes {
+    margin-top: 50px;
+  }
+}
+
+/* Mobile Devices (up to 768px) */
+@media (max-width: 768px) {
+  .Con-Au-cat-sec {
+    width: 100%;
+    padding: 0 15px;
+  }
+  
+  .PopularAuthors,
+  .PopularCategories,
+  .PopularQuotes h3 {
+    font-size: 24px;
+  }
+  
+  .icon-item {
+    width: 70px;
+  }
+  
+  .icon-item svg {
+    font-size: 40px;
+  }
+  
+  .icon-item h5 {
+    font-size: 16px;
+  }
+  
+  .Quote-body {
+    font-size: 16px;
+  }
+  
+  .Quote-author {
+    font-size: 24px;
+  }
+  
+  .Quote-author2 {
+    font-size: 18px;
+  }
+  
+  .Card {
+    max-width: 100% !important;
+    width: 100%;
+  }
+}
+
+/* Small Mobile Devices (up to 480px) */
+@media (max-width: 480px) {
+  .Con-Au-cat-sec {
+    margin-top: 30px;
+    margin-bottom: 30px;
+  }
+  
+  .PopularAuthors,
+  .PopularCategories,
+  .PopularQuotes h3 {
+    font-size: 20px;
+  }
+  
+  .category-Icons {
+    justify-content: center;
+  }
+  
+  .icon-item {
+    width: 60px;
+    margin: 8px;
+  }
+  
+  .icon-item svg {
+    font-size: 35px;
+  }
+  
+  .icon-item h5 {
+    font-size: 14px;
+  }
+  
+  .Quote-body {
+    font-size: 14px;
+  }
+  
+  .Quote-author {
+    font-size: 20px;
+  }
+  
+  .Quote-author2 {
+    font-size: 16px;
+  }
+  
+  .CardMedia {
+    height: 300px !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .CardActions {
+    padding: 8px !important;
+  }
+  
+  .CardContent {
+    padding: 12px !important;
+  }
+  
+  .category-Icons {
+    gap: 10px;
+  }
+}
+/* .Best-Selling-Books  */
 
 .Best-Selling-Books {
   margin: 50px;
@@ -194,7 +272,11 @@
   padding: 30px;
   text-align: center;
 }
-
+/* Social Icons */
+.Best-Selling-Books  span {
+  font-size: 1.5rem;
+  cursor: pointer;
+}
 .view-details {
   background-color: #088178;
   color: white;
@@ -230,27 +312,6 @@
   flex-wrap: wrap;
 }
 
-.Quote-body {
-  font-size: 20px;
-  font-weight: 500;
-  color: #465b52;
-}
-
-.Quote-author {
-  font-size: 30px;
-  font-weight: 500;
-  color: #088178;
-}
-
-.Quote-author2 {
-  font-size: 25px;
-  font-weight: 500;
-
-}
-
-.GoodReads {
-  color: #fff
-}
 
 
 @media (max-width: 768px) {
