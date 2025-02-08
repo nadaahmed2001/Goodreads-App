@@ -12,6 +12,7 @@ import StarRating from "../../../components/StarRating";
 import Navbar from "./../../../components/navbar";
 import ReviewForm from "../../../components/ReviewForm";
 import ReviewList from "../../../components/ReviewList";
+import FooterPage from "../Footer/FooterPage";
 
 const BookDetails = () => {
   // Check if the user is authenticated
@@ -106,11 +107,6 @@ const BookDetails = () => {
       <p className='text-center mt-4 fs-5 fw-semibold'>{loadingReviews}</p>
     );
 
-  const averageRating =
-    reviews.length > 0
-      ? reviews.reduce((acc, review) => acc + review.rating, 0) / reviews.length
-      : 0;
-
   return (
     <>
       <Navbar />
@@ -122,6 +118,7 @@ const BookDetails = () => {
               alt={book.title}
               className='img-fluid rounded-4 shadow'
               style={{
+                width: "250px",
                 maxWidth: "100%",
                 height: "auto",
                 aspectRatio: "2/3",
@@ -216,7 +213,7 @@ const BookDetails = () => {
           handleAddReview={handleAddReview}
         />
       </Container>
-      ;
+      <FooterPage />
     </>
   );
 };

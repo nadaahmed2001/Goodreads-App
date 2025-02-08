@@ -2,24 +2,30 @@ import React from "react";
 import { Card, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import StarRating from "./StarRating";
+import CustomButton from "./CustomButton";
 
 const BookCard = ({ book }) => {
   return (
-    <Card className='h-100 shadow-sm book-card'>
+    <Card className='h-100 shadow-sm book-card rounded-5'>
       <Card.Img
         variant='top'
         src={book.coverImage}
         alt={book.title}
-        className='card-img-top'
-        style={{ height: "300px", objectFit: "cover" }}
+        className='img-fluid rounded-4 shadow rounded-bottom-0'
+        style={{
+          maxWidth: "100%",
+          height: "auto",
+          aspectRatio: "2/3",
+          objectFit: "cover",
+        }}
       />
       <Card.Body className='d-flex flex-column'>
-        <Card.Title className='card-title'>{book.title}</Card.Title>
-        <Card.Text className='text-muted'>
+        <Card.Title className='mb-2  '>{book.title}</Card.Title>
+        <Card.Text className=' fs-8 mb-2 mt-0'>
           Author: {book.author?.name}
         </Card.Text>
 
-        <div className='d-flex flex-wrap align-items-center gap-3 mb-4'>
+        <div className='d-flex flex-wrap align-items-center gap-3 mb-2'>
           <StarRating
             className='mb-2 mb-md-0'
             maxRating={5}
@@ -33,11 +39,9 @@ const BookCard = ({ book }) => {
           </span>
         </div>
 
-        <div className='d-grid'>
+        <div className=' text-center mt-2'>
           <Link to={`/books/${book._id}`}>
-            <Button variant='outline-primary' className='mt-2'>
-              View Details
-            </Button>
+            <CustomButton variant='outline-primary'>Perview</CustomButton>
           </Link>
         </div>
       </Card.Body>
