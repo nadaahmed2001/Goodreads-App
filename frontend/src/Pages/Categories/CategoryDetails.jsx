@@ -7,14 +7,14 @@ import FooterPage from './../Footer/FooterPage';
 import { useParams } from "react-router-dom";
 
 const CategoryDetails = () => {
-    const { id } = useParams();
+    const { categoryId } = useParams();
     const [books, setBooks] = useState([]);
     const [loading, setLoading] = useState(true);
     
     useEffect(() => {
         const fetchBooks = async () => {
         try {
-            const data = await fetchCategoryDetails(id);
+            const data = await fetchCategoryDetails(categoryId);
             setBooks(data);
             setLoading(false);
         } catch (error) {
@@ -24,7 +24,7 @@ const CategoryDetails = () => {
         };
     
         fetchBooks();
-    }, [id]);
+    }, [categoryId]);
     
     return (
         <div>
