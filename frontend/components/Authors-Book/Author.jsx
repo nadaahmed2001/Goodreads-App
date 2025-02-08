@@ -16,13 +16,13 @@ export default function Author({ authors }) {
   
   const itemsPerPage = 6;
   
-  // Calculate the total number of pages
+ 
   const totalPages = Math.ceil(authors.length / itemsPerPage);
 
-  // Slice the authors array based on the current page
+
   const currentAuthors = authors.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
 
-  // Handle page change
+
   const handlePageChange = (event, value) => {
     setCurrentPage(value);
   };
@@ -53,9 +53,9 @@ export default function Author({ authors }) {
       <Stack spacing={2}>
         <Pagination
           className="pagination"
-          count={totalPages} // Total number of pages
-          page={currentPage} // Current page
-          onChange={handlePageChange} // Handle page change
+          count={totalPages} 
+          page={currentPage}
+          onChange={handlePageChange} 
           renderItem={(item) => (
             <PaginationItem
               slots={{ previous: ArrowBackIcon, next: ArrowForwardIcon }}

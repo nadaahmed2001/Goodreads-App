@@ -76,7 +76,7 @@ app.get("/", async (req, res) => {
   try {
     // const books = await Book.find();
     const books = await Book.find().populate("author", "name"); //Populate the author field with the name field from the Author model
-
+    
     // return just the first 6 books
     // books=books.slice(0, 6);
     res.json(books);
