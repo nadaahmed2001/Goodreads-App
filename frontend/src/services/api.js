@@ -10,8 +10,6 @@ export const fetchBookById = (bookId) =>
 export const fetchBookReviews = (bookId) =>
   axios.get(`${API_BASE_URL}/reviews/books/${bookId}/reviews`);
 
-
-
 export const addBookToList = async (bookId, shelf, token) => {
   return axios.post(
     `${API_BASE_URL}/add-to-list`,
@@ -40,7 +38,7 @@ export const fetchCategoriesWithBooks = async () => {
     return response.data; //response.data holds categories + books
   } catch (error) {
     // console.error("Error fetching categories", error);
-    return { categoryName: "", books: [] }; 
+    return { categoryName: "", books: [] };
   }
 };
 
@@ -54,7 +52,6 @@ export const fetchCategoryDetails = async (categoryId) => {
     return { books: [], categoryName: "Unknown Category" }; // ✅ Always return a valid object
   }
 };
-
 
 /*reviews fatma*/
 // export const fetchBookReviews = (bookId) =>
@@ -85,11 +82,11 @@ export const submitReview = async (bookId, review, token) => {
 //Search
 export const fetchSearchResults = async (query) => {
   try {
-      const response = await axios.get(`${API_BASE_URL}/search?q=${query}`);
-      return response.data; // { books, authors, categories }
+    const response = await axios.get(`${API_BASE_URL}/search?q=${query}`);
+    return response.data; // { books, authors, categories }
   } catch (error) {
-      console.error("Error fetching search results", error);
-      return { books: [], authors: [], categories: [] }; // Return empty results if error
+    console.error("Error fetching search results", error);
+    return { books: [], authors: [], categories: [] }; // Return empty results if error
   }
 };
 

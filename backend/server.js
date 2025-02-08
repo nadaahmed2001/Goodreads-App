@@ -40,6 +40,7 @@ app.use(express.json());
 /*Fatma*/
 const booksRoutes = require("./controllers/books/bookRoute");
 const reviewsRoutes = require("./controllers/reviews/reviewRoute");
+
 app.use("/books", booksRoutes);
 app.use("/reviews", reviewsRoutes);
 /*Fatma*/
