@@ -17,14 +17,14 @@ const searchController = require("./controllers/search/SearchController");
 const passport = require("../backend/config/passport"); // Import passport configuration
 const GoogleAuth = require("../backend/controllers/authencation/GoogleAuth");
 const session = require("express-session");
+const chatbotController = require("./controllers/chatbot/chatbotController");
 
 const {
   verifyToken,
 } = require("./controllers/authorization/authorizationMiddleware"); // Import verifyToken middleware
 const userProfileController = require("./controllers/userProfileController/userProfile");
 const UserBookList = require("./models/UserBookList");
-// const {allbooks} = require("./controllers/admin/crud");
-// const { getBooks } = require("./controllers/admin/Book");
+
 const app = express();
 
 // CORS configuration
@@ -90,6 +90,11 @@ app.get("/", async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 });
+
+
+// Chatbot
+app.post("/chatbot", chatbotController.chatbot);
+
 
 // Author endpoint to get all authors in books
 app.get("/authors", BookAuthor.getAuthors);
