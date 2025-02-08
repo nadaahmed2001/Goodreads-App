@@ -34,7 +34,7 @@ import SuccessPage from './Pages/Payment/SuccessPage';
 
 import CategoriesHome from "./Pages/Categories/CategoriesHome";
 import CategoryDetails from "./Pages/Categories/CategoryDetails";
-
+import Searchfun from "../components/Search/Searchfun";
 function App() {
   const [category, setCategory] = useState([]);
   const [author, setAuthor] = useState([]);
@@ -85,14 +85,14 @@ function App() {
             <Route path='/sign-in' element={<SignIn />} />
             <Route path='/login' element={<Login />} />
             <Route path='/AuthorsBook' element={<AuthorsBook />} />
-            <Route path='/AuthorDetails/:authorId' element={<AuthorDetails/>} />
+            <Route path='/AuthorDetails/:authorId' element={<AuthorDetails />} />
             <Route path='/profile' element={<Profile />} />
             <Route path='/forgot-password' element={<ForgotPassword />} />
             <Route path='/reset-password' element={<ResetPassword />} />
             <Route path='/categories-home' element={<CategoriesHome />} />
             <Route path='categories-home/:categoryId' element={<CategoryDetails />} />
             <Route path='*' element={<NotFound />} />
-
+            <Route path="/search" element={<Searchfun/>}></Route>
           </Routes>
         </AuthProvider>
       </Router>

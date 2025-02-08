@@ -13,6 +13,7 @@ const nodemailer = require("nodemailer");
 const authController = require("./controllers/authencation/authController"); // Import the controller
 const BookAuthor = require("./controllers/authorBookController/BookAuthor");
 const categoriesControllers= require("./controllers/categories/categoriesControllers");
+const searchController = require("./controllers/search/SearchController");
 
 
 const {
@@ -89,7 +90,7 @@ app.get("/", async (req, res) => {
 // Author endpoint to get all authors in books
 app.get("/authors", BookAuthor.getAuthors);
 app.get("/authors/:authorId", BookAuthor.getBooksByAuthId);
-
+app.get("/search", searchController.search);
 //register and login & profile
 app.post("/login", authController.login); // Use the controller for the /login route
 app.post("/register", authController.register); // Use the controller for the /register route
