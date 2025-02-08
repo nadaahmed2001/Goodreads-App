@@ -13,6 +13,7 @@ import Navbar from "./../../../components/navbar";
 import ReviewForm from "../../../components/ReviewForm";
 import ReviewList from "../../../components/ReviewList";
 import FooterPage from "../Footer/FooterPage";
+import DemoSection from "../../../components/DemoSection";
 
 const BookDetails = () => {
   // Check if the user is authenticated
@@ -49,6 +50,7 @@ const BookDetails = () => {
       try {
         const response = await fetchBookReviews(bookId);
         setReviews(response.data);
+        setLoadingReviews(false);
       } catch (error) {
         console.error("Error fetching reviews:", error);
       }
@@ -58,7 +60,7 @@ const BookDetails = () => {
     if (token) {
       setIsAuthenticated(true);
     }
-  }, [bookId]);
+  }, [bookId, token]);
 
   const handleAddReview = async () => {
     if (!newReview.user || !newReview.rating || !newReview.comment) return;
@@ -192,6 +194,19 @@ const BookDetails = () => {
           </Col>
         </Row>
 
+        <hr className='my-5' />
+        <Row className='g-2 p-1'>
+          {isAuthenticated && (
+            <DemoSection demoText={book.demo} bookId={book._id} token={token} />
+          )}
+
+          <Col
+            xs={12}
+            md={12}
+            lg={12}
+            className='d-flex justify-content-center'
+          ></Col>
+        </Row>
         <hr className='my-5' />
 
         <Row>
