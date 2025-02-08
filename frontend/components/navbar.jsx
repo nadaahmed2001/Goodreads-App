@@ -6,6 +6,8 @@ import { ChevronLeft, ChevronRight, Globe, Moon, ShoppingCart } from "lucide-rea
 import { AuthContext } from "../src/AuthContext"; // Import the context
 import "./Navbar.css";
 import CheckoutButton from "../src/Pages/Payment/CheckoutButton";
+import Searchfun from "./Search/Searchfun";
+
 
 const Navbar = () => {
   const { user, role, subscription, logout } = useContext(AuthContext); // Get user, role, and logout function from context
@@ -24,6 +26,7 @@ const Navbar = () => {
             placeholder="Search titles, authors, publishers..."
             className="form-control search-input"
           />
+        <Link to="/search"> <button>Search</button></Link> 
         </div>
         <div className="d-flex align-items-center icons">
           <button className="btn text-white">
