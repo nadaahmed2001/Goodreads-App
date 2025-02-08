@@ -27,7 +27,7 @@ export const AuthProvider = ({ children }) => {
           setRole(result.data.role);
           setSubscription(result.data.subscription)
         })
-        .catch((error) => console.log(error))
+        .catch()
         .finally(() => setLoading(false));
     } else {
       setLoading(false);
