@@ -12,7 +12,7 @@ const TempBooks = require("./models/TempBooks");
 const nodemailer = require("nodemailer");
 const authController = require("./controllers/authencation/authController"); // Import the controller
 const BookAuthor = require("./controllers/authorBookController/BookAuthor");
-const categoriesControllers= require("./controllers/categories/categoriesControllers");
+const categoriesControllers = require("./controllers/categories/categoriesControllers");
 const searchController = require("./controllers/search/SearchController");
 const passport = require("../backend/config/passport"); // Import passport configuration
 const GoogleAuth = require("../backend/controllers/authencation/GoogleAuth");
@@ -69,9 +69,11 @@ const {
   CreateCheckout,
   VerifyPayment,
 } = require("./controllers/Payment/Payment");
+const previewBookId = require("./controllers/books/previewBook");
 
 // Connect to MongoDB
 connectDB();
+app.get("/BookPreview/:bookId", previewBookId); // ✅ Register route
 
 // Home page
 app.get("/", async (req, res) => {
@@ -79,7 +81,7 @@ app.get("/", async (req, res) => {
   try {
     // const books = await Book.find();
     const books = await Book.find().populate("author", "name"); //Populate the author field with the name field from the Author model
-    
+
     // return just the first 6 books
     // books=books.slice(0, 6);
     res.json(books);
@@ -105,7 +107,7 @@ app.post("/verify-otp", authController.verifyOTP); // New route
 app.get("/profile", verifyToken, userProfileController.profile);
 app.post("/forgot-password", authController.forgotPassword);
 app.post("/reset-password", authController.resetPassword);
-//////////////// google sign in //////////////////// 
+//////////////// google sign in ////////////////////
 // Setup session middleware
 // app.use(
 //   session({
@@ -120,7 +122,10 @@ app.use(GoogleAuth);
 
 //Categories
 app.get("/categories-home", categoriesControllers.getCategoriesHome);
-app.get("/categories-home/:categoryId", categoriesControllers.getCategoryDetails);
+app.get(
+  "/categories-home/:categoryId",
+  categoriesControllers.getCategoryDetails
+);
 
 // ======================================= User Book Lists ====================================================
 app.post("/add-to-list", verifyToken, async (req, res) => {
