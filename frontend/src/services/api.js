@@ -28,6 +28,29 @@ export const removeBookFromList = async (bookId, shelf, token) => {
   });
 };
 
+export const fetchCategoriesWithBooks = async () => {
+  try {
+    const response = await axios.get(`${API_BASE_URL}/categories-home`);
+    // console.log("Data from fetchCategoriesWithBooks api: ", response.data);
+    return response.data; //response.data holds categories + books
+  } catch (error) {
+    // console.error("Error fetching categories", error);
+    return [];
+  }
+};
+
+export const fetchCategoryDetails = async (categoryId) => {
+  try {
+    console.log("Category id from api: ", categoryId);
+    const response = await axios.get(`${API_BASE_URL}/categories-home/${categoryId}`);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching category details", error);
+    return [];
+  }
+};
+
+
 /*reviews fatma*/
 // export const fetchBookReviews = (bookId) =>
 //   axios.get(`${API_BASE_URL}/api/books/${bookId}/reviews`);

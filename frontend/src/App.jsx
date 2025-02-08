@@ -25,6 +25,8 @@ import UserList from "./Pages/UserBookLists/UserList";
 // import { Helmet } from "react-helmet";
 import Profile from "./Pages/Profile/Profile";
 import { AuthProvider } from "./AuthContext";
+import CategoriesHome from "./Pages/Categories/CategoriesHome";
+import CategoryDetails from "./Pages/Categories/CategoryDetails";
 
 function App() {
   const [category, setCategory] = useState([]);
@@ -75,6 +77,8 @@ function App() {
             <Route path='/AuthorsBook' element={<AuthorsBook />} />
             <Route path='/AuthorDetails/:authorId' element={<AuthorDetails />} />
             <Route path='/profile' element={<Profile />} />
+            <Route path='/categories-home' element={<CategoriesHome />} />
+            <Route path='categories-home/:categoryId' element={<CategoryDetails />} />
             <Route path='*' element={<NotFound />} />
 
           </Routes>

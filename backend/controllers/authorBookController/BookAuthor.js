@@ -3,11 +3,11 @@ const Book = require("../../models/Book");
 
 
 const getAuthors = async (req, res) => {
-    console.log("I entered the server.js file to fetch authors");
+    // console.log("I entered the server.js file to fetch authors");
     try {
       const authors = await Author.find();
       res.json(authors);
-      console.log("Authors fetched successfully from server.js");
+      // console.log("Authors fetched successfully from server.js");
     } catch (error) {
       res.status(500).json({ message: error.message });
     }
@@ -33,7 +33,7 @@ const getAuthors = async (req, res) => {
 
   const getBooksByAuthId = async (req, res) => {
     const authorId = req.params.authorId;
-    console.log(`Looking for Books with author ID: ${authorId}`);
+    // console.log(`Looking for Books with author ID: ${authorId}`);
   
     try {
       
