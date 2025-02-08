@@ -1,42 +1,77 @@
+import { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
+import { fetchSearchResults } from "../../src/services/api";
+import BookCard from "../../components/BookCard";
+import Navbar from "../../components/navbar";
+import FooterPage from "../../src/Pages/Footer/FooterPage";
 
-import React, { useEffect } from "react";
-import Navbar from "../navbar";
+const Searchfun = () => {
+    const location = useLocation();
+    const queryParams = new URLSearchParams(location.search);
+    const query = queryParams.get("q");
 
-export default function Searchfun() {
-  return (
-    <>
-  
-      <div>
-   
-        <h2>Books</h2>
-        {/* <ul>
-          {setBooks.length === 0 ? (
-            <p>No books found.</p>
-          ) : (
-            books.map((book) => <li key={book._id}>{book.title}</li>)
-          )}
-        </ul> */}
-      </div>
-      {/* <div>
-        <h2>Authors</h2>
-        <ul>
-          {setAuthors.length === 0 ? (
-            <p>No authors found.</p>
-          ) : (
-            authors.map((author) => <li key={author._id}>{author.name}</li>)
-          )}
-        </ul>
-      </div>
-      <div>
-        <h2>Categories</h2>
-        <ul>
-          {setCategories.length === 0 ? (
-            <p>No categories found.</p>
-          ) : (
-            categories.map((category) => <li key={category._id}>{category.name}</li>)
-          )}
-        </ul>
-      </div> */}
-    </>
-  );
-}
+    const [books, setBooks] = useState([]);
+    const [authors, setAuthors] = useState([]);
+    const [categories, setCategories] = useState([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const searchBooks = async () => {
+            if (!query) return;
+            setLoading(true);
+            try {
+                const data = await fetchSearchResults(query);
+                setBooks(data.books || []);
+                setAuthors(data.authors || []);
+                setCategories(data.categories || []);
+            } catch (error) {
+                console.error("Error fetching search results", error);
+            }
+            setLoading(false);
+        };
+        searchBooks();
+    }, [query]);
+
+    return (
+        <div>
+            <Navbar />
+            <div className="container">
+                <h1>Search Results for "{query}"</h1>
+                
+                {loading ? <p>Loading...</p> : (
+                    <>
+                        <h2>Books</h2>
+                        <div className="row">
+                            {books.length === 0 ? <p>No books found</p> : books.map(book => (
+                                <div key={book._id} className="col-md-3">
+                                    <BookCard book={book} />
+                                </div>
+                            ))}
+                        </div>
+
+                        <h2>Authors</h2>
+                        <div className="row">
+                            {authors.length === 0 ? <p>No authors found</p> : authors.map(author => (
+                                <div key={author._id} className="col-md-3">
+                                    <p>{author.name}</p>
+                                </div>
+                            ))}
+                        </div>
+
+                        <h2>Categories</h2>
+                        <div className="row">
+                            {categories.length === 0 ? <p>No categories found</p> : categories.map(category => (
+                                <div key={category._id} className="col-md-3">
+                                    <p>{category.name}</p>
+                                </div>
+                            ))}
+                        </div>
+                    </>
+                )}
+            </div>
+            <FooterPage />
+        </div>
+    );
+};
+
+export default Searchfun;

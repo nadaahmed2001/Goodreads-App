@@ -82,6 +82,17 @@ export const submitReview = async (bookId, review, token) => {
   }
 };
 
+//Search
+export const fetchSearchResults = async (query) => {
+  try {
+      const response = await axios.get(`${API_BASE_URL}/search?q=${query}`);
+      return response.data; // { books, authors, categories }
+  } catch (error) {
+      console.error("Error fetching search results", error);
+      return { books: [], authors: [], categories: [] }; // Return empty results if error
+  }
+};
+
 /*reviews fatma*/
 
 // export const fetchFeaturedBooks = () => axios.get(`${API_BASE_URL}/books/featured`);
