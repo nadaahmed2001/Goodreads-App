@@ -4,6 +4,7 @@ import { Button, Card } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import CheckoutButton from "../src/Pages/Payment/CheckoutButton";
 import { AuthContext } from "../src/AuthContext"; // Import the context
+import CustomButton from "../components/CustomButton";
 
 const DemoSection = ({ demoText, bookId }) => {
   const { subscription } = useContext(AuthContext);
@@ -31,12 +32,12 @@ const DemoSection = ({ demoText, bookId }) => {
           </div>
         ) : (
           <div className='text-center mt-3'>
-            <Button
-              variant='success'
-              onClick={() => navigate(`/books/${bookId}/full`)}
+            <CustomButton
+              className='bg-success'
+              onClick={() => navigate(`/BookPreview/${bookId}`)}
             >
               Read Full Book
-            </Button>
+            </CustomButton>
           </div>
         )}
       </Card.Body>
