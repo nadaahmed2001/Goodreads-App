@@ -74,6 +74,33 @@ td {
   background-color: #0056b3;
 }
 
+.bg-main {
+  background-color: #088178;
+  border-color: #088178;
+}
+.c-main {
+  color: #088178;
+}
+.c-main-hover:hover {
+  color: #088178;
+}
+.bg-main-hover:hover {
+  background-color: #088178;
+  border-color: #088178;
+  transition: 0.5s;
+}
+.bg-main-focus:focus {
+  background-color: #088178;
+  border-color: #088178;
+  transition: 0.5s;
+}
+
+.list-group-item.active {
+  background-color: #08817983 !important;
+  border-color: #08817983 !important;
+  color: #fff !important;
+}
+
 @keyframes fadeIn {
   from {
     opacity: 0;
