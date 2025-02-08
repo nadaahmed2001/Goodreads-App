@@ -12,6 +12,8 @@ const TempBooks = require("./models/TempBooks");
 const nodemailer = require("nodemailer");
 const authController = require("./controllers/authencation/authController"); // Import the controller
 const BookAuthor = require("./controllers/authorBookController/BookAuthor");
+const categoriesControllers= require("./controllers/categories/categoriesControllers");
+
 
 const {
   verifyToken,
@@ -96,7 +98,9 @@ app.get("/profile", verifyToken, userProfileController.profile);
 app.post("/forgot-password", authController.forgotPassword);
 app.post("/reset-password", authController.resetPassword);
 
-//retreive the user data by verifying its token
+//Categories
+app.get("/categories-home", categoriesControllers.getCategoriesHome);
+app.get("/categories-home/:categoryId", categoriesControllers.getCategoryDetails);
 
 // ======================================= User Book Lists ====================================================
 app.post("/add-to-list", verifyToken, async (req, res) => {

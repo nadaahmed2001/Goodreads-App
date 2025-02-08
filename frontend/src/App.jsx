@@ -32,6 +32,8 @@ import ResetPassword from "./Pages/PasswordReset/ResetPassword";
 import CancelPage from "./Pages/Payment/CancelPage";
 import SuccessPage from './Pages/Payment/SuccessPage';
 
+import CategoriesHome from "./Pages/Categories/CategoriesHome";
+import CategoryDetails from "./Pages/Categories/CategoryDetails";
 
 function App() {
   const [category, setCategory] = useState([]);
@@ -87,6 +89,8 @@ function App() {
             <Route path='/profile' element={<Profile />} />
             <Route path='/forgot-password' element={<ForgotPassword />} />
             <Route path='/reset-password' element={<ResetPassword />} />
+            <Route path='/categories-home' element={<CategoriesHome />} />
+            <Route path='categories-home/:categoryId' element={<CategoryDetails />} />
             <Route path='*' element={<NotFound />} />
 
           </Routes>
