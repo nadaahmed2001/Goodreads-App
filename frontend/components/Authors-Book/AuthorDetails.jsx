@@ -5,10 +5,10 @@ import './Authors-Book.css';
 import BookCard from '../BookCard';
 import FooterPage from '../../src/Pages/Footer/FooterPage';
 
-export default function AuthorDetails() {
-  const { authorId } = useParams(); // This gets the authorId from the URL
+export default function AuthorDetails({ }) {
+  const { authorId } = useParams(); 
   const [author, setAuthor] = useState(null);
-  const [books, setBooks] = useState([]);  // Separate state for books
+  const [books, setBooks] = useState([]);  
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
  
@@ -24,12 +24,14 @@ export default function AuthorDetails() {
         }
         const data = await response.json();
 
-        // Since the data is an array, we can get the first book's author details and all the books
-        if (data.length > 0) {
-          setAuthor(data[0].author);  // Assuming author details are in the first book
-          setBooks(data);  // Store all books written by the author
+        console.log(data);
+      
+        if (Array.isArray(data.books)) {
+          setAuthor(data.author);  
+          setBooks(data.books);  
         } else {
-          setError('No data found for this author');
+          setAuthor(data.author); 
+          setBooks([])
         }
       } catch (error) {
         setError(error.message);
@@ -57,7 +59,7 @@ export default function AuthorDetails() {
     <>
     <Navbar/>
       {/* Section to display author details */}
-      <section className="author-details">
+      
         <div className="author-details-card">
          <div className='img'>
           <img src={author.image} alt={author.name} />
@@ -66,12 +68,16 @@ export default function AuthorDetails() {
           <h3>{author.name}</h3>
           <h4>{author.birthDate}</h4>
           <p>{author.bio}</p>
+          <hr></hr>
           </div>
         </div>
-      </section>
+     
 
       {/* Section to display books by the author */}
-      <h2 className='bookname'>Books by : {author.name}</h2>
+     
+       <section className='authors-books-publish'>
+      <h2 className='bookname'><span >Books by : </span>{author.name}</h2>
+      <hr></hr>
        <section className="books">
             
         {books.length > 0 ? (
@@ -80,19 +86,6 @@ export default function AuthorDetails() {
             <div className="BookCard-style">
             <BookCard  book={book} />
           </div>
-          
-            
-
-            //   <li key={book._id}>
-            //     <img className="bookimg"src={book.coverImage} alt={book.title} />
-            //    <h3 className='booktitle'>{book.title}</h3>
-            //   <p className='bookdes'>{book.description}</p>
-            //   <p className="bookcategory">Category: {book.category?.name}</p>
-            //   <p className="bookrating">Rating: {book.rating}</p>
-            //   <p className="bookfeatured">{book.featured ? 'Featured' : 'Not Featured'}</p>
-            //   <p className="booktrending">{book.trending ? 'Trending' : 'Not Trending'}</p>
-            // </li>
-            
         ))}
         
           </ul>
@@ -101,6 +94,7 @@ export default function AuthorDetails() {
            <p>No books available for this author.</p>
       )}
      </section> 
+     </section>
    <FooterPage />
     </>
   );

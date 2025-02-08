@@ -1,6 +1,6 @@
 const Author = require("../../models/Author");
 const Book = require("../../models/Book");
-
+const mongoose = require("mongoose");
 
 const getAuthors = async (req, res) => {
     // console.log("I entered the server.js file to fetch authors");
@@ -37,8 +37,18 @@ const getAuthors = async (req, res) => {
   
     try {
       
-      const books = await Book.find({ author: authorId }).populate('author');;
-      res.json(books); 
+      const books = await Book.find({ author: authorId }).populate('author');
+      if (!books || books.length === 0){
+        if (!mongoose.isValidObjectId(authorId)) {
+          return res.status(400).json({ message: "Invalid author ID format" });
+        }
+        const author = await Author.findById(authorId);
+        return res.json({ author, books: [] }); 
+      }else{
+        const author = books[0].author; 
+        return res.json({ author, books });
+      }
+      
      
     } catch (error) {
       res.status(500).json({ message: error.message });

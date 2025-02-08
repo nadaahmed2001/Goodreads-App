@@ -60,24 +60,23 @@
 }
 
 /*Author Details Cards*/
-.author-details .author-details-card {
+ .author-details-card {
   display: flex;
-  margin: 50px;
+  margin: 100px;
 }
 
-.author-details .author-details-card h3 {
+ .author-details-card h3 {
   font-weight: 700;
   color: #222;
 }
 
-.author-details .author-details-card .img {
+ .author-details-card .img {
   width: 350px;
   height: 350px;
-  border-radius: 5px;
   box-shadow: 18px 18px 20px rgba(0, 0, 0, 0.3);
 }
 
-.author-details .author-details-card img {
+ .author-details-card img {
   width: 350px;
   height: 350px;
   border-radius: 4px;
@@ -86,6 +85,9 @@
 
 .container2 {
   margin: 40px;
+}
+.authors-books-publish{
+  margin-left: 100px;
 }
 
 /* .books {
@@ -118,55 +120,18 @@
   font-weight: 500;
   font-size: 30px;
 }
-/* .BookCard-style{
+.bookname span{
+  color: #222;
+  font-weight: 700;
+}
+.BookCard-style{
   margin: 25px;
-  width: 20%;
- display: inline-block;
-} */
+
+
+}
 .books {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: flex-start; /* Align items to the top */
-  gap: 20px;
+ display: inline-block;
+ 
 }
 
-.BookCard-style {
-  margin: 10px;
-  width: 100%; /* Start with 100% width on smaller screens */
-  max-width: 300px; /* Define a max width for each card */
-  display: inline-block;
-  box-sizing: border-box; /* Ensure padding and margin are included in the width */
-}
 
-/* Mobile Portrait: up to 480px */
-@media (max-width: 480px) {
-  .BookCard-style {
-    width: 100%; /* Take full width on small screens */
-    max-width: 100%; /* Ensure cards fill the width */
-  }
-}
-
-/* Tablet Portrait: 481px - 768px */
-@media (max-width: 768px) {
-  .BookCard-style {
-    width: 48%; /* Two items per row */
-    max-width: 48%; /* Ensure cards fit two per row */
-  }
-}
-
-/* Tablet Landscape and Larger Screens: 769px - 1024px */
-@media (min-width: 769px) and (max-width: 1024px) {
-  .BookCard-style {
-    width: 30%; /* Three items per row */
-    max-width: 30%; /* Ensure cards fit three per row */
-  }
-}
-
-/* Large Screens: 1025px and up */
-@media (min-width: 1025px) {
-  .BookCard-style {
-    width: 20%; /* Four items per row */
-    max-width: 20%; /* Ensure cards fit four per row */
-  }
-}

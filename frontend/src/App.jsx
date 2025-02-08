@@ -85,7 +85,7 @@ function App() {
             <Route path='/sign-in' element={<SignIn />} />
             <Route path='/login' element={<Login />} />
             <Route path='/AuthorsBook' element={<AuthorsBook />} />
-            <Route path='/AuthorDetails/:authorId' element={<AuthorDetails />} />
+            <Route path='/AuthorDetails/:authorId' element={<AuthorDetails/>} />
             <Route path='/profile' element={<Profile />} />
             <Route path='/forgot-password' element={<ForgotPassword />} />
             <Route path='/reset-password' element={<ResetPassword />} />
