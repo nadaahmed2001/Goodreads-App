@@ -9,13 +9,15 @@ import { useParams } from "react-router-dom";
 const CategoryDetails = () => {
     const { categoryId } = useParams();
     const [books, setBooks] = useState([]);
+    const [categoryName, setCategoryName] = useState("");
     const [loading, setLoading] = useState(true);
     
     useEffect(() => {
         const fetchBooks = async () => {
         try {
             const data = await fetchCategoryDetails(categoryId);
-            setBooks(data);
+            setBooks(data.books);
+            setCategoryName(data.categoryName);
             setLoading(false);
         } catch (error) {
             console.error("Error fetching books", error);
@@ -30,7 +32,7 @@ const CategoryDetails = () => {
         <div>
         <Navbar />
         <div className="container">
-            <h1>Books in this category</h1>
+            <h1>Books in {categoryName}</h1>
             <div className="row">
             {loading ? (
                 <p>Loading...</p>

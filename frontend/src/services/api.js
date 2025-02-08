@@ -40,18 +40,18 @@ export const fetchCategoriesWithBooks = async () => {
     return response.data; //response.data holds categories + books
   } catch (error) {
     // console.error("Error fetching categories", error);
-    return [];
+    return { categoryName: "", books: [] }; 
   }
 };
 
 export const fetchCategoryDetails = async (categoryId) => {
   try {
-    console.log("Category id from api: ", categoryId);
+    console.log("Fetching category details for ID:", categoryId);
     const response = await axios.get(`${API_BASE_URL}/categories-home/${categoryId}`);
-    return response.data;
+    return response.data; // Expected to be { books, categoryName }
   } catch (error) {
     console.error("Error fetching category details", error);
-    return [];
+    return { books: [], categoryName: "Unknown Category" }; // ✅ Always return a valid object
   }
 };
 
