@@ -20,10 +20,10 @@ const getCategoriesHome = async (req, res) => {
 };
 
 const getCategoryDetails = async (req, res) => {
-    console.log("Route Params:", req.params);
+    // console.log("Route Params:", req.params);
 
     const { categoryId } = req.params;
-    console.log("Category id: ", categoryId);
+    // console.log("Category id: ", categoryId);
     try {
         const category = await Category.findById(categoryId);
 
@@ -33,8 +33,8 @@ const getCategoryDetails = async (req, res) => {
 
         const books = await Book.find({ category: categoryId });
 
-        console.log("Category Name:", category.name);
-        console.log("Books in this category:", books);
+        // console.log("Category Name:", category.name);
+        // console.log("Books in this category:", books);
 
         res.status(200).json({
             books: books || [], // ✅ Always return an array

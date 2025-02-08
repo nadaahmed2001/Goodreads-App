@@ -12,7 +12,6 @@ import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
-
 import FastfoodIcon from "@mui/icons-material/Fastfood";
 import SportsSoccerIcon from "@mui/icons-material/SportsSoccer";
 import FavoriteIcon from "@mui/icons-material/Favorite";
@@ -20,7 +19,8 @@ import MedicalInformationIcon from "@mui/icons-material/MedicalInformation";
 import BiotechIcon from "@mui/icons-material/Biotech";
 import BalanceIcon from "@mui/icons-material/Balance";
 import PaletteIcon from "@mui/icons-material/Palette";
-import { color } from "@mui/system";
+import GTranslateIcon from '@mui/icons-material/GTranslate';
+import { color, margin } from "@mui/system";
 import BookListSection from "../../../components/BookListSection";
 import CustomButton from "../../../components/CustomButton";
 
@@ -122,64 +122,66 @@ const HomePage = () => {
     <>
       <div className='homepage'>
         <Navbar />
-
-        {/* Hero Section */}
-        <div className='containeri mt-5'>
-          <div className='row align-items-center'>
-            <div className='col-md-6'></div>
-            <div className='col-md-6'>
-              <h1 className='display-4 fw-bold GoodReads'>GoodReads</h1>
-              <p className='lead1' style={{ color: "white" }}>
-                A place where book lovers can find, review, and buy books
-                easily. Discover recommendations, keep reading lists, and shop
-                for your next read—all in one place.
-              </p>
-            </div>
+        <section className="HeroSection">
+          <div className="HeroSection-Img">
+            <img src="/figma-home.png"></img>
           </div>
-        </div>
-
-        {/* Popular Authors Section */}
-        <div className='Con-Au-cat-sec'>
-          <section className='PopularAuthorsSection'>
-            <Link to='/AuthorsBook' className='removeUnderline'>
-              <h3 className='PopularAuthors'>Most Popular Authors</h3>
-            </Link>
-
-            {currentAuthor && (
-              <Card sx={{ maxWidth: 500 }} className='Card-home'>
-                <CardMedia
-                  sx={{ height: 500 }}
-                  image={currentAuthor.image}
-                  title={currentAuthor.name}
-                />
-                <CardContent>
-                  <Typography gutterBottom variant='h5' component='div'>
-                    {currentAuthor.name}
-                  </Typography>
-                  <Typography variant='body2' sx={{ color: "text.secondary" }}>
-                    {currentAuthor.bio}
-                  </Typography>
-                </CardContent>
-                <CardActions>
-                  <ArrowBackIosNewIcon
-                    className='cursorClick'
-                    onClick={handlePrevAuthor}
-                  />
-                  <ArrowForwardIosIcon
-                    className='cursorClick'
-                    onClick={handleNextAuthor}
-                  />
-                </CardActions>
-              </Card>
-            )}
-          </section>
+          <div className="HeroSection-Con">
+            <h1 className='display-4 fw-bold GoodReads'>GoodReads</h1>
+            <p>
+              A place where book lovers can find, review, and buy books
+              easily.<br></br> Discover recommendations, keep reading lists, and shop
+              for your next read—all in one place.
+            </p>
+          </div>
+        </section>
+          <div className='Con-Au-cat-sec'>
+  <section className='PopularAuthorsSection'>
+    <Link to='/AuthorsBook' className='removeUnderline'>
+      <h3 className='PopularAuthors'>Most Popular Authors</h3>
+    </Link>
+    {currentAuthor && (
+      <Card sx={{ maxWidth: 500, borderRadius: '10px', boxShadow: '0 4px 12px rgba(0, 0, 0, 0.2)' }}>
+        <CardMedia
+          className="Card-home"
+          sx={{ height: 500 }}
+          image={currentAuthor.image}
+          title={currentAuthor.name}
+          component="img"
+          style={{
+            objectFit: 'cover',  
+            borderRadius: '8px',  
+            boxShadow: '18px 18px 20px rgba(0, 0, 0, 0.3)', 
+          }}
+        />
+        <CardContent sx={{ paddingTop: '16px', textAlign: 'center' }}>  {/* Centering text under image */}
+          <Typography gutterBottom variant="h5" component="div" sx={{ color:'465b52',fontWeight: 'bold', marginBottom: '8px' }}>
+            {currentAuthor.name}
+          </Typography>
+          <Typography variant="body2" sx={{ color:'465b52', fontStyle: 'italic',fontSize:'20px' , lineHeight: 1.5 }}>
+            {currentAuthor.bio}
+          </Typography>
+        </CardContent>
+        <CardActions sx={{ justifyContent: 'center' }}> {/* Centering action buttons */}
+          <ArrowBackIosNewIcon
+            className="cursorClick"
+            onClick={handlePrevAuthor}
+          />
+          <ArrowForwardIosIcon
+            className="cursorClick"
+            onClick={handleNextAuthor}
+          />
+        </CardActions>
+      </Card>
+    )}
+  </section>
           {/* Popular Categories Section */}
           <section className='PopularCategoriesSection'>
-            <Link to='/AuthorsBook' className='removeUnderline'>
+            <Link to='/categories-home' className='removeUnderline'>
               <h3 className='PopularCategories'>Most Popular Categories</h3>
             </Link>
-            <Card sx={{ maxWidth: 500 }} className='Card-home'>
-              <div className='catIcons'>
+            <Card sx={{ maxWidth: 500 }} className="categoryCard" >
+              <div className='category-Icons'>
                 <div className='icon-item'>
                   <FastfoodIcon />
                   <h5>Food</h5>
@@ -208,14 +210,16 @@ const HomePage = () => {
                   <PaletteIcon />
                   <h5>Art</h5>
                 </div>
+                <div className='icon-item'>
+                  <GTranslateIcon/>
+                  <h5>Language</h5>
+                </div>
               </div>
             </Card>
 
             {/* Quotes Section */}
-            <section className='PopularQuotes'>
-              <Link to='/AuthorsBook' className='removeUnderline'>
-                <h3 className='PopularQuotes'>Quotes</h3>
-              </Link>
+            <section className='.Best-Selling-Books '>
+              <h3 className='PopularQuotes removeUnderline'>Quotes</h3>
               <Card sx={{ maxWidth: 500 }} className='Card-home'>
                 <CardContent>
                   <Typography variant='body2' sx={{ color: "text.secondary" }}>
@@ -241,72 +245,6 @@ const HomePage = () => {
             </section>
           </section>
         </div>
-
-        {/* Best-Selling Books Section */}
-        {/* <section className="Best-Selling-Books">
-          <h2 className="fw-bold mb-4">Best-Selling Books</h2>
-          <div className="containerBooks mt-5">
-            <div className="row g-4">
-              {books.map((book, index) => (
-                <div key={index} className="col-md-3">
-                  <div className="card book-card">
-                    <img src={book.coverImage} className="card-img-top" alt={book.title} />
-                    <div className="card-body">
-                      <h4 className="card-title">{book.title}</h4>
-                      <p className="text-muted">Author: {book.author?.name}</p>
-                      <div className="d-flex justify-content-between mt-2">
-                        <span className="text-muted">⭐⭐⭐⭐⭐</span>
-                      </div>
-                      <div className="d-grid">
-                        <Link to={`/books/${book._id}`}>
-                          <button className="btn btn-outline-primary mt-2 view-details">View Details</button>
-                        </Link>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-          <div className="text-center mt-5">
-            <Link to="/books">
-              <button className="btn btn-primary btn-lg View-All-Books">View All Books</button>
-            </Link>
-          </div>
-        </section> */}
-
-        {/* <section className="Best-Selling-Books">
-          <h2 className="fw-bold mb-4">Best-Selling Books</h2>
-          <div className="containerBooks mt-5">
-            <div className="row g-4">
-              {books.map((book, index) => (
-                <div key={index} className="col-12 col-sm-6 col-md-4 col-lg-3">
-                  <div className="card book-card">
-                    <img src={book.coverImage} className="card-img-top" alt={book.title} />
-                    <div className="card-body">
-                      <h4 className="card-title">{book.title}</h4>
-                      <p className="text-muted">Author: {book.author?.name}</p>
-                      <div className="d-flex justify-content-between mt-2">
-                        <span className="text-muted">⭐⭐⭐⭐⭐</span>
-                      </div>
-                      <div className="d-grid">
-                        <Link to={`/books/${book._id}`}>
-                          <button className="btn btn-outline-primary mt-2 view-details">View Details</button>
-                        </Link>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-          <div className="text-center mt-5">
-            <Link to="/books">
-              <button className="btn btn-primary btn-lg View-All-Books">View All Books</button>
-            </Link>
-          </div>
-        </section> */}
-
         <BookListSection title='Best-Selling Books' />
 
         <div className='text-center mt-5'>
