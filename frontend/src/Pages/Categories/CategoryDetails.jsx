@@ -5,6 +5,7 @@ import BookCard from "../../../components/BookCard";
 import Navbar from "../../../components/navbar";
 import FooterPage from './../Footer/FooterPage';
 import { useParams } from "react-router-dom";
+import { Button } from "react-bootstrap";
 
 const CategoryDetails = () => {
     const { categoryId } = useParams();
@@ -46,7 +47,9 @@ const CategoryDetails = () => {
                 ))
             )}
             </div>
-            <Link to="/categories-home">Back to categories</Link>
+           
+            <Link to="/categories-home"> <Button  variant="outline-secondary">Back to categories</Button></Link>
+            
         </div>
         <FooterPage />
         </div>
