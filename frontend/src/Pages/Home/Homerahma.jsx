@@ -29,6 +29,7 @@ import GTranslateIcon from '@mui/icons-material/GTranslate';
 import { color, margin } from "@mui/system";
 import BookListSection from "../../../components/BookListSection";
 import CustomButton from "../../../components/CustomButton";
+import AIChatbot from "../../../components/Chatbot/AIChatbt";
 
 const HomePage = () => {
   const navigate = useNavigate();
@@ -253,7 +254,8 @@ const HomePage = () => {
             </CustomButton>
           </Link>
         </div>
-
+        
+        <AIChatbot />
         <FooterPage />
       </div>
     </>
