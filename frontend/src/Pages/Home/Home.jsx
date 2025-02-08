@@ -5,6 +5,8 @@ import React, { useEffect, useState } from "react";
 import { fetchBooks } from "../../services/api";
 import { Link } from "react-router-dom";
 
+import ShinyText from "../../services/Style/ShinyText";
+  
 const HomePage = () => {
 
   const [books, setBooks] = useState([]);
@@ -21,6 +23,8 @@ const HomePage = () => {
   return (
     <div className="homepage">
       <Navbar />
+     
+
       {/* Hero Section */}
       <div className='container mt-5'>
         <div className='row align-items-center'>
