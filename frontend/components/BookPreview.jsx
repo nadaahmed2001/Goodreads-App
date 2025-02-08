@@ -151,7 +151,7 @@ const BookPreview = () => {
 
                 <div className="loader-container">
                     <div className="spinner"></div>
-                    <p>Loading your book, please wait...</p>
+                    <p className="text-light">Loading your book, please wait...</p>
                 </div>
 
             )}
