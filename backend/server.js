@@ -14,7 +14,9 @@ const authController = require("./controllers/authencation/authController"); // 
 const BookAuthor = require("./controllers/authorBookController/BookAuthor");
 const categoriesControllers= require("./controllers/categories/categoriesControllers");
 const searchController = require("./controllers/search/SearchController");
-
+const passport = require("../backend/config/passport"); // Import passport configuration
+const GoogleAuth = require("../backend/controllers/authencation/GoogleAuth");
+const session = require("express-session");
 
 const {
   verifyToken,
@@ -98,6 +100,18 @@ app.post("/verify-otp", authController.verifyOTP); // New route
 app.get("/profile", verifyToken, userProfileController.profile);
 app.post("/forgot-password", authController.forgotPassword);
 app.post("/reset-password", authController.resetPassword);
+//////////////// google sign in //////////////////// 
+// Setup session middleware
+// app.use(
+//   session({
+//     secret: process.env.SESSION_SECRET || "secret",
+//     resave: false,
+//     saveUninitialized: true, // Ensures session is saved even if uninitialized
+//   })
+// );
+app.use(passport.initialize());
+// app.use(passport.session());
+app.use(GoogleAuth);
 
 //Categories
 app.get("/categories-home", categoriesControllers.getCategoriesHome);
