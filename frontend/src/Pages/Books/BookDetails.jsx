@@ -17,7 +17,6 @@ import ReviewList from "../../../components/ReviewList";
 import FooterPage from "../Footer/FooterPage";
 import DemoSection from "../../../components/DemoSection";
 import { AuthContext } from "../../AuthContext";
- 
 
 const BookDetails = () => {
   // Check if the user is authenticated
@@ -170,7 +169,6 @@ const BookDetails = () => {
               </p>
 
               <Stack direction='horizontal' className='flex-wrap gap-3 mt-4'>
-
                 {isAuthenticated && (
                   <>
                     <Dropdown className='me-2'>
@@ -197,10 +195,10 @@ const BookDetails = () => {
                         </Dropdown.Item>
                       </Dropdown.Menu>
                     </Dropdown>
-                    {
+                    {/* {
                       (subscription === 'Active' && role === "user") &&
                       <Button className="bg-success" onClick={() => navigate(`/BookPreview/${book._id}`)}>Read Full Book</Button>
-                    }
+                    } */}
                   </>
                 )}
               </Stack>
