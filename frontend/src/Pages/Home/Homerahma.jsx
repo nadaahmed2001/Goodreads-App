@@ -15,6 +15,12 @@ import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import FastfoodIcon from "@mui/icons-material/Fastfood";
 import SportsSoccerIcon from "@mui/icons-material/SportsSoccer";
 import FavoriteIcon from "@mui/icons-material/Favorite";
+import TheaterComedyIcon from '@mui/icons-material/TheaterComedy'; // Drama
+import AutoStoriesIcon from '@mui/icons-material/AutoStories'; // Fantasy
+import SearchIcon from '@mui/icons-material/Search'; // Mystery
+import MoodBadIcon from '@mui/icons-material/MoodBad'; // Horror
+import MenuBookIcon from '@mui/icons-material/MenuBook'; // Fiction
+import PersonIcon from '@mui/icons-material/Person'; // Biography
 import MedicalInformationIcon from "@mui/icons-material/MedicalInformation";
 import BiotechIcon from "@mui/icons-material/Biotech";
 import BalanceIcon from "@mui/icons-material/Balance";
@@ -23,6 +29,7 @@ import GTranslateIcon from '@mui/icons-material/GTranslate';
 import { color, margin } from "@mui/system";
 import BookListSection from "../../../components/BookListSection";
 import CustomButton from "../../../components/CustomButton";
+import AIChatbot from "../../../components/Chatbot/AIChatbt";
 
 const HomePage = () => {
   const navigate = useNavigate();
@@ -135,84 +142,77 @@ const HomePage = () => {
             </p>
           </div>
         </section>
-          <div className='Con-Au-cat-sec'>
-  <section className='PopularAuthorsSection'>
-    <Link to='/AuthorsBook' className='removeUnderline'>
-      <h3 className='PopularAuthors'>Most Popular Authors</h3>
-    </Link>
-    {currentAuthor && (
-      <Card sx={{ maxWidth: 500, borderRadius: '10px', boxShadow: '0 4px 12px rgba(0, 0, 0, 0.2)' }}>
-        <CardMedia
-          className="Card-home"
-          sx={{ height: 500 }}
-          image={currentAuthor.image}
-          title={currentAuthor.name}
-          component="img"
-          style={{
-            objectFit: 'cover',  
-            borderRadius: '8px',  
-            boxShadow: '18px 18px 20px rgba(0, 0, 0, 0.3)', 
-          }}
-        />
-        <CardContent sx={{ paddingTop: '16px', textAlign: 'center' }}>  {/* Centering text under image */}
-          <Typography gutterBottom variant="h5" component="div" sx={{ color:'465b52',fontWeight: 'bold', marginBottom: '8px' }}>
-            {currentAuthor.name}
-          </Typography>
-          <Typography variant="body2" sx={{ color:'465b52', fontStyle: 'italic',fontSize:'20px' , lineHeight: 1.5 }}>
-            {currentAuthor.bio}
-          </Typography>
-        </CardContent>
-        <CardActions sx={{ justifyContent: 'center' }}> {/* Centering action buttons */}
-          <ArrowBackIosNewIcon
-            className="cursorClick"
-            onClick={handlePrevAuthor}
-          />
-          <ArrowForwardIosIcon
-            className="cursorClick"
-            onClick={handleNextAuthor}
-          />
-        </CardActions>
-      </Card>
-    )}
-  </section>
+        <div className='Con-Au-cat-sec'>
+          <section className='PopularAuthorsSection'>
+            <Link to='/AuthorsBook' className='removeUnderline'>
+              <h3 className='PopularAuthors'>Most Popular Authors</h3>
+            </Link>
+            {currentAuthor && (
+              <Card sx={{ maxWidth: 500, borderRadius: '10px', boxShadow: '0 4px 12px rgba(0, 0, 0, 0.2)' }}>
+                <CardMedia
+                  className="Card-home"
+                  sx={{ height: 500 }}
+                  image={currentAuthor.image}
+                  title={currentAuthor.name}
+                  component="img"
+                  style={{
+                    objectFit: 'cover',
+                    borderRadius: '8px',
+                    boxShadow: '18px 18px 20px rgba(0, 0, 0, 0.3)',
+                  }}
+                />
+                <CardContent sx={{ paddingTop: '16px', textAlign: 'center' }}>  {/* Centering text under image */}
+                  <Typography gutterBottom variant="h5" component="div" sx={{ color: '465b52', fontWeight: 'bold', marginBottom: '8px' }}>
+                    {currentAuthor.name}
+                  </Typography>
+                  <Typography variant="body2" sx={{ color: '465b52', fontStyle: 'italic', fontSize: '20px', lineHeight: 1.5 }}>
+                    {currentAuthor.bio}
+                  </Typography>
+                </CardContent>
+                <CardActions sx={{ justifyContent: 'center' }}> {/* Centering action buttons */}
+                  <ArrowBackIosNewIcon
+                    className="cursorClick"
+                    onClick={handlePrevAuthor}
+                  />
+                  <ArrowForwardIosIcon
+                    className="cursorClick"
+                    onClick={handleNextAuthor}
+                  />
+                </CardActions>
+              </Card>
+            )}
+          </section>
           {/* Popular Categories Section */}
           <section className='PopularCategoriesSection'>
             <Link to='/categories-home' className='removeUnderline'>
               <h3 className='PopularCategories'>Most Popular Categories</h3>
             </Link>
-            <Card sx={{ maxWidth: 500 }} className="categoryCard" >
+
+            <Card sx={{ maxWidth: 500 }} className="categoryCard">
               <div className='category-Icons'>
                 <div className='icon-item'>
-                  <FastfoodIcon />
-                  <h5>Food</h5>
+                  <TheaterComedyIcon />
+                  <h5>Drama</h5>
                 </div>
                 <div className='icon-item'>
-                  <SportsSoccerIcon />
-                  <h5>Sports</h5>
+                  <AutoStoriesIcon />
+                  <h5>Fantasy</h5>
                 </div>
                 <div className='icon-item'>
-                  <FavoriteIcon />
-                  <h5>Love</h5>
+                  <SearchIcon />
+                  <h5>Mystery</h5>
                 </div>
                 <div className='icon-item'>
-                  <MedicalInformationIcon />
-                  <h5>Health</h5>
+                  <MoodBadIcon />
+                  <h5>Horror</h5>
                 </div>
                 <div className='icon-item'>
-                  <BiotechIcon />
-                  <h5>Science</h5>
+                  <MenuBookIcon />
+                  <h5>Fiction</h5>
                 </div>
                 <div className='icon-item'>
-                  <BalanceIcon />
-                  <h5>Law</h5>
-                </div>
-                <div className='icon-item'>
-                  <PaletteIcon />
-                  <h5>Art</h5>
-                </div>
-                <div className='icon-item'>
-                  <GTranslateIcon/>
-                  <h5>Language</h5>
+                  <PersonIcon />
+                  <h5>Biography</h5>
                 </div>
               </div>
             </Card>
@@ -254,7 +254,8 @@ const HomePage = () => {
             </CustomButton>
           </Link>
         </div>
-
+        
+        <AIChatbot />
         <FooterPage />
       </div>
     </>

@@ -28,7 +28,6 @@ import { AuthProvider } from "./AuthContext";
 import ForgotPassword from "./Pages/PasswordReset/ForgotPassword";
 import ResetPassword from "./Pages/PasswordReset/ResetPassword";
 
-
 import CancelPage from "./Pages/Payment/CancelPage";
 import SuccessPage from './Pages/Payment/SuccessPage';
 
@@ -36,6 +35,7 @@ import CategoriesHome from "./Pages/Categories/CategoriesHome";
 import CategoryDetails from "./Pages/Categories/CategoryDetails";
 import Searchfun from "../components/Search/Searchfun";
 import AuthRedirect from "../components/Authentication/SignIn/AuthRedirect";
+import BookPreview from '../components/BookPreview';
 function App() {
   const [category, setCategory] = useState([]);
   const [author, setAuthor] = useState([]);
@@ -68,7 +68,7 @@ function App() {
           <Routes>
 
             {/* <Route path='/' element={<Home />} /> */}
-            
+
             <Route path='/redirect' element={<AuthRedirect />} />
             <Route path='/' element={<Homerahma />} />
             <Route path='/AdminLogin' element={<AdminLogin />} />
@@ -76,7 +76,7 @@ function App() {
             <Route path="/list/:shelf" element={<UserList />} />
             <Route path="/CancelPage" element={<CancelPage />} />
             <Route path="/SuccessPage" element={<SuccessPage />} />
-           
+            <Route path="/BookPreview/:bookId" element={<BookPreview />} />
             {/* <Route path="/Payment" element={<Payment />} /> */}
             <Route path='/Categories' element={<Categories category={category} setFetchTrigger={setFetchTrigger} />} />
             <Route path='/ManageBooks' element={<ManageBooks category={category} author={author} />} />
@@ -86,7 +86,7 @@ function App() {
             <Route path="/TermsConditions" element={<TermsConditions />} />
             <Route path='/sign-up' element={<SignUp />} />
             <Route path='/sign-in' element={<SignIn />} />
-           
+
             <Route path='/AuthorsBook' element={<AuthorsBook />} />
             <Route path='/AuthorDetails/:authorId' element={<AuthorDetails />} />
             <Route path='/profile' element={<Profile />} />
@@ -95,7 +95,7 @@ function App() {
             <Route path='/categories-home' element={<CategoriesHome />} />
             <Route path='categories-home/:categoryId' element={<CategoryDetails />} />
             <Route path='*' element={<NotFound />} />
-            <Route path="/search" element={<Searchfun/>}></Route>
+            <Route path="/search" element={<Searchfun />}></Route>
           </Routes>
         </AuthProvider>
       </Router>
