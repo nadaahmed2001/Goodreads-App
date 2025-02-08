@@ -4,7 +4,7 @@ import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import SignIn from "../components/Authentication/SignIn/SignIn";
 import SignUp from "../components/Authentication/SignUp/SignUp";
-import Register from "../components/Authentication/SignUp/Register";
+
 import Logged from "../components/Authentication/Logged";
 import Home from "./Pages/Home/Home";
 import Homerahma from "./Pages/Home/Homerahma";
@@ -19,7 +19,7 @@ import AuthorsBook from "../components/Authors-Book/AuthorsBook";
 import AboutUs from "./Pages/AboutUs/AboutUs";
 import AuthorDetails from "../components/Authors-Book/AuthorDetails";
 import TermsConditions from "./Pages/TermsConditions/TermsConditions";
-import Login from "../components/Authentication/SignIn/Login";
+
 // import Payment from "./Pages/Payment/Payment";
 import UserList from "./Pages/UserBookLists/UserList";
 // import { Helmet } from "react-helmet";
@@ -35,6 +35,7 @@ import SuccessPage from './Pages/Payment/SuccessPage';
 import CategoriesHome from "./Pages/Categories/CategoriesHome";
 import CategoryDetails from "./Pages/Categories/CategoryDetails";
 import Searchfun from "../components/Search/Searchfun";
+import AuthRedirect from "../components/Authentication/SignIn/AuthRedirect";
 function App() {
   const [category, setCategory] = useState([]);
   const [author, setAuthor] = useState([]);
@@ -67,13 +68,15 @@ function App() {
           <Routes>
 
             {/* <Route path='/' element={<Home />} /> */}
+            
+            <Route path='/redirect' element={<AuthRedirect />} />
             <Route path='/' element={<Homerahma />} />
             <Route path='/AdminLogin' element={<AdminLogin />} />
             <Route path='/AboutUs' element={<AboutUs />} />
             <Route path="/list/:shelf" element={<UserList />} />
             <Route path="/CancelPage" element={<CancelPage />} />
             <Route path="/SuccessPage" element={<SuccessPage />} />
-            <Route path='/Register' element={<Register />} />
+           
             {/* <Route path="/Payment" element={<Payment />} /> */}
             <Route path='/Categories' element={<Categories category={category} setFetchTrigger={setFetchTrigger} />} />
             <Route path='/ManageBooks' element={<ManageBooks category={category} author={author} />} />
@@ -83,7 +86,7 @@ function App() {
             <Route path="/TermsConditions" element={<TermsConditions />} />
             <Route path='/sign-up' element={<SignUp />} />
             <Route path='/sign-in' element={<SignIn />} />
-            <Route path='/login' element={<Login />} />
+           
             <Route path='/AuthorsBook' element={<AuthorsBook />} />
             <Route path='/AuthorDetails/:authorId' element={<AuthorDetails />} />
             <Route path='/profile' element={<Profile />} />

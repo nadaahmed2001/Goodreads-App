@@ -18,6 +18,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import CreateBtn from "./CreateBtn";
 import ShinyText from "../../../src/services/Style/ShinyText";
+import { FcGoogle } from "react-icons/fc";
 
 import RotatingText from "./Rotating";
 
@@ -38,6 +39,11 @@ export default function SignUp() {
   const [errors, setErrors] = useState({});
   const [openModal, setOpenModal] = useState(false);
   const navigate = useNavigate();
+
+  const handleGoogleSignUp = () => {
+    window.location.href = "http://localhost:5000/auth/google";
+  };
+  
 
   const validateForm = () => {
     let newErrors = {};
@@ -188,6 +194,34 @@ export default function SignUp() {
             sx={{ mb: 4, input: { color: 'white' } }} />
 
 <CreateBtn onClick={handleSubmit} />
+  <Button
+  fullWidth
+  variant="contained"
+  onClick={handleGoogleSignUp}
+  sx={{
+    mt: 2,
+    backgroundColor: "#ffffff",
+    color: "#000",
+    fontWeight: "bold",
+    textTransform: "none",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: "10px",
+    border: "1px solid #ddd",
+    borderRadius: "8px",
+    boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
+    transition: "all 0.3s ease-in-out",
+    "&:hover": {
+      backgroundColor: "#f7f7f7",
+      transform: "scale(1.05)",
+      boxShadow: "0px 6px 10px rgba(0, 0, 0, 0.15)",
+    },
+  }}
+>
+  <FcGoogle size={24} />
+  Sign up with Google
+</Button>
 
         </Box>
         <Typography mt={2} fontSize="14px" color="#fff">

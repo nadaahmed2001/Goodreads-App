@@ -19,6 +19,7 @@ import ShinyText from "../../../src/services/Style/ShinyText";
 import LoginBtn from "./Loginbtn";
 import { color } from "@mui/system";
 import RotatingText from "../SignUp/Rotating";
+import { FcGoogle } from "react-icons/fc";
 
 export default function SignIn() {
   const [showPassword, setShowPassword] = useState(false);
@@ -32,7 +33,10 @@ export default function SignIn() {
   const handleRoleChange = (e) => {
     setRole(e.target.checked ? 'admin' : 'user');
   };
-
+  const handleGoogleSignIn = () => {
+    window.location.href = "http://localhost:5000/auth/google";
+  };
+  
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -211,6 +215,35 @@ export default function SignIn() {
               <Switch role={role} onChange={handleRoleChange} sx={{ width: "auto", minWidth: "unset" }} />
             </Box>
             <LoginBtn onClick={handleSubmit} />
+   <Button
+  fullWidth
+  variant="contained"
+  onClick={handleGoogleSignIn}
+  sx={{
+    mt: 2,
+    backgroundColor: "#ffffff",
+    color: "#000",
+    fontWeight: "bold",
+    textTransform: "none",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: "10px",
+    border: "1px solid #ddd",
+    borderRadius: "8px",
+    boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
+    transition: "all 0.3s ease-in-out",
+    "&:hover": {
+      backgroundColor: "#f7f7f7",
+      transform: "scale(1.05)",
+      boxShadow: "0px 6px 10px rgba(0, 0, 0, 0.15)",
+    },
+  }}
+>
+  <FcGoogle size={24} />
+  Sign in with Google
+</Button>
+
           </Box>
 
           {errorMessage && <Typography mt={2} color="error">{errorMessage}</Typography>}
