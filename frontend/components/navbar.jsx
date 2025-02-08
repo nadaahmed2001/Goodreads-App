@@ -10,12 +10,12 @@ const Navbar = () => {
   const { user, role, subscription, logout } = useContext(AuthContext); // Get user, role, and logout function from context
   const navigate = useNavigate();
   
-  const [query, setQuery] = useState(""); //  Define query state
+  const [query, setQuery] = useState(""); //  Define query state to store the search query
 
   const handleSearch = (e) => {
     e.preventDefault();
     if (query.trim()) {
-      navigate(`/search?q=${encodeURIComponent(query)}`);
+      navigate(`/search?q=${encodeURIComponent(query)}`); //encodeURIcomponent to encode the query string.
     }
   };
 
