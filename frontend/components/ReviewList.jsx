@@ -13,7 +13,6 @@ const ReviewList = ({
   return (
     <Row className='mt-4'>
       <Col xs={12}>
-        {/* Header Section */}
         <div className='d-flex flex-column flex-md-row justify-content-md-between align-items-start align-items-md-center gap-3 gap-md-0 mb-4'>
           <h3 className='h2 mb-0'>All Reviews ({reviews.length})</h3>
           <CustomButton
@@ -25,12 +24,19 @@ const ReviewList = ({
           </CustomButton>
         </div>
 
-        {/* Reviews Grid */}
         <Row className='g-4'>
           {reviews.slice(0, visibleReviews).map((review) => (
             <Col xs={12} md={6} lg={4} key={review._id}>
-              <Card className='h-100 rounded-4 shadow-sm'>
-                <Card.Body className='d-flex flex-column'>
+              <Card
+                className='h-100 rounded-5 shadow  '
+                style={{
+                  paddingTop: "10px",
+                  paddingBottom: "2px",
+                  paddingLeft: "10px",
+                  paddingRight: "10px",
+                }}
+              >
+                <Card.Body className='d-flex flex-column fs-5'>
                   <StarRating
                     className='mb-3'
                     maxRating={5}
@@ -38,12 +44,14 @@ const ReviewList = ({
                     defaultRating={review.rating}
                     isReadOnly={true}
                   />
-                  <Card.Title className='fs-5'>{review.user}</Card.Title>
-                  <Card.Text className='text-secondary flex-grow-1'>
-                    {review.comment}
-                  </Card.Text>
-                  <small className='text-muted mt-2'>
-                    {new Date(review.createdAt).toLocaleDateString()}
+                  <Card.Title className='fs-5 fw-bold mb-0'>
+                    {review.user} ✅
+                  </Card.Title>
+                  <hr />
+                  <div className='text-black-50'>"{review.comment}"</div>
+
+                  <small className='text-muted mt-2 text-light-emphasis fs-8'>
+                    Posted on {new Date(review.createdAt).toLocaleDateString()}
                   </small>
                 </Card.Body>
               </Card>
@@ -51,7 +59,6 @@ const ReviewList = ({
           ))}
         </Row>
 
-        {/* Load More Button */}
         {visibleReviews < reviews.length && (
           <div className='text-center mt-5'>
             <CustomButton

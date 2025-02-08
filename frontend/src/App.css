@@ -124,15 +124,26 @@ td {
   }
 }
 
-.shadow-hover {
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+.hover-shadow {
+  transition: all 0.3s ease;
 }
 
-.shadow-hover:hover {
+.hover-shadow:hover {
   transform: translateY(-5px);
-  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
 }
 
+.book-card img {
+  object-fit: cover;
+  height: 300px;
+}
+
+.fs-7 {
+  font-size: 0.85rem;
+}
+.fs-8 {
+  font-size: 0.75rem;
+}
 
 /* ======================== home button in panel ======================== */
 button {
