@@ -49,7 +49,6 @@ const getList = async (req, res) => {
 
 
       //Send the books from the user's list along with the author of the book
-        // Fetch the books from the user's list along with the author's name
         const books = await UserBookList.find({ user: userId, shelf })
             .populate({
                 path: "book",

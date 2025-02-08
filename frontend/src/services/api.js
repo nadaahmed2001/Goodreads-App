@@ -10,20 +10,7 @@ export const fetchBookById = (bookId) =>
 export const fetchBookReviews = (bookId) =>
   axios.get(`${API_BASE_URL}/reviews/books/${bookId}/reviews`);
 
-export const submitReview = async (bookId, reviewData, token) => {
-  const config = {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  };
-  const response = await axios.post(
-    `http://localhost:5000/reviews/books/${bookId}/reviews`,
 
-    reviewData,
-    config
-  );
-  return response;
-};
 
 export const addBookToList = async (bookId, shelf, token) => {
   return axios.post(
@@ -45,6 +32,57 @@ export const removeBookFromList = async (bookId, shelf, token) => {
     headers: { Authorization: `Bearer ${token}` },
   });
 };
+
+export const fetchCategoriesWithBooks = async () => {
+  try {
+    const response = await axios.get(`${API_BASE_URL}/categories-home`);
+    // console.log("Data from fetchCategoriesWithBooks api: ", response.data);
+    return response.data; //response.data holds categories + books
+  } catch (error) {
+    // console.error("Error fetching categories", error);
+    return { categoryName: "", books: [] }; 
+  }
+};
+
+export const fetchCategoryDetails = async (categoryId) => {
+  try {
+    console.log("Fetching category details for ID:", categoryId);
+    const response = await axios.get(`${API_BASE_URL}/categories-home/${categoryId}`);
+    return response.data; // Expected to be { books, categoryName }
+  } catch (error) {
+    console.error("Error fetching category details", error);
+    return { books: [], categoryName: "Unknown Category" }; // ✅ Always return a valid object
+  }
+};
+
+
+/*reviews fatma*/
+// export const fetchBookReviews = (bookId) =>
+//   axios.get(`${API_BASE_URL}/api/books/${bookId}/reviews`);
+
+export const submitReview = async (bookId, review, token) => {
+  try {
+    const response = await axios.post(
+      `${API_BASE_URL}/reviews`,
+      {
+        bookId,
+        ...review,
+        rating: Number(review.rating),
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return response;
+  } catch (error) {
+    console.error("Error in submitReview:", error.response || error);
+    throw error;
+  }
+};
+
+/*reviews fatma*/
 
 // export const fetchFeaturedBooks = () => axios.get(`${API_BASE_URL}/books/featured`);
 // export const fetchTrendingBooks = () => axios.get(`${API_BASE_URL}/books/trending`);
