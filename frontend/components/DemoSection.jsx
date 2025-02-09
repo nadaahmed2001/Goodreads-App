@@ -15,35 +15,35 @@ const DemoSection = ({ demoText, bookId }) => {
   };
 
   return (
-    <>
-      <hr className='my-5' />
-      <Card className='shadow-lg p-4 mb-4'>
-        <Card.Body>
-          <Card.Text
-            className={`demo-text ${
-              subscription === "Active" ? "" : "blur-text"
-            }`}
-          >
-            {demoText}
-          </Card.Text>
+    <Card
+      className='shadow-lg p-2 mb-4 rounded-5 border-0 '
+      style={{ width: "600px", margin: "auto" }}
+    >
+      <Card.Body>
+        <Card.Text
+          className={`demo-text ${
+            subscription === "Active" ? "" : "blur-text"
+          }`}
+        >
+          {demoText}
+        </Card.Text>
 
-          {subscription === "InActive" ? (
-            <div className='text-center mt-3'>
-              <CheckoutButton onClick={handleSubscription} />
-            </div>
-          ) : (
-            <div className='text-center mt-3'>
-              <CustomButton
-                className='bg-success'
-                onClick={() => navigate(`/BookPreview/${bookId}`)}
-              >
-                Read Full Book
-              </CustomButton>
-            </div>
-          )}
-        </Card.Body>
-      </Card>
-    </>
+        {subscription === "InActive" ? (
+          <div className='text-center mt-3'>
+            <CheckoutButton onClick={handleSubscription} />
+          </div>
+        ) : (
+          <div className='text-center mt-3'>
+            <CustomButton
+              className='bg-success'
+              onClick={() => navigate(`/BookPreview/${bookId}`)}
+            >
+              Read Full Book
+            </CustomButton>
+          </div>
+        )}
+      </Card.Body>
+    </Card>
   );
 };
 
