@@ -14,8 +14,8 @@ const authController = require("./controllers/authencation/authController"); // 
 const BookAuthor = require("./controllers/authorBookController/BookAuthor");
 const categoriesControllers = require("./controllers/categories/categoriesControllers");
 const searchController = require("./controllers/search/SearchController");
-const passport = require("../backend/config/passport"); // Import passport configuration
-const GoogleAuth = require("../backend/controllers/authencation/GoogleAuth");
+const passport = require('./config/passport');
+const GoogleAuth = require("./controllers/authencation/GoogleAuth");
 const session = require("express-session");
 const chatbotController = require("./controllers/chatbot/chatbotController");
 
