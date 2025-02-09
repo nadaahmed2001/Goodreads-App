@@ -243,10 +243,77 @@ const HomePage = () => {
                 </CardActions>
               </Card>
             </section>
-          </section>
+          </section> 
         </div>
-        <BookListSection title='Best-Selling Books' />
 
+    {/* new section felhome zy el figma */}
+    <section className="Home-middle">
+      <div className="Home-authors">
+      <Link to='/AuthorsBook' className='Home-authors-title'>
+      <h3>Most Popular Authors</h3>
+      </Link>
+      <div className="Author-name-img-bio">
+      <div className="Author-name-img">
+      {/* <img src={currentAuthor.image}></img>  */}
+       {/* <p className="Author-name">{currentAuthor.name}</p> */}
+      </div>
+      <div className="Author-bio">
+      {/* <p> {currentAuthor.bio}</p> */}
+      </div>
+      </div>
+      <div className="cursors">
+      <ArrowBackIosNewIcon className="cursorClick" onClick={handlePrevAuthor}/>
+      <ArrowForwardIosIcon className="cursorClick" onClick={handleNextAuthor}/>
+      </div>
+      </div>
+
+      <div className="Home-category">
+      <Link to='/categories-home' className='Home-category-title'>
+      <h3>Most Popular Categories</h3>
+      </Link>
+      <div className='Home-category-Icons'>
+                <div className='Home-category-item'>
+                  <TheaterComedyIcon />
+                  <h5>Drama</h5>
+                </div>
+                <div className='Home-category-item'>
+                  <AutoStoriesIcon />
+                  <h5>Fantasy</h5>
+                </div>
+                <div className='Home-category-item'>
+                  <SearchIcon />
+                  <h5>Mystery</h5>
+                </div>
+                <div className='Home-category-item'>
+                  <MoodBadIcon />
+                  <h5>Horror</h5>
+                </div>
+                <div className='Home-category-item'>
+                  <MenuBookIcon />
+                  <h5>Fiction</h5>
+                </div>
+                <div className='Home-category-item'>
+                  <PersonIcon />
+                  <h5>Biography</h5>
+                </div>
+                </div>
+      
+<div className="Home-qoutes">
+      <h3 className='Home-qoutes-title'>Quotes</h3>
+        <div className="quote-body">
+          <p>{currentQuote.quote}</p>
+          <em>-<b >Author</b>:{currentQuote.author}</em>
+          </div>
+        <div className="cursor2">
+<ArrowBackIosNewIcon className='cursorClick'onClick={handlePrevQuote}/>
+<ArrowForwardIosIcon className='cursorClick'onClick={handleNextQuote}/>
+</div>
+</div>
+</div>
+    </section>
+
+       <h2 className="Best-Selling-Books">Best-Selling Books</h2>
+        <BookListSection />
         <div className='text-center mt-5'>
           <Link to='/books'>
             <CustomButton className='btn btn-primary btn-lg View-All-Books'>
