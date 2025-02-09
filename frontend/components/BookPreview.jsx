@@ -14,7 +14,7 @@
 //     useEffect(() => {
 //         const getBook = async () => {
 //             try {
-//                 const response = await axios.get(`http://localhost:5000/BookPreview/${bookId}`);
+//                 const response = await axios.get(`https://goodreads-app-production.up.railway.app/BookPreview/${bookId}`);
 //                 console.log("Fetched book:", response.data);
 //                 setPdfUrl(response.data.fullBook); // ✅ Store PDF URL directly
 //             } catch (error) {
@@ -88,7 +88,7 @@ const BookPreview = () => {
         const getBook = async () => {
             try {
 
-                const response = await axios.get(`http://localhost:5000/BookPreview/${bookId}`);
+                const response = await axios.get(`https://goodreads-app-production.up.railway.app/BookPreview/${bookId}`);
                 console.log("Fetched book:", response.data);
                 setPdfUrl(response.data.fullBook);
             } catch (error) {

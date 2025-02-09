@@ -34,13 +34,33 @@ export default function SignIn() {
     setRole(e.target.checked ? 'admin' : 'user');
   };
   const handleGoogleSignIn = () => {
-    window.location.href = "http://localhost:5000/auth/google";
+    window.location.href = "https://goodreads-app-production.up.railway.app/auth/google";
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
     axios.post('http://localhost:5000/login', { email, password, role })
+      .then(result => {
+        if (result.data.message === "success") {
+          if (rememberMe) {
+            localStorage.setItem('token', result.data.token);
+          } else {
+            sessionStorage.setItem('token', result.data.token);
+          }
+          alert("Logged in successfully");
+          navigate('/');
+          window.location.reload(); // 🔥 Force full page reload
+        }
+      })
+      .catch(error => {
+        if (error.response) {
+          setErrorMessage(error.response.data.message || "Login failed");
+        } else {
+          setErrorMessage("An unexpected error occurred. Please try again.");
+        }
+      });
+    axios.post('https://goodreads-app-production.up.railway.app/login', { email, password, role })
       .then(result => {
         if (result.data.message === "success") {
           if (rememberMe) {

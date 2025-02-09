@@ -25,7 +25,7 @@ export default function Categories({ category, setFetchTrigger }) {
 
     const handleSaveCategory = (formData) => {
         axios
-            .post("http://localhost:5000/category", { name: formData.name })
+            .post("https://goodreads-app-production.up.railway.app/category", { name: formData.name })
             .then((response) => {
                 alert("Category added successfully!");
                 setFetchTrigger((prev) => !prev);
@@ -35,7 +35,7 @@ export default function Categories({ category, setFetchTrigger }) {
 
     const handleDelete = async (categoryId) => {
         try {
-            await axios.delete(`http://localhost:5000/category/${categoryId}`);
+            await axios.delete(`https://goodreads-app-production.up.railway.app/category/${categoryId}`);
             alert("Category deleted successfully!");
             setFetchTrigger((prev) => !prev);
         } catch (err) {
@@ -45,7 +45,7 @@ export default function Categories({ category, setFetchTrigger }) {
 
     const handleUpdate = async (categoryId, updatedData) => {
         try {
-            await axios.put(`http://localhost:5000/category/${categoryId}`, updatedData);
+            await axios.put(`https://goodreads-app-production.up.railway.app/category/${categoryId}`, updatedData);
             alert("Category updated successfully!");
             setFetchTrigger((prev) => !prev);
         } catch (err) {

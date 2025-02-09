@@ -66,20 +66,7 @@ const getList = async (req, res) => {
     }
     };
   
-  //Remove book from list
-  app.delete("/remove-from-list/:bookId/:shelf", verifyToken, async (req, res) => {
-    const { bookId, shelf } = req.params;
-    const userId = req.user.id;
-  
-    try {
-      console.log("(server.js) Removing book with ID:", bookId + "from shelf: " + shelf);
-      await UserBookList.deleteOne({ user: userId, book: bookId , shelf});
-      res.json({ success: true, message: "Book removed from the list." });
-    } catch (error) {
-      console.error("Error removing book:", error);
-      res.status(500).json({ success: false, message: "Internal server error." });
-    }
-    });
+
 
 const removeFromList = async (req, res) => {
     const { bookId, shelf } = req.params;

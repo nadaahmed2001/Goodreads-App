@@ -8,7 +8,7 @@ const IsLogged = () => {
     let token = localStorage.getItem("token") || sessionStorage.getItem("token");
     if (token) {
       axios
-        .get("http://localhost:5000/profile", {
+        .get("https://goodreads-app-production.up.railway.app/profile", {
           headers: { Authorization: `Bearer ${token}` },
         })
         .then((result) => {

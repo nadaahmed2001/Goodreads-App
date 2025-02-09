@@ -169,7 +169,7 @@ const forgotPassword = async (req, res) => {
     await user.save();
 
     // Send email with the reset link
-    const resetLink = `http://localhost:5173/reset-password?token=${resetToken}&email=${email}`;
+    const resetLink = `https://goodreads-app.vercel.app/reset-password?token=${resetToken}&email=${email}`;
     sendResetEmail(email, resetLink);
 
     res.status(200).json({ message: "Password reset email sent", token: resetToken }); // Include token for testing

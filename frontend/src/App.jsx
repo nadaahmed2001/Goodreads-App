@@ -45,7 +45,7 @@ function App() {
   const [fetchTrigger, setFetchTrigger] = useState(false); // Trigger for refetching data
 
   useEffect(() => {
-    fetch("http://localhost:5000/categories")
+    fetch("https://goodreads-app-production.up.railway.app/categories")
       .then((res) => res.json())
       .then((data) => setCategory(data))
       .catch((err) => console.error("Error fetching categories:", err));
@@ -54,7 +54,7 @@ function App() {
 
   // Fetch Authors
   useEffect(() => {
-    fetch("http://localhost:5000/authors")
+    fetch("https://goodreads-app-production.up.railway.app/authors")
       .then((res) => res.json())
       .then((data) => setAuthor(data))
       .catch((err) => console.error("Error fetching authors:", err));

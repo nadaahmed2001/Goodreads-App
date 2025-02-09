@@ -16,7 +16,7 @@ const AIChatbot = () => {
     setMessages([...messages, userMessage]);
 
     try {
-      const response = await axios.post("http://localhost:5000/chatbot", { prompt: input });
+      const response = await axios.post("https://goodreads-app-production.up.railway.app/chatbot", { prompt: input });
 
       const botMessage = { text: response.data.reply, sender: "bot" };
       setMessages([...messages, userMessage, botMessage]);

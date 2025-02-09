@@ -36,7 +36,7 @@ export default function Books({ category, author }) {
         const fetchBooks = async () => {
             try {
                 setIsLoading(true);
-                const response = await axios.get("http://localhost:5000/books");
+                const response = await axios.get("https://goodreads-app-production.up.railway.app/books");
                 setBooks(response.data);
                 response.data.forEach((book, index) => {
                     console.log(`Book ${index + 1}:`, book);
@@ -89,7 +89,7 @@ export default function Books({ category, author }) {
             }
 
             // Save book to database
-            await axios.post("http://localhost:5000/book", {
+            await axios.post("https://goodreads-app-production.up.railway.app/book", {
                 coverImage: imageUrl,
                 title: formData.name,
                 description: formData.description,
@@ -102,7 +102,7 @@ export default function Books({ category, author }) {
             alert("Book added successfully!");
 
             // Re-fetch all books
-            const response = await axios.get("http://localhost:5000/books");
+            const response = await axios.get("https://goodreads-app-production.up.railway.app/books");
             setBooks(response.data);
 
         } catch (err) {
@@ -113,7 +113,7 @@ export default function Books({ category, author }) {
 
     const handleDelete = async (bookId) => {
         try {
-            await axios.delete(`http://localhost:5000/book/${bookId}`);
+            await axios.delete(`https://goodreads-app-production.up.railway.app/book/${bookId}`);
             alert("Book deleted successfully!");
             setBooks((prevBooks) => prevBooks.filter(book => book._id !== bookId));
         } catch (err) {
@@ -123,10 +123,10 @@ export default function Books({ category, author }) {
 
     const handleUpdate = async (bookId, updatedData) => {
         try {
-            await axios.put(`http://localhost:5000/book/${bookId}`, updatedData);
+            await axios.put(`https://goodreads-app-production.up.railway.app/book/${bookId}`, updatedData);
             alert("Book updated successfully!");
 
-            const response = await axios.get("http://localhost:5000/books");
+            const response = await axios.get("https://goodreads-app-production.up.railway.app/books");
             setBooks(response.data);
         } catch (err) {
             console.error("Unable to update book:", err);
