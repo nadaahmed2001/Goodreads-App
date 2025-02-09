@@ -1,12 +1,12 @@
 /* basic style start*/
 
-@import url('https://fonts.googleapis.com/css2?family=Spartan:wght@100;200;300;400;500;600;700;800;900&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=Spartan:wght@100;200;300;400;500;600;700;800;900&display=swap'); */
 
 /* If you are targeting Firefox on macOS */
-* {
-  -moz-osx-font-smoothing: grayscale;
+/* * { */
+  /* -moz-osx-font-smoothing: grayscale; */
   /* Optional */
-}
+/* }
 
 * {
   margin: 0;
@@ -30,9 +30,9 @@ h2 {
 h4 {
   font-size: 20px;
   color: #222;
-}
+} */
 
-h6 {
+/* h6 {
   font-weight: 700;
   font-size: 12px;
 }
@@ -84,16 +84,19 @@ button.white {
   border: 1px solid white;
   outline: none;
   transition: 0.2s;
-}
+} */
 
 /* basic style end */
 
-nav {
+.navbar{
   display: flex;
   flex-direction: column;
   padding: 0 20px;
-  background-color: #088178;
+  background-color: #59461B;
   position: sticky;
+  top: 0; /* This is the crucial line for sticky positioning */
+  z-index: 1000; /* Ensures navbar stays above other content */
+
 }
 
 .nav-top {
@@ -111,7 +114,8 @@ nav .imgLogo {
 
 nav .imgLogo img {
   width: 150px;
-  height: 90px;
+  height: 110px;
+  
 }
 
 nav .Searchinput {
@@ -124,9 +128,6 @@ nav .icons {
   justify-content: flex-end;
 }
 
-nav .icons button :hover {
-  color: #222;
-}
 
 .NavList {
   width: 100%;
@@ -144,7 +145,7 @@ nav .NavList ul {
 
 nav .NavList ul li a {
   text-decoration: none;
-  color: rgb(214, 213, 213);
+  color: #FFF7E7;
   font-family: 'Spartan', sans-serif;
   font-size: 24px;
   font-weight: 700;
@@ -155,50 +156,89 @@ nav .NavList ul li a {
 nav .NavList ul li a:hover {
   color: #222;
 }
+.Searchinput {
+  position: relative;
+}
+
+.input-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 450px; /* You can adjust this to any desired width, like 80% or 600px */
+  max-width: 600px; /* Optionally set a max-width for responsiveness */
+}
+
+.search-input {
+  width: 100%; /* Make the input take full width of its container */
+  padding-right: 35px; /* Provide enough space for the icon */
+  padding-left: 15px; /* Optional: Add some padding on the left side */
+  box-sizing: border-box; /* Ensure padding doesn't affect width calculation */
+  background-color: #FFF7E7;
+}
+
+.search-icon {
+  position: absolute;
+  right: 10px; /* Adjust positioning of the icon */
+  pointer-events: none; /* Prevent the icon from blocking the input */
+}
+.language-selector {
+  position: relative;
+}
+
+.dropdown-list {
+  position: absolute;
+  top: 100%; /* Position below the button */
+  left: 0;
+  background-color: white;
+  border: 1px solid #ccc;
+  padding: 10px;
+  list-style: none;
+  margin: 0;
+  width: 100%; /* Match the button width */
+  z-index: 10;
+}
+
+.dropdown-list li {
+  padding: 5px;
+  cursor: pointer;
+}
+
+.dropdown-list li:hover {
+  background-color: #f0f0f0;
+}
 
 .sign-in-btn {
   font-size: 14px;
   font-weight: 600;
-  padding: 0.8em 1.2em;
-  color: #465b52;
-  background-color: #fff;
-  border-radius: 4px;
+  padding: 0.8em 3em;
+  color: #59461B;
+  background-color: #FFF7E7;
+  border-radius: 20px;
   cursor: pointer;
   border: none;
   outline: none;
   transition: 0.2s;
   margin-right: 10px;
 }
-
-.sign-in-btn:hover {
-  background-color: rgb(214, 213, 213);
-  color: #088178;
-}
-
 /* login */
 .log-in-btn {
   font-size: 14px;
   font-weight: 600;
-  padding: 0.8em 1.2em;
-  color: #465b52;
-  background-color: #fff;
-  border-radius: 4px;
+  padding: 0.8em 3em;
+  color: #59461B;
+  background-color: #FFF7E7;;
+  border-radius: 20px;
   cursor: pointer;
   border: none;
   outline: none;
-  transition: 0.2s;
-  background-color: #fff;
-  color: #088178;
-
 }
-
-.log-in-btn:hover {
-  background-color: rgb(214, 213, 213);
-  color: #465b52;
+.sign-in-btn:hover{
+  background-color: #e8ca86;
+  
 }
-
-
-
+.log-in-btn:hover{
+  background-color: #e8ca86;
+}
 /* Responsive styles */
 @media (max-width: 1200px) {
   nav .imgLogo img {
