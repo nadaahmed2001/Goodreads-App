@@ -15,7 +15,7 @@ const ReviewList = ({
     <Row className='mt-4'>
       <Col xs={12}>
         <div className='d-flex flex-column flex-md-row justify-content-md-between align-items-start align-items-md-center gap-3 gap-md-0 mb-4'>
-          <h3 className='h2 mb-0'>All Reviews ({reviews.length})</h3>
+          <h3 className='h2 mb-0 c-main'>All Reviews ({reviews.length})</h3>
 
           {user ? (
             <CustomButton
