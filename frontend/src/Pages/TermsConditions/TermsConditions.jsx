@@ -8,54 +8,62 @@ export default function TermsAndConditions() {
   return (
     <>
       <Navbar />
-      <Container className='my-5 py-4' style={{ maxWidth: "960px" }}>
-        <Card className='shadow-lg border-0'>
-          <Card.Header className='bg-primary text-white border-0'>
-            <div className='d-flex align-items-center gap-3'>
-              <Book size={32} />
-              <h1 className='mb-0 display-5'>Terms & Conditions</h1>
+      <Container className='my-5 py-4 ' style={{ maxWidth: "960px" }}>
+        <Card className='  border-0  bg-transparent'>
+          <Card.Header className='m-auto   text-light mb-0   bg-transparent border-0'>
+            <div className='d-flex align-items-center justify-center gap-3'>
+              {/* <Book size={50} className='text-black-50  c-main' /> */}
+              <h1 className='mb-0 display-5 c-main'>Terms & Conditions</h1>
             </div>
-            <small className='text-light opacity-75'>
+            <small className='text-black-50 opacity-75 fs-8  ms-3'>
               Last updated: February 2025
             </small>
           </Card.Header>
 
-          <Card.Body className='p-4'>
+          <Card.Body className='p-4 '>
             {/* Table of Contents */}
-            <Card className='mb-4 border-primary'>
-              <ListGroup variant='flush'>
+            <Card className='mb-1 border-0 bg-transparent'>
+              <ListGroup variant='flush' className='p-5 '>
                 <ListGroup.Item
                   action
                   href='#introduction'
-                  className='text-primary'
+                  className='c-main p-3 rounded-5  '
                 >
                   1. Introduction
                 </ListGroup.Item>
                 <ListGroup.Item
                   action
                   href='#responsibilities'
-                  className='text-primary'
+                  className='c-main p-3 rounded-5'
                 >
                   2. User Responsibilities
                 </ListGroup.Item>
                 <ListGroup.Item
                   action
                   href='#property'
-                  className='text-primary'
+                  className='c-main p-3 rounded-5'
                 >
                   3. Intellectual Property
                 </ListGroup.Item>
                 <ListGroup.Item
                   action
                   href='#liability'
-                  className='text-primary'
+                  className='c-main p-3 rounded-5'
                 >
                   4. Limitation of Liability
                 </ListGroup.Item>
-                <ListGroup.Item action href='#changes' className='text-primary'>
+                <ListGroup.Item
+                  action
+                  href='#changes'
+                  className='c-main p-3 rounded-5'
+                >
                   5. Changes to Terms
                 </ListGroup.Item>
-                <ListGroup.Item action href='#contact' className='text-primary'>
+                <ListGroup.Item
+                  action
+                  href='#contact'
+                  className='c-main p-3 rounded-5'
+                >
                   6. Contact Information
                 </ListGroup.Item>
               </ListGroup>
@@ -63,7 +71,7 @@ export default function TermsAndConditions() {
 
             {/* Content Sections */}
             <section id='introduction' className='mb-5'>
-              <h3 className='mb-3 text-primary border-bottom pb-2'>
+              <h3 className='mb-3 p-3 rounded-5 bg-main text-light fs-4 border-bottom p-1'>
                 1. Introduction
               </h3>
               <p className='lead text-secondary'>
@@ -74,7 +82,7 @@ export default function TermsAndConditions() {
             </section>
 
             <section id='responsibilities' className='mb-5'>
-              <h3 className='mb-3 text-primary border-bottom pb-2'>
+              <h3 className='mb-3 p-3 rounded-5 bg-main text-light fs-4 border-bottom p-1'>
                 2. User Responsibilities
               </h3>
               <p className='text-secondary'>
@@ -84,7 +92,7 @@ export default function TermsAndConditions() {
             </section>
 
             <section id='property' className='mb-5'>
-              <h3 className='mb-3 text-primary border-bottom pb-2'>
+              <h3 className='mb-3 p-3 rounded-5 bg-main text-light fs-4 border-bottom p-1'>
                 3. Intellectual Property
               </h3>
               <p className='text-secondary'>
@@ -94,7 +102,7 @@ export default function TermsAndConditions() {
             </section>
 
             <section id='liability' className='mb-5'>
-              <h3 className='mb-3 text-primary border-bottom pb-2'>
+              <h3 className='mb-3 p-3 rounded-5 bg-main text-light fs-4 border-bottom p-1'>
                 4. Limitation of Liability
               </h3>
               <p className='text-secondary'>
@@ -104,7 +112,7 @@ export default function TermsAndConditions() {
             </section>
 
             <section id='changes' className='mb-5'>
-              <h3 className='mb-3 text-primary border-bottom pb-2'>
+              <h3 className='mb-3 p-3 rounded-5 bg-main text-light fs-4 border-bottom p-1'>
                 5. Changes to Terms
               </h3>
               <p className='text-secondary'>
@@ -114,14 +122,14 @@ export default function TermsAndConditions() {
             </section>
 
             <section id='contact'>
-              <h3 className='mb-3 text-primary border-bottom pb-2'>
+              <h3 className='mb-3 p-3 rounded-5 bg-main text-light fs-4 border-bottom p-1'>
                 6. Contact Information
               </h3>
               <div className='d-flex align-items-center gap-2'>
-                <Envelope className='text-primary' />
+                <Envelope className=' c-main  ms-2 ' />
                 <a
                   href='mailto:abdelrahmann.ramadann@gmail.com'
-                  className='text-decoration-none link-primary'
+                  className='text-decoration-none text-secondary  '
                 >
                   abdelrahmann.ramadann@gmail.com
                 </a>
@@ -129,11 +137,11 @@ export default function TermsAndConditions() {
             </section>
           </Card.Body>
 
-          <Card.Footer className='bg-light border-0 py-3'>
+          {/* <Card.Footer className='bg-light border-0 py-3'>
             <div className='text-center text-muted small'>
               © 2025 Book Sphere. All rights reserved.
             </div>
-          </Card.Footer>
+          </Card.Footer> */}
         </Card>
       </Container>
       <FooterPage />
