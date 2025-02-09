@@ -1,8 +1,8 @@
-// ReviewList.jsx
-import React from "react";
+import { useContext } from "react";
 import { Row, Col, Card } from "react-bootstrap";
 import StarRating from "../components/StarRating";
 import CustomButton from "../components/CustomButton";
+import { AuthContext } from "../src/AuthContext";
 
 const ReviewList = ({
   reviews,
@@ -10,18 +10,22 @@ const ReviewList = ({
   setVisibleReviews,
   setShowModal,
 }) => {
+  const { user } = useContext(AuthContext);
   return (
     <Row className='mt-4'>
       <Col xs={12}>
         <div className='d-flex flex-column flex-md-row justify-content-md-between align-items-start align-items-md-center gap-3 gap-md-0 mb-4'>
           <h3 className='h2 mb-0'>All Reviews ({reviews.length})</h3>
-          <CustomButton
-            color='blue'
-            onClick={() => setShowModal(true)}
-            className='w-100 w-md-auto'
-          >
-            Write a Review
-          </CustomButton>
+
+          {user ? (
+            <CustomButton
+              color='blue'
+              onClick={() => setShowModal(true)}
+              className='w-100 w-md-auto'
+            >
+              Write a Review
+            </CustomButton>
+          ) : null}
         </div>
 
         <Row className='g-4'>
