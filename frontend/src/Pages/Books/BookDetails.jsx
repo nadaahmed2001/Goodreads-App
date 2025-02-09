@@ -1,6 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
-import Button from "react-bootstrap/Button";
+import { useParams } from "react-router-dom";
 
 import {
   fetchBookById,
@@ -20,8 +19,7 @@ import { AuthContext } from "../../AuthContext";
 
 const BookDetails = () => {
   // Check if the user is authenticated
-  const { user, role, subscription } = useContext(AuthContext);
-  const navigate = useNavigate();
+  const { user } = useContext(AuthContext);
 
   let token = localStorage.getItem("token");
   if (!token) {
@@ -69,18 +67,15 @@ const BookDetails = () => {
   }, [bookId, token]);
 
   const handleAddReview = async () => {
-    if (!newReview.user || !newReview.rating || !newReview.comment) return;
-
+    const reviewData = {
+      ...newReview,
+      user: user ? user.first_name + " " + user.last_name : newReview.user,
+      rating: Number(newReview.rating),
+    };
     try {
       const token =
         localStorage.getItem("token") || sessionStorage.getItem("token");
-
-      const formattedReview = {
-        ...newReview,
-        rating: Number(newReview.rating),
-      };
-
-      const response = await submitReview(bookId, formattedReview, token);
+      const response = await submitReview(bookId, reviewData, token);
       setReviews((prev) => [...prev, response.data]);
       setShowModal(false);
       setNewReview({ user: "", rating: "", comment: "" });
@@ -206,7 +201,6 @@ const BookDetails = () => {
           </Col>
         </Row>
 
-        <hr className='my-5' />
         <Row className='g-2 p-1'>
           {isAuthenticated && (
             <DemoSection demoText={book.demo} bookId={book._id} token={token} />
