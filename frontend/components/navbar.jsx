@@ -8,16 +8,16 @@ import CheckoutButton from "../src/Pages/Payment/CheckoutButton";
 import SearchIcon from '@mui/icons-material/Search';
 
 const Navbar = () => {
-  
-    const [isOpen, setIsOpen] = useState(false);
-    const [selectedLanguage, setSelectedLanguage] = useState('English'); // Default language
-  
-    const toggleDropdown = () => setIsOpen(!isOpen);
-    const handleLanguageChange = (language) => {
-      setSelectedLanguage(language);
-      setIsOpen(false); // Close dropdown after selection
-    };
 
+
+  const [isOpen, setIsOpen] = useState(false);
+  const [selectedLanguage, setSelectedLanguage] = useState('English'); // Default language
+
+  const toggleDropdown = () => setIsOpen(!isOpen);
+  const handleLanguageChange = (language) => {
+    setSelectedLanguage(language);
+    setIsOpen(false); // Close dropdown after selection
+  };
   const { user, role, subscription, logout } = useContext(AuthContext); // Get user, role, and logout function from context
   const navigate = useNavigate();
   
@@ -61,24 +61,15 @@ const Navbar = () => {
     </div>
   </form>
 </div>
+
         </div>
+
+
         <div className="d-flex align-items-center icons">
-          {/* <button className="btn text-white">
-            <Globe size={20} />
-          </button> */}
-          <div className="language-selector">
-      <button className="btn text-white" onClick={toggleDropdown}>
+        <button className="btn text-white" onClick={toggleDropdown}>
         <Globe size={20} />
         {selectedLanguage} {/* Display the selected language */}
       </button>
-
-      {isOpen && (
-        <ul className="dropdown-list">
-          <li onClick={() => handleLanguageChange('English')}>English</li>
-          <li onClick={() => handleLanguageChange('Arabic')}>Arabic</li>
-        </ul>
-      )}
-    </div>
           <button className="btn text-white">
             <Moon size={20} />
             <span>  |  Dark Mood</span>

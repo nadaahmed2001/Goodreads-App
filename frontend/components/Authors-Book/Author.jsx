@@ -10,6 +10,7 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { Nav } from 'react-bootstrap';
 import { useState} from 'react';
+import FooterPage from '../../src/Pages/Footer/FooterPage';
 
 export default function Author({ authors }) {
   const [currentPage, setCurrentPage] = useState(1);
@@ -64,6 +65,7 @@ export default function Author({ authors }) {
           )}
         />
       </Stack>
+      <FooterPage />
     </>
   );
 }

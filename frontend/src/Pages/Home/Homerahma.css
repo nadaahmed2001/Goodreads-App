@@ -318,7 +318,7 @@ Categories */
 }
 .Home-authors-title h3{
 margin: 20px;
-color: black;
+color: #565353;;
 }
 .Author-name-img-bio{
 display: flex;
@@ -373,7 +373,7 @@ padding: 20px;
 .Home-category-title h3{ 
   text-decoration: none;
   margin: 20px;
-  color: black;
+  color: #565353;;
   text-align: center;
 }
 .Home-category-Icons{
@@ -384,7 +384,7 @@ padding: 20px;
  text-align: center;
 }
 .Home-category-item {
-  color: black;
+  color: #565353;
   width: 30%;
 }
 /*Qoutes */
@@ -393,12 +393,11 @@ padding: 20px;
   height: 240px;
   border-radius: 20px;
   background: var(--2ry, #E8E0C6);
-  
   margin-top: 80px;
 }
 .Home-qoutes-title{
   margin: 20px;
-  color: black;
+  color: #565353;;
   text-align: center;
 }
 .quote-body{
@@ -573,6 +572,7 @@ padding: 20px;
   padding: 24px 46px;
   background-color: #59461B;
   color: #E8E0C6;
+  padding: 12px  ;
   border-radius: 5px;
   margin-top: 10px;
   margin-bottom: 10px;

@@ -254,11 +254,11 @@ const HomePage = () => {
       </Link>
       <div className="Author-name-img-bio">
       <div className="Author-name-img">
-      {/* <img src={currentAuthor.image}></img>  */}
-       {/* <p className="Author-name">{currentAuthor.name}</p> */}
+      <img src={currentAuthor.image}></img>  
+        <p className="Author-name">{currentAuthor.name}</p> 
       </div>
       <div className="Author-bio">
-      {/* <p> {currentAuthor.bio}</p> */}
+       <p> {currentAuthor.bio}</p> 
       </div>
       </div>
       <div className="cursors">
