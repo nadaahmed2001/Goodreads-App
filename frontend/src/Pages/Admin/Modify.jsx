@@ -4,6 +4,7 @@ import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 
 import Dropdown from "react-bootstrap/Dropdown";
+import EButton from './Ebtn';
 
 function Modify({ fields, handleUpdate, initialData, category, author }) {
     const [show, setShow] = useState(false);
@@ -35,7 +36,9 @@ function Modify({ fields, handleUpdate, initialData, category, author }) {
 
     return (
         <>
-            <Button variant="outline-dark me-2" onClick={handleShow}>✏️</Button >
+            <button className="me-2" onClick={handleShow}>
+                <EButton />
+            </button >
 
             <Modal show={show} onHide={handleClose} centered>
                 <Modal.Header closeButton>

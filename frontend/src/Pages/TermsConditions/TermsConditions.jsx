@@ -103,6 +103,16 @@ export default function TermsAndConditions() {
                       abdelrahmann.ramadann@gmail.com
                     </a>
                   </div>
+                  <br />
+                  <div className="d-flex align-items-center gap-2">
+                    <Envelope className="c-main ms-2" />
+                    <a
+                      href="mailto:abdelrahmann.ramadann@gmail.com"
+                      className="text-decoration-none text-secondary"
+                    >
+                      hossamzakaria1212@gmail.com
+                    </a>
+                  </div>
                 </Accordion.Body>
               </Accordion.Item>
             </Accordion>

@@ -1,7 +1,7 @@
 /* General Styles */
 body {
     font-family: Arial, sans-serif;
-    background-color: #f8f9fa;
+    background-color: #ffffff;
     color: #343a40;
     margin: 0;
     padding: 0;
@@ -37,8 +37,12 @@ body {
 
 /* Main Content */
 .flex-grow-1 {
-    background: white;
+    /* background: radial-gradient(circle, white, white, white); */
+    background: linear-gradient(to bottom, #f8f9fa, #e4e4e4, #e7e7e7);
     padding: 30px;
+    border: 1px solid black;
+    /* box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5); */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1), 0px 6px 20px rgba(0, 0, 0, 0.15);
     border-radius: 10px;
     margin: 20px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);

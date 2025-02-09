@@ -10,6 +10,7 @@ import DeniedA from "../Profile/DeniedA";
 import IsLogged from "../../../components/Authentication/IsLogged";
 import { Button } from "react-bootstrap";
 import { AuthContext } from "../../../src/AuthContext"; // Use AuthContext
+import XButton from './XBtn';
 
 export default function Authors({ author, setFetchTrigger }) {
     const { user, role } = useContext(AuthContext); // Get user and role from context
@@ -147,11 +148,12 @@ export default function Authors({ author, setFetchTrigger }) {
                                         ]}
                                     />
 
-                                    <Button variant="outline-dark"
+                                    <button variant="outline-dark"
                                         onClick={() => handleDelete(a._id)}>
-                                        ❌
 
-                                    </Button>
+                                        <XButton />
+
+                                    </button>
                                 </td>
                             </tr>
                         ))}

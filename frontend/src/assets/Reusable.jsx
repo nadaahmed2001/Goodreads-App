@@ -4,7 +4,7 @@ import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
 
 import Dropdown from "react-bootstrap/Dropdown";
-
+import AddBook from "./AddBook";
 export default function ModalBtn({ title, fields, onSave, category, author }) {
 
     const [show, setShow] = useState(false);
@@ -54,7 +54,7 @@ export default function ModalBtn({ title, fields, onSave, category, author }) {
         setSelectedCat('Category')
     };
 
-    
+
     const handleSubmit = (e) => {
         e.preventDefault();
     };
@@ -62,10 +62,9 @@ export default function ModalBtn({ title, fields, onSave, category, author }) {
     return (
 
         <>
-            <Button className="fs-" variant="dark" onClick={handleShow}>
-                Add {title}
-            </Button>
-
+            <button className="fs-" variant="dark" onClick={handleShow}>
+                <AddBook title={title} />
+            </button>
             <Modal centered show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
                     <Modal.Title>{title}</Modal.Title>

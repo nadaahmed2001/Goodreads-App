@@ -14,6 +14,8 @@ import { Viewer } from '@react-pdf-viewer/core';
 import '@react-pdf-viewer/core/lib/styles/index.css';
 
 import "./Books.css"
+import SplitText from "../../../components/SplitText";
+import XButton from './XBtn';
 
 
 export default function Books({ category, author }) {
@@ -137,6 +139,17 @@ export default function Books({ category, author }) {
             <div className="flex-grow-1 p-5">
                 <div className="d-flex justify-content-between">
                     <h1>Manage Books</h1>
+                    {/* <SplitText
+                        text="Manage Books!"
+                        className="text-2xl font-semibold text-center"
+                        delay={150}
+                        animationFrom={{ opacity: 0, transform: 'translate3d(0,50px,0)' }}
+                        animationTo={{ opacity: 1, transform: 'translate3d(0,0,0)' }}
+                        easing="easeOutCubic"
+                        threshold={0.2}
+                        rootMargin="-50px"
+                        onLetterAnimationComplete={handleAnimationComplete}
+                    /> */}
                     <ModalBtn
                         title="Book"
                         category={category}
@@ -239,7 +252,8 @@ export default function Books({ category, author }) {
                                                 { name: "author", label: "Author", type: "dropdown" },
                                             ]}
                                         />
-                                        <Button variant="outline-dark" onClick={() => handleDelete(book._id)}>❌</Button>
+
+                                        <button onClick={() => handleDelete(book._id)}><XButton /></button>
                                     </td>
                                 </tr>
                             ))}
