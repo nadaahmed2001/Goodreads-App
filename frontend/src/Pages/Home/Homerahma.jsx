@@ -5,16 +5,16 @@ import { fetchBooks } from "../../services/api";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import FooterPage from "../Footer/FooterPage";
-import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
-import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
-import Typography from "@mui/material/Typography";
+// import Card from "@mui/material/Card";
+// import CardActions from "@mui/material/CardActions";
+// import CardContent from "@mui/material/CardContent";
+// import CardMedia from "@mui/material/CardMedia";
+// import Typography from "@mui/material/Typography";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
-import FastfoodIcon from "@mui/icons-material/Fastfood";
-import SportsSoccerIcon from "@mui/icons-material/SportsSoccer";
-import FavoriteIcon from "@mui/icons-material/Favorite";
+// import FastfoodIcon from "@mui/icons-material/Fastfood";
+// import SportsSoccerIcon from "@mui/icons-material/SportsSoccer";
+// import FavoriteIcon from "@mui/icons-material/Favorite";
 import TheaterComedyIcon from '@mui/icons-material/TheaterComedy'; // Drama
 import AutoStoriesIcon from '@mui/icons-material/AutoStories'; // Fantasy
 import SearchIcon from '@mui/icons-material/Search'; // Mystery
@@ -22,13 +22,13 @@ import MoodBadIcon from '@mui/icons-material/MoodBad'; // Horror
 import MenuBookIcon from '@mui/icons-material/MenuBook'; // Fiction
 import PersonIcon from '@mui/icons-material/Person'; // Biography
 import MedicalInformationIcon from "@mui/icons-material/MedicalInformation";
-import BiotechIcon from "@mui/icons-material/Biotech";
-import BalanceIcon from "@mui/icons-material/Balance";
-import PaletteIcon from "@mui/icons-material/Palette";
-import GTranslateIcon from '@mui/icons-material/GTranslate';
+// import BiotechIcon from "@mui/icons-material/Biotech";
+// import BalanceIcon from "@mui/icons-material/Balance";
+// import PaletteIcon from "@mui/icons-material/Palette";
+// import GTranslateIcon from '@mui/icons-material/GTranslate';
 import { color, margin } from "@mui/system";
 import BookListSection from "../../../components/BookListSection";
-import CustomButton from "../../../components/CustomButton";
+// import CustomButton from "../../../components/CustomButton";
 import AIChatbot from "../../../components/Chatbot/AIChatbt";
 
 const HomePage = () => {
@@ -89,7 +89,7 @@ const HomePage = () => {
       localStorage.getItem("token") || sessionStorage.getItem("token");
     if (token) {
       axios
-        .get("https://goodreads-app-production.up.railway.app/profile", {
+        .get("http://localhost:5000/profile", {
           headers: { Authorization: `Bearer ${token}` },
         })
         .then((result) => setUser(result.data))
@@ -100,7 +100,7 @@ const HomePage = () => {
   // Fetch Authors
   useEffect(() => {
     axios
-      .get("https://goodreads-app-production.up.railway.app/authors")
+      .get("http://localhost:5000/authors")
       .then((response) => setAuthors(response.data))
       .catch((error) => console.error("Error fetching authors:", error));
   }, []);
@@ -128,13 +128,13 @@ const HomePage = () => {
   return (
     <>
       <div className='homepage'>
-        <Navbar />
+        <Navbar/>
         <section className="HeroSection">
           <div className="HeroSection-Img">
             <img src="/figma-home.png"></img>
           </div>
           <div className="HeroSection-Con">
-            <h1 className='display-4 fw-bold GoodReads'>GoodReads</h1>
+            <h1 className='display-4 fw-bold'>Good Reads</h1>
             <p>
               A place where book lovers can find, review, and buy books
               easily.<br></br> Discover recommendations, keep reading lists, and shop
@@ -142,7 +142,7 @@ const HomePage = () => {
             </p>
           </div>
         </section>
-        <div className='Con-Au-cat-sec'>
+        {/* <div className='Con-Au-cat-sec'>
           <section className='PopularAuthorsSection'>
             <Link to='/AuthorsBook' className='removeUnderline'>
               <h3 className='PopularAuthors'>Most Popular Authors</h3>
@@ -161,7 +161,7 @@ const HomePage = () => {
                     boxShadow: '18px 18px 20px rgba(0, 0, 0, 0.3)',
                   }}
                 />
-                <CardContent sx={{ paddingTop: '16px', textAlign: 'center' }}>  {/* Centering text under image */}
+                <CardContent sx={{ paddingTop: '16px', textAlign: 'center' }}>   Centering text under image 
                   <Typography gutterBottom variant="h5" component="div" sx={{ color: '465b52', fontWeight: 'bold', marginBottom: '8px' }}>
                     {currentAuthor.name}
                   </Typography>
@@ -169,7 +169,7 @@ const HomePage = () => {
                     {currentAuthor.bio}
                   </Typography>
                 </CardContent>
-                <CardActions sx={{ justifyContent: 'center' }}> {/* Centering action buttons */}
+                <CardActions sx={{ justifyContent: 'center' }}> {/* Centering action buttons 
                   <ArrowBackIosNewIcon
                     className="cursorClick"
                     onClick={handlePrevAuthor}
@@ -182,7 +182,7 @@ const HomePage = () => {
               </Card>
             )}
           </section>
-          {/* Popular Categories Section */}
+           Popular Categories Section 
           <section className='PopularCategoriesSection'>
             <Link to='/categories-home' className='removeUnderline'>
               <h3 className='PopularCategories'>Most Popular Categories</h3>
@@ -217,7 +217,7 @@ const HomePage = () => {
               </div>
             </Card>
 
-            {/* Quotes Section */}
+             Quotes Section 
             <section className='.Best-Selling-Books '>
               <h3 className='PopularQuotes removeUnderline'>Quotes</h3>
               <Card sx={{ maxWidth: 500 }} className='Card-home'>
@@ -244,7 +244,7 @@ const HomePage = () => {
               </Card>
             </section>
           </section> 
-        </div>
+        </div>*/}
 
     {/* new section felhome zy el figma */}
     <section className="Home-middle">
@@ -254,11 +254,11 @@ const HomePage = () => {
       </Link>
       <div className="Author-name-img-bio">
       <div className="Author-name-img">
-      {/* <img src={currentAuthor.image}></img>  */}
-       {/* <p className="Author-name">{currentAuthor.name}</p> */}
+      {/* <img src={currentAuthor.image}></img>  
+        <p className="Author-name">{currentAuthor.name}</p>  */}
       </div>
       <div className="Author-bio">
-      {/* <p> {currentAuthor.bio}</p> */}
+       {/* <p> {currentAuthor.bio}</p>  */}
       </div>
       </div>
       <div className="cursors">
@@ -316,12 +316,11 @@ const HomePage = () => {
         <BookListSection />
         <div className='text-center mt-5'>
           <Link to='/books'>
-            <CustomButton className='btn btn-primary btn-lg View-All-Books'>
+            <button className="View-All-Books">
               View All Books
-            </CustomButton>
+            </button>
           </Link>
         </div>
-        
         <AIChatbot />
         <FooterPage />
       </div>
