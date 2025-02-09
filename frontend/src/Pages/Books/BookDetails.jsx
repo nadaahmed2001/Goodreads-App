@@ -1,6 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
-import Button from "react-bootstrap/Button";
+import { useParams } from "react-router-dom";
 
 import {
   fetchBookById,
@@ -15,12 +14,12 @@ import Navbar from "./../../../components/navbar";
 import ReviewForm from "../../../components/ReviewForm";
 import ReviewList from "../../../components/ReviewList";
 import FooterPage from "../Footer/FooterPage";
+import DemoSection from "../../../components/DemoSection";
 import { AuthContext } from "../../AuthContext";
 
 const BookDetails = () => {
   // Check if the user is authenticated
-  const { user, role, subscription } = useContext(AuthContext);
-  const navigate = useNavigate();
+  const { user } = useContext(AuthContext);
 
   let token = localStorage.getItem("token");
   if (!token) {
@@ -55,6 +54,7 @@ const BookDetails = () => {
       try {
         const response = await fetchBookReviews(bookId);
         setReviews(response.data);
+        setLoadingReviews(false);
       } catch (error) {
         console.error("Error fetching reviews:", error);
       }
@@ -64,21 +64,18 @@ const BookDetails = () => {
     if (token) {
       setIsAuthenticated(true);
     }
-  }, [bookId]);
+  }, [bookId, token]);
 
   const handleAddReview = async () => {
-    if (!newReview.user || !newReview.rating || !newReview.comment) return;
-
+    const reviewData = {
+      ...newReview,
+      user: user ? user.first_name + " " + user.last_name : newReview.user,
+      rating: Number(newReview.rating),
+    };
     try {
       const token =
         localStorage.getItem("token") || sessionStorage.getItem("token");
-
-      const formattedReview = {
-        ...newReview,
-        rating: Number(newReview.rating),
-      };
-
-      const response = await submitReview(bookId, formattedReview, token);
+      const response = await submitReview(bookId, reviewData, token);
       setReviews((prev) => [...prev, response.data]);
       setShowModal(false);
       setNewReview({ user: "", rating: "", comment: "" });
@@ -167,18 +164,17 @@ const BookDetails = () => {
               </p>
 
               <Stack direction='horizontal' className='flex-wrap gap-3 mt-4'>
-
                 {isAuthenticated && (
                   <>
-                    <Dropdown className='me-2'>
+                    <Dropdown className='me-2 '>
                       <Dropdown.Toggle
                         variant='primary'
-                        className='text-nowrap'
+                        className='text-nowrap rounded-5 bg-main bg-main-hover bg-main-focus'
                         id='dropdown-add-to-list'
                       >
                         Add to List
                       </Dropdown.Toggle>
-                      <Dropdown.Menu className='w-100'>
+                      <Dropdown.Menu className='w-150 rounded-3'>
                         <Dropdown.Item onClick={() => handleAddToList("read")}>
                           Read
                         </Dropdown.Item>
@@ -194,10 +190,6 @@ const BookDetails = () => {
                         </Dropdown.Item>
                       </Dropdown.Menu>
                     </Dropdown>
-                    {
-                      (subscription === 'Active' && role === "user") &&
-                      <Button className="bg-success" onClick={() => navigate(`/BookPreview/${book._id}`)}>Read Full Book</Button>
-                    }
                   </>
                 )}
               </Stack>
@@ -205,6 +197,26 @@ const BookDetails = () => {
           </Col>
         </Row>
 
+        <Row className='g-2 p-1'>
+          <Col
+            xs={12}
+            md={12}
+            lg={12}
+            className='d-flex justify-content-center flex-column'
+          >
+            {isAuthenticated && (
+              <>
+                <hr className='my-5' />
+                <h3 className='h2 mb-2 c-main m-auto'>Demo </h3>
+                <DemoSection
+                  demoText={book.demo}
+                  bookId={book._id}
+                  token={token}
+                />
+              </>
+            )}
+          </Col>
+        </Row>
         <hr className='my-5' />
 
         <Row>

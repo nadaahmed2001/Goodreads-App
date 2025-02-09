@@ -133,5 +133,8 @@
  display: inline-block;
  
 }
-
-
+.container-author-img img{
+width:150px;
+height: 150px;
+margin-top: 35px;
+}

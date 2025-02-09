@@ -78,12 +78,7 @@ td {
   background-color: #088178;
   border-color: #088178;
 }
-.c-main {
-  color: #088178;
-}
-.c-main-hover:hover {
-  color: #088178;
-}
+
 .bg-main-hover:hover {
   background-color: #088178;
   border-color: #088178;
@@ -94,11 +89,28 @@ td {
   border-color: #088178;
   transition: 0.5s;
 }
-
+.c-main {
+  color: #088178;
+}
+.c-main-hover:hover {
+  color: #088178;
+}
 .list-group-item.active {
   background-color: #08817983 !important;
   border-color: #08817983 !important;
   color: #fff !important;
+}
+.dropdown-item:active {
+  background-color: #088178;
+  color: white;
+}
+
+.demo-text {
+  position: relative;
+  max-height: 150px;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(to bottom, black 0%, transparent 100%);
+  mask-image: linear-gradient(to bottom, black 0%, transparent 100%);
 }
 
 @keyframes fadeIn {
