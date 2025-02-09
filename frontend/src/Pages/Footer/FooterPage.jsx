@@ -52,8 +52,3 @@ export default function FooterPage() {
         </>
     )
 }
-
-
-
-
-

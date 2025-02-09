@@ -5,8 +5,19 @@ import { ChevronLeft, ChevronRight, Globe, Moon, ShoppingCart } from "lucide-rea
 import { AuthContext } from "../src/AuthContext"; // Import the context
 import "./Navbar.css";
 import CheckoutButton from "../src/Pages/Payment/CheckoutButton";
+import SearchIcon from '@mui/icons-material/Search';
 
 const Navbar = () => {
+
+
+  const [isOpen, setIsOpen] = useState(false);
+  const [selectedLanguage, setSelectedLanguage] = useState('English'); // Default language
+
+  const toggleDropdown = () => setIsOpen(!isOpen);
+  const handleLanguageChange = (language) => {
+    setSelectedLanguage(language);
+    setIsOpen(false); // Close dropdown after selection
+  };
   const { user, role, subscription, logout } = useContext(AuthContext); // Get user, role, and logout function from context
   const navigate = useNavigate();
   
@@ -20,14 +31,13 @@ const Navbar = () => {
   };
 
   return (
-    <nav>
+    <nav className="navbar">
       <div className="nav-top">
         <div className="imgLogo">
-          <img src="/BookAppLogoImg.png" alt="logo" />
+          <img src="/newLogo.png" alt="logo" />
         </div>
-
         <div className="Searchinput">
-          <form onSubmit={handleSearch}>
+          {/* <form onSubmit={handleSearch}>
             <input
               type="search"
               placeholder="Search titles, authors, publishers..."
@@ -35,20 +45,34 @@ const Navbar = () => {
               value={query}
               onChange={(e) => setQuery(e.target.value)} //  Update query state
             />
-            <button type="submit">Search</button>
-          </form>
+            <SearchIcon></SearchIcon>
+          </form> */}
+          <div className="Searchinput">
+  <form onSubmit={handleSearch}>
+    <div className="input-container">
+      <input
+        type="search"
+        placeholder="Search titles, authors, publishers..."
+        className="form-control search-input"
+        value={query}
+        onChange={(e) => setQuery(e.target.value)} // Update query state
+      />
+      <SearchIcon className="search-icon" />
+    </div>
+  </form>
+</div>
+
         </div>
 
 
         <div className="d-flex align-items-center icons">
-          <button className="btn text-white">
-            <Globe size={20} />
-          </button>
+        <button className="btn text-white" onClick={toggleDropdown}>
+        <Globe size={20} />
+        {selectedLanguage} {/* Display the selected language */}
+      </button>
           <button className="btn text-white">
             <Moon size={20} />
-          </button>
-          <button className="btn text-white">
-            <ShoppingCart size={20} />
+            <span>  |  Dark Mood</span>
           </button>
 
           {/* Use the CheckoutButton here */}
