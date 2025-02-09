@@ -10,6 +10,28 @@ export const fetchBookById = (bookId) =>
 export const fetchBookReviews = (bookId) =>
   axios.get(`${API_BASE_URL}/reviews/books/${bookId}/reviews`);
 
+export const submitReview = async (bookId, review, token) => {
+  try {
+    const response = await axios.post(
+      `${API_BASE_URL}/reviews/books/${bookId}/reviews`,
+      {
+        bookId,
+        ...review,
+        rating: Number(review.rating),
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return response;
+  } catch (error) {
+    console.error("Error in submitReview:", error.response || error);
+    throw error;
+  }
+};
+
 export const addBookToList = async (bookId, shelf, token) => {
   return axios.post(
     `${API_BASE_URL}/add-to-list`,
@@ -45,37 +67,13 @@ export const fetchCategoriesWithBooks = async () => {
 export const fetchCategoryDetails = async (categoryId) => {
   try {
     // console.log("Fetching category details for ID:", categoryId);
-    const response = await axios.get(`${API_BASE_URL}/categories-home/${categoryId}`);
+    const response = await axios.get(
+      `${API_BASE_URL}/categories-home/${categoryId}`
+    );
     return response.data; // Expected to be { books, categoryName }
   } catch (error) {
     console.error("Error fetching category details", error);
     return { books: [], categoryName: "Unknown Category" }; // ✅ Always return a valid object
-  }
-};
-
-/*reviews fatma*/
-// export const fetchBookReviews = (bookId) =>
-//   axios.get(`${API_BASE_URL}/api/books/${bookId}/reviews`);
-
-export const submitReview = async (bookId, review, token) => {
-  try {
-    const response = await axios.post(
-      `${API_BASE_URL}/reviews`,
-      {
-        bookId,
-        ...review,
-        rating: Number(review.rating),
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
-    return response;
-  } catch (error) {
-    console.error("Error in submitReview:", error.response || error);
-    throw error;
   }
 };
 

@@ -1,9 +1,8 @@
-import React, { useContext } from "react"; // Import useState
-
-import { Button, Card } from "react-bootstrap";
+import React, { useContext } from "react";
+import { Card } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import CheckoutButton from "../src/Pages/Payment/CheckoutButton";
-import { AuthContext } from "../src/AuthContext"; // Import the context
+import { AuthContext } from "../src/AuthContext";
 import CustomButton from "../components/CustomButton";
 
 const DemoSection = ({ demoText, bookId }) => {
@@ -16,32 +15,35 @@ const DemoSection = ({ demoText, bookId }) => {
   };
 
   return (
-    <Card className='shadow-lg p-4 mb-4'>
-      <Card.Body>
-        <Card.Text
-          className={`demo-text ${
-            subscription === "Active" ? "" : "blur-text"
-          }`}
-        >
-          {demoText}
-        </Card.Text>
+    <>
+      <hr className='my-5' />
+      <Card className='shadow-lg p-4 mb-4'>
+        <Card.Body>
+          <Card.Text
+            className={`demo-text ${
+              subscription === "Active" ? "" : "blur-text"
+            }`}
+          >
+            {demoText}
+          </Card.Text>
 
-        {subscription === "InActive" ? (
-          <div className='text-center mt-3'>
-            <CheckoutButton onClick={handleSubscription} />
-          </div>
-        ) : (
-          <div className='text-center mt-3'>
-            <CustomButton
-              className='bg-success'
-              onClick={() => navigate(`/BookPreview/${bookId}`)}
-            >
-              Read Full Book
-            </CustomButton>
-          </div>
-        )}
-      </Card.Body>
-    </Card>
+          {subscription === "InActive" ? (
+            <div className='text-center mt-3'>
+              <CheckoutButton onClick={handleSubscription} />
+            </div>
+          ) : (
+            <div className='text-center mt-3'>
+              <CustomButton
+                className='bg-success'
+                onClick={() => navigate(`/BookPreview/${bookId}`)}
+              >
+                Read Full Book
+              </CustomButton>
+            </div>
+          )}
+        </Card.Body>
+      </Card>
+    </>
   );
 };
 
