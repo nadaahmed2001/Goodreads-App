@@ -166,15 +166,15 @@ const BookDetails = () => {
               <Stack direction='horizontal' className='flex-wrap gap-3 mt-4'>
                 {isAuthenticated && (
                   <>
-                    <Dropdown className='me-2'>
+                    <Dropdown className='me-2 '>
                       <Dropdown.Toggle
                         variant='primary'
-                        className='text-nowrap'
+                        className='text-nowrap rounded-5 bg-main bg-main-hover bg-main-focus'
                         id='dropdown-add-to-list'
                       >
                         Add to List
                       </Dropdown.Toggle>
-                      <Dropdown.Menu className='w-100'>
+                      <Dropdown.Menu className='w-150 rounded-3'>
                         <Dropdown.Item onClick={() => handleAddToList("read")}>
                           Read
                         </Dropdown.Item>
@@ -190,10 +190,6 @@ const BookDetails = () => {
                         </Dropdown.Item>
                       </Dropdown.Menu>
                     </Dropdown>
-                    {/* {
-                      (subscription === 'Active' && role === "user") &&
-                      <Button className="bg-success" onClick={() => navigate(`/BookPreview/${book._id}`)}>Read Full Book</Button>
-                    } */}
                   </>
                 )}
               </Stack>
@@ -202,16 +198,24 @@ const BookDetails = () => {
         </Row>
 
         <Row className='g-2 p-1'>
-          {isAuthenticated && (
-            <DemoSection demoText={book.demo} bookId={book._id} token={token} />
-          )}
-
           <Col
             xs={12}
             md={12}
             lg={12}
-            className='d-flex justify-content-center'
-          ></Col>
+            className='d-flex justify-content-center flex-column'
+          >
+            {isAuthenticated && (
+              <>
+                <hr className='my-5' />
+                <h3 className='h2 mb-2 c-main m-auto'>Demo </h3>
+                <DemoSection
+                  demoText={book.demo}
+                  bookId={book._id}
+                  token={token}
+                />
+              </>
+            )}
+          </Col>
         </Row>
         <hr className='my-5' />
 
