@@ -1,15 +1,22 @@
 import React, { useContext, useState } from "react"; // Import useState
 import { useNavigate, Link } from "react-router-dom";
 import { Dropdown } from "react-bootstrap";
-import { ChevronLeft, ChevronRight, Globe, Moon, ShoppingCart } from "lucide-react";
+import {
+  ChevronLeft,
+  ChevronRight,
+  Globe,
+  Moon,
+  ShoppingCart,
+} from "lucide-react";
 import { AuthContext } from "../src/AuthContext"; // Import the context
 import "./Navbar.css";
 import CheckoutButton from "../src/Pages/Payment/CheckoutButton";
+import DarkModeToggle from "./DarkModeToggle";
 
 const Navbar = () => {
   const { user, role, subscription, logout } = useContext(AuthContext); // Get user, role, and logout function from context
   const navigate = useNavigate();
-  
+
   const [query, setQuery] = useState(""); //  Define query state to store the search query
 
   const handleSearch = (e) => {
@@ -21,70 +28,75 @@ const Navbar = () => {
 
   return (
     <nav>
-      <div className="nav-top">
-        <div className="imgLogo">
-          <img src="/BookAppLogoImg.png" alt="logo" />
+      <div className='nav-top'>
+        <div className='imgLogo'>
+          <img src='/BookAppLogoImg.png' alt='logo' />
         </div>
 
-        <div className="Searchinput">
+        <div className='Searchinput'>
           <form onSubmit={handleSearch}>
             <input
-              type="search"
-              placeholder="Search titles, authors, publishers..."
-              className="form-control search-input"
+              type='search'
+              placeholder='Search titles, authors, publishers...'
+              className='form-control search-input'
               value={query}
               onChange={(e) => setQuery(e.target.value)} //  Update query state
             />
-            <button type="submit">Search</button>
+            <button type='submit'>Search</button>
           </form>
         </div>
 
-
-        <div className="d-flex align-items-center icons">
-          <button className="btn text-white">
+        <div className='d-flex align-items-center icons'>
+          <button className='btn text-white'>
             <Globe size={20} />
           </button>
-          <button className="btn text-white">
-            <Moon size={20} />
+          <button className='btn text-white'>
+            <DarkModeToggle />
           </button>
-          <button className="btn text-white">
+          <button className='btn text-white'>
             <ShoppingCart size={20} />
           </button>
 
           {/* Use the CheckoutButton here */}
           {user ? (
             <>
-              {(subscription === 'InActive' && role === "user") && <CheckoutButton />}
+              {subscription === "InActive" && role === "user" && (
+                <CheckoutButton />
+              )}
               {/* My Lists Dropdown */}
-              <Dropdown align="end">
-                <Dropdown.Toggle id="dropdown-lists" className="sign-in-btn">
-                  <span className="me-2 fw-medium">My Lists</span>
+              <Dropdown align='end'>
+                <Dropdown.Toggle id='dropdown-lists' className='sign-in-btn'>
+                  <span className='me-2 fw-medium'>My Lists</span>
                 </Dropdown.Toggle>
 
                 <Dropdown.Menu>
-                  <Dropdown.Item onClick={() => navigate("/list/currently_reading")}>
+                  <Dropdown.Item
+                    onClick={() => navigate("/list/currently_reading")}
+                  >
                     Currently Reading
                   </Dropdown.Item>
                   <Dropdown.Item onClick={() => navigate("/list/want_to_read")}>
                     Want to Read
                   </Dropdown.Item>
-                  <Dropdown.Item onClick={() => navigate("/list/read")}>Read</Dropdown.Item>
+                  <Dropdown.Item onClick={() => navigate("/list/read")}>
+                    Read
+                  </Dropdown.Item>
                 </Dropdown.Menu>
               </Dropdown>
 
               {/* User Dropdown */}
-              <Dropdown align="end">
-                <Dropdown.Toggle id="dropdown-user" className="sign-in-btn">
-                  <span className="me-2 fw-medium">{user.first_name}</span>
+              <Dropdown align='end'>
+                <Dropdown.Toggle id='dropdown-user' className='sign-in-btn'>
+                  <span className='me-2 fw-medium'>{user.first_name}</span>
                 </Dropdown.Toggle>
 
                 <Dropdown.Menu>
                   {role === "admin" && (
-                    <Dropdown.Item as={Link} to="/categories">
+                    <Dropdown.Item as={Link} to='/categories'>
                       Admin Dashboard
                     </Dropdown.Item>
                   )}
-                  <Dropdown.Item as={Link} to="/profile">
+                  <Dropdown.Item as={Link} to='/profile'>
                     Profile
                   </Dropdown.Item>
                   <Dropdown.Item onClick={logout}>Logout</Dropdown.Item>
@@ -93,41 +105,41 @@ const Navbar = () => {
             </>
           ) : (
             <>
-              <Link to="/sign-up">
-                <button className="sign-in-btn">Sign up</button>
+              <Link to='/sign-up'>
+                <button className='sign-in-btn'>Sign up</button>
               </Link>
-              <Link to="/sign-in">
-                <button className="log-in-btn">Log in</button>
+              <Link to='/sign-in'>
+                <button className='log-in-btn'>Log in</button>
               </Link>
             </>
           )}
         </div>
       </div>
 
-      <div className="NavList">
+      <div className='NavList'>
         <ul>
           <li>
-            <Link to="/" className="hoverlink">
+            <Link to='/' className='hoverlink'>
               Home
             </Link>
           </li>
           <li>
-            <Link to="/categories-home" className="hoverlink">
+            <Link to='/categories-home' className='hoverlink'>
               Category
             </Link>
           </li>
           <li>
-            <Link to="/AuthorsBook" className="hoverlink">
+            <Link to='/AuthorsBook' className='hoverlink'>
               Authors
             </Link>
           </li>
           <li>
-            <Link to="/AboutUs" className="hoverlink">
+            <Link to='/AboutUs' className='hoverlink'>
               About Us
             </Link>
           </li>
           <li>
-            <Link to="/TermsConditions" className="hoverlink">
+            <Link to='/TermsConditions' className='hoverlink'>
               Terms & Conditions
             </Link>
           </li>

@@ -1,7 +1,9 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { useState, useEffect } from "react";
-import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
+import "./App.css";
+import GlobalStyles from "./styles/GlobalStyles";
+
 import SignIn from "../components/Authentication/SignIn/SignIn";
 import SignUp from "../components/Authentication/SignUp/SignUp";
 
@@ -29,13 +31,14 @@ import ForgotPassword from "./Pages/PasswordReset/ForgotPassword";
 import ResetPassword from "./Pages/PasswordReset/ResetPassword";
 
 import CancelPage from "./Pages/Payment/CancelPage";
-import SuccessPage from './Pages/Payment/SuccessPage';
+import SuccessPage from "./Pages/Payment/SuccessPage";
 
 import CategoriesHome from "./Pages/Categories/CategoriesHome";
 import CategoryDetails from "./Pages/Categories/CategoryDetails";
 import Searchfun from "../components/Search/Searchfun";
 import AuthRedirect from "../components/Authentication/SignIn/AuthRedirect";
-import BookPreview from '../components/BookPreview';
+import BookPreview from "../components/BookPreview";
+import { DarkModeProvider } from "./context/DarkModeContext";
 function App() {
   const [category, setCategory] = useState([]);
   const [author, setAuthor] = useState([]);
@@ -48,7 +51,6 @@ function App() {
       .catch((err) => console.error("Error fetching categories:", err));
   }, [fetchTrigger]); // Re-fetch when fetchTrigger changes
 
-
   // Fetch Authors
   useEffect(() => {
     fetch("http://localhost:5000/authors")
@@ -60,52 +62,72 @@ function App() {
 
   return (
     <>
+      <DarkModeProvider>
+        <GlobalStyles />
+        <Router>
+          <AuthProvider>
+            <Routes>
+              {/* <Route path='/' element={<Home />} /> */}
 
+              <Route path='/redirect' element={<AuthRedirect />} />
+              <Route path='/' element={<Homerahma />} />
+              <Route path='/AdminLogin' element={<AdminLogin />} />
+              <Route path='/AboutUs' element={<AboutUs />} />
+              <Route path='/list/:shelf' element={<UserList />} />
+              <Route path='/CancelPage' element={<CancelPage />} />
+              <Route path='/SuccessPage' element={<SuccessPage />} />
+              <Route path='/BookPreview/:bookId' element={<BookPreview />} />
+              {/* <Route path="/Payment" element={<Payment />} /> */}
+              <Route
+                path='/Categories'
+                element={
+                  <Categories
+                    category={category}
+                    setFetchTrigger={setFetchTrigger}
+                  />
+                }
+              />
+              <Route
+                path='/ManageBooks'
+                element={<ManageBooks category={category} author={author} />}
+              />
+              <Route
+                path='/Authors'
+                element={
+                  <Authors author={author} setFetchTrigger={setFetchTrigger} />
+                }
+              />
+              <Route path='/books' element={<BookList />} />
+              <Route path='/books/:bookId' element={<BookDetails />} />
+              <Route path='/TermsConditions' element={<TermsConditions />} />
+              <Route path='/sign-up' element={<SignUp />} />
+              <Route path='/sign-in' element={<SignIn />} />
 
-      <Router>
-        <AuthProvider>
-
-          <Routes>
-
-            {/* <Route path='/' element={<Home />} /> */}
-
-            <Route path='/redirect' element={<AuthRedirect />} />
-            <Route path='/' element={<Homerahma />} />
-            <Route path='/AdminLogin' element={<AdminLogin />} />
-            <Route path='/AboutUs' element={<AboutUs />} />
-            <Route path="/list/:shelf" element={<UserList />} />
-            <Route path="/CancelPage" element={<CancelPage />} />
-            <Route path="/SuccessPage" element={<SuccessPage />} />
-            <Route path="/BookPreview/:bookId" element={<BookPreview />} />
-            {/* <Route path="/Payment" element={<Payment />} /> */}
-            <Route path='/Categories' element={<Categories category={category} setFetchTrigger={setFetchTrigger} />} />
-            <Route path='/ManageBooks' element={<ManageBooks category={category} author={author} />} />
-            <Route path='/Authors' element={<Authors author={author} setFetchTrigger={setFetchTrigger} />} />
-            <Route path='/books' element={<BookList />} />
-            <Route path='/books/:bookId' element={<BookDetails />} />
-            <Route path="/TermsConditions" element={<TermsConditions />} />
-            <Route path='/sign-up' element={<SignUp />} />
-            <Route path='/sign-in' element={<SignIn />} />
-
-            <Route path='/AuthorsBook' element={<AuthorsBook />} />
-            <Route path='/AuthorDetails/:authorId' element={<AuthorDetails />} />
-            <Route path='/profile' element={<Profile />} />
-            <Route path='/forgot-password' element={<ForgotPassword />} />
-            <Route path='/reset-password' element={<ResetPassword />} />
-            <Route path='/categories-home' element={<CategoriesHome />} />
-            <Route path='categories-home/:categoryId' element={<CategoryDetails />} />
-            <Route path='*' element={<NotFound />} />
-            <Route path="/search" element={<Searchfun />}></Route>
-          </Routes>
-        </AuthProvider>
-      </Router>
-      {/* <Helmet>
+              <Route path='/AuthorsBook' element={<AuthorsBook />} />
+              <Route
+                path='/AuthorDetails/:authorId'
+                element={<AuthorDetails />}
+              />
+              <Route path='/profile' element={<Profile />} />
+              <Route path='/forgot-password' element={<ForgotPassword />} />
+              <Route path='/reset-password' element={<ResetPassword />} />
+              <Route path='/categories-home' element={<CategoriesHome />} />
+              <Route
+                path='categories-home/:categoryId'
+                element={<CategoryDetails />}
+              />
+              <Route path='*' element={<NotFound />} />
+              <Route path='/search' element={<Searchfun />}></Route>
+            </Routes>
+          </AuthProvider>
+        </Router>
+        {/* <Helmet>
         <link
           href="https://fonts.googleapis.com/css2?family=Spartan:wght@300;400;600&display=swap"
           rel="stylesheet"
         />
       </Helmet> */}
-
+      </DarkModeProvider>
     </>
   );
 }
