@@ -37,7 +37,7 @@ export default function Author({ authors }) {
             </Link>
 
             {/* Author Details */}
-            <div className="container d-flex">
+            <div className="container-author-img d-flex">
               <img src={author.image} alt={author.name} />
               <p>
                 <span>{author.birthDate}</span>
