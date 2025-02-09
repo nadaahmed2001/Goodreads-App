@@ -69,38 +69,38 @@ td {
 }
 
 .bg-main {
-  background-color: #088178;
-  border-color: #088178;
+  background-color: #59461b;
+  border-color: #59461b;
 }
 
 .bg-main-hover:hover {
-  background-color: #088178;
-  border-color: #088178;
+  background-color: #59461b;
+  border-color: #59461b;
   transition: 0.5s;
 }
 
 .bg-main-focus:focus {
-  background-color: #088178;
-  border-color: #088178;
+  background-color: #59461b;
+  border-color: #59461b;
   transition: 0.5s;
 }
 
 .c-main {
-  color: #088178;
+  color: #59461b;
 }
 
 .c-main-hover:hover {
-  color: #088178;
+  color: #59461b;
 }
 
 .list-group-item.active {
-  background-color: #08817983 !important;
-  border-color: #08817983 !important;
+  background-color: #59461b83 !important;
+  border-color: #59461b83 !important;
   color: #fff !important;
 }
 
 .dropdown-item:active {
-  background-color: #088178;
+  background-color: #59461b;
   color: white;
 }
 
