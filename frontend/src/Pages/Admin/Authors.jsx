@@ -38,7 +38,7 @@ export default function Authors({ author, setFetchTrigger }) {
             .then(uploadRes => {
                 const imageUrl = uploadRes.data.secure_url;
                 const formattedBirthDate = new Date(formData.birthDate).toISOString().split("T")[0]; // Convert date
-                return axios.post(`http://localhost:5000/author`, {
+                return axios.post(`https://goodreads-app-production.up.railway.app/author`, {
                     name: formData.name,
                     bio: formData.bio,
                     image: imageUrl, // Save the uploaded image URL in DB
@@ -54,7 +54,7 @@ export default function Authors({ author, setFetchTrigger }) {
 
     const handleDelete = async (authorId) => {
         try {
-            await axios.delete(`http://localhost:5000/authorsAdmin/${authorId}`);
+            await axios.delete(`https://goodreads-app-production.up.railway.app/authorsAdmin/${authorId}`);
             alert("author deleted successfully!");
             setFetchTrigger((prev) => !prev);
         } catch (err) {
@@ -65,7 +65,7 @@ export default function Authors({ author, setFetchTrigger }) {
         try {
             const formattedBirthDate = new Date(updatedData.birthDate).toISOString().split("T")[0]; // Format date
 
-            await axios.put(`http://localhost:5000/authorsAdmin/${authorId}`, {
+            await axios.put(`https://goodreads-app-production.up.railway.app/authorsAdmin/${authorId}`, {
                 ...updatedData,
                 birthDate: formattedBirthDate, // Store only YYYY-MM-DD
             });

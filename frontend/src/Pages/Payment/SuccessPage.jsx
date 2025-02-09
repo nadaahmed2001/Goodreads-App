@@ -11,7 +11,7 @@ const SuccessPage = () => {
         console.log("Session ID:", sessionId); // Debugging log
 
         if (sessionId) {
-            fetch(`http://localhost:5000/verify-payment?session_id=${sessionId}`)
+            fetch(`https://goodreads-app-production.up.railway.app/verify-payment?session_id=${sessionId}`)
                 .then(response => response.json())
                 .then(data => {
                     console.log("Order Data:", data); // Debugging log

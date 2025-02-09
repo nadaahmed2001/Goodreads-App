@@ -89,7 +89,7 @@ const HomePage = () => {
       localStorage.getItem("token") || sessionStorage.getItem("token");
     if (token) {
       axios
-        .get("http://localhost:5000/profile", {
+        .get("https://goodreads-app-production.up.railway.app/profile", {
           headers: { Authorization: `Bearer ${token}` },
         })
         .then((result) => setUser(result.data))
@@ -100,7 +100,7 @@ const HomePage = () => {
   // Fetch Authors
   useEffect(() => {
     axios
-      .get("http://localhost:5000/authors")
+      .get("https://goodreads-app-production.up.railway.app/authors")
       .then((response) => setAuthors(response.data))
       .catch((error) => console.error("Error fetching authors:", error));
   }, []);

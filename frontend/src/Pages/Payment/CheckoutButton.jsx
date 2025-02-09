@@ -16,7 +16,7 @@ const CheckoutButton = () => {
             }
 
             // Call the backend to create a Stripe Checkout session
-            const { data } = await axios.post("http://localhost:5000/create-checkout-session", {
+            const { data } = await axios.post("https://goodreads-app-production.up.railway.app/create-checkout-session", {
                 subscription: { title: "Premium Subscription", price: 100 }, // Fix the object format
                 currency: "USD",
                 success_url: `${window.location.origin}/SuccessPage?session_id={CHECKOUT_SESSION_ID}`,

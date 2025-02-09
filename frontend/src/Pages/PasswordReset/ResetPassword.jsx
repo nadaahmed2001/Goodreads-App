@@ -32,7 +32,7 @@ const ResetPassword = () => {
     setError("");
 
     try {
-      const response = await fetch("http://localhost:5000/reset-password", {
+      const response = await fetch("https://goodreads-app-production.up.railway.app/reset-password", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, token, newPassword }),
