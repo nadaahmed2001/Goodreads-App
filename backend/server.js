@@ -18,6 +18,8 @@ const passport = require('./config/passport');
 const GoogleAuth = require("./controllers/authencation/GoogleAuth");
 const session = require("express-session");
 const chatbotController = require("./controllers/chatbot/chatbotController");
+const UserList= require("./controllers/UserListsController/UserLists");
+
 
 const {
   verifyToken,
@@ -86,7 +88,7 @@ app.get("/", async (req, res) => {
     // return just the first 6 books
     // books=books.slice(0, 6);
     res.json(books);
-    console.log("Books fetched successfully from server.js" + books);
+    // console.log("Books fetched successfully from server.js" + books);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -129,118 +131,18 @@ app.get(
 );
 
 // ======================================= User Book Lists ====================================================
-app.post("/add-to-list", verifyToken, async (req, res) => {
-  const { bookId, shelf } = req.body;
-  const userId = req.user.id; // Extract user ID from JWT
-
-  if (!userId) {
-    return res.status(401).json({
-      success: false,
-      message: "You must be logged in to add books to your list.",
-    });
-  }
-
-  if (!bookId || !shelf) {
-    return res
-      .status(400)
-      .json({ success: false, message: "Book ID and shelf are required." });
-  }
-
-  try {
-    // Check if the book is already in the user's list
-    const existingEntry = await UserBookList.findOne({
-      user: userId,
-      book: bookId,
-    });
-
-    console.log("existingEntry: ------------ ", existingEntry);
-
-    if (existingEntry) {
-      // Instead of rejecting, update the existing entry's shelf
-      existingEntry.shelf = shelf;
-      await existingEntry.save();
-      return res.json({
-        success: true,
-        message: `Book moved to ${shelf} list.`,
-      });
-    }
-
-    try {
-      // If the book is not in any list, add it
-      const newEntry = await UserBookList.create({
-        user: userId,
-        book: bookId,
-        shelf,
-      });
-      return res.json({
-        success: true,
-        message: `Book successfully added to your list: ${shelf}`,
-      });
-    } catch (error) {
-      console.error("Error adding book to list:", error);
-      return res
-        .status(500)
-        .json({ success: false, message: "Internal server error." });
-    }
-  } catch (error) {
-    console.error("Error checking existing entry:", error);
-    return res
-      .status(500)
-      .json({ success: false, message: "Internal server error." });
-  }
-});
+// Add book to list
+app.post("/add-to-list", verifyToken,  UserList.addToList);
 
 // Get user's book list by shelf
-app.get("/get-list/:shelf", verifyToken, async (req, res) => {
-  const { shelf } = req.params;
-  const userId = req.user.id; // Extract user ID from JWT
-
-  try {
-    console.log("Fetching books from server --> get-list");
-    const books = await UserBookList.find({ user: userId, shelf })
-      .populate("book")
-      .exec();
-    console.log(
-      "------------------Fetchedbooks from server --> get-list",
-      books
-    );
-    res.json({ success: true, books });
-  } catch (error) {
-    console.error("Error fetching list:", error);
-    res.status(500).json({ success: false, message: "Internal server error." });
-  }
-});
+app.get("/get-list/:shelf", verifyToken, UserList.getList);
 
 //Remove book from list
-app.delete(
-  "/remove-from-list/:bookId/:shelf",
-  verifyToken,
-  async (req, res) => {
-    const { bookId, shelf } = req.params;
-    const userId = req.user.id;
-
-    try {
-      console.log(
-        "(server.js) Removing book with ID:",
-        bookId + "from shelf: " + shelf
-      );
-      await UserBookList.deleteOne({ user: userId, book: bookId, shelf });
-      res.json({ success: true, message: "Book removed from the list." });
-    } catch (error) {
-      console.error("Error removing book:", error);
-      res
-        .status(500)
-        .json({ success: false, message: "Internal server error." });
-    }
-  }
-);
-
-// ================ Admin Operations ================
+app.delete("/remove-from-list/:bookId/:shelf", verifyToken, UserList.removeFromList);
 
 // ======== Category ========
 
 // Post Category through Admin Panel
-// Post Category through Admin Panel  ^T Execute
 app.post("/category", postCategory);
 
 // Get Category through Admin Panel
