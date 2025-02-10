@@ -109,7 +109,6 @@ app.post("/register", authController.register); // Use the controller for the /r
 app.post("/verify-otp", authController.verifyOTP); // New route
 app.get("/profile", verifyToken, userProfileController.profile);
 app.put("/profile", verifyToken, userProfileController.updateProfile);
-
 app.post("/forgot-password", authController.forgotPassword);
 app.post("/reset-password", authController.resetPassword);
 //////////////// google sign in ////////////////////

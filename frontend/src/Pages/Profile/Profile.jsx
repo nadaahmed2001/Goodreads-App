@@ -92,7 +92,7 @@ const Profile = () => {
     try {
       const token = localStorage.getItem("token") || sessionStorage.getItem("token");
 
-      const response = await axios.put("https://goodreads-app-production.up.railway.app//profile", formData, {
+      const response = await axios.put("https://goodreads-app-production.up.railway.app/profile", formData, {
         headers: { Authorization: `Bearer ${token}` },
       });
 
