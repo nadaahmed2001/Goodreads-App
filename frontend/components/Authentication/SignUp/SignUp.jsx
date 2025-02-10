@@ -141,7 +141,7 @@ export default function SignUp() {
   
 
   return (
-    <Box sx={{ display: "flex", height: "100vh", backgroundColor: "#E8E0C6" }}>
+    <Box sx={{ display: "flex", height: "100vh",backgroundImage: "linear-gradient(to bottom,rgb(110, 101, 78),rgba(197, 185, 142, 0.82))" }}>
       <Box sx={{
         flex: 1, display: "flex", alignItems: "center", padding: "50px",
         backgroundImage: 'url("https://c.animaapp.com/Gjklo0yI/img/unsplash-1emwndldhs0.png")',
@@ -175,23 +175,43 @@ export default function SignUp() {
         }}>
           <TextField fullWidth name="firstName" placeholder="First Name" variant="standard"
             value={formData.firstName} onChange={handleChange} error={!!errors.firstName} helperText={errors.firstName}
-            sx={{ mb: 3, input: { color: 'white' } }} />
+            sx={{ 
+              mb: 3, 
+              input: { color: 'white' }, 
+              "& .MuiInput-underline:after": { borderBottomColor: "#bcb499" } // Custom focus underline color
+            }}   />
 
           <TextField fullWidth name="lastName" placeholder="Last Name" variant="standard"
             value={formData.lastName} onChange={handleChange} error={!!errors.lastName} helperText={errors.lastName}
-            sx={{ mb: 3, input: { color: 'white' } }} />
+            sx={{ 
+              mb: 3, 
+              input: { color: 'white' }, 
+              "& .MuiInput-underline:after": { borderBottomColor: "#bcb499" } // Custom focus underline color
+            }}  />
 
           <TextField fullWidth name="email" placeholder="Email Address" variant="standard"
             value={formData.email} onChange={handleChange} error={!!errors.email} helperText={errors.email}
-            sx={{ mb: 3, input: { color: 'white' } }} />
+            sx={{ 
+              mb: 3, 
+              input: { color: 'white' }, 
+              "& .MuiInput-underline:after": { borderBottomColor: "#bcb499" } // Custom focus underline color
+            }}  />
 
           <TextField fullWidth type="password" name="password" placeholder="Password" variant="standard"
             value={formData.password} onChange={handleChange} error={!!errors.password} helperText={errors.password}
-            sx={{ mb: 3, input: { color: 'white' } }} />
+            sx={{ 
+              mb: 3, 
+              input: { color: 'white' }, 
+              "& .MuiInput-underline:after": { borderBottomColor: "#bcb499" } // Custom focus underline color
+            }}  />
 
           <TextField fullWidth type="password" name="confirmPassword" placeholder="Confirm Password" variant="standard"
             value={formData.confirmPassword} onChange={handleChange} error={!!errors.confirmPassword} helperText={errors.confirmPassword}
-            sx={{ mb: 4, input: { color: 'white' } }} />
+            sx={{ 
+              mb: 3, 
+              input: { color: 'white' }, 
+              "& .MuiInput-underline:after": { borderBottomColor: "#bcb499" } // Custom focus underline color
+            }}  />
 
 <CreateBtn onClick={handleSubmit} />
   <Button

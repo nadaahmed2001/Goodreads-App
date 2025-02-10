@@ -43,7 +43,7 @@ const StyledWrapper = styled.div`
     transform: translate(-50%, -50%);
     width: 0;
     height: 0;
-    background-color: #2196F3;
+    background-color:rgba(201, 168, 101, 0.68);
     border-radius: 50%;
     opacity: 0;
     transition: width 0.4s ease, height 0.4s ease, opacity 0.2s ease;
@@ -56,7 +56,8 @@ const StyledWrapper = styled.div`
 
   /* Hover effect: expands to fully cover the button */
   .animated-button:hover {
-    box-shadow: 0 0 0 5px #2195f360;
+    box-shadow: 0 0 0 5px rgba(188, 180, 153, 0.64)
+;
     color: #ffffff;
   }
 
