@@ -19,7 +19,11 @@ const User = new mongoose.Schema({
   last_name: String,
   email: String,
   password: String,
+  address:String,
+  country:String,
+  profileImage: String,
   role: String,
+  mobile:String,
   subscription: { type: String, default: "InActive" },
   // Add reset token fields
   resetPasswordToken: String, // Store hashed token
