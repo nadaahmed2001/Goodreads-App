@@ -14,7 +14,7 @@ export default function AuthorDetails({ }) {
  
   
   useEffect(() => {
-    const apiUrl = `http://localhost:5000/authors/${authorId}`;
+    const apiUrl = `https://goodreads-app-production.up.railway.app/authors/${authorId}`;
 
     const fetchAuthor = async () => {
       try {

@@ -36,13 +36,16 @@ import CategoryDetails from "./Pages/Categories/CategoryDetails";
 import Searchfun from "../components/Search/Searchfun";
 import AuthRedirect from "../components/Authentication/SignIn/AuthRedirect";
 import BookPreview from '../components/BookPreview';
+import ClickSpark from './Pages/Profile/ClickSpark';
+import SalesChart from "./Pages/Admin/SalesChart";
+
 function App() {
   const [category, setCategory] = useState([]);
   const [author, setAuthor] = useState([]);
   const [fetchTrigger, setFetchTrigger] = useState(false); // Trigger for refetching data
 
   useEffect(() => {
-    fetch("http://localhost:5000/categories")
+    fetch("https://goodreads-app-production.up.railway.app/categories")
       .then((res) => res.json())
       .then((data) => setCategory(data))
       .catch((err) => console.error("Error fetching categories:", err));
@@ -51,7 +54,7 @@ function App() {
 
   // Fetch Authors
   useEffect(() => {
-    fetch("http://localhost:5000/authors")
+    fetch("https://goodreads-app-production.up.railway.app/authors")
       .then((res) => res.json())
       .then((data) => setAuthor(data))
       .catch((err) => console.error("Error fetching authors:", err));
@@ -63,6 +66,13 @@ function App() {
 
 
       <Router>
+        {/* <ClickSpark
+          sparkColor='#fff'
+          sparkSize={12}
+          sparkRadius={25}
+          sparkCount={10}
+          duration={900}
+        /> */}
         <AuthProvider>
 
           <Routes>
@@ -73,6 +83,7 @@ function App() {
             <Route path='/' element={<Homerahma />} />
             <Route path='/AdminLogin' element={<AdminLogin />} />
             <Route path='/AboutUs' element={<AboutUs />} />
+            <Route path='SalesChart' element={<SalesChart />} />
             <Route path="/list/:shelf" element={<UserList />} />
             <Route path="/CancelPage" element={<CancelPage />} />
             <Route path="/SuccessPage" element={<SuccessPage />} />

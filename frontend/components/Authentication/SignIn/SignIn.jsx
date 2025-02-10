@@ -34,33 +34,52 @@ export default function SignIn() {
     setRole(e.target.checked ? 'admin' : 'user');
   };
   const handleGoogleSignIn = () => {
-    window.location.href = "http://localhost:5000/auth/google";
+    window.location.href = "https://goodreads-app-production.up.railway.app/auth/google";
   };
-  
-  
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
     axios.post('http://localhost:5000/login', { email, password, role })
-    .then(result => {
-      if (result.data.message === "success") {
-        if (rememberMe) {
-          localStorage.setItem('token', result.data.token);
-        } else {
-          sessionStorage.setItem('token', result.data.token);
+      .then(result => {
+        if (result.data.message === "success") {
+          if (rememberMe) {
+            localStorage.setItem('token', result.data.token);
+          } else {
+            sessionStorage.setItem('token', result.data.token);
+          }
+          alert("Logged in successfully");
+          navigate('/');
+          window.location.reload(); // 🔥 Force full page reload
         }
-        alert("Logged in successfully");
-        navigate('/');
-        window.location.reload(); // 🔥 Force full page reload
-      } 
-    })
-    .catch(error => {
-      if (error.response) {
-        setErrorMessage(error.response.data.message || "Login failed");
-      } else {
-        setErrorMessage("An unexpected error occurred. Please try again.");
-      }
-    });
+      })
+      .catch(error => {
+        if (error.response) {
+          setErrorMessage(error.response.data.message || "Login failed");
+        } else {
+          setErrorMessage("An unexpected error occurred. Please try again.");
+        }
+      });
+    axios.post('https://goodreads-app-production.up.railway.app/login', { email, password, role })
+      .then(result => {
+        if (result.data.message === "success") {
+          if (rememberMe) {
+            localStorage.setItem('token', result.data.token);
+          } else {
+            sessionStorage.setItem('token', result.data.token);
+          }
+          alert("Logged in successfully");
+          navigate('/');
+          window.location.reload(); // 🔥 Force full page reload
+        }
+      })
+      .catch(error => {
+        if (error.response) {
+          setErrorMessage(error.response.data.message || "Login failed");
+        } else {
+          setErrorMessage("An unexpected error occurred. Please try again.");
+        }
+      });
   };
 
   return (
@@ -72,7 +91,7 @@ export default function SignIn() {
         sparkCount={10}
         duration={900}
       />
-      
+
       <Grid container sx={{ height: "100vh", backgroundColor: "#3f8fc0" }} alignItems="center" justifyContent="center">
         {/* Left Side - Full Height Image and Text */}
         <Grid item xs={12} md={6} sx={{ display: { xs: "none", md: "block" }, height: "100vh" }}>
@@ -88,35 +107,35 @@ export default function SignIn() {
             }}
           >
             <Typography variant="h2" sx={{ color: "#000", fontWeight: "bold", lineHeight: 1.2 }}>
-              <ShinyText text=" Don't Miss" disabled={false} speed={2} className='custom-class' /> 
+              <ShinyText text=" Don't Miss" disabled={false} speed={2} className='custom-class' />
               <br></br>
-  <RotatingText
-    texts={['Focus', 'Empathy', 'Insight', 'Escape','Relaxation']}
-    mainClassName="px-2 sm:px-2 md:px-3 bg-cyan-300 text-black overflow-hidden py-0.5 sm:py-1 md:py-2 justify-center rounded-lg"
-    staggerFrom={"last"}
-    initial={{ y: "100%" }}
-    animate={{ y: 0 }}
-    exit={{ y: "-120%" }}
-    staggerDuration={0.1}
-    splitLevelClassName="overflow-hidden pb-0.5 sm:pb-1 md:pb-1"
-    transition={{ type: "spring", damping: 15, stiffness: 1000 }}
-    rotationInterval={5000}
-  />
+              <RotatingText
+                texts={['Focus', 'Empathy', 'Insight', 'Escape', 'Relaxation']}
+                mainClassName="px-2 sm:px-2 md:px-3 bg-cyan-300 text-black overflow-hidden py-0.5 sm:py-1 md:py-2 justify-center rounded-lg"
+                staggerFrom={"last"}
+                initial={{ y: "100%" }}
+                animate={{ y: 0 }}
+                exit={{ y: "-120%" }}
+                staggerDuration={0.1}
+                splitLevelClassName="overflow-hidden pb-0.5 sm:pb-1 md:pb-1"
+                transition={{ type: "spring", damping: 15, stiffness: 1000 }}
+                rotationInterval={5000}
+              />
               <br></br>
               <ShinyText text=" With " disabled={false} speed={3} className='custom-class' />
               <br></br>
-  <RotatingText
-    texts={['Growth', 'Clarity', 'Imagination', 'Knowledge']}
-    mainClassName="px-2 sm:px-2 md:px-3 bg-cyan-300 text-black overflow-hidden py-0.5 sm:py-1 md:py-2 justify-center rounded-lg"
-    staggerFrom={"last"}
-    initial={{ y: "100%" }}
-    animate={{ y: 0 }}
-    exit={{ y: "120%" }}
-    staggerDuration={0.030}
-    splitLevelClassName="overflow-hidden pb-0.5 sm:pb-1 md:pb-1"
-    transition={{ type: "spring", damping: 30, stiffness: 150 }}
-    rotationInterval={6000}
-  />
+              <RotatingText
+                texts={['Growth', 'Clarity', 'Imagination', 'Knowledge']}
+                mainClassName="px-2 sm:px-2 md:px-3 bg-cyan-300 text-black overflow-hidden py-0.5 sm:py-1 md:py-2 justify-center rounded-lg"
+                staggerFrom={"last"}
+                initial={{ y: "100%" }}
+                animate={{ y: 0 }}
+                exit={{ y: "120%" }}
+                staggerDuration={0.030}
+                splitLevelClassName="overflow-hidden pb-0.5 sm:pb-1 md:pb-1"
+                transition={{ type: "spring", damping: 30, stiffness: 150 }}
+                rotationInterval={6000}
+              />
             </Typography>
           </Box>
         </Grid>
@@ -135,7 +154,7 @@ export default function SignIn() {
           </Box>
 
           <Box
-            component="form" 
+            component="form"
             onSubmit={handleSubmit}
             sx={{
               backgroundColor: "rgba(51, 51, 51, 0.5)",
@@ -160,8 +179,8 @@ export default function SignIn() {
             <TextField
               label="Enter your password"
               variant="outlined"
-              fullWidth 
-              margin="normal" 
+              fullWidth
+              margin="normal"
               type={showPassword ? "text" : "password"}
               required
               value={password}
@@ -216,34 +235,34 @@ export default function SignIn() {
               <Switch role={role} onChange={handleRoleChange} sx={{ width: "auto", minWidth: "unset" }} />
             </Box>
             <LoginBtn onClick={handleSubmit} />
-   <Button
-  fullWidth
-  variant="contained"
-  onClick={handleGoogleSignIn}
-  sx={{
-    mt: 2,
-    backgroundColor: "#ffffff",
-    color: "#000",
-    fontWeight: "bold",
-    textTransform: "none",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    gap: "10px",
-    border: "1px solid #ddd",
-    borderRadius: "8px",
-    boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
-    transition: "all 0.3s ease-in-out",
-    "&:hover": {
-      backgroundColor: "#f7f7f7",
-      transform: "scale(1.05)",
-      boxShadow: "0px 6px 10px rgba(0, 0, 0, 0.15)",
-    },
-  }}
->
-  <FcGoogle size={24} />
-  Sign in with Google
-</Button>
+            <Button
+              fullWidth
+              variant="contained"
+              onClick={handleGoogleSignIn}
+              sx={{
+                mt: 2,
+                backgroundColor: "#ffffff",
+                color: "#000",
+                fontWeight: "bold",
+                textTransform: "none",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                gap: "10px",
+                border: "1px solid #ddd",
+                borderRadius: "8px",
+                boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
+                transition: "all 0.3s ease-in-out",
+                "&:hover": {
+                  backgroundColor: "#f7f7f7",
+                  transform: "scale(1.05)",
+                  boxShadow: "0px 6px 10px rgba(0, 0, 0, 0.15)",
+                },
+              }}
+            >
+              <FcGoogle size={24} />
+              Sign in with Google
+            </Button>
 
           </Box>
 

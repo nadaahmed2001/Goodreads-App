@@ -1,139 +1,304 @@
-import React, { useContext, useState } from "react"; // Import useState
+// import React, { useContext, useState } from "react"; // Import useState
+// import { useNavigate, Link } from "react-router-dom";
+// import { Dropdown } from "react-bootstrap";
+// import { ChevronLeft, ChevronRight, Globe, Moon, ShoppingCart } from "lucide-react";
+// import { AuthContext } from "../src/AuthContext"; // Import the context
+// import "./Navbar.css";
+// import CheckoutButton from "../src/Pages/Payment/CheckoutButton";
+// import SearchIcon from '@mui/icons-material/Search';
+
+// const Navbar = () => {
+
+//   const [isOpen, setIsOpen] = useState(false);
+//   const [selectedLanguage, setSelectedLanguage] = useState('English'); // Default language
+
+//   const toggleDropdown = () => setIsOpen(!isOpen);
+//   const handleLanguageChange = (language) => {
+//     setSelectedLanguage(language);
+//     setIsOpen(false); // Close dropdown after selection
+//   };
+//   const { user, role, subscription, logout } = useContext(AuthContext); // Get user, role, and logout function from context
+//   const navigate = useNavigate();
+
+//   const [query, setQuery] = useState(""); //  Define query state to store the search query
+
+//   const handleSearch = (e) => {
+//     e.preventDefault();
+//     if (query.trim()) {
+//       navigate(`/search?q=${encodeURIComponent(query)}`); //encodeURIcomponent to encode the query string.
+//     }
+//   };
+
+//   return (
+//     <nav className="navbar">
+//       <div className="nav-top">
+//         <div className="imgLogo">
+//           <img src="/newLogo.png" alt="logo" />
+//         </div>
+//         <div className="Searchinput">
+//           {/* <form onSubmit={handleSearch}>
+//             <input
+//               type="search"
+//               placeholder="Search titles, authors, publishers..."
+//               className="form-control search-input"
+//               value={query}
+//               onChange={(e) => setQuery(e.target.value)} //  Update query state
+//             />
+//             <SearchIcon></SearchIcon>
+//           </form> */}
+//           <div className="Searchinput">
+//   <form onSubmit={handleSearch}>
+//     <div className="input-container">
+//       <input
+//         type="search"
+//         placeholder="Search titles, authors, publishers..."
+//         className="form-control search-input"
+//         value={query}
+//         onChange={(e) => setQuery(e.target.value)} // Update query state
+//       />
+//       <SearchIcon className="search-icon" />
+//     </div>
+//   </form>
+// </div>
+
+//         </div>
+
+//         <div className="d-flex align-items-center icons">
+//         <button className="btn text-white" onClick={toggleDropdown}>
+//         <Globe size={20} />
+//         {selectedLanguage} {/* Display the selected language */}
+//       </button>
+//           <button className="btn text-white">
+//             <Moon size={20} />
+//             <span>  |  Dark Mood</span>
+//           </button>
+
+//           {/* Use the CheckoutButton here */}
+//           {user ? (
+//             <>
+//               {(subscription === 'InActive' && role === "user") && <CheckoutButton />}
+//               {/* My Lists Dropdown */}
+//               <Dropdown align="end">
+//                 <Dropdown.Toggle id="dropdown-lists" className="sign-in-btn">
+//                   <span className="me-2 fw-medium">My Lists</span>
+//                 </Dropdown.Toggle>
+
+//                 <Dropdown.Menu>
+//                   <Dropdown.Item onClick={() => navigate("/list/currently_reading")}>
+//                     Currently Reading
+//                   </Dropdown.Item>
+//                   <Dropdown.Item onClick={() => navigate("/list/want_to_read")}>
+//                     Want to Read
+//                   </Dropdown.Item>
+//                   <Dropdown.Item onClick={() => navigate("/list/read")}>Read</Dropdown.Item>
+//                 </Dropdown.Menu>
+//               </Dropdown>
+
+//               {/* User Dropdown */}
+//               <Dropdown align="end">
+//                 <Dropdown.Toggle id="dropdown-user" className="sign-in-btn">
+//                   <span className="me-2 fw-medium">{user.first_name}</span>
+//                 </Dropdown.Toggle>
+
+//                 <Dropdown.Menu>
+//                   {role === "admin" && (
+//                     <Dropdown.Item as={Link} to="/categories">
+//                       Admin Dashboard
+//                     </Dropdown.Item>
+//                   )}
+//                   <Dropdown.Item as={Link} to="/profile">
+//                     Profile
+//                   </Dropdown.Item>
+//                   <Dropdown.Item onClick={logout}>Logout</Dropdown.Item>
+//                 </Dropdown.Menu>
+//               </Dropdown>
+//             </>
+//           ) : (
+//             <>
+//               <Link to="/sign-up">
+//                 <button className="sign-in-btn">Sign up</button>
+//               </Link>
+//               <Link to="/sign-in">
+//                 <button className="log-in-btn">Log in</button>
+//               </Link>
+//             </>
+//           )}
+//         </div>
+//       </div>
+
+//       <div className="NavList">
+//         <ul>
+//           <li>
+//             <Link to="/" className="hoverlink">
+//               Home
+//             </Link>
+//           </li>
+//           <li>
+//             <Link to="/categories-home" className="hoverlink">
+//               Category
+//             </Link>
+//           </li>
+//           <li>
+//             <Link to="/AuthorsBook" className="hoverlink">
+//               Authors
+//             </Link>
+//           </li>
+//           <li>
+//             <Link to="/AboutUs" className="hoverlink">
+//               About Us
+//             </Link>
+//           </li>
+//           <li>
+//             <Link to="/TermsConditions" className="hoverlink">
+//               Terms & Conditions
+//             </Link>
+//           </li>
+//         </ul>
+//       </div>
+//     </nav>
+//   );
+// };
+
+// export default Navbar;
+import React, { useContext, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { Dropdown } from "react-bootstrap";
-import { ChevronLeft, ChevronRight, Globe, Moon, ShoppingCart } from "lucide-react";
-import { AuthContext } from "../src/AuthContext"; // Import the context
-import "./Navbar.css";
+import {
+  Navbar as BSNavbar,
+  Nav,
+  NavDropdown,
+  Container,
+  Form,
+  FormControl,
+  Button,
+} from "react-bootstrap";
+import { Globe, Moon } from "lucide-react";
+import { AuthContext } from "../src/AuthContext";
 import CheckoutButton from "../src/Pages/Payment/CheckoutButton";
+import SearchIcon from "@mui/icons-material/Search";
+import "./Navbar.css";
 
 const Navbar = () => {
-  const { user, role, subscription, logout } = useContext(AuthContext); // Get user, role, and logout function from context
+  const [isOpen, setIsOpen] = useState(false);
+  const [selectedLanguage, setSelectedLanguage] = useState("English");
+  const toggleDropdown = () => setIsOpen(!isOpen);
+  const handleLanguageChange = (language) => {
+    setSelectedLanguage(language);
+    setIsOpen(false);
+  };
+
+  const { user, role, subscription, logout } = useContext(AuthContext);
   const navigate = useNavigate();
-  
-  const [query, setQuery] = useState(""); //  Define query state to store the search query
+  const [query, setQuery] = useState("");
 
   const handleSearch = (e) => {
     e.preventDefault();
     if (query.trim()) {
-      navigate(`/search?q=${encodeURIComponent(query)}`); //encodeURIcomponent to encode the query string.
+      navigate(`/search?q=${encodeURIComponent(query)}`);
     }
   };
 
   return (
-    <nav>
-      <div className="nav-top">
-        <div className="imgLogo">
-          <img src="/BookAppLogoImg.png" alt="logo" />
-        </div>
-
-        <div className="Searchinput">
-          <form onSubmit={handleSearch}>
-            <input
-              type="search"
-              placeholder="Search titles, authors, publishers..."
-              className="form-control search-input"
-              value={query}
-              onChange={(e) => setQuery(e.target.value)} //  Update query state
-            />
-            <button type="submit">Search</button>
-          </form>
-        </div>
-
-
-        <div className="d-flex align-items-center icons">
-          <button className="btn text-white">
-            <Globe size={20} />
-          </button>
-          <button className="btn text-white">
-            <Moon size={20} />
-          </button>
-          <button className="btn text-white">
-            <ShoppingCart size={20} />
-          </button>
-
-          {/* Use the CheckoutButton here */}
-          {user ? (
-            <>
-              {(subscription === 'InActive' && role === "user") && <CheckoutButton />}
-              {/* My Lists Dropdown */}
-              <Dropdown align="end">
-                <Dropdown.Toggle id="dropdown-lists" className="sign-in-btn">
-                  <span className="me-2 fw-medium">My Lists</span>
-                </Dropdown.Toggle>
-
-                <Dropdown.Menu>
-                  <Dropdown.Item onClick={() => navigate("/list/currently_reading")}>
-                    Currently Reading
-                  </Dropdown.Item>
-                  <Dropdown.Item onClick={() => navigate("/list/want_to_read")}>
-                    Want to Read
-                  </Dropdown.Item>
-                  <Dropdown.Item onClick={() => navigate("/list/read")}>Read</Dropdown.Item>
-                </Dropdown.Menu>
-              </Dropdown>
-
-              {/* User Dropdown */}
-              <Dropdown align="end">
-                <Dropdown.Toggle id="dropdown-user" className="sign-in-btn">
-                  <span className="me-2 fw-medium">{user.first_name}</span>
-                </Dropdown.Toggle>
-
-                <Dropdown.Menu>
-                  {role === "admin" && (
-                    <Dropdown.Item as={Link} to="/categories">
-                      Admin Dashboard
-                    </Dropdown.Item>
-                  )}
-                  <Dropdown.Item as={Link} to="/profile">
-                    Profile
-                  </Dropdown.Item>
-                  <Dropdown.Item onClick={logout}>Logout</Dropdown.Item>
-                </Dropdown.Menu>
-              </Dropdown>
-            </>
-          ) : (
-            <>
-              <Link to="/sign-up">
-                <button className="sign-in-btn">Sign up</button>
-              </Link>
-              <Link to="/sign-in">
-                <button className="log-in-btn">Log in</button>
-              </Link>
-            </>
-          )}
-        </div>
-      </div>
-
-      <div className="NavList">
-        <ul>
-          <li>
-            <Link to="/" className="hoverlink">
+    <BSNavbar expand='lg' variant='light' className='custom-navbar'>
+      <Container>
+        <BSNavbar.Brand as={Link} to='/'>
+          <img src='/newLogo.png' alt='logo' className='imgLogo' />
+        </BSNavbar.Brand>
+        <BSNavbar.Toggle aria-controls='basic-navbar-nav' />
+        <BSNavbar.Collapse id='basic-navbar-nav'>
+          <Nav className='me-auto'>
+            <Nav.Link as={Link} to='/' className='hoverlink'>
               Home
-            </Link>
-          </li>
-          <li>
-            <Link to="/categories-home" className="hoverlink">
+            </Nav.Link>
+            <Nav.Link as={Link} to='/categories-home' className='hoverlink'>
               Category
-            </Link>
-          </li>
-          <li>
-            <Link to="/AuthorsBook" className="hoverlink">
+            </Nav.Link>
+            <Nav.Link as={Link} to='/AuthorsBook' className='hoverlink'>
               Authors
-            </Link>
-          </li>
-          <li>
-            <Link to="/AboutUs" className="hoverlink">
+            </Nav.Link>
+            <Nav.Link as={Link} to='/AboutUs' className='hoverlink'>
               About Us
-            </Link>
-          </li>
-          <li>
-            <Link to="/TermsConditions" className="hoverlink">
+            </Nav.Link>
+            <Nav.Link as={Link} to='/TermsConditions' className='hoverlink'>
               Terms & Conditions
-            </Link>
-          </li>
-        </ul>
-      </div>
-    </nav>
+            </Nav.Link>
+          </Nav>
+
+          <Form className='d-flex' onSubmit={handleSearch}>
+            <FormControl
+              type='search'
+              placeholder='Search titles, authors, publishers...'
+              className='me-2 search-input'
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+            />
+            <Button variant='outline-secondary' type='submit'>
+              <SearchIcon />
+            </Button>
+          </Form>
+
+          <Nav className='ms-auto d-flex align-items-center icons'>
+            <Button
+              variant='link'
+              className='text-white'
+              onClick={toggleDropdown}
+            >
+              <Globe size={20} />
+              <span className='ms-1'>{selectedLanguage}</span>
+            </Button>
+            <Button variant='link' className='text-white'>
+              <Moon size={20} />
+              <span className='ms-1'>| Dark Mood</span>
+            </Button>
+            {user ? (
+              <>
+                {subscription === "InActive" && role === "user" && (
+                  <CheckoutButton />
+                )}
+                <NavDropdown title='My Lists' id='dropdown-lists' align='end'>
+                  <NavDropdown.Item
+                    onClick={() => navigate("/list/currently_reading")}
+                  >
+                    Currently Reading
+                  </NavDropdown.Item>
+                  <NavDropdown.Item
+                    onClick={() => navigate("/list/want_to_read")}
+                  >
+                    Want to Read
+                  </NavDropdown.Item>
+                  <NavDropdown.Item onClick={() => navigate("/list/read")}>
+                    Read
+                  </NavDropdown.Item>
+                </NavDropdown>
+                <NavDropdown
+                  title={user.first_name}
+                  id='dropdown-user'
+                  align='end'
+                >
+                  {role === "admin" && (
+                    <NavDropdown.Item as={Link} to='/categories'>
+                      Admin Dashboard
+                    </NavDropdown.Item>
+                  )}
+                  <NavDropdown.Item as={Link} to='/profile'>
+                    Profile
+                  </NavDropdown.Item>
+                  <NavDropdown.Item onClick={logout}>Logout</NavDropdown.Item>
+                </NavDropdown>
+              </>
+            ) : (
+              <>
+                <Nav.Link as={Link} to='/sign-up' className='sign-in-btn'>
+                  Sign up
+                </Nav.Link>
+                <Nav.Link as={Link} to='/sign-in' className='log-in-btn'>
+                  Log in
+                </Nav.Link>
+              </>
+            )}
+          </Nav>
+        </BSNavbar.Collapse>
+      </Container>
+    </BSNavbar>
   );
 };
 

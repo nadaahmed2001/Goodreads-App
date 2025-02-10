@@ -1,0 +1,23 @@
+.category-title{
+    color:#565353;
+    text-align: center;
+    margin-top: 50px;
+    font-size: 50px;
+}
+.category-name{
+    color:#565353;
+    margin-top: 50px;
+    font-size: 40px;
+}
+.viewAllbtn {
+    font-size: 14px;
+    font-weight: 600;
+    padding: 0.8em 3em;
+    color: #FFF7E7;
+    background-color: #59461B;
+    border-radius: 20px;
+    cursor: pointer;
+    border: none;
+    outline: none;
+  }
+ 

@@ -14,6 +14,8 @@ import { Viewer } from '@react-pdf-viewer/core';
 import '@react-pdf-viewer/core/lib/styles/index.css';
 
 import "./Books.css"
+import SplitText from "../../../components/SplitText";
+import XButton from './XBtn';
 
 
 export default function Books({ category, author }) {
@@ -34,7 +36,7 @@ export default function Books({ category, author }) {
         const fetchBooks = async () => {
             try {
                 setIsLoading(true);
-                const response = await axios.get("http://localhost:5000/books");
+                const response = await axios.get("https://goodreads-app-production.up.railway.app/books");
                 setBooks(response.data);
                 response.data.forEach((book, index) => {
                     console.log(`Book ${index + 1}:`, book);
@@ -87,7 +89,7 @@ export default function Books({ category, author }) {
             }
 
             // Save book to database
-            await axios.post("http://localhost:5000/book", {
+            await axios.post("https://goodreads-app-production.up.railway.app/book", {
                 coverImage: imageUrl,
                 title: formData.name,
                 description: formData.description,
@@ -100,7 +102,7 @@ export default function Books({ category, author }) {
             alert("Book added successfully!");
 
             // Re-fetch all books
-            const response = await axios.get("http://localhost:5000/books");
+            const response = await axios.get("https://goodreads-app-production.up.railway.app/books");
             setBooks(response.data);
 
         } catch (err) {
@@ -111,7 +113,7 @@ export default function Books({ category, author }) {
 
     const handleDelete = async (bookId) => {
         try {
-            await axios.delete(`http://localhost:5000/book/${bookId}`);
+            await axios.delete(`https://goodreads-app-production.up.railway.app/book/${bookId}`);
             alert("Book deleted successfully!");
             setBooks((prevBooks) => prevBooks.filter(book => book._id !== bookId));
         } catch (err) {
@@ -121,10 +123,10 @@ export default function Books({ category, author }) {
 
     const handleUpdate = async (bookId, updatedData) => {
         try {
-            await axios.put(`http://localhost:5000/book/${bookId}`, updatedData);
+            await axios.put(`https://goodreads-app-production.up.railway.app/book/${bookId}`, updatedData);
             alert("Book updated successfully!");
 
-            const response = await axios.get("http://localhost:5000/books");
+            const response = await axios.get("https://goodreads-app-production.up.railway.app/books");
             setBooks(response.data);
         } catch (err) {
             console.error("Unable to update book:", err);
@@ -137,6 +139,17 @@ export default function Books({ category, author }) {
             <div className="flex-grow-1 p-5">
                 <div className="d-flex justify-content-between">
                     <h1>Manage Books</h1>
+                    {/* <SplitText
+                        text="Manage Books!"
+                        className="text-2xl font-semibold text-center"
+                        delay={150}
+                        animationFrom={{ opacity: 0, transform: 'translate3d(0,50px,0)' }}
+                        animationTo={{ opacity: 1, transform: 'translate3d(0,0,0)' }}
+                        easing="easeOutCubic"
+                        threshold={0.2}
+                        rootMargin="-50px"
+                        onLetterAnimationComplete={handleAnimationComplete}
+                    /> */}
                     <ModalBtn
                         title="Book"
                         category={category}
@@ -239,7 +252,8 @@ export default function Books({ category, author }) {
                                                 { name: "author", label: "Author", type: "dropdown" },
                                             ]}
                                         />
-                                        <Button variant="outline-dark" onClick={() => handleDelete(book._id)}>❌</Button>
+
+                                        <button onClick={() => handleDelete(book._id)}><XButton /></button>
                                     </td>
                                 </tr>
                             ))}

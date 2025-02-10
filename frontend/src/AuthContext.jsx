@@ -19,7 +19,7 @@ export const AuthProvider = ({ children }) => {
     const token = localStorage.getItem("token") || sessionStorage.getItem("token");
     if (token) {
       axios
-        .get("http://localhost:5000/profile", {
+        .get("https://goodreads-app-production.up.railway.app/profile", {
           headers: { Authorization: `Bearer ${token}` },
         })
         .then((result) => {
@@ -38,7 +38,7 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const fetchAuthors = async () => {
       try {
-        const response = await fetch("http://localhost:5000/authors");
+        const response = await fetch("https://goodreads-app-production.up.railway.app/authors");
         if (!response.ok) {
           throw new Error("Network response was not ok");
         }

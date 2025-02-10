@@ -31,7 +31,7 @@ const app = express();
 
 // CORS configuration
 const corsOptions = {
-  origin: "http://localhost:5173", // Allow requests from frontend
+  origin: ["https://goodreads-app.vercel.app", "http://localhost:5173"], // Allow both production and local development
   methods: "GET,POST,PUT,DELETE",
   credentials: true, // Allow cookies and credentials
 };

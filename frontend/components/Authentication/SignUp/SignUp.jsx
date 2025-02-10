@@ -41,7 +41,7 @@ export default function SignUp() {
   const navigate = useNavigate();
 
   const handleGoogleSignUp = () => {
-    window.location.href = "http://localhost:5000/auth/google";
+    window.location.href = "https://goodreads-app-production.up.railway.app/auth/google";
   };
   
 
@@ -79,7 +79,7 @@ export default function SignUp() {
     if (!validateForm()) return;
     try {
       
-      const response = await axios.post("http://localhost:5000/register", {
+      const response = await axios.post("https://goodreads-app-production.up.railway.app/register", {
         email: formData.email
       });
       // console.log("Server Response:", response.data);
@@ -110,7 +110,7 @@ export default function SignUp() {
       //   password: formData.password
       // });
   
-      const response = await axios.post("http://localhost:5000/verify-otp", {
+      const response = await axios.post("https://goodreads-app-production.up.railway.app/verify-otp", {
         first_name: formData.firstName, 
         last_name: formData.lastName, 
         email: formData.email,

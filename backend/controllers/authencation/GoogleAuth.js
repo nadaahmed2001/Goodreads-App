@@ -19,7 +19,7 @@ router.get(
       }
   
       // Redirect to frontend with token as a query parameter
-      res.redirect(`http://localhost:5173/redirect?token=${req.user.token}`);
+      res.redirect(`https://goodreads-app.vercel.app/redirect?token=${req.user.token}`);
     }
   );
   
