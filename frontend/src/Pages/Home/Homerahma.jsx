@@ -30,6 +30,7 @@ import { color, margin } from "@mui/system";
 import BookListSection from "../../../components/BookListSection";
 // import CustomButton from "../../../components/CustomButton";
 import AIChatbot from "../../../components/Chatbot/AIChatbt";
+import LanguageContext from '../../context/language';
 // import SplitText from '../../../components/SplitText';
 
 const HomePage = () => {
