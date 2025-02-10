@@ -160,6 +160,7 @@
 // };
 
 // export default Navbar;
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 import React, { useContext, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import {
@@ -200,38 +201,71 @@ const Navbar = () => {
   return (
     <BSNavbar expand='lg' variant='light' className='custom-navbar'>
       <Container>
-        <BSNavbar.Brand as={Link} to='/'>
-          <img src='/newLogo.png' alt='logo' className='imgLogo' />
-        </BSNavbar.Brand>
+        <img
+          src='/newLogo.png'
+          as={Link}
+          to='/'
+          alt='logo'
+          className='logo-img'
+        />
+
         <BSNavbar.Toggle aria-controls='basic-navbar-nav' />
         <BSNavbar.Collapse id='basic-navbar-nav'>
-          <Nav className='me-auto'>
-            <Nav.Link as={Link} to='/' className='hoverlink'>
+          <Nav className='me-auto c-second'>
+            <Nav.Link
+              as={Link}
+              to='/'
+              className='hoverlink   c-second c-second-hover fs-7'
+            >
               Home
             </Nav.Link>
-            <Nav.Link as={Link} to='/categories-home' className='hoverlink'>
+            <Nav.Link
+              as={Link}
+              to='/categories-home'
+              className='hoverlink c-second c-second-hover fs-7'
+            >
               Category
             </Nav.Link>
-            <Nav.Link as={Link} to='/AuthorsBook' className='hoverlink'>
+            <Nav.Link
+              as={Link}
+              to='/AuthorsBook'
+              className='hoverlink c-second c-second-hover fs-7'
+            >
               Authors
             </Nav.Link>
-            <Nav.Link as={Link} to='/AboutUs' className='hoverlink'>
+            <Nav.Link
+              as={Link}
+              to='/AboutUs'
+              className='hoverlink c-second c-second-hover fs-7'
+            >
               About Us
             </Nav.Link>
-            <Nav.Link as={Link} to='/TermsConditions' className='hoverlink'>
+            <Nav.Link
+              as={Link}
+              to='/TermsConditions'
+              className='hoverlink c-second c-second-hover fs-7'
+            >
               Terms & Conditions
             </Nav.Link>
           </Nav>
 
-          <Form className='d-flex' onSubmit={handleSearch}>
+          <Form
+            className='d-flex'
+            onSubmit={handleSearch}
+            style={{ position: "relative" }}
+          >
             <FormControl
               type='search'
               placeholder='Search titles, authors, publishers...'
-              className='me-2 search-input'
+              className=' search-input relative'
               value={query}
               onChange={(e) => setQuery(e.target.value)}
             />
-            <Button variant='outline-secondary' type='submit'>
+            <Button
+              variant='outline-secondary'
+              type='submit'
+              className='search-icon'
+            >
               <SearchIcon />
             </Button>
           </Form>
@@ -243,11 +277,9 @@ const Navbar = () => {
               onClick={toggleDropdown}
             >
               <Globe size={20} />
-              <span className='ms-1'>{selectedLanguage}</span>
             </Button>
             <Button variant='link' className='text-white'>
               <Moon size={20} />
-              <span className='ms-1'>| Dark Mood</span>
             </Button>
             {user ? (
               <>
@@ -287,10 +319,10 @@ const Navbar = () => {
               </>
             ) : (
               <>
-                <Nav.Link as={Link} to='/sign-up' className='sign-in-btn'>
+                <Nav.Link as={Link} to='/sign-up' className='sign-in-btn  '>
                   Sign up
                 </Nav.Link>
-                <Nav.Link as={Link} to='/sign-in' className='log-in-btn'>
+                <Nav.Link as={Link} to='/sign-in' className='log-in-btn '>
                   Log in
                 </Nav.Link>
               </>

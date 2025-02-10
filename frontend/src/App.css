@@ -88,11 +88,15 @@ td {
 .c-main {
   color: #59461b;
 }
-
 .c-main-hover:hover {
   color: #59461b;
 }
-
+.c-second {
+  color: #fff7e7;
+}
+.c-second-hover:hover {
+  color: #fff7e77c;
+}
 .list-group-item.active {
   background-color: #59461b83 !important;
   border-color: #59461b83 !important;

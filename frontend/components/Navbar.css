@@ -4,8 +4,8 @@
 
 /* If you are targeting Firefox on macOS */
 /* * { */
-  /* -moz-osx-font-smoothing: grayscale; */
-  /* Optional */
+/* -moz-osx-font-smoothing: grayscale; */
+/* Optional */
 /* }
 
 * {
@@ -88,15 +88,19 @@ button.white {
 
 /* basic style end */
 
-.navbar{
+.logo-img {
+  width: 80px !important;
+  height: 80px !important;
+}
+
+.navbar {
   display: flex;
   flex-direction: column;
   padding: 0 20px;
-  background-color: #59461B;
+  background-color: #59461b;
   position: sticky;
-  top: 0; /* This is the crucial line for sticky positioning */
-  z-index: 1000; /* Ensures navbar stays above other content */
-
+  top: 0;
+  z-index: 1000;
 }
 
 .nav-top {
@@ -115,12 +119,7 @@ nav .imgLogo {
 nav .imgLogo img {
   width: 150px;
   height: 110px;
-  
 }
-/* 
-nav .Searchinput {
-  width: 33%;
-} */
 
 nav .icons {
   width: 33%;
@@ -141,16 +140,15 @@ nav .NavList ul {
 
 nav .NavList ul li a {
   text-decoration: none;
-  color: #FFF7E7;
-  font-family: 'Spartan', sans-serif;
+  color: #fff7e7;
+  font-family: "Spartan", sans-serif;
   font-size: 24px;
   font-weight: 700;
   padding: 20px 30px;
-
 }
 
 nav .NavList ul li a:hover {
-  color: var(--2ry, #E8E0C6);
+  color: var(--2ry, #e8e0c6);
 }
 .Searchinput {
   position: relative;
@@ -160,37 +158,59 @@ nav .NavList ul li a:hover {
   position: relative;
   display: flex;
   align-items: center;
-  width: 450px; /* You can adjust this to any desired width, like 80% or 600px */
-  max-width: 600px; /* Optionally set a max-width for responsiveness */
+  width: 450px;
+  max-width: 600px;
 }
-
 .search-input {
-  width: 100%; /* Make the input take full width of its container */
-  padding-right: 35px; /* Provide enough space for the icon */
-  padding-left: 15px; /* Optional: Add some padding on the left side */
-  box-sizing: border-box; /* Ensure padding doesn't affect width calculation */
-  background-color: #FFF7E7;
+  width: 310px;
+  padding: 5px 13px 5px 50px;
+  box-sizing: border-box;
+  background-color: #fff7e7;
+  font-size: 15px;
 }
 
 .search-icon {
   position: absolute;
-  right: 10px; /* Adjust positioning of the icon */
-  pointer-events: none; /* Prevent the icon from blocking the input */
+  pointer-events: none;
+  border-color: #fff7e7;
+  background-color: #59461b;
+  padding: 3px 4px;
+  line-height: 1.5;
+  margin-top: 1px;
+  margin-left: 1px;
+  color: #fff7e7;
+  width: 32px;
+  height: 32px;
 }
+.form-control {
+  color: none;
+  background-color: #fff7e7;
+  border-color: transparent;
+  outline: none;
+  box-shadow: none;
+}
+.form-control:focus {
+  color: none;
+  background-color: #fff7e7;
+  border-color: transparent;
+  outline: none;
+  box-shadow: none;
+}
+
 .language-selector {
   position: relative;
 }
 
 .dropdown-list {
   position: absolute;
-  top: 100%; /* Position below the button */
+  top: 100%;
   left: 0;
   background-color: white;
   border: 1px solid #ccc;
   padding: 10px;
   list-style: none;
   margin: 0;
-  width: 100%; /* Match the button width */
+  width: 100%;
   z-index: 10;
 }
 
@@ -206,36 +226,36 @@ nav .NavList ul li a:hover {
 .sign-in-btn {
   font-size: 14px;
   font-weight: 600;
-  padding: 0.8em 3em;
-  color: #59461B;
-  background-color: #FFF7E7;
-  border-radius: 20px;
+  padding: 5px 13px;
+  color: #59461b;
+  background-color: #fff7e7;
+  border-radius: 10px;
   cursor: pointer;
   border: none;
   outline: none;
   transition: 0.2s;
   margin-right: 10px;
 }
-/* login */
+
 .log-in-btn {
   font-size: 14px;
   font-weight: 600;
-  padding: 0.8em 3em;
-  color: #59461B;
-  background-color: #FFF7E7;;
-  border-radius: 20px;
+  padding: 5px 13px;
+  color: #59461b;
+  background-color: #fff7e7;
+  border-radius: 10px;
   cursor: pointer;
   border: none;
   outline: none;
+  transition: 0.2s;
 }
-.sign-in-btn:hover{
-  background-color: var(--2ry, #E8E0C6);
-  
-  
+.sign-in-btn:hover {
+  background-color: var(--2ry, #e8e0c6);
 }
-.log-in-btn:hover{
-  background-color: var(--2ry, #E8E0C6);
+.log-in-btn:hover {
+  background-color: var(--2ry, #e8e0c6);
 }
+
 /* Responsive styles */
 /* @media (max-width: 1200px) {
   nav .imgLogo img {
