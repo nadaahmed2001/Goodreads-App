@@ -11,8 +11,10 @@ const Sidebar = () => {
             variant="dark"
             expand="lg"
             className="d-flex flex-column vh-100 p-3"
-            style={{ width: "240px", position: "sticky", top: 0 }}
+            style={{ width: "240px", position: "sticky", top: 0, background: 'linear-gradient(100deg,rgb(36, 36, 35),rgb(83, 83, 83))' }}
         >
+            {/*   background: linear-gradient(135deg, #59461B, #8B7355);
+ */}
             <Navbar.Brand className="my-3">
                 <AdminTxt />
 
@@ -37,7 +39,7 @@ const Sidebar = () => {
                 <Nav.Link as={Link} to="/authors" className="text-white nv">
                     <FaBook className="me-2" /> Authors
                 </Nav.Link>
-                <Nav.Link as={Link} to="/SalesChart" className="text-white">
+                <Nav.Link as={Link} to="/SalesChart" className="text-white nv">
                     <FaTachometerAlt className="me-2" /> Charts
                 </Nav.Link>
             </Nav>
