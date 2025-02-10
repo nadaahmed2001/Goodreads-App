@@ -30,12 +30,7 @@ import { color, margin } from "@mui/system";
 import BookListSection from "../../../components/BookListSection";
 // import CustomButton from "../../../components/CustomButton";
 import AIChatbot from "../../../components/Chatbot/AIChatbt";
-import SplitText from '../../../components/SplitText';
-
-import LanguageContext from "../../context/language";
-
-
-
+// import SplitText from '../../../components/SplitText';
 
 const HomePage = () => {
   const navigate = useNavigate();
@@ -147,12 +142,11 @@ const HomePage = () => {
             <h1 className='display-4 fw-bold'>
               {language==='en' ? 'Shelf-sphere' : 'كوكب الرفوف'}
             </h1>
-
-            
             {/* <SplitText /> */}
 
-          {language==='en' ? <p className='lead'>A place where book lovers can find, review, and buy books easily.<br></br> Discover recommendations, keep reading lists, and shop for your next read—all in one place.</p> 
-          : <p className='lead'>مكان يمكن لعشاق الكتب فيه العثور على الكتب و مراجعتها وشرائها بسهولة.<br></br> اكتشف التوصيات، احتفظ بقوائم القراءة، وتسوق لقراءتك التالية - كل ذلك في مكان واحد.</p>}
+            <p>
+            A place where book lovers can find, review, and buy books easily.<br></br> Discover recommendations, keep reading lists, <br></br>and shop for your next read—all in one place.',
+            </p>
           </div>
         </section>
         {/* <div className='Con-Au-cat-sec'>
