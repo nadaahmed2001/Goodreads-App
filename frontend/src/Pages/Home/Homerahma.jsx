@@ -31,6 +31,7 @@ import BookListSection from "../../../components/BookListSection";
 // import CustomButton from "../../../components/CustomButton";
 import AIChatbot from "../../../components/Chatbot/AIChatbt";
 import SplitText from '../../../components/SplitText';
+import TrueFocus from './TrueFocus';
 
 const HomePage = () => {
   const navigate = useNavigate();
@@ -135,7 +136,16 @@ const HomePage = () => {
             <img src="/figma-home.png"></img>
           </div>
           <div className="HeroSection-Con">
-            <h1 className='display-4 fw-bold'>Good Reads</h1>
+            <h1 className='display-4 fw-bold'>
+              <TrueFocus
+                // sentence="Good Reads"
+                manualMode={false}
+                blurAmount={5}
+                borderColor="red"
+                animationDuration={2}
+                pauseBetweenAnimations={1}
+              />
+            </h1>
             <SplitText />
 
             <p>
