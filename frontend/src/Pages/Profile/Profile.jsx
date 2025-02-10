@@ -116,7 +116,7 @@ const Profile = () => {
   return (
    
     <>
-<div style={{ background: "linear-gradient(135deg,rgba(183, 167, 110, 0.78),rgb(189, 180, 153))", minHeight: "100vh" }}>
+<div style={{ background: "linear-gradient(135deg,rgb(255, 255, 255),rgb(255, 255, 255))", minHeight: "100vh" }}>
 <Navbar /> 
 
     <div
