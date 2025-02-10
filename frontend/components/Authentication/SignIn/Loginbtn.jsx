@@ -42,7 +42,7 @@ const StyledWrapper = styled.div`
     transform: translate(-50%, -50%);
     width: 20px;
     height: 20px;
-    background-color: #2196F3;
+    background-color: rgba(201, 168, 101, 0.68);
     border-radius: 50%;
     opacity: 0;
     transition: all 0.8s cubic-bezier(0.23, 1, 0.320, 1);
@@ -54,7 +54,7 @@ const StyledWrapper = styled.div`
   }
 
   .animated-button:hover {
-    box-shadow: 0 0 0 5px #2195f360;
+    box-shadow: 0 0 0 5px #bcb499;
     color: #ffffff;
   }
 
