@@ -199,6 +199,26 @@ nav .NavList ul li a:hover {
 #dropdown-user {
   color: #fff7e7;
 }
+/* //////////// */
+.navbar-toggler {
+  background-color: #fff7e7;
+}
+.navbar-toggler:focus {
+  outline: none;
+  border: none;
+  box-shadow: none;
+}
+.navbar-collapse {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  /* position: absolute; */
+  /* transform: translate(-50%, -50%); */
+}
+.navbar-nav {
+  margin: auto;
+}
+/* /////////////// */
 .language-selector {
   position: relative;
 }
