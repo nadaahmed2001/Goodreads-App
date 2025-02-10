@@ -97,7 +97,8 @@ button.white {
   display: flex;
   flex-direction: column;
   padding: 0 20px;
-  background-color: #59461b;
+  background: linear-gradient(135deg, #59461B, #8B7355);
+  /* background-color: #59461b; */
   position: sticky;
   top: 0;
   z-index: 1000;
@@ -126,10 +127,12 @@ nav .icons {
   display: flex;
   justify-content: flex-end;
 }
+
 .NavList {
   width: 100%;
   margin-top: 10px;
 }
+
 nav .NavList ul {
   display: flex;
   list-style: none;
@@ -150,6 +153,7 @@ nav .NavList ul li a {
 nav .NavList ul li a:hover {
   color: var(--2ry, #e8e0c6);
 }
+
 .Searchinput {
   position: relative;
 }
@@ -161,6 +165,7 @@ nav .NavList ul li a:hover {
   width: 450px;
   max-width: 600px;
 }
+
 .search-input {
   width: 280px;
   padding: 5px 13px 5px 15px;
@@ -193,20 +198,25 @@ nav .NavList ul li a:hover {
   outline: none;
   box-shadow: none;
 }
+
 #dropdown-lists {
   color: #fff7e7;
 }
+
 #dropdown-user {
   color: #fff7e7;
 }
+
 /* //////////// */
 .navbar-nav a {
   font-size: 13px;
 }
+
 @media (max-width: 1200px) {
   .navbar-toggler {
     background-color: #fff7e7 !important;
   }
+
   .navbar-toggler:focus {
     outline: none !important;
     border: none !important;
@@ -222,9 +232,11 @@ nav .NavList ul li a:hover {
   .navbar-nav {
     margin: auto;
   }
+
   .navbar-nav a {
     font-size: 10px;
   }
+
   .log-in-btn {
     margin: 8px 12px 10px 0px;
   }
@@ -283,9 +295,11 @@ nav .NavList ul li a:hover {
   outline: none;
   transition: 0.2s;
 }
+
 .sign-in-btn:hover {
   background-color: var(--2ry, #e8e0c6);
 }
+
 .log-in-btn:hover {
   background-color: var(--2ry, #e8e0c6);
 }
@@ -398,7 +412,7 @@ nav .NavList ul li a:hover {
 } */
 
 /* subscribe btn */
-/* 
+
 .button-85 {
   padding: 0.6em 1em;
   margin: 0 1em;
@@ -439,9 +453,9 @@ nav .NavList ul li a:hover {
   animation: glowing-button-85 20s linear infinite;
   transition: opacity 0.3s ease-in-out;
   border-radius: 10px;
-} */
+}
 
-/* @keyframes glowing-button-85 {
+@keyframes glowing-button-85 {
   0% {
     background-position: 0 0;
   }
@@ -453,9 +467,9 @@ nav .NavList ul li a:hover {
   100% {
     background-position: 0 0;
   }
-} */
+}
 
-/* .button-85:after {
+.button-85:after {
   z-index: -1;
   content: "";
   position: absolute;
@@ -465,4 +479,4 @@ nav .NavList ul li a:hover {
   left: 0;
   top: 0;
   border-radius: 10px;
-} */
+}
