@@ -144,7 +144,7 @@ export default function SignIn() {
         <Grid item xs={12} md={6} sx={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
           <Box mb={2} textAlign="center">
             <img
-              src="https://c.animaapp.com/Gjklo0yI/img/logo-final-3@2x.png"
+              src="/newLogo.png"
               alt="Logo"
               width={300}
             />
