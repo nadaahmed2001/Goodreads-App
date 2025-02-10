@@ -15,6 +15,7 @@ const Profile = () => {
     profileImage: "",
   });
 
+  
   const [message, setMessage] = useState("");
   const [imageFile, setImageFile] = useState(null);
   const [isUploading, setIsUploading] = useState(false);
