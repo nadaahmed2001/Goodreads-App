@@ -5,6 +5,8 @@ import { Container, Row, Col, Button, Alert } from "react-bootstrap";
 import BookCard from "../../../components/BookCard";
 import Navbar from "./../../../components/navbar";
 import FooterPage from "../Footer/FooterPage";
+import './userList.css'
+
 
 const UserList = () => {
   const { shelf } = useParams();
@@ -50,6 +52,7 @@ const UserList = () => {
   return (
     <>
       <Navbar />
+      <section className="user-list">
       <Container className="my-5">
         <h2 className="mb-4">{shelf.replace("_", " ").toUpperCase()}</h2>
 
@@ -86,7 +89,10 @@ const UserList = () => {
 
 
       </Container>
+      <footer className="footer-page">
       <FooterPage />
+      </footer>
+      </section>
     </>
   );
 };

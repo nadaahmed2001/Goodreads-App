@@ -166,7 +166,7 @@ export default function SignUp() {
       <Box sx={{
         flex: 1, display: "flex", flexDirection: "column", alignItems: "center", padding: "40px",
       }}>
-        <img src="https://c.animaapp.com/Gjklo0yI/img/logo-final-3@2x.png" alt="SHELF-SPHERE"
+        <img src="/newLogo.png" alt="SHELF-SPHERE"
           style={{ width: 350, marginBottom: 10 }} />
 
         <Box component="form" onSubmit={handleSubmit} sx={{
