@@ -162,33 +162,30 @@ nav .NavList ul li a:hover {
   max-width: 600px;
 }
 .search-input {
-  width: 310px;
-  padding: 5px 13px 5px 50px;
+  width: 280px;
+  padding: 5px 13px 5px 15px;
   box-sizing: border-box;
   background-color: #fff7e7;
   font-size: 15px;
+  border-radius: 10px;
+  margin-right: 2px;
+  color: #59461b;
 }
 
 .search-icon {
-  position: absolute;
-  pointer-events: none;
-  border-color: #fff7e7;
-  background-color: #59461b;
-  padding: 3px 4px;
-  line-height: 1.5;
-  margin-top: 1px;
-  margin-left: 1px;
-  color: #fff7e7;
-  width: 32px;
-  height: 32px;
+  background: #fff7e7;
+  color: #59461b;
+  padding: 5px 8px;
+  border-radius: 10px;
 }
+
 .form-control {
-  color: none;
   background-color: #fff7e7;
   border-color: transparent;
   outline: none;
   box-shadow: none;
 }
+
 .form-control:focus {
   color: none;
   background-color: #fff7e7;
@@ -196,7 +193,12 @@ nav .NavList ul li a:hover {
   outline: none;
   box-shadow: none;
 }
-
+#dropdown-lists {
+  color: #fff7e7;
+}
+#dropdown-user {
+  color: #fff7e7;
+}
 .language-selector {
   position: relative;
 }
