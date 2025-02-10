@@ -33,7 +33,6 @@ const ReviewForm = ({
               />
             </Form.Group>
           )}
-          {/* بقية الفورم */}
           <Form.Group className='mb-3'>
             <Form.Label>Rating</Form.Label>
             <StarRating
