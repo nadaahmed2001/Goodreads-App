@@ -92,13 +92,14 @@ button.white {
   padding: 0.5rem 1rem;
   box-shadow: 0 2px rgba(0,0,0,0.1);
   position: sticky;
-  width: 80%;
-  margin: auto;
+  
   background: var(--2ry, #f5eed8);
 }
 .navbar-container {
   display: flex;
   align-items: center;
+  width: 80%;
+  margin: auto;
 }
 
 /* .logo-container {
