@@ -94,9 +94,9 @@ export default function FooterPage() {
             </ul>
 
             {/* Footer Bottom */}
-            {/* <div className='footer-bottom'>
+            <div className='footer-bottom'>
                 <img src='/newLogo.png' alt="Book App Logo" />
-            </div> */}
+            </div>
         </footer>
     );
 }

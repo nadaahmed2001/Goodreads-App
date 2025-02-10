@@ -52,13 +52,10 @@ const UserList = () => {
   return (
     <>
       <Navbar />
-      <section className="user-list">
-      <Container className="my-5">
+     <section >
+      <Container className="my-5 user-list-page">
         <h2 className="mb-4">{shelf.replace("_", " ").toUpperCase()}</h2>
-
         {error && <Alert variant="danger">{error}</Alert>} {/* Show error messages */}
-
-
         <Row xs={1} md={2} lg={3} xl={4} className="g-4">
           {books.length > 0 && 
           books.filter((book) => book.book).length > 0 ? ( // Filter out null/undefined
@@ -84,15 +81,13 @@ const UserList = () => {
             <p className="text-center">No books in this list.</p> // Correctly renders when all books are null
           )}
         </Row>
-
-
-
-
       </Container>
+      </section>
+
       <footer className="footer-page">
       <FooterPage />
       </footer>
-      </section>
+  
     </>
   );
 };
