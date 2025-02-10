@@ -389,35 +389,35 @@ const Navbar = () => {
             <Nav.Link
               as={Link}
               to='/'
-              className='hoverlink   c-second c-second-hover fs-6'
+              className='hoverlink   c-second c-second-hover  '
             >
               Home
             </Nav.Link>
             <Nav.Link
               as={Link}
               to='/categories-home'
-              className='hoverlink c-second c-second-hover fs-6'
+              className='hoverlink c-second c-second-hover  '
             >
               Category
             </Nav.Link>
             <Nav.Link
               as={Link}
               to='/AuthorsBook'
-              className='hoverlink c-second c-second-hover fs-6'
+              className='hoverlink c-second c-second-hover  '
             >
               Authors
             </Nav.Link>
             <Nav.Link
               as={Link}
               to='/AboutUs'
-              className='hoverlink c-second c-second-hover fs-6'
+              className='hoverlink c-second c-second-hover  '
             >
               About Us
             </Nav.Link>
             <Nav.Link
               as={Link}
               to='/TermsConditions'
-              className='hoverlink c-second c-second-hover fs-6'
+              className='hoverlink c-second c-second-hover  '
             >
               Terms & Conditions
             </Nav.Link>

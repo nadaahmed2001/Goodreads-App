@@ -90,7 +90,7 @@ button.white {
 
 .logo-img {
   width: 80px !important;
-  height: 80px !important;
+  height: 60px !important;
 }
 
 .navbar {
@@ -200,6 +200,9 @@ nav .NavList ul li a:hover {
   color: #fff7e7;
 }
 /* //////////// */
+.navbar-nav a {
+  font-size: 13px;
+}
 @media (max-width: 1200px) {
   .navbar-toggler {
     background-color: #fff7e7 !important;
@@ -210,14 +213,17 @@ nav .NavList ul li a:hover {
     box-shadow: none !important;
   }
 
-  .navbar-collapse {
-    display: flex !important;
+  .navbar-collapse.show {
+    display: flex;
     flex-direction: column;
     text-align: center;
   }
 
   .navbar-nav {
     margin: auto;
+  }
+  .navbar-nav a {
+    font-size: 10px;
   }
   .log-in-btn {
     margin: 8px 12px 10px 0px;
