@@ -16,7 +16,7 @@ export default function ModalBtn({ title, fields, onSave, category, author }) {
     const [error, setError] = useState("");
     // console.log(formData);
     // console.log("Categories in ModalBtn:", category);
-    console.log("Author in ModalBtn:", author);
+    // console.log("Author in ModalBtn:", author);
 
     const handleShow = () => {
         setShow(true);
