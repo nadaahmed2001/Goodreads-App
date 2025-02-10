@@ -129,19 +129,7 @@ const Profile = () => {
         boxShadow: "0 8px 32px rgba(0, 0, 0, 0.1)",
         margin: "50px auto",
         maxWidth: "1200px",
-        background: `
-        radial-gradient(circle at 10% 20%, rgba(196, 184, 156, 0.1), transparent 30%),
-        radial-gradient(circle at 90% 80%, rgba(196, 184, 156, 0.1), transparent 30%),
-        linear-gradient(135deg, #E8E0C6, #D4C9A8)
-      `,
-      color: "#555",
-      fontFamily: "'Poppins', sans-serif",
-      padding: "40px",
-      borderRadius: "20px",
-      border: "1px solid rgba(255, 255, 255, 0.3)",
-      boxShadow: "0 8px 32px rgba(212, 201, 168, 0.2)",
-      margin: "50px auto",
-      maxWidth: "1200px",
+       
       }}
     >
       <div style={{ display: "flex", flexDirection: "row", gap: "40px" }}>
