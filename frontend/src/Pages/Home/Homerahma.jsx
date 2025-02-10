@@ -1,6 +1,6 @@
 import "./Homerahma.css";
 import Navbar from "../../../components/navbar";
-import { useEffect, useState } from "react";
+import { useEffect, useState ,useContext} from "react";
 import { fetchBooks } from "../../services/api";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -32,8 +32,14 @@ import BookListSection from "../../../components/BookListSection";
 import AIChatbot from "../../../components/Chatbot/AIChatbt";
 import SplitText from '../../../components/SplitText';
 
+import LanguageContext from "../../context/language";
+
+
+
+
 const HomePage = () => {
   const navigate = useNavigate();
+  const {language} = useContext(LanguageContext);
   const [books, setBooks] = useState([]);
   const [user, setUser] = useState(null);
   const [authors, setAuthors] = useState([]);
@@ -41,8 +47,11 @@ const HomePage = () => {
 
   // Quotes logic
   const [currentQuoteIndex, setCurrentQuoteIndex] = useState(0);
+
+  
   const quotes = [
     {
+      
       quote: "The only way to do great work is to love what you do.",
       author: "Steve Jobs",
     },
@@ -90,7 +99,7 @@ const HomePage = () => {
       localStorage.getItem("token") || sessionStorage.getItem("token");
     if (token) {
       axios
-        .get("http://localhost:5000/profile", {
+        .get("https://goodreads-app-production.up.railway.app//profile", {
           headers: { Authorization: `Bearer ${token}` },
         })
         .then((result) => setUser(result.data))
@@ -101,7 +110,7 @@ const HomePage = () => {
   // Fetch Authors
   useEffect(() => {
     axios
-      .get("http://localhost:5000/authors")
+      .get("https://goodreads-app-production.up.railway.app/authors")
       .then((response) => setAuthors(response.data))
       .catch((error) => console.error("Error fetching authors:", error));
   }, []);
@@ -136,13 +145,14 @@ const HomePage = () => {
           </div>
           <div className="HeroSection-Con">
             <h1 className='display-4 fw-bold'>
-              Good Reads
+              {language==='en' ? 'Shelf-sphere' : 'كوكب الرفوف'}
             </h1>
-            <SplitText />
 
-            <p>
+            
+            {/* <SplitText /> */}
 
-            </p>
+          {language==='en' ? <p className='lead'>A place where book lovers can find, review, and buy books easily.<br></br> Discover recommendations, keep reading lists, and shop for your next read—all in one place.</p> 
+          : <p className='lead'>مكان يمكن لعشاق الكتب فيه العثور على الكتب و مراجعتها وشرائها بسهولة.<br></br> اكتشف التوصيات، احتفظ بقوائم القراءة، وتسوق لقراءتك التالية - كل ذلك في مكان واحد.</p>}
           </div>
         </section>
         {/* <div className='Con-Au-cat-sec'>
@@ -253,7 +263,8 @@ const HomePage = () => {
         <section className="Home-middle">
           <div className="Home-authors">
             <Link to='/AuthorsBook' className='Home-authors-title'>
-              <h3>Most Popular Authors</h3>
+              {language==='en' ? <h3>Most Popular Authors</h3> : <h3>المؤلفين الأكثر شهرة</h3>}
+              {/* <h3>Most Popular Authors</h3> */}
             </Link>
             {currentAuthor && (
               <>
@@ -275,40 +286,58 @@ const HomePage = () => {
 
           <div className="Home-category">
             <Link to='/categories-home' className='Home-category-title'>
-              <h3>Most Popular Categories</h3>
+              <h3>
+                {language==='en' ? 'Most Popular Categories' : 'أكثر الفئات شهرة'}
+              </h3>
             </Link>
             <div className='Home-category-Icons'>
               <div className='Home-category-item'>
                 <TheaterComedyIcon />
-                <h5>Drama</h5>
+                <h5>
+                  {language==='en' ? 'Drama' : 'دراما'}
+                </h5>
               </div>
               <div className='Home-category-item'>
                 <AutoStoriesIcon />
-                <h5>Fantasy</h5>
+                <h5>
+                  {language==='en' ? 'Fantasy' : 'خيال'}
+                </h5>
               </div>
               <div className='Home-category-item'>
                 <SearchIcon />
-                <h5>Mystery</h5>
+                <h5>
+                  {language==='en' ? 'Mystery' : 'غموض'}
+                </h5>
               </div>
               <div className='Home-category-item'>
                 <MoodBadIcon />
-                <h5>Horror</h5>
+                <h5>
+                  {language==='en' ? 'Horror' : 'رعب'}
+                </h5>
               </div>
               <div className='Home-category-item'>
                 <MenuBookIcon />
-                <h5>Fiction</h5>
+                <h5>
+                  {language==='en' ? 'Fiction' : 'خيال'}
+                </h5>
               </div>
               <div className='Home-category-item'>
                 <PersonIcon />
-                <h5>Biography</h5>
+                <h5>
+                  {language==='en' ? 'Biography' : 'سيرة ذاتية'}
+                </h5>
               </div>
             </div>
 
             <div className="Home-qoutes">
-              <h3 className='Home-qoutes-title'>Quotes</h3>
+              <h3 className='Home-qoutes-title'>
+                {language==='en' ? 'Quotes' : 'اقتباسات'}
+              </h3>
               <div className="quote-body">
                 <p>{currentQuote.quote}</p>
-                <em>-<b >Author</b>:{currentQuote.author}</em>
+                <em>-<b >
+                  {language==='en' ? 'Author' : 'المؤلف'}
+                  </b>:{currentQuote.author}</em>
               </div>
               <div className="cursor2">
                 <ArrowBackIosNewIcon className='cursorClick' onClick={handlePrevQuote} />
@@ -318,12 +347,13 @@ const HomePage = () => {
           </div>
         </section>
 
-        <h2 className="Best-Selling-Books">Best-Selling Books</h2>
+        <h2 className="Best-Selling-Books">
+          {language==='en' ? 'Best-Selling Books' : 'أفضل الكتب مبيعًا'}</h2>
         <BookListSection />
         <div className='text-center mt-5'>
           <Link to='/books'>
             <button className="View-All-Books">
-              View All Books
+              {language==='en' ? 'View All Books' : 'عرض جميع الكتب'}
             </button>
           </Link>
         </div>

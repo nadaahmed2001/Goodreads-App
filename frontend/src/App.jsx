@@ -39,6 +39,8 @@ import BookPreview from '../components/BookPreview';
 import ClickSpark from './Pages/Profile/ClickSpark';
 import SalesChart from "./Pages/Admin/SalesChart";
 
+import LanguageContext from './context/language';
+
 function App() {
   const [category, setCategory] = useState([]);
   const [author, setAuthor] = useState([]);
@@ -60,7 +62,7 @@ function App() {
       .catch((err) => console.error("Error fetching authors:", err));
   }, [fetchTrigger]); // Re-fetch when fetchTrigger changes
   // console.log(category);
-
+  const [language, setLanguage] = useState("en");
   return (
     <>
 
@@ -73,6 +75,15 @@ function App() {
           sparkCount={10}
           duration={900}
         /> */}
+
+<LanguageContext.Provider value={{ language, setLanguage }}> 
+      {/* passing the language and setLanguage to the context */}
+
+      <div
+        dir={language==="ar" ? "rtl" : "ltr"}
+        className={language==="ar"? "text-right" : "text-left"}
+      >
+        
         <AuthProvider>
 
           <Routes>
@@ -109,6 +120,10 @@ function App() {
             <Route path="/search" element={<Searchfun />}></Route>
           </Routes>
         </AuthProvider>
+
+        
+      </div>
+        </LanguageContext.Provider>
       </Router>
       {/* <Helmet>
         <link

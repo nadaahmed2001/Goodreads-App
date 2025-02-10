@@ -1,8 +1,8 @@
 import { useSprings, animated } from '@react-spring/web';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, useContext } from 'react';
+import LanguageContext from '../src/context/language';
 
 const SplitText = ({
-    text = 'A place where book lovers can find, review, and buy books easily. Discover recommendations, keep reading lists, and shop for your next read—all in one place.',
     className = '',
     delay = 20,
     animationFrom = { opacity: 0, transform: 'translate3d(0,40px,0)' },
@@ -12,11 +12,19 @@ const SplitText = ({
     rootMargin = '-100px',
     textAlign = 'center',
     onLetterAnimationComplete,
-
 }) => {
-    const words = text.split(' ').map(word => word.split(''));
+    const { language } = useContext(LanguageContext);
 
+    // 🏆 Define Translations
+    const translations = {
+        en: "A place where book lovers can find, review, and buy books easily. Discover recommendations, keep reading lists, and shop for your next read—all in one place.",
+        ar: "مكان يمكن لعشاق الكتب فيه العثور على الكتب و مراجعتها وشرائها بسهولة. اكتشف التوصيات، احتفظ بقوائم القراءة، وتسوق لقراءتك التالية - كل ذلك في مكان واحد.",
+    };
+
+    const text = translations[language] || translations.en; // Default to English
+    const words = text.split(' ').map(word => word.split(''));
     const letters = words.flat();
+
     const [inView, setInView] = useState(false);
     const ref = useRef();
     const animatedCount = useRef(0);
@@ -59,7 +67,14 @@ const SplitText = ({
         <p
             ref={ref}
             className={`split-parent ${className}`}
-            style={{ textAlign, overflow: 'hidden', display: 'inline', whiteSpace: 'normal', wordWrap: 'break-word' }}
+            style={{ 
+                textAlign, 
+                overflow: 'hidden', 
+                display: 'inline', 
+                whiteSpace: 'normal', 
+                wordWrap: 'break-word', 
+                direction: language === 'ar' ? 'rtl' : 'ltr' // Adjust text direction
+            }}
         >
             {words.map((word, wordIndex) => (
                 <span key={wordIndex} style={{ display: 'inline-block', whiteSpace: 'nowrap' }}>

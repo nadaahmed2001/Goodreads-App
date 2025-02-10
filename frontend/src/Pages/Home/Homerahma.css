@@ -1,3 +1,27 @@
+html[lang="ar"] {
+  direction: rtl;
+  text-align: right;
+}
+
+html[lang="en"] {
+  direction: ltr;
+  text-align: left;
+}
+
+.HeroSection .HeroSection-Con h1, 
+.HeroSection .HeroSection-Con p {
+  text-align: inherit; /* This will follow the parent HTML direction */
+}
+
+.Quote-body, .Quote-author2 {
+  text-align: inherit;
+  font-size: 1.5rem;
+  direction: inherit;
+}
+
+
+
+
 /* Hero Section */
 .HeroSection{
   display: flex;
