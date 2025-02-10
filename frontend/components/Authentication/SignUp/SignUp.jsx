@@ -141,7 +141,7 @@ export default function SignUp() {
   
 
   return (
-    <Box sx={{ display: "flex", height: "100vh", backgroundColor: "#3f8fc0" }}>
+    <Box sx={{ display: "flex", height: "100vh", backgroundColor: "#E8E0C6" }}>
       <Box sx={{
         flex: 1, display: "flex", alignItems: "center", padding: "50px",
         backgroundImage: 'url("https://c.animaapp.com/Gjklo0yI/img/unsplash-1emwndldhs0.png")',

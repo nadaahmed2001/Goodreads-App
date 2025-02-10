@@ -92,7 +92,7 @@ export default function SignIn() {
         duration={900}
       />
 
-      <Grid container sx={{ height: "100vh", backgroundColor: "#3f8fc0" }} alignItems="center" justifyContent="center">
+      <Grid container sx={{ height: "100vh", backgroundColor: "#E8E0C6" }} alignItems="center" justifyContent="center">
         {/* Left Side - Full Height Image and Text */}
         <Grid item xs={12} md={6} sx={{ display: { xs: "none", md: "block" }, height: "100vh" }}>
           <Box
