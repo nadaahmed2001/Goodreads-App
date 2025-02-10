@@ -321,10 +321,14 @@ Categories */
 
 
 /* new section felhome zy el figma */
+.homepage{
+  background: var(--2ry, #f5eed8);
+}
 .Home-middle{
   display: flex;
   justify-content: space-evenly;
   margin-top: 50px;
+ 
 }
 .Home-middle .Home-authors{
   display: flex;
@@ -334,7 +338,7 @@ Categories */
   justify-content: center;
   align-items: center;
   border-radius: 20px;
-  background: var(--2ry, #E8E0C6);
+  background: var(--2ry, #fff7e7);
   color: #565353;
 }
 .Home-authors .Home-authors-title{
@@ -389,7 +393,7 @@ padding: 20px;
   justify-content: center;
   align-items: center;
   border-radius: 20px;
-  background: var(--2ry, #E8E0C6);
+  background: var(--2ry, #fff7e7);
 }
 .Home-category-title{
   text-decoration: none;
@@ -416,7 +420,7 @@ padding: 20px;
   width: 500px;
   height: 240px;
   border-radius: 20px;
-  background: var(--2ry, #E8E0C6);
+  background: var(--2ry, #fff7e7);
   margin-top: 80px;
 }
 .Home-qoutes-title{
