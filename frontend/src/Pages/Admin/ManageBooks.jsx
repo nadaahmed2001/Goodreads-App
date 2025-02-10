@@ -12,6 +12,7 @@ import IsLogged from "../../../components/Authentication/IsLogged";
 import { AuthContext } from "../../../src/AuthContext"; // Use AuthContext
 import { Viewer } from '@react-pdf-viewer/core';
 import '@react-pdf-viewer/core/lib/styles/index.css';
+import { Spinner } from "react-bootstrap";
 
 import "./Books.css"
 import SplitText from "../../../components/SplitText";
@@ -39,7 +40,7 @@ export default function Books({ category, author }) {
                 const response = await axios.get("https://goodreads-app-production.up.railway.app/books");
                 setBooks(response.data);
                 response.data.forEach((book, index) => {
-                    console.log(`Book ${index + 1}:`, book);
+                    // console.log(`Book ${index + 1}:`, book);
                 });
             } catch (err) {
                 console.error("Unable to fetch books:", err);
@@ -64,7 +65,7 @@ export default function Books({ category, author }) {
                 pdfData.append("file", formData.fullBook);
                 pdfData.append("upload_preset", "Goodreads-pdfs");
                 pdfData.append("folder", "book_pdfs");
-
+                setIsLoading(true)
                 const pdfUploadRes = await axios.post(
                     "https://api.cloudinary.com/v1_1/Mano22/upload",
                     pdfData
@@ -98,8 +99,8 @@ export default function Books({ category, author }) {
                 demo: formData.demo,
                 fullBook: pdfUrl,
             });
-
             alert("Book added successfully!");
+            setIsLoading(false)
 
             // Re-fetch all books
             const response = await axios.get("https://goodreads-app-production.up.railway.app/books");
@@ -136,131 +137,107 @@ export default function Books({ category, author }) {
     return (
         <div className="d-flex">
             <Sidebar />
-            <div className="flex-grow-1 p-5">
-                <div className="d-flex justify-content-between">
-                    <h1>Manage Books</h1>
-                    {/* <SplitText
-                        text="Manage Books!"
-                        className="text-2xl font-semibold text-center"
-                        delay={150}
-                        animationFrom={{ opacity: 0, transform: 'translate3d(0,50px,0)' }}
-                        animationTo={{ opacity: 1, transform: 'translate3d(0,0,0)' }}
-                        easing="easeOutCubic"
-                        threshold={0.2}
-                        rootMargin="-50px"
-                        onLetterAnimationComplete={handleAnimationComplete}
-                    /> */}
-                    <ModalBtn
-                        title="Book"
-                        category={category}
-                        author={author}
-                        book={books}
-                        fields={[
-                            { name: "name", label: "Book Name", type: "text" },
-                            { name: "description", label: "Book Description", type: "text" },
-                            { name: "category", label: "Choose Category", type: "dropdown" },
-                            { name: "author", label: "Choose Author", type: "dropdown" },
-                            { name: "demo", label: "Demo", type: "text" },
-                            { name: "fullBook", label: "Upload PDF", type: "file" },
-                            { name: "image", label: "Upload Cover Image", type: "file" }, // Add file input
-                        ]}
-                        onSave={handleSaveBook}
-                    />
-                </div>
+            <div className="flex-grow-1 p-5 d-flex flex-column">
+                {isLoading ? (
+                    <div className="d-flex flex-column justify-content-center align-items-center my-auto">
+                        <Spinner animation="border" role="status" style={{ width: "4rem", height: "4rem" }} />
+                        <p className="mt-3">Loading...</p>
+                    </div>
+                ) : (
+                    <>
+                        <div className="d-flex justify-content-between">
+                            <h1>Manage Books</h1>
+                            <ModalBtn
+                                title="Book"
+                                category={category}
+                                author={author}
+                                book={books}
+                                fields={[
+                                    { name: "name", label: "Book Name", type: "text" },
+                                    { name: "description", label: "Book Description", type: "text" },
+                                    { name: "category", label: "Choose Category", type: "dropdown" },
+                                    { name: "author", label: "Choose Author", type: "dropdown" },
+                                    { name: "demo", label: "Demo", type: "text" },
+                                    { name: "fullBook", label: "Upload PDF", type: "file" },
+                                    { name: "image", label: "Upload Cover Image", type: "file" },
+                                ]}
+                                onSave={handleSaveBook}
+                            />
+                        </div>
 
-                <Table className="mt-3" striped bordered hover>
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Photo</th>
-                            <th>Name</th>
-                            <th>Description</th>
-                            <th>Category</th>
-                            <th>Author</th>
-                            <th>Demo</th>
-                            <th>Full Book</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-
-                    {isLoading ? (
-                        <tbody>
-                            {[...Array(3)].map((_, index) => (
-                                <tr key={index}>
-                                    {[...Array(9)].map((_, i) => (
-                                        <td key={i}>
-                                            <Placeholder as="p" animation="glow">
-                                                <Placeholder xs={12} />
-                                            </Placeholder>
+                        <Table className="mt-3" style={{ border: '1px solid black' }} striped bordered hover>
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Photo</th>
+                                    <th>Name</th>
+                                    <th>Description</th>
+                                    <th>Category</th>
+                                    <th>Author</th>
+                                    <th>Demo</th>
+                                    <th>Full Book</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {books.map((book, index) => (
+                                    <tr key={book._id}>
+                                        <td>{index + 1}</td>
+                                        <td>
+                                            {book.coverImage ? (
+                                                <img
+                                                    src={book.coverImage}
+                                                    alt={book}
+                                                    width="50"
+                                                    height="60"
+                                                    style={{ cursor: "pointer" }}
+                                                    onClick={() => window.open(book.coverImage, "_blank")}
+                                                />
+                                            ) : (
+                                                "No Image"
+                                            )}
                                         </td>
-                                    ))}
-                                </tr>
-                            ))}
-                        </tbody>
-                    ) : (
-                        <tbody>
-                            {books.map((book, index) => (
-                                <tr key={book._id}>
-                                    <td>{index + 1}</td>
-                                    <td>
-                                        {book.coverImage ? (
-                                            <img
-                                                src={book.coverImage}
-                                                alt={book}
-                                                width="50"
-                                                height="60"
-                                                style={{ cursor: "pointer" }}
-                                                onClick={() => window.open(book.coverImage, "_blank")}
+                                        <td>{book.title}</td>
+                                        <td>{book.description}</td>
+                                        <td>{category?.find(cat => cat._id === book?.category)?.name || '-'}</td>
+                                        <td>{author?.find(a => a._id === book?.author)?.name || book?.author?.name || '-'}</td>
+                                        <td>
+                                            <div style={{ maxHeight: '120px', overflowY: 'auto' }}>
+                                                {book.demo}
+                                            </div>
+                                        </td>
+                                        <td>
+                                            {book.fullBook ? (
+                                                <a href={book.fullBook} target="_blank" download={book.title || "book.pdf"}>
+                                                    View PDF
+                                                </a>
+                                            ) : (
+                                                <span>No PDF available</span>
+                                            )}
+                                        </td>
+                                        <td>
+                                            <Modify
+                                                title="Book"
+                                                category={category}
+                                                author={author}
+                                                handleUpdate={(data) => handleUpdate(book._id, data)}
+                                                fields={[
+                                                    { name: "title", label: "name", type: "text" },
+                                                    { name: "description", label: "Description", type: "text" },
+                                                    { name: "category", label: "Category", type: "dropdown" },
+                                                    { name: "author", label: "Author", type: "dropdown" },
+                                                ]}
                                             />
-                                        ) : (
-                                            "No Image"
-                                        )}
-                                    </td>
-                                    <td>{book.title}</td>
-                                    <td>{book.description}</td>
-                                    <td>{category?.find(cat => cat._id === book?.category)?.name || '-'}</td>
-                                    {/* <td>{book.author.name}</td> */}
-                                    <td>{author?.find(a => a._id === book?.author)?.name || book?.author?.name || '-'}</td>
-                                    <td>
-                                        <div style={{ maxHeight: '120px', overflowY: 'auto' }}>
-                                            {book.demo}
-                                        </div>
-                                    </td>
-
-                                    <td>
-                                        {book.fullBook ? (
-                                            <a href={book.fullBook} target="_blank" download={book.title || "book.pdf"}>
-                                                View PDF
-                                            </a>
-                                            //{/* https://res.cloudinary.com/mano22/image/upload/v1738902613/book_pdfs/ltpajzp1ah8lahmc3qzp.pdf */}
-                                            // https://res.cloudinary.com/mano22/image/upload/v1738902058/book_pdfs/knkdenahfkabxmf1mqro.pdf
-                                        ) : (
-                                            <span>No PDF available</span>
-                                        )}
-                                    </td>
-                                    <td>
-                                        <Modify
-                                            title="Book"
-                                            category={category}
-                                            author={author}
-                                            // book={books}
-                                            handleUpdate={(data) => handleUpdate(book._id, data)}
-                                            fields={[
-                                                { name: "title", label: "name", type: "text" },
-                                                { name: "description", label: "Discroption", type: "text" },
-                                                { name: "category", label: "Category", type: "dropdown" },
-                                                { name: "author", label: "Author", type: "dropdown" },
-                                            ]}
-                                        />
-
-                                        <button onClick={() => handleDelete(book._id)}><XButton /></button>
-                                    </td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    )}
-                </Table>
+                                            <button onClick={() => handleDelete(book._id)}><XButton /></button>
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </Table>
+                    </>
+                )}
             </div>
-        </div >
+        </div>
     );
+
 }

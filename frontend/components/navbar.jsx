@@ -20,7 +20,7 @@ const Navbar = () => {
   };
   const { user, role, subscription, logout } = useContext(AuthContext); // Get user, role, and logout function from context
   const navigate = useNavigate();
-  
+
   const [query, setQuery] = useState(""); //  Define query state to store the search query
 
   const handleSearch = (e) => {
@@ -31,10 +31,10 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="navbar">
+    <nav className="navbar1">
       <div className="nav-top">
         <div className="imgLogo">
-          <img src="/newLogo.png" alt="logo" />
+          <img src="/newLogo.png" className="w-25" alt="logo" />
         </div>
         <div className="Searchinput">
           {/* <form onSubmit={handleSearch}>
@@ -48,28 +48,28 @@ const Navbar = () => {
             <SearchIcon></SearchIcon>
           </form> */}
           <div className="Searchinput">
-  <form onSubmit={handleSearch}>
-    <div className="input-container">
-      <input
-        type="search"
-        placeholder="Search titles, authors, publishers..."
-        className="form-control search-input"
-        value={query}
-        onChange={(e) => setQuery(e.target.value)} // Update query state
-      />
-      <SearchIcon className="search-icon" />
-    </div>
-  </form>
-</div>
+            <form onSubmit={handleSearch}>
+              <div className="input-container">
+                <input
+                  type="search"
+                  placeholder="Search titles, authors, publishers..."
+                  className="form-control search-input"
+                  value={query}
+                  onChange={(e) => setQuery(e.target.value)} // Update query state
+                />
+                <SearchIcon className="search-icon" />
+              </div>
+            </form>
+          </div>
 
         </div>
 
 
         <div className="d-flex align-items-center icons">
-        <button className="btn text-white" onClick={toggleDropdown}>
-        <Globe size={20} />
-        {selectedLanguage} {/* Display the selected language */}
-      </button>
+          <button className="btn text-white" onClick={toggleDropdown}>
+            <Globe size={20} />
+            {selectedLanguage} {/* Display the selected language */}
+          </button>
           <button className="btn text-white">
             <Moon size={20} />
             <span>  |  Dark Mood</span>

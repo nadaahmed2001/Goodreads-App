@@ -4,8 +4,8 @@
 
 /* If you are targeting Firefox on macOS */
 /* * { */
-  /* -moz-osx-font-smoothing: grayscale; */
-  /* Optional */
+/* -moz-osx-font-smoothing: grayscale; */
+/* Optional */
 /* }
 
 * {
@@ -88,14 +88,16 @@ button.white {
 
 /* basic style end */
 
-.navbar{
+.navbar1 {
   display: flex;
   flex-direction: column;
   padding: 0 20px;
-  background-color: #59461B;
+  background: linear-gradient(135deg, #59461B, #8B7355);
   position: sticky;
-  top: 0; /* This is the crucial line for sticky positioning */
-  z-index: 1000; /* Ensures navbar stays above other content */
+  top: 0;
+  /* This is the crucial line for sticky positioning */
+  z-index: 1000;
+  /* Ensures navbar stays above other content */
 
 }
 
@@ -115,8 +117,9 @@ nav .imgLogo {
 nav .imgLogo img {
   width: 150px;
   height: 110px;
-  
+
 }
+
 /* 
 nav .Searchinput {
   width: 33%;
@@ -127,10 +130,12 @@ nav .icons {
   display: flex;
   justify-content: flex-end;
 }
+
 .NavList {
   width: 100%;
   margin-top: 10px;
 }
+
 nav .NavList ul {
   display: flex;
   list-style: none;
@@ -152,6 +157,7 @@ nav .NavList ul li a {
 nav .NavList ul li a:hover {
   color: var(--2ry, #E8E0C6);
 }
+
 .Searchinput {
   position: relative;
 }
@@ -160,37 +166,48 @@ nav .NavList ul li a:hover {
   position: relative;
   display: flex;
   align-items: center;
-  width: 450px; /* You can adjust this to any desired width, like 80% or 600px */
-  max-width: 600px; /* Optionally set a max-width for responsiveness */
+  width: 450px;
+  /* You can adjust this to any desired width, like 80% or 600px */
+  max-width: 600px;
+  /* Optionally set a max-width for responsiveness */
 }
 
 .search-input {
-  width: 100%; /* Make the input take full width of its container */
-  padding-right: 35px; /* Provide enough space for the icon */
-  padding-left: 15px; /* Optional: Add some padding on the left side */
-  box-sizing: border-box; /* Ensure padding doesn't affect width calculation */
+  width: 100%;
+  /* Make the input take full width of its container */
+  padding-right: 35px;
+  /* Provide enough space for the icon */
+  padding-left: 15px;
+  /* Optional: Add some padding on the left side */
+  box-sizing: border-box;
+  /* Ensure padding doesn't affect width calculation */
   background-color: #FFF7E7;
 }
 
 .search-icon {
   position: absolute;
-  right: 10px; /* Adjust positioning of the icon */
-  pointer-events: none; /* Prevent the icon from blocking the input */
+  right: 10px;
+  /* Adjust positioning of the icon */
+  pointer-events: none;
+  /* Prevent the icon from blocking the input */
 }
+
 .language-selector {
   position: relative;
 }
 
 .dropdown-list {
   position: absolute;
-  top: 100%; /* Position below the button */
+  top: 100%;
+  /* Position below the button */
   left: 0;
   background-color: white;
   border: 1px solid #ccc;
   padding: 10px;
   list-style: none;
   margin: 0;
-  width: 100%; /* Match the button width */
+  width: 100%;
+  /* Match the button width */
   z-index: 10;
 }
 
@@ -206,7 +223,7 @@ nav .NavList ul li a:hover {
 .sign-in-btn {
   font-size: 14px;
   font-weight: 600;
-  padding: 0.8em 3em;
+  padding: 0.8em 1em;
   color: #59461B;
   background-color: #FFF7E7;
   border-radius: 20px;
@@ -216,26 +233,31 @@ nav .NavList ul li a:hover {
   transition: 0.2s;
   margin-right: 10px;
 }
+
 /* login */
 .log-in-btn {
   font-size: 14px;
   font-weight: 600;
   padding: 0.8em 3em;
   color: #59461B;
-  background-color: #FFF7E7;;
+  background-color: #FFF7E7;
+  ;
   border-radius: 20px;
   cursor: pointer;
   border: none;
   outline: none;
 }
-.sign-in-btn:hover{
+
+.sign-in-btn:hover {
   background-color: var(--2ry, #E8E0C6);
-  
-  
+
+
 }
-.log-in-btn:hover{
+
+.log-in-btn:hover {
   background-color: var(--2ry, #E8E0C6);
 }
+
 /* Responsive styles */
 /* @media (max-width: 1200px) {
   nav .imgLogo img {
@@ -344,7 +366,7 @@ nav .NavList ul li a:hover {
 } */
 
 /* subscribe btn */
-/* 
+
 .button-85 {
   padding: 0.6em 1em;
   margin: 0 1em;
@@ -384,10 +406,10 @@ nav .NavList ul li a:hover {
   height: calc(100% + 4px);
   animation: glowing-button-85 20s linear infinite;
   transition: opacity 0.3s ease-in-out;
-  border-radius: 10px;
-} */
+  border-radius: 20px;
+}
 
-/* @keyframes glowing-button-85 {
+@keyframes glowing-button-85 {
   0% {
     background-position: 0 0;
   }
@@ -399,9 +421,9 @@ nav .NavList ul li a:hover {
   100% {
     background-position: 0 0;
   }
-} */
+}
 
-/* .button-85:after {
+.button-85:after {
   z-index: -1;
   content: "";
   position: absolute;
@@ -410,5 +432,5 @@ nav .NavList ul li a:hover {
   background: #222;
   left: 0;
   top: 0;
-  border-radius: 10px;
-} */
+  border-radius: 20px;
+}

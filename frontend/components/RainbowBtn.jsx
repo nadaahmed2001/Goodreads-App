@@ -9,7 +9,7 @@ const RainbowButton = styled(Button)`
   font-weight: bold;
   text-transform: none;
   padding: 12px 24px;
-  border-radius: 8px;
+  border-radius: 20px;
   transition: all 0.4s ease-in-out;
   position: relative;
   overflow: hidden;
