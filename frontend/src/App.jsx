@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { useState, useEffect } from "react";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
+import "animate.css";
 import SignIn from "../components/Authentication/SignIn/SignIn";
 import SignUp from "../components/Authentication/SignUp/SignUp";
 
@@ -29,17 +30,17 @@ import ForgotPassword from "./Pages/PasswordReset/ForgotPassword";
 import ResetPassword from "./Pages/PasswordReset/ResetPassword";
 
 import CancelPage from "./Pages/Payment/CancelPage";
-import SuccessPage from './Pages/Payment/SuccessPage';
+import SuccessPage from "./Pages/Payment/SuccessPage";
 
 import CategoriesHome from "./Pages/Categories/CategoriesHome";
 import CategoryDetails from "./Pages/Categories/CategoryDetails";
 import Searchfun from "../components/Search/Searchfun";
 import AuthRedirect from "../components/Authentication/SignIn/AuthRedirect";
-import BookPreview from '../components/BookPreview';
-import ClickSpark from './Pages/Profile/ClickSpark';
+import BookPreview from "../components/BookPreview";
+import ClickSpark from "./Pages/Profile/ClickSpark";
 import SalesChart from "./Pages/Admin/SalesChart";
 
-import LanguageContext from './context/language';
+import LanguageContext from "./context/language";
 
 function App() {
   const [category, setCategory] = useState([]);
@@ -53,7 +54,6 @@ function App() {
       .catch((err) => console.error("Error fetching categories:", err));
   }, [fetchTrigger]); // Re-fetch when fetchTrigger changes
 
-
   // Fetch Authors
   useEffect(() => {
     fetch("https://goodreads-app-production.up.railway.app/authors")
@@ -65,8 +65,6 @@ function App() {
   const [language, setLanguage] = useState("en");
   return (
     <>
-
-
       <Router>
         {/* <ClickSpark
           sparkColor='#fff'
@@ -76,53 +74,73 @@ function App() {
           duration={900}
         /> */}
 
-<LanguageContext.Provider value={{ language, setLanguage }}> 
-      {/* passing the language and setLanguage to the context */}
+        <LanguageContext.Provider value={{ language, setLanguage }}>
+          {/* passing the language and setLanguage to the context */}
 
-      <div
-        dir={language==="ar" ? "rtl" : "ltr"}
-        className={language==="ar"? "text-right" : "text-left"}
-      >
-        
-        <AuthProvider>
+          <div
+            dir={language === "ar" ? "rtl" : "ltr"}
+            className={language === "ar" ? "text-right" : "text-left"}
+          >
+            <AuthProvider>
+              <Routes>
+                {/* <Route path='/' element={<Home />} /> */}
 
-          <Routes>
+                <Route path='/redirect' element={<AuthRedirect />} />
+                <Route path='/' element={<Homerahma />} />
+                <Route path='/AdminLogin' element={<AdminLogin />} />
+                <Route path='/AboutUs' element={<AboutUs />} />
+                <Route path='SalesChart' element={<SalesChart />} />
+                <Route path='/list/:shelf' element={<UserList />} />
+                <Route path='/CancelPage' element={<CancelPage />} />
+                <Route path='/SuccessPage' element={<SuccessPage />} />
+                <Route path='/BookPreview/:bookId' element={<BookPreview />} />
+                {/* <Route path="/Payment" element={<Payment />} /> */}
+                <Route
+                  path='/Categories'
+                  element={
+                    <Categories
+                      category={category}
+                      setFetchTrigger={setFetchTrigger}
+                    />
+                  }
+                />
+                <Route
+                  path='/ManageBooks'
+                  element={<ManageBooks category={category} author={author} />}
+                />
+                <Route
+                  path='/Authors'
+                  element={
+                    <Authors
+                      author={author}
+                      setFetchTrigger={setFetchTrigger}
+                    />
+                  }
+                />
+                <Route path='/books' element={<BookList />} />
+                <Route path='/books/:bookId' element={<BookDetails />} />
+                <Route path='/TermsConditions' element={<TermsConditions />} />
+                <Route path='/sign-up' element={<SignUp />} />
+                <Route path='/sign-in' element={<SignIn />} />
 
-            {/* <Route path='/' element={<Home />} /> */}
-
-            <Route path='/redirect' element={<AuthRedirect />} />
-            <Route path='/' element={<Homerahma />} />
-            <Route path='/AdminLogin' element={<AdminLogin />} />
-            <Route path='/AboutUs' element={<AboutUs />} />
-            <Route path='SalesChart' element={<SalesChart />} />
-            <Route path="/list/:shelf" element={<UserList />} />
-            <Route path="/CancelPage" element={<CancelPage />} />
-            <Route path="/SuccessPage" element={<SuccessPage />} />
-            <Route path="/BookPreview/:bookId" element={<BookPreview />} />
-            {/* <Route path="/Payment" element={<Payment />} /> */}
-            <Route path='/Categories' element={<Categories category={category} setFetchTrigger={setFetchTrigger} />} />
-            <Route path='/ManageBooks' element={<ManageBooks category={category} author={author} />} />
-            <Route path='/Authors' element={<Authors author={author} setFetchTrigger={setFetchTrigger} />} />
-            <Route path='/books' element={<BookList />} />
-            <Route path='/books/:bookId' element={<BookDetails />} />
-            <Route path="/TermsConditions" element={<TermsConditions />} />
-            <Route path='/sign-up' element={<SignUp />} />
-            <Route path='/sign-in' element={<SignIn />} />
-
-            <Route path='/AuthorsBook' element={<AuthorsBook />} />
-            <Route path='/AuthorDetails/:authorId' element={<AuthorDetails />} />
-            <Route path='/profile' element={<Profile />} />
-            <Route path='/forgot-password' element={<ForgotPassword />} />
-            <Route path='/reset-password' element={<ResetPassword />} />
-            <Route path='/categories-home' element={<CategoriesHome />} />
-            <Route path='categories-home/:categoryId' element={<CategoryDetails />} />
-            <Route path='*' element={<NotFound />} />
-            <Route path="/search" element={<Searchfun />}></Route>
-          </Routes>
-        </AuthProvider>
-
-        
-      </div>
+                <Route path='/AuthorsBook' element={<AuthorsBook />} />
+                <Route
+                  path='/AuthorDetails/:authorId'
+                  element={<AuthorDetails />}
+                />
+                <Route path='/profile' element={<Profile />} />
+                <Route path='/forgot-password' element={<ForgotPassword />} />
+                <Route path='/reset-password' element={<ResetPassword />} />
+                <Route path='/categories-home' element={<CategoriesHome />} />
+                <Route
+                  path='categories-home/:categoryId'
+                  element={<CategoryDetails />}
+                />
+                <Route path='*' element={<NotFound />} />
+                <Route path='/search' element={<Searchfun />}></Route>
+              </Routes>
+            </AuthProvider>
+          </div>
         </LanguageContext.Provider>
       </Router>
       {/* <Helmet>
@@ -131,7 +149,6 @@ function App() {
           rel="stylesheet"
         />
       </Helmet> */}
-
     </>
   );
 }
