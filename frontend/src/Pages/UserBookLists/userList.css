@@ -1,5 +1,24 @@
 
-.footer-page{
-    position: relative;
-    bottom: 0px;
-}
+/* Ensure the page takes up the full height */
+html, body {
+    height: 100%;
+    margin: 0;
+  }
+  
+  /* Main container for flex layout */
+  .user-list-page {
+    display: flex;
+    flex-direction: column; /* Stack the content and footer vertically */
+    min-height: 100vh; /* Ensures it takes at least the full height of the viewport */
+  }
+  
+  /* Content section should take all remaining space */
+  section {
+    flex: 1; /* This makes the content area take up the remaining space */
+  }
+  
+  /* Footer at the bottom of the page */
+  .footer-page {
+    margin-top: auto; /* Push the footer to the bottom */
+  }
+  

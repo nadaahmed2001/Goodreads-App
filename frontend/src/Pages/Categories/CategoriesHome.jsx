@@ -27,7 +27,7 @@ const CategoriesHome = () => {
                 {/* Categories Grid */}
                 <div className="row">
                     {categories.map((category) => (
-                        <div key={category._id} className="col-md-12 mb-12">
+                        <div key={category._id} className="col-md-6 mb-12">
                             {/* Category Title */}
                             <h2
                                 className="category-name"
