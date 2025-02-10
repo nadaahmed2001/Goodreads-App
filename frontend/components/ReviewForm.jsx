@@ -11,6 +11,7 @@ const ReviewForm = ({
   handleAddReview,
 }) => {
   const { user } = useContext(AuthContext);
+
   return (
     <Modal show={showModal} onHide={() => setShowModal(false)} centered>
       <Modal.Header closeButton>
@@ -32,17 +33,7 @@ const ReviewForm = ({
               />
             </Form.Group>
           )}
-          {user && (
-            <Form.Group className='mb-3'>
-              <Form.Label>Name</Form.Label>
-              <Form.Control
-                type='text'
-                value={user.first_name + " " + user.last_name}
-                readOnly
-              />
-            </Form.Group>
-          )}
-
+          {/* بقية الفورم */}
           <Form.Group className='mb-3'>
             <Form.Label>Rating</Form.Label>
             <StarRating
@@ -53,7 +44,7 @@ const ReviewForm = ({
           </Form.Group>
 
           <Form.Group className='mb-3'>
-            <Form.Label>Comment</Form.Label>
+            <Form.Label>Review</Form.Label>
             <Form.Control
               as='textarea'
               rows={3}
