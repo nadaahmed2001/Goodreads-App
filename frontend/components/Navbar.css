@@ -98,7 +98,7 @@ button.white {
 .navbar-container {
   display: flex;
   align-items: center;
-  width: 80%;
+  width: 90%;
   margin: auto;
 }
 
@@ -169,6 +169,35 @@ button.white {
     flex-direction: column;
   }
 }
+
+/* 
+/////////////////////////////////////// */
+/* Ensure Right-to-Left (RTL) layout for Arabic language */
+body[dir="rtl"] .navbar-container {
+  direction: rtl;
+}
+
+body[dir="rtl"] .navbar-main-links {
+  text-align: right;
+}
+
+body[dir="rtl"] .navbar-main-links .nav-link {
+  text-align: right;
+}
+
+body[dir="rtl"] .navbar-right-items {
+  flex-direction: row-reverse;
+}
+
+body[dir="rtl"] .navbar-right-items .language-selector {
+  order: -1;
+}
+
+body[dir="rtl"] .navbar-right-items .form-select {
+  padding-right: 1.5rem;
+  padding-left: 0.25rem;
+}
+
 /* basic style end */
 /* 
 .logo-img {
