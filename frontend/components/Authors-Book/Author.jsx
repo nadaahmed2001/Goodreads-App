@@ -29,7 +29,7 @@ export default function Author({ authors }) {
   };
   return (
     <>
-
+ <div className="author-details-container">
 <section className="authors-card">
         {currentAuthors.map((author) => (
           <div className="author-card" key={author._id}> {/* Use author._id as the key */}
@@ -65,6 +65,7 @@ export default function Author({ authors }) {
           )}
         />
       </Stack>
+      </div>
       <FooterPage />
     </>
   );

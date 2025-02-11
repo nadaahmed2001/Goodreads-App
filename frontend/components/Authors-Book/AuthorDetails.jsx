@@ -59,7 +59,7 @@ export default function AuthorDetails({ }) {
     <>
     <Navbar/>
       {/* Section to display author details */}
-      
+     
         <div className="author-details-card">
          <div className='img'>
           <img src={author.image} alt={author.name} />
@@ -95,7 +95,9 @@ export default function AuthorDetails({ }) {
       )}
      </section> 
      </section>
+    
    <FooterPage />
+ 
     </>
   );
 }
