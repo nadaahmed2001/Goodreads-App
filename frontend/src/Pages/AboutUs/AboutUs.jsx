@@ -141,17 +141,17 @@ const AboutUs = () => {
       <AboutContainer>
         <CollageSection>
           <CollageImage
-            src='../../../public/login1.jpg'
+            src='../../../login1.jpg'
             alt='Image 1'
             className='animate__animated animate__backInDown'
           />
           <CollageImage
-            src='../../../public/login2.jpg'
+            src='../../../login2.jpg'
             alt='Image 2'
             className='animate__animated animate__backInLeft'
           />
           <CollageImage
-            src='../../../public/login3.jpg'
+            src='../../../login3.jpg'
             alt='Image 3'
             className='animate__animated animate__backInRight'
           />
@@ -169,7 +169,7 @@ const AboutUs = () => {
         <TeamSection>
           <TeamMember className='animate__animated animate__backInLeft animate__delay-2s'>
             <MemberImageWrapper>
-              <img src='../../../public/mano.png' alt='Mano' />
+              <img src='../../../mano.png' alt='Mano' />
             </MemberImageWrapper>
             <MemberInfoPrimary>
               <p>
@@ -190,13 +190,13 @@ const AboutUs = () => {
               </p>
             </MemberInfoPrimary>
             <MemberImageWrapper>
-              <img src='../../../public/hosam.png' alt='Hosam' />
+              <img src='../../../hosam.png' alt='Hosam' />
             </MemberImageWrapper>
           </TeamMember>
 
           <TeamMember className='animate__animated animate__backInLeft animate__delay-4s'>
             <MemberImageWrapper>
-              <img src='../../../public/fatma.png' alt='Fatma' />
+              <img src='../../../fatma.png' alt='Fatma' />
             </MemberImageWrapper>
             <MemberInfoPrimary>
               <p>
@@ -209,7 +209,7 @@ const AboutUs = () => {
 
           <TeamMember className='animate__animated animate__backInRight animate__delay-5s reverse'>
             <MemberImageWrapper>
-              <img src='../../../public/rahma.png' alt='Rahma' />
+              <img src='../../../rahma.png' alt='Rahma' />
             </MemberImageWrapper>
             <MemberInfoSecondary>
               <p>
@@ -223,7 +223,7 @@ const AboutUs = () => {
 
           <TeamMember className='animate__animated animate__backInLeft animate__delay-6s'>
             <MemberImageWrapper>
-              <img src='../../../public/nada.jpeg' alt='Nada' />
+              <img src='../../../nada.jpeg' alt='Nada' />
             </MemberImageWrapper>
             <MemberInfoSecondary>
               <p>
