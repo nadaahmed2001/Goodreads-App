@@ -85,19 +85,22 @@ button.white {
   outline: none;
   transition: 0.2s;
 } */
+
 .custom-navbar {
   position: sticky;
   top: 0;
   z-index: 1000;
   padding: 0.5rem 1rem;
-  box-shadow: 0 2px rgba(0,0,0,0.1);
+  box-shadow: 0 2px rgba(0, 0, 0, 0.1);
   position: sticky;
-  
+
   background: var(--2ry, #f5eed8);
 }
 .navbar-container {
   display: flex;
   align-items: center;
+  justify-content: center;
+  gap: 50px;
   /* width: 100%;
   margin: auto; */
 }
@@ -121,29 +124,25 @@ button.white {
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
-  gap: 1.5rem;
- 
+  gap: 1rem;
 }
 
 .navbar-right-items {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 10px;
 }
 .sign-in-btn {
   border: 0.1rem solid black;
   border-radius: 4px;
 }
-.log-in-btn{
+.log-in-btn {
   border: 0.1rem solid black;
   border-radius: 4px;
 }
-.language-selector {
-  margin-right: 1rem;
-}
 
 .language-selector .form-select {
-  padding: 0.25rem 1.5rem;
+  background-color: transparent;
 }
 
 @media (max-width: 1199.98px) {
@@ -153,18 +152,18 @@ button.white {
     flex-direction: column;
     margin: 1rem 0;
   }
-  
+
   .navbar-right-items {
     margin-left: 0 !important;
     flex-direction: column;
     width: 100%;
   }
-  
+
   .language-selector {
     margin: 0.5rem 0;
     width: 100%;
   }
-  
+
   .nav-links-container {
     flex-direction: column;
   }
@@ -417,19 +416,6 @@ nav .NavList ul li a:hover {
   background-color: var(--2ry, #e8e0c6);
 } */
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 /* Responsive styles */
 /* @media (max-width: 1200px) {
   nav .imgLogo img {
@@ -557,16 +543,18 @@ nav .NavList ul li a:hover {
 
 .button-85:before {
   content: "";
-  background: linear-gradient(45deg,
-      #ff0000,
-      #ff7300,
-      #fffb00,
-      #48ff00,
-      #00ffd5,
-      #002bff,
-      #7a00ff,
-      #ff00c8,
-      #ff0000);
+  background: linear-gradient(
+    45deg,
+    #ff0000,
+    #ff7300,
+    #fffb00,
+    #48ff00,
+    #00ffd5,
+    #002bff,
+    #7a00ff,
+    #ff00c8,
+    #ff0000
+  );
   position: absolute;
   top: -2px;
   left: -2px;
@@ -606,3 +594,13 @@ nav .NavList ul li a:hover {
   top: 0;
   border-radius: 10px;
 }
+
+/* .navbar-toggler {
+  background-color: #fff7e7;
+}
+
+.navbar-toggler:focus {
+  outline: none !important;
+  border: none !important;
+  box-shadow: none !important;
+} */

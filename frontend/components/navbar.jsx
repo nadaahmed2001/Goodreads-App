@@ -495,42 +495,66 @@ import styled from "styled-components";
 import "./Navbar.css";
 
 const StyledNavbar = styled(BSNavbar)`
-  background-color: var(--color-grey-0) !important;
-  color: var(--color-grey-900) !important;
+  background-color: var(--bg-beige) !important;
+  box-shadow:
+    0 2px 6px rgb(255 255 255 / 45%),
+    0 8px 24px rgb(255 255 255 / 24%);
+  transition: all 0.3s ease;
 
   .navbar-brand img {
     max-height: 80px;
   }
 
   .nav-link {
-    color: var(--color-grey-900) !important;
+    color: var(--text-brown) !important;
+    border-color: var(--text-brown) !important;
     font-weight: 500;
     transition: color 0.3s ease;
+    border-radius: 10px;
   }
   .nav-link:hover {
-    color: var(--color-blue-700) !important;
+    color: var(--text-brown-hover) !important;
+    border-color: var(--text-brown-hover) !important;
+  }
+  .language-selector .form-select {
+    background-color: var(--bg-beige) !important;
+    color: var(--text-brown) !important;
+    border-color: transparent !important;
+    font-weight: 500;
+    transition: color 0.3s ease;
+    padding: 0px 30px 0px 10px;
+  }
+
+  .nav-link:hover {
+    color: var(--text-brown-hover) !important;
+  }
+
+  .navbar-container form input,
+  .navbar-container .search-icon {
+    background-color: transparent !important;
+    color: var(--text-brown) !important;
+    border-color: var(--text-brown) !important;
+    transition: color 0.3s ease;
+    border-radius: 10px;
+  }
+  .navbar-container .search-icon {
+    margin-left: 5px;
+  }
+  .navbar-container form input::placeholder {
+    color: var(--text-brown) !important;
+    font-size: 13px;
   }
 
   .navbar-toggler {
-    background-color: var(--color-grey-50) !important;
+    background-color: var(--bg-beige) !important;
     border: none;
   }
-
-  /* Dropdown customization */
-  .dropdown-menu {
-    background-color: var(--color-grey-100);
-    border: none;
+  .dropdown-menu.show {
+    background-color: var(--bg-beige) !important;
+    color: var(--text-brown) !important;
   }
   .dropdown-item {
-    color: var(--color-grey-900);
-  }
-  .dropdown-item:hover {
-    background-color: var(--color-blue-100);
-    color: var(--color-grey-0);
-  }
-  .nav-item dropdown {
-    background-color: var(color-blue-700);
-    color: var(color-yellow-100);
+    color: var(--text-brown) !important;
   }
 `;
 

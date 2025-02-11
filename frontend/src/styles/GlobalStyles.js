@@ -2,75 +2,47 @@ import { createGlobalStyle } from "styled-components";
 
 const GlobalStyles = createGlobalStyle`
 :root {
+ ////////////////////////////////////////////////////
   &, &.light-mode {
-  /* Grey */
-  --color-grey-0: #f5eed8;
-  --color-grey-50: #f9fafb;
-  --color-grey-100: #f3f4f6;
-  --color-grey-200: #e5e7eb;
-  --color-grey-300: #d1d5db;
-  --color-grey-400: #9ca3af;
-  --color-grey-500: #6b7280;
-  --color-grey-600: #4b5563;
-  --color-grey-700: #374151;
-  --color-grey-800: #1f2937;
-  --color-grey-900: #111827;
-
-  --color-blue-100: #e0f2fe;
-  --color-blue-700: #59461b;
-  --color-green-100: #dcfce7;
-  --color-green-700: #15803d;
-  --color-yellow-100: #fef9c3;
-  --color-yellow-700: #a16207;
-  --color-silver-100: #e5e7eb;
-  --color-silver-700: #374151;
-  --color-indigo-100: #e0e7ff;
-  --color-indigo-700: #4338ca;
-
-  --color-red-100: #fee2e2;
-  --color-red-700: #b91c1c;
-  --color-red-800: #991b1b;
-
-  --backdrop-color: rgba(255, 255, 255, 0.1);
+    --bg-beige: #f5eed8;
+    --bg-box: #fff7e7;
+    --bg-btn:#59461b;
+    --bg-brown: #59461b;
+    --text-brown: #59461b;
+    --text-beige: #f5eed8;
+    --border-no:transparent;
+     --bg-white:#fff;
+ 
+  --text-brown-hover:rgb(175, 157, 118);
 
   --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04);
   --shadow-md: 0px 0.6rem 2.4rem rgba(0, 0, 0, 0.06);
   --shadow-lg: 0 2.4rem 3.2rem rgba(0, 0, 0, 0.12);
   
-
     --image-grayscale: 0;
   --image-opacity: 100%;
+
+  .box-gradient {
+  background: rgba(60, 51, 80, 0);
+  background: linear-gradient(-90deg, rgba(60, 51, 80, 0) 0%, #199ae8 100%);
+  background: -webkit-linear-gradient(
+    -90deg,
+    rgba(60, 51, 80, 0) 0%,
+    #199ae8 100%
+  );
+}
   }
-  
+  ////////////////////////////////////////////////
   &.dark-mode {
-    --color-grey-0: #18212f;
---color-grey-50: #111827;
---color-grey-100: #1f2937;
---color-grey-200: #374151;
---color-grey-300: #4b5563;
---color-grey-400: #6b7280;
---color-grey-500: #9ca3af;
---color-grey-600: #d1d5db;
---color-grey-700: #e5e7eb;
---color-grey-800: #f3f4f6;
---color-grey-900: #f5eed8;
-
---color-blue-100: #075985;
---color-blue-700:#9f906b;
---color-green-100: #166534;
---color-green-700: #dcfce7;
---color-yellow-100: #854d0e;
---color-yellow-700: #f5eed8;
---color-silver-100: #374151;
---color-silver-700: #f3f4f6;
---color-indigo-100: #3730a3;
---color-indigo-700: #e0e7ff;
-
---color-red-100: #fee2e2;
---color-red-700: #b91c1c;
---color-red-800: #991b1b;
-
---backdrop-color: rgba(0, 0, 0, 0.3);
+    --bg-beige: #18212f;
+    --text-brown: #f5eed8;
+     --bg-brown: #18212f;
+    --text-brown-hover:rgb(199, 179, 133);
+    --bg-box: #18212f;
+    --bg-btn:transparent;
+    --text-beige: #f5eed8;
+     --border-no:#59461b;
+     --bg-white:#18212f;
 
 --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
 --shadow-md: 0px 0.6rem 2.4rem rgba(0, 0, 0, 0.3);
@@ -78,6 +50,7 @@ const GlobalStyles = createGlobalStyle`
 
 --image-grayscale: 10%;
 --image-opacity: 90%;
+////////////////////////////////////////////////
   }
   
   /* Indigo */

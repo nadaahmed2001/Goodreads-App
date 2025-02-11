@@ -1,36 +1,55 @@
 import React from "react";
-import Button from "react-bootstrap/Button";
+import styled, { css } from "styled-components";
+
+const StyledButton = styled.button`
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: 0.5rem;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 1px solid;
+
+  ${({ color }) =>
+    color === "blue" &&
+    css`
+      background-color: var(--bg-btn);
+      border-color: var(--text-beige);
+      color: var(--text-beige, #fff7e7);
+      box-shadow:
+        0 2px 6px rgb(255 255 255 / 45%),
+        0 8px 24px rgb(255 255 255 / 24%);
+      &:hover {
+        //background-color: var(--text-brown-hover);
+        border-color: var(--text-brown-hover);
+        color: var(--text-brown-hover);
+      }
+    `}
+
+  ${({ color }) =>
+    color === "gray" &&
+    css`
+      background-color: var(--gray-bg, #fff7e7);
+      border-color: var(--gray-bg, #fff7e7);
+      color: var(--text-brown, #59461b);
+      box-shadow:
+        0 2px 6px rgb(255 255 255 / 45%),
+        0 8px 24px rgb(255 255 255 / 24%);
+      &:hover {
+        background-color: var(--text-brown-hover);
+        border-color: var(--text-brown-hover);
+      }
+    `}
+`;
 
 const CustomButton = ({ color = "blue", icon, children, onClick }) => {
-  const buttonStyles = {
-    blue: {
-      backgroundColor: "#59461b",
-      borderColor: "#59461b",
-      ":hover": {
-        backgroundColor: "#59461b",
-        borderColor: "#59461b",
-      },
-    },
-    gray: {
-      backgroundColor: "#fff7e7",
-      borderColor: "#fff7e7",
-      ":hover": {
-        backgroundColor: "#fff7e7",
-        borderColor: "#fff7e7",
-      },
-    },
-  };
-
   return (
-    <Button
-      variant='custom'
-      onClick={onClick}
-      style={buttonStyles[color]}
-      className='d-inline-flex align-items-center gap-2 rounded-5 px-4 py-2'
-    >
+    <StyledButton color={color} onClick={onClick}>
       {icon && <span style={{ fontSize: "1.1rem" }}>{icon}</span>}
       <span>{children}</span>
-    </Button>
+    </StyledButton>
   );
 };
 

@@ -1,51 +1,90 @@
 import React from "react";
-import { Card, Button } from "react-bootstrap";
+import styled from "styled-components";
 import { Link } from "react-router-dom";
 import StarRating from "./StarRating";
 import CustomButton from "./CustomButton";
 
+const CardContainer = styled.div`
+  height: 100%;
+  background-color: var(--bg-white);
+  // border: 1px solid var(--border-no) !important;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 15px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow:
+    0 1px 4px rgb(255 255 255 / 45%),
+    0 6px 20px rgb(255 255 255 / 24%);
+  transition: all 0.3s ease;
+`;
+
+const CardImage = styled.img`
+  width: 100%;
+  height: 250px;
+  aspect-ratio: 2/3;
+  object-fit: cover;
+`;
+
+const CardBody = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+`;
+
+const CardTitle = styled.h2`
+  margin-bottom: 0.5rem;
+  font-size: 1.5rem;
+  color: var(--text-brown);
+`;
+
+const CardText = styled.p`
+  margin-bottom: 0.5rem;
+  font-size: 0.8rem;
+  color: var(--text-muted, #666);
+`;
+
+const RatingContainer = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+`;
+
+const RatingText = styled.span`
+  font-size: 1rem;
+  color: var(--text-muted, #555);
+`;
+
+const ButtonContainer = styled.div`
+  text-align: center;
+  margin-top: 0.5rem;
+`;
+
 const BookCard = ({ book }) => {
   return (
-    <Card className='h-100 shadow-sm book-card rounded-5'>
-      <Card.Img
-        variant='top'
-        src={book.coverImage}
-        alt={book.title}
-        className='img-fluid rounded-4 shadow rounded-bottom-0'
-        style={{
-          maxWidth: "100%",
-          height: "auto",
-          aspectRatio: "2/3",
-          objectFit: "cover",
-        }}
-      />
-      <Card.Body className='d-flex flex-column'>
-        <Card.Title className='mb-2  '>{book.title}</Card.Title>
-        <Card.Text className=' fs-8 mb-2 mt-0'>
-          Author: {book.author?.name}
-        </Card.Text>
-
-        <div className='d-flex flex-wrap align-items-center gap-3 mb-2'>
+    <CardContainer>
+      <CardImage src={book.coverImage} alt={book.title} />
+      <CardBody>
+        <CardTitle>{book.title}</CardTitle>
+        <CardText>Author: {book.author?.name}</CardText>
+        <RatingContainer>
           <StarRating
-            className='mb-2 mb-md-0'
             maxRating={5}
             size={24}
             defaultRating={book.averageRating}
             isReadOnly={true}
           />
-
-          <span className='fs-6 text-muted mt-1'>
-            {Number(book.averageRating).toFixed(1)}/5
-          </span>
-        </div>
-
-        <div className=' text-center mt-2'>
+          <RatingText>{Number(book.averageRating).toFixed(1)}/5</RatingText>
+        </RatingContainer>
+        <ButtonContainer>
           <Link to={`/books/${book._id}`}>
             <CustomButton variant='outline-primary'>Perview</CustomButton>
           </Link>
-        </div>
-      </Card.Body>
-    </Card>
+        </ButtonContainer>
+      </CardBody>
+    </CardContainer>
   );
 };
 
