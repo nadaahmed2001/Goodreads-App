@@ -223,7 +223,7 @@ const AboutUs = () => {
 
           <TeamMember className='animate__animated animate__backInLeft animate__delay-6s'>
             <MemberImageWrapper>
-              <img src='../../../public/nada.png' alt='Nada' />
+              <img src='../../../public/nada.jpeg' alt='Nada' />
             </MemberImageWrapper>
             <MemberInfoSecondary>
               <p>
