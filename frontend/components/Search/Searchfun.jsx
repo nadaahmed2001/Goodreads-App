@@ -4,7 +4,7 @@ import { fetchSearchResults } from "../../src/services/api";
 import BookCard from "../../components/BookCard";
 import Navbar from "../../components/navbar";
 import FooterPage from "../../src/Pages/Footer/FooterPage";
-
+import  "./search.css";
 const Searchfun = () => {
     const location = useLocation();
     const queryParams = new URLSearchParams(location.search);
@@ -35,7 +35,7 @@ const Searchfun = () => {
     return (
         <div>
             <Navbar />
-            <div className="container">
+            <div className="container search-part">
                 <h1>Search Results for "{query}"</h1>
                 
                 {loading ? <p>Loading...</p> : (
@@ -70,7 +70,9 @@ const Searchfun = () => {
                 )}
             </div>
             <FooterPage />
+            
         </div>
+        
     );
 };
 
