@@ -1,7 +1,38 @@
 import React, { useState, useEffect } from "react";
-import { Container, Row, Col, Spinner } from "react-bootstrap";
+import styled from "styled-components";
 import { fetchBooks } from "../src/services/api";
 import BookCard from "./BookCard";
+
+const SectionContainer = styled.div`
+  max-width: 1200px;
+  margin: 50px auto;
+  padding: 20px;
+`;
+
+const Title = styled.h2`
+  text-align: center;
+  margin-bottom: 1.5rem;
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: var(--text-brown, #59461b);
+
+  @media (min-width: 768px) {
+    text-align: left;
+  }
+`;
+
+const BooksGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+`;
+
+const MessageContainer = styled.div`
+  text-align: center;
+  margin: 50px 0;
+  font-size: 1.2rem;
+  color: var(--text-brown, #59461b);
+`;
 
 const BookListSection = ({ title }) => {
   const [books, setBooks] = useState([]);
@@ -23,48 +54,29 @@ const BookListSection = ({ title }) => {
 
   if (loading) {
     return (
-      <Container className='text-center my-5'>
-        <Spinner animation='border' role='status'>
-          <span className='visually-hidden'>Loading...</span>
-        </Spinner>
-      </Container>
+      <SectionContainer>
+        <MessageContainer>Loading...</MessageContainer>
+      </SectionContainer>
     );
   }
 
   return (
-    <>
-      <Container fluid='lg' className='my-5 py-4'>
-        <h2 className='text-center text-md-start mb-4 display-5 fw-bold'>
-          {title}
-        </h2>
-        {loading ? (
-          <div className='text-center my-5'>
-            <Spinner animation='border' variant='primary' />
-            <p className='visually-hidden'>Loading...</p>
-          </div>
-        ) : (
-          <>
-            <Row className='g-4'>
-              {books.map((book) => (
-                <Col key={book._id} xs={12} sm={6} md={4} lg={3} xl={3}>
-                  <BookCard
-                    book={book}
-                    className='h-100 shadow-sm hover-shadow'
-                  />
-                </Col>
-              ))}
-            </Row>
-
-            {books.length === 0 && !loading && (
-              <div className='text-center my-5 py-5'>
-                <h4 className='text-muted'>No books found</h4>
-                <p className='lead'>Check back later for new additions!</p>
-              </div>
-            )}
-          </>
-        )}
-      </Container>
-    </>
+    <SectionContainer>
+      <Title>{title}</Title>
+      {books.length === 0 ? (
+        <MessageContainer>
+          No books found. Check back later for new additions!
+        </MessageContainer>
+      ) : (
+        <BooksGrid>
+          {books.map((book) => (
+            <div key={book._id}>
+              <BookCard book={book} />
+            </div>
+          ))}
+        </BooksGrid>
+      )}
+    </SectionContainer>
   );
 };
 

@@ -62,8 +62,12 @@
  .author-details-card {
   display: flex;
   margin: 100px;
-}
 
+}
+.author-details-container{
+
+min-height: 100vh; 
+}
  .author-details-card h3 {
   font-weight: 700;
   color: #222;

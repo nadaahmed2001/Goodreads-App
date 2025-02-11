@@ -11,7 +11,6 @@
     "react-pageflip": "^2.0.3",
     "react-pdf": "^9.2.1",
     "recharts": "^2.15.1",
-    "styled-components": "^6.1.15",
     "tailwindcss": "^3.x.x",
     "uuid": "^11.0.5"
   }

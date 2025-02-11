@@ -1,6 +1,6 @@
 import "./Homerahma.css";
 import Navbar from "../../../components/navbar";
-import { useEffect, useState ,useContext} from "react";
+import { useEffect, useState, useContext } from "react";
 import { fetchBooks } from "../../services/api";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -15,12 +15,12 @@ import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 // import FastfoodIcon from "@mui/icons-material/Fastfood";
 // import SportsSoccerIcon from "@mui/icons-material/SportsSoccer";
 // import FavoriteIcon from "@mui/icons-material/Favorite";
-import TheaterComedyIcon from '@mui/icons-material/TheaterComedy'; // Drama
-import AutoStoriesIcon from '@mui/icons-material/AutoStories'; // Fantasy
-import SearchIcon from '@mui/icons-material/Search'; // Mystery
-import MoodBadIcon from '@mui/icons-material/MoodBad'; // Horror
-import MenuBookIcon from '@mui/icons-material/MenuBook'; // Fiction
-import PersonIcon from '@mui/icons-material/Person'; // Biography
+import TheaterComedyIcon from "@mui/icons-material/TheaterComedy"; // Drama
+import AutoStoriesIcon from "@mui/icons-material/AutoStories"; // Fantasy
+import SearchIcon from "@mui/icons-material/Search"; // Mystery
+import MoodBadIcon from "@mui/icons-material/MoodBad"; // Horror
+import MenuBookIcon from "@mui/icons-material/MenuBook"; // Fiction
+import PersonIcon from "@mui/icons-material/Person"; // Biography
 import MedicalInformationIcon from "@mui/icons-material/MedicalInformation";
 // import BiotechIcon from "@mui/icons-material/Biotech";
 // import BalanceIcon from "@mui/icons-material/Balance";
@@ -30,24 +30,106 @@ import { color, margin } from "@mui/system";
 import BookListSection from "../../../components/BookListSection";
 // import CustomButton from "../../../components/CustomButton";
 import AIChatbot from "../../../components/Chatbot/AIChatbt";
-import LanguageContext from '../../context/language';
+import LanguageContext from "../../context/language";
 // import SplitText from '../../../components/SplitText';
+import styled from "styled-components";
+
+const PageContainer = styled.div`
+  background-color: var(--bg-beige) !important;
+  color: var(--text-brown) !important;
+`;
+
+const HeroSection = styled.section`
+  color: var(--text-brown) !important;
+`;
+
+const HeroImage = styled.div`
+  flex: 1 1 300px;
+  img {
+    width: 100%;
+    max-width: 500px;
+    height: 370px;
+    object-fit: cover;
+    border-radius: 10px;
+  }
+`;
+
+const HeroContent = styled.div`
+  flex: 1 1 300px;
+  text-align: left;
+  h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    color: var(--text-brown) !important;
+  }
+  p {
+    font-size: 1.2rem;
+    line-height: 1.5;
+    color: var(--text-brown) !important;
+  }
+`;
+
+const HomeAuthors = styled.div`
+  background-color: var(--bg-box) !important;
+  color: var(--text-brown) !important;
+  //  border: 1px solid var(--border-no) !important;
+  box-shadow:
+    0 2px 6px rgb(255 255 255 / 45%),
+    0 8px 24px rgb(255 255 255 / 24%);
+  h3 {
+    color: var(--text-brown) !important;
+  }
+`;
+
+const HomeCategory = styled.div`
+  background-color: var(--bg-box) !important;
+  color: var(--text-brown) !important;
+  //  border: 1px solid var(--border-no) !important;
+  box-shadow:
+    0 2px 6px rgb(255 255 255 / 45%),
+    0 8px 24px rgb(255 255 255 / 24%);
+  h3 {
+    color: var(--text-brown) !important;
+  }
+`;
+
+const HomeQoutes = styled.div`
+  background-color: var(--bg-box) !important;
+  color: var(--text-brown) !important;
+  //  border: 1px solid var(--border-no) !important;
+  box-shadow:
+    0 2px 6px rgb(255 255 255 / 45%),
+    0 8px 24px rgb(255 255 255 / 24%);
+  h3 {
+    color: var(--text-brown) !important;
+  }
+`;
+const AllBooks = styled.button`
+  border: 1px solid var(--text-brown) !important;
+  color: var(--text-beige) !important;
+  transition: color 0.3s ease;
+  border-radius: 10px;
+  background: var(--bg-btn);
+  box-shadow:
+    0 2px 6px rgb(255 255 255 / 45%),
+    0 8px 24px rgb(255 255 255 / 24%);
+
+  &:hover {
+    border-color: var(--text-brown-hover);
+    color: var(--text-brown-hover);
+  }
+`;
 
 const HomePage = () => {
   const navigate = useNavigate();
-  const {language} = useContext(LanguageContext);
+  const { language } = useContext(LanguageContext);
   const [books, setBooks] = useState([]);
   const [user, setUser] = useState(null);
   const [authors, setAuthors] = useState([]);
   const [currentAuthorIndex, setCurrentAuthorIndex] = useState(0);
-
-  // Quotes logic
   const [currentQuoteIndex, setCurrentQuoteIndex] = useState(0);
-
-  
   const quotes = [
     {
-      
       quote: "The only way to do great work is to love what you do.",
       author: "Steve Jobs",
     },
@@ -70,19 +152,16 @@ const HomePage = () => {
       author: "Theodore Roosevelt",
     },
   ];
-
   const handleNextQuote = () => {
     setCurrentQuoteIndex((prevIndex) =>
       prevIndex === quotes.length - 1 ? 0 : prevIndex + 1
     );
   };
-
   const handlePrevQuote = () => {
     setCurrentQuoteIndex((prevIndex) =>
       prevIndex === 0 ? quotes.length - 1 : prevIndex - 1
     );
   };
-
   const currentQuote = quotes[currentQuoteIndex];
 
   // Fetch Books
@@ -102,7 +181,6 @@ const HomePage = () => {
         .catch((error) => console.log(error));
     }
   }, []);
-
   // Fetch Authors
   useEffect(() => {
     axios
@@ -110,46 +188,52 @@ const HomePage = () => {
       .then((response) => setAuthors(response.data))
       .catch((error) => console.error("Error fetching authors:", error));
   }, []);
-
   const logout = () => {
     localStorage.removeItem("token");
     sessionStorage.removeItem("token");
     navigate("/sign-in");
   };
-
   const handlePrevAuthor = () => {
     setCurrentAuthorIndex((prevIndex) =>
       prevIndex === 0 ? authors.length - 1 : prevIndex - 1
     );
   };
-
   const handleNextAuthor = () => {
     setCurrentAuthorIndex((prevIndex) =>
       prevIndex === authors.length - 1 ? 0 : prevIndex + 1
     );
   };
-
   const currentAuthor = authors[currentAuthorIndex];
 
   return (
     <>
-      <div className='homepage'>
+      <PageContainer>
         <Navbar />
-        <section className="HeroSection">
-          <div className="HeroSection-Img">
-            <img src="/figma-home.png"></img>
-          </div>
-          <div className="HeroSection-Con">
+        <HeroSection className='HeroSection'>
+          <HeroImage className='HeroSection-Img'>
+            <img src='/figma-home.png'></img>
+          </HeroImage>
+          <HeroContent className='HeroSection-Con'>
             <h1 className='display-4 fw-bold'>
-              {language==='en' ? 'Shelf-sphere' : 'كوكب الرفوف'}
+              {language === "en" ? "Shelf-sphere" : "كوكب الرفوف"}
             </h1>
             {/* <SplitText /> */}
 
-
-            {language==='en' ? <p className='lead'>A place where book lovers can find, review, and buy books easily.<br></br> Discover recommendations, keep reading lists, and shop for your next read—all in one place.</p> 
-          : <p className='lead'>مكان يمكن لعشاق الكتب فيه العثور على الكتب و مراجعتها وشرائها بسهولة.<br></br> اكتشف التوصيات، احتفظ بقوائم القراءة، وتسوق لقراءتك التالية - كل ذلك في مكان واحد.</p>}
-          </div>
-        </section>
+            {language === "en" ? (
+              <p className='lead'>
+                A place where book lovers can find, review, and buy books
+                easily.<br></br> Discover recommendations, keep reading lists,
+                and shop for your next read—all in one place.
+              </p>
+            ) : (
+              <p className='lead'>
+                مكان يمكن لعشاق الكتب فيه العثور على الكتب و مراجعتها وشرائها
+                بسهولة.<br></br> اكتشف التوصيات، احتفظ بقوائم القراءة، وتسوق
+                لقراءتك التالية - كل ذلك في مكان واحد.
+              </p>
+            )}
+          </HeroContent>
+        </HeroSection>
         {/* <div className='Con-Au-cat-sec'>
           <section className='PopularAuthorsSection'>
             <Link to='/AuthorsBook' className='removeUnderline'>
@@ -255,106 +339,115 @@ const HomePage = () => {
         </div>*/}
 
         {/* new section felhome zy el figma */}
-        <section className="Home-middle">
-          <div className="Home-authors">
+        <section className='Home-middle'>
+          <HomeAuthors className='Home-authors'>
             <Link to='/AuthorsBook' className='Home-authors-title'>
-              {language==='en' ? <h3>Most Popular Authors</h3> : <h3>المؤلفين الأكثر شهرة</h3>}
+              {language === "en" ? (
+                <h3>Most Popular Authors</h3>
+              ) : (
+                <h3>المؤلفين الأكثر شهرة</h3>
+              )}
               {/* <h3>Most Popular Authors</h3> */}
             </Link>
             {currentAuthor && (
               <>
-                <div className="Author-name-img-bio">
-                  <div className="Author-name-img">
+                <div className='Author-name-img-bio'>
+                  <div className='Author-name-img'>
                     <img src={currentAuthor.image}></img>
-                    <p className="Author-name">{currentAuthor.name}</p>
+                    <p className='Author-name'>{currentAuthor.name}</p>
                   </div>
-                  <div className="Author-bio">
+                  <div className='Author-bio'>
                     <p> {currentAuthor.bio}</p>
                   </div>
                 </div>
-              </>)}
-            <div className="cursors">
-              <ArrowBackIosNewIcon className="cursorClick" onClick={handlePrevAuthor} />
-              <ArrowForwardIosIcon className="cursorClick" onClick={handleNextAuthor} />
+              </>
+            )}
+            <div className='cursors'>
+              <ArrowBackIosNewIcon
+                className='cursorClick'
+                onClick={handlePrevAuthor}
+              />
+              <ArrowForwardIosIcon
+                className='cursorClick'
+                onClick={handleNextAuthor}
+              />
             </div>
-          </div>
+          </HomeAuthors>
 
-          <div className="Home-category">
+          <HomeCategory className='Home-category'>
             <Link to='/categories-home' className='Home-category-title'>
               <h3>
-                {language==='en' ? 'Most Popular Categories' : 'أكثر الفئات شهرة'}
+                {language === "en"
+                  ? "Most Popular Categories"
+                  : "أكثر الفئات شهرة"}
               </h3>
             </Link>
             <div className='Home-category-Icons'>
               <div className='Home-category-item'>
                 <TheaterComedyIcon />
-                <h5>
-                  {language==='en' ? 'Drama' : 'دراما'}
-                </h5>
+                <h5>{language === "en" ? "Drama" : "دراما"}</h5>
               </div>
               <div className='Home-category-item'>
                 <AutoStoriesIcon />
-                <h5>
-                  {language==='en' ? 'Fantasy' : 'خيال'}
-                </h5>
+                <h5>{language === "en" ? "Fantasy" : "خيال"}</h5>
               </div>
               <div className='Home-category-item'>
                 <SearchIcon />
-                <h5>
-                  {language==='en' ? 'Mystery' : 'غموض'}
-                </h5>
+                <h5>{language === "en" ? "Mystery" : "غموض"}</h5>
               </div>
               <div className='Home-category-item'>
                 <MoodBadIcon />
-                <h5>
-                  {language==='en' ? 'Horror' : 'رعب'}
-                </h5>
+                <h5>{language === "en" ? "Horror" : "رعب"}</h5>
               </div>
               <div className='Home-category-item'>
                 <MenuBookIcon />
-                <h5>
-                  {language==='en' ? 'Fiction' : 'خيال'}
-                </h5>
+                <h5>{language === "en" ? "Fiction" : "خيال"}</h5>
               </div>
               <div className='Home-category-item'>
                 <PersonIcon />
-                <h5>
-                  {language==='en' ? 'Biography' : 'سيرة ذاتية'}
-                </h5>
+                <h5>{language === "en" ? "Biography" : "سيرة ذاتية"}</h5>
               </div>
             </div>
 
-            <div className="Home-qoutes">
+            <HomeQoutes className='Home-qoutes'>
               <h3 className='Home-qoutes-title'>
-                {language==='en' ? 'Quotes' : 'اقتباسات'}
+                {language === "en" ? "Quotes" : "اقتباسات"}
               </h3>
-              <div className="quote-body">
+              <div className='quote-body'>
                 <p>{currentQuote.quote}</p>
-                <em>-<b >
-                  {language==='en' ? 'Author' : 'المؤلف'}
-                  </b>:{currentQuote.author}</em>
+                <em>
+                  -<b>{language === "en" ? "Author" : "المؤلف"}</b>:
+                  {currentQuote.author}
+                </em>
               </div>
-              <div className="cursor2">
-                <ArrowBackIosNewIcon className='cursorClick' onClick={handlePrevQuote} />
-                <ArrowForwardIosIcon className='cursorClick' onClick={handleNextQuote} />
+              <div className='cursor2'>
+                <ArrowBackIosNewIcon
+                  className='cursorClick'
+                  onClick={handlePrevQuote}
+                />
+                <ArrowForwardIosIcon
+                  className='cursorClick'
+                  onClick={handleNextQuote}
+                />
               </div>
-            </div>
-          </div>
+            </HomeQoutes>
+          </HomeCategory>
         </section>
 
-        <h2 className="Best-Selling-Books">
-          {language==='en' ? 'Best-Selling Books' : 'أفضل الكتب مبيعًا'}</h2>
+        <h2 className='Best-Selling-Books'>
+          {language === "en" ? "Best-Selling Books" : "أفضل الكتب مبيعًا"}
+        </h2>
         <BookListSection />
         <div className='text-center mt-5'>
           <Link to='/books'>
-            <button className="View-All-Books">
-              {language==='en' ? 'View All Books' : 'عرض جميع الكتب'}
-            </button>
+            <AllBooks className='View-All-Books mb-5'>
+              {language === "en" ? "View All Books" : "عرض جميع الكتب"}
+            </AllBooks>
           </Link>
         </div>
         <AIChatbot />
-        <FooterPage />
-      </div>
+      </PageContainer>
+      <FooterPage />
     </>
   );
 };
