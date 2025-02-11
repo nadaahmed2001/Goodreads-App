@@ -6,6 +6,9 @@ import "animate.css";
 import SignIn from "../components/Authentication/SignIn/SignIn";
 import SignUp from "../components/Authentication/SignUp/SignUp";
 
+import GlobalStyles from "./styles/GlobalStyles";
+import { DarkModeProvider } from "./context/DarkModeContext";
+
 import Logged from "../components/Authentication/Logged";
 import Home from "./Pages/Home/Home";
 import Homerahma from "./Pages/Home/Homerahma";
@@ -73,75 +76,85 @@ function App() {
           sparkCount={10}
           duration={900}
         /> */}
+        <DarkModeProvider>
+          <LanguageContext.Provider value={{ language, setLanguage }}>
+            {/* passing the language and setLanguage to the context */}
 
-        <LanguageContext.Provider value={{ language, setLanguage }}>
-          {/* passing the language and setLanguage to the context */}
+            <div
+              dir={language === "ar" ? "rtl" : "ltr"}
+              className={language === "ar" ? "text-right" : "text-left"}
+            >
+              <GlobalStyles />
+              <AuthProvider>
+                <Routes>
+                  {/* <Route path='/' element={<Home />} /> */}
 
-          <div
-            dir={language === "ar" ? "rtl" : "ltr"}
-            className={language === "ar" ? "text-right" : "text-left"}
-          >
-            <AuthProvider>
-              <Routes>
-                {/* <Route path='/' element={<Home />} /> */}
+                  <Route path='/redirect' element={<AuthRedirect />} />
+                  <Route path='/' element={<Homerahma />} />
+                  <Route path='/AdminLogin' element={<AdminLogin />} />
+                  <Route path='/AboutUs' element={<AboutUs />} />
+                  <Route path='SalesChart' element={<SalesChart />} />
+                  <Route path='/list/:shelf' element={<UserList />} />
+                  <Route path='/CancelPage' element={<CancelPage />} />
+                  <Route path='/SuccessPage' element={<SuccessPage />} />
+                  <Route
+                    path='/BookPreview/:bookId'
+                    element={<BookPreview />}
+                  />
+                  {/* <Route path="/Payment" element={<Payment />} /> */}
+                  <Route
+                    path='/Categories'
+                    element={
+                      <Categories
+                        category={category}
+                        setFetchTrigger={setFetchTrigger}
+                      />
+                    }
+                  />
+                  <Route
+                    path='/ManageBooks'
+                    element={
+                      <ManageBooks category={category} author={author} />
+                    }
+                  />
+                  <Route
+                    path='/Authors'
+                    element={
+                      <Authors
+                        author={author}
+                        setFetchTrigger={setFetchTrigger}
+                      />
+                    }
+                  />
+                  <Route path='/books' element={<BookList />} />
+                  <Route path='/books/:bookId' element={<BookDetails />} />
+                  <Route
+                    path='/TermsConditions'
+                    element={<TermsConditions />}
+                  />
+                  <Route path='/sign-up' element={<SignUp />} />
+                  <Route path='/sign-in' element={<SignIn />} />
 
-                <Route path='/redirect' element={<AuthRedirect />} />
-                <Route path='/' element={<Homerahma />} />
-                <Route path='/AdminLogin' element={<AdminLogin />} />
-                <Route path='/AboutUs' element={<AboutUs />} />
-                <Route path='SalesChart' element={<SalesChart />} />
-                <Route path='/list/:shelf' element={<UserList />} />
-                <Route path='/CancelPage' element={<CancelPage />} />
-                <Route path='/SuccessPage' element={<SuccessPage />} />
-                <Route path='/BookPreview/:bookId' element={<BookPreview />} />
-                {/* <Route path="/Payment" element={<Payment />} /> */}
-                <Route
-                  path='/Categories'
-                  element={
-                    <Categories
-                      category={category}
-                      setFetchTrigger={setFetchTrigger}
-                    />
-                  }
-                />
-                <Route
-                  path='/ManageBooks'
-                  element={<ManageBooks category={category} author={author} />}
-                />
-                <Route
-                  path='/Authors'
-                  element={
-                    <Authors
-                      author={author}
-                      setFetchTrigger={setFetchTrigger}
-                    />
-                  }
-                />
-                <Route path='/books' element={<BookList />} />
-                <Route path='/books/:bookId' element={<BookDetails />} />
-                <Route path='/TermsConditions' element={<TermsConditions />} />
-                <Route path='/sign-up' element={<SignUp />} />
-                <Route path='/sign-in' element={<SignIn />} />
-
-                <Route path='/AuthorsBook' element={<AuthorsBook />} />
-                <Route
-                  path='/AuthorDetails/:authorId'
-                  element={<AuthorDetails />}
-                />
-                <Route path='/profile' element={<Profile />} />
-                <Route path='/forgot-password' element={<ForgotPassword />} />
-                <Route path='/reset-password' element={<ResetPassword />} />
-                <Route path='/categories-home' element={<CategoriesHome />} />
-                <Route
-                  path='categories-home/:categoryId'
-                  element={<CategoryDetails />}
-                />
-                <Route path='*' element={<NotFound />} />
-                <Route path='/search' element={<Searchfun />}></Route>
-              </Routes>
-            </AuthProvider>
-          </div>
-        </LanguageContext.Provider>
+                  <Route path='/AuthorsBook' element={<AuthorsBook />} />
+                  <Route
+                    path='/AuthorDetails/:authorId'
+                    element={<AuthorDetails />}
+                  />
+                  <Route path='/profile' element={<Profile />} />
+                  <Route path='/forgot-password' element={<ForgotPassword />} />
+                  <Route path='/reset-password' element={<ResetPassword />} />
+                  <Route path='/categories-home' element={<CategoriesHome />} />
+                  <Route
+                    path='categories-home/:categoryId'
+                    element={<CategoryDetails />}
+                  />
+                  <Route path='*' element={<NotFound />} />
+                  <Route path='/search' element={<Searchfun />}></Route>
+                </Routes>
+              </AuthProvider>
+            </div>
+          </LanguageContext.Provider>
+        </DarkModeProvider>
       </Router>
       {/* <Helmet>
         <link

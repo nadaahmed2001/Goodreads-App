@@ -354,7 +354,6 @@
 // import "./Navbar.css";
 // import LanguageContext from "../src/context/language";
 
-
 // const Navbar = () => {
 //   // const [isOpen, setIsOpen] = useState(false);
 //   // // const [selectedLanguage, setSelectedLanguage] = useState("English");
@@ -378,7 +377,7 @@
 
 //   return (
 //     <>
-    
+
 //       <BSNavbar expand='xl' variant='light' className='custom-navbar'>
 //   <Container fluid className="navbar-container">
 //     {/* Logo - Left Side */}
@@ -432,9 +431,8 @@
 //         </Nav.Link>
 //       </Nav>
 
-    
 //       <Nav className="ms-auto navbar-right-items">
-        
+
 //         <div className="language-selector">
 //           <select
 //             value={language}
@@ -446,14 +444,13 @@
 //           </select>
 //         </div>
 
-       
 //         {user ? (
 //           <>
 //             <NavDropdown title='My Lists' id='dropdown-lists'>
-           
+
 //             </NavDropdown>
 //             <NavDropdown title={user.first_name} id='dropdown-user'>
-            
+
 //             </NavDropdown>
 //           </>
 //         ) : (
@@ -492,8 +489,50 @@ import { Globe, Moon } from "lucide-react";
 import { AuthContext } from "../src/AuthContext";
 import CheckoutButton from "../src/Pages/Payment/CheckoutButton";
 import SearchIcon from "@mui/icons-material/Search";
-import "./Navbar.css";
 import LanguageContext from "../src/context/language";
+import DarkModeToggle from "./DarkModeToggle";
+import styled from "styled-components";
+import "./Navbar.css";
+
+const StyledNavbar = styled(BSNavbar)`
+  background-color: var(--color-grey-0) !important;
+  color: var(--color-grey-900) !important;
+
+  .navbar-brand img {
+    max-height: 80px;
+  }
+
+  .nav-link {
+    color: var(--color-grey-900) !important;
+    font-weight: 500;
+    transition: color 0.3s ease;
+  }
+  .nav-link:hover {
+    color: var(--color-blue-700) !important;
+  }
+
+  .navbar-toggler {
+    background-color: var(--color-grey-50) !important;
+    border: none;
+  }
+
+  /* Dropdown customization */
+  .dropdown-menu {
+    background-color: var(--color-grey-100);
+    border: none;
+  }
+  .dropdown-item {
+    color: var(--color-grey-900);
+  }
+  .dropdown-item:hover {
+    background-color: var(--color-blue-100);
+    color: var(--color-grey-0);
+  }
+  .nav-item dropdown {
+    background-color: var(color-blue-700);
+    color: var(color-yellow-100);
+  }
+`;
 
 const Navbar = () => {
   const { language, setLanguage } = useContext(LanguageContext);
@@ -510,60 +549,71 @@ const Navbar = () => {
 
   return (
     <>
-      <BSNavbar expand="xl" variant="light" className="custom-navbar">
-        <Container fluid className="navbar-container">
+      <StyledNavbar expand='xl' variant='light' className='custom-navbar'>
+        <Container fluid className='navbar-container'>
           {/* Logo - Left Side */}
-          <BSNavbar.Brand as={Link} to="/" className="logo-container">
-            <img src="/newLogo.png" alt="logo" className="logo-img" />
+          <BSNavbar.Brand as={Link} to='/' className='logo-container'>
+            <img src='/newLogo.png' alt='logo' className='logo-img' />
           </BSNavbar.Brand>
 
           <Form
-            className="d-flex"
+            className='d-flex'
             onSubmit={handleSearch}
             style={{ position: "relative" }}
           >
             <FormControl
-              type="search"
-              placeholder="Search titles, authors, publishers..."
-              className=" search-input relative"
+              type='search'
+              placeholder='Search titles, authors, publishers...'
+              className=' search-input relative'
               value={query}
               onChange={(e) => setQuery(e.target.value)}
             />
-            <Button variant="outline-secondary" type="submit" className="search-icon">
+            <Button
+              variant='outline-secondary'
+              type='submit'
+              className='search-icon'
+            >
               <SearchIcon />
             </Button>
           </Form>
 
           {/* Centered Navigation Links */}
-          <BSNavbar.Toggle aria-controls="basic-navbar-nav" />
-          <BSNavbar.Collapse id="basic-navbar-nav" className="nav-links-container">
-            <Nav className="mx-auto navbar-main-links">
-              <Nav.Link as={Link} to="/" className="hoverlink">
+          <BSNavbar.Toggle aria-controls='basic-navbar-nav' />
+          <BSNavbar.Collapse
+            id='basic-navbar-nav'
+            className='nav-links-container'
+          >
+            <Nav className='mx-auto navbar-main-links'>
+              <Nav.Link as={Link} to='/' className='hoverlink'>
                 {language === "en" ? "Home" : "الصفحة الرئيسية"}
               </Nav.Link>
-              <Nav.Link as={Link} to="/categories-home" className="hoverlink">
+              <Nav.Link as={Link} to='/categories-home' className='hoverlink'>
                 {language === "en" ? "Category" : "الفئة"}
               </Nav.Link>
-              <Nav.Link as={Link} to="/AuthorsBook" className="hoverlink">
+              <Nav.Link as={Link} to='/AuthorsBook' className='hoverlink'>
                 {language === "en" ? "Authors" : "المؤلفون"}
               </Nav.Link>
-              <Nav.Link as={Link} to="/AboutUs" className="hoverlink">
+              <Nav.Link as={Link} to='/AboutUs' className='hoverlink'>
                 {language === "en" ? "About Us" : "معلومات عنا"}
               </Nav.Link>
-              <Nav.Link as={Link} to="/TermsConditions" className="hoverlink">
+              <Nav.Link as={Link} to='/TermsConditions' className='hoverlink'>
                 {language === "en" ? "Terms & Conditions" : "الشروط والأحكام"}
               </Nav.Link>
             </Nav>
 
-            <Nav className="ms-auto navbar-right-items">
-              <div className="language-selector">
+            <Nav className='ms-auto navbar-right-items'>
+              <div className=' '>
+                <DarkModeToggle />
+              </div>
+
+              <div className='language-selector'>
                 <select
                   value={language}
                   onChange={(e) => setLanguage(e.target.value)}
-                  className="form-select"
+                  className='form-select'
                 >
-                  <option value="en">EN</option>
-                  <option value="ar">AR</option>
+                  <option value='en'>EN</option>
+                  <option value='ar'>AR</option>
                 </select>
               </div>
 
@@ -573,11 +623,13 @@ const Navbar = () => {
                   {subscription === "InActive" && role === "user" && (
                     <CheckoutButton />
                   )}
-                  <NavDropdown title="My Lists" id="dropdown-lists">
+                  <NavDropdown title='My Lists' id='dropdown-lists'>
                     <NavDropdown.Item
                       onClick={() => navigate("/list/currently_reading")}
                     >
-                      {language === "en" ? "Currently Reading" : "القراءة الحالية"}
+                      {language === "en"
+                        ? "Currently Reading"
+                        : "القراءة الحالية"}
                     </NavDropdown.Item>
                     <NavDropdown.Item
                       onClick={() => navigate("/list/want_to_read")}
@@ -589,13 +641,13 @@ const Navbar = () => {
                     </NavDropdown.Item>
                   </NavDropdown>
 
-                  <NavDropdown title={user.first_name} id="dropdown-user">
+                  <NavDropdown title={user.first_name} id='dropdown-user'>
                     {role === "admin" && (
-                      <NavDropdown.Item as={Link} to="/categories">
+                      <NavDropdown.Item as={Link} to='/categories'>
                         {language === "en" ? "Admin Dashboard" : "لوحة التحكم"}
                       </NavDropdown.Item>
                     )}
-                    <NavDropdown.Item as={Link} to="/profile">
+                    <NavDropdown.Item as={Link} to='/profile'>
                       {language === "en" ? "Profile" : "الملف الشخصي"}
                     </NavDropdown.Item>
                     <NavDropdown.Item onClick={logout}>
@@ -605,10 +657,10 @@ const Navbar = () => {
                 </>
               ) : (
                 <>
-                  <Nav.Link as={Link} to="/sign-up" className="sign-in-btn">
+                  <Nav.Link as={Link} to='/sign-up' className='sign-in-btn'>
                     {language === "en" ? "Sign up" : "سجل"}
                   </Nav.Link>
-                  <Nav.Link as={Link} to="/sign-in" className="log-in-btn">
+                  <Nav.Link as={Link} to='/sign-in' className='log-in-btn'>
                     {language === "en" ? "Log in" : "تسجيل الدخول"}
                   </Nav.Link>
                 </>
@@ -616,9 +668,10 @@ const Navbar = () => {
             </Nav>
           </BSNavbar.Collapse>
         </Container>
-      </BSNavbar>
+      </StyledNavbar>
     </>
   );
 };
 
 export default Navbar;
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////
