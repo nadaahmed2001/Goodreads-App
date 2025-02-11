@@ -11,6 +11,7 @@ const AboutContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 50px;
+  overflow-x: hidden;
 `;
 
 const CollageSection = styled.div`
