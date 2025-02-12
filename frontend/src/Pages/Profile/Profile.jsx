@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { AuthContext } from "../../AuthContext";
 import Navbar from "../../../components/navbar";
-
+import Denied from "./Denied"
 const Profile = () => {
   const { user, setUser } = useContext(AuthContext);
 
@@ -35,9 +35,7 @@ const Profile = () => {
 
   if (!user) {
     return (
-      <div style={{ color: "#555", textAlign: "center", fontSize: "24px", fontFamily: "'Poppins', sans-serif" }}>
-        Loading...
-      </div>
+     <Denied/>
     );
   }
 
