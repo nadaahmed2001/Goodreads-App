@@ -613,6 +613,7 @@ const Navbar = () => {
                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 
+                
                 {language === "en" ? "Home" : "الصفحة الرئيسية"}
               </Nav.Link>
               <Nav.Link as={Link} to='/categories-home' className='hoverlink'>
