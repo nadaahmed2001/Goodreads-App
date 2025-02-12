@@ -35,7 +35,11 @@ import LanguageContext from "../../context/language";
 import styled from "styled-components";
 import SplitText from "../../../components/SplitText";
 
+import StartCanvas from "../../../components/canvas/Stars";
+
 const PageContainer = styled.div`
+  position: relative;
+  z-index: 1000;
   background-color: var(--bg-beige) !important;
   color: var(--text-brown) !important;
 `;
@@ -209,6 +213,7 @@ const HomePage = () => {
   return (
     <>
       <PageContainer>
+        <StartCanvas />
         <Navbar />
         <HeroSection className='HeroSection'>
           <HeroImage className='HeroSection-Img'>

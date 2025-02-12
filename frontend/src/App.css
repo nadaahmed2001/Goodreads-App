@@ -5,6 +5,77 @@
   cursor: url(https://cur.cursors-4u.net/cursors/cur-10/cur970.cur), auto !important;
 }
 
+/* ////////////////////////////////////////////////////////////////////////////////////////////////// */
+.violet-gradient {
+  background: rgba(60, 51, 80, 0);
+  background: linear-gradient(-90deg, rgba(60, 51, 80, 0) 0%, #804dee 100%);
+  background: -webkit-linear-gradient(
+    -90deg,
+    rgba(60, 51, 80, 0) 0%,
+    #804dee 100%
+  );
+}
+
+.green-pink-gradient {
+  background: "#00cea8";
+  background: linear-gradient(90.13deg, #00cea8 1.9%, #bf61ff 97.5%);
+  background: -webkit-linear-gradient(-90.13deg, #00cea8 1.9%, #bf61ff 97.5%);
+}
+
+/* .green-pink-gradient {
+  background: "#59461b";
+  background: linear-gradient(90.13deg, #59461b 1.9%, #f5eed8 97.5%);
+  background: -webkit-linear-gradient(-90.13deg, #59461b 1.9%, #f5eed8 97.5%);
+} */
+
+.orange-text-gradient {
+  background: #ff6600;
+  background: -webkit-linear-gradient(to top, #ff6600, #ff4500);
+  background: linear-gradient(to top, #ff6600, #ff4500);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.yellow-text-gradient {
+  background: #f7df1e;
+  background: -webkit-linear-gradient(to top, #f7df1e, #ffeb3b);
+  background: linear-gradient(to top, #f7df1e, #ffeb3b);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.blue-text-gradient {
+  background: #4e6bff;
+  background: -webkit-linear-gradient(to top, #4e6bff, #0099ff);
+  background: linear-gradient(to top, #4e6bff, #0099ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.react-text-gradient {
+  background: #61dafb;
+  background: -webkit-linear-gradient(to top, #61dafb, #42a5f5);
+  background: linear-gradient(to top, #61dafb, #42a5f5);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.pink-text-gradient {
+  background: #c6538c;
+  background: -webkit-linear-gradient(to top, #c6538c, #ff7e5f);
+  background: linear-gradient(to top, #c6538c, #ff7e5f);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.green-text-gradient {
+  background: #11998e;
+  background: -webkit-linear-gradient(to top, #11998e, #38ef7d);
+  background: linear-gradient(to top, #11998e, #38ef7d);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+/* ////////////////////////////////////////////////////////////////////////////////////////////////// */
 tr th,
 tr td {
   text-align: center;
@@ -13,10 +84,6 @@ tr td {
 td {
   max-width: 200px;
 }
-
-/* .container {
-  padding: 50px 30px;
-} */
 
 .read-the-docs {
   color: #888;

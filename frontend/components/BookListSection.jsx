@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
+import { motion } from "framer-motion";
 import { fetchBooks } from "../src/services/api";
 import BookCard from "./BookCard";
+import { fadeIn } from "../src/utils/motion";
 
 const SectionContainer = styled.div`
   max-width: 1200px;
@@ -69,10 +71,16 @@ const BookListSection = ({ title }) => {
         </MessageContainer>
       ) : (
         <BooksGrid>
-          {books.map((book) => (
-            <div key={book._id}>
+          {books.map((book, index) => (
+            <motion.div
+              key={book._id}
+              variants={fadeIn("left", "spring", index * 0.3, 0.75)}
+              initial='hidden'
+              whileInView='show'
+              viewport={{ once: true, amount: 0.5 }}
+            >
               <BookCard book={book} />
-            </div>
+            </motion.div>
           ))}
         </BooksGrid>
       )}

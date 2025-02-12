@@ -7,11 +7,11 @@ import { Tilt } from "react-tilt";
 
 const CardContainer = styled.div`
   position: relative;
-  height: 480px;
+  height: 440px;
   background-color: var(--bg-white);
   // border: 1px solid var(--border-no) !important;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  border-radius: 15px;
+  border-radius: 10px;
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -23,7 +23,7 @@ const CardContainer = styled.div`
 
 const CardImage = styled.img`
   width: 100%;
-  height: 250px;
+  height: 240px;
   aspect-ratio: 2/3;
   object-fit: cover;
 `;
@@ -36,7 +36,7 @@ const CardBody = styled.div`
 
 const CardTitle = styled.h2`
   margin-bottom: 0.5rem;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   color: var(--text-brown);
 `;
 
