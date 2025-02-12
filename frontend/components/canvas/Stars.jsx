@@ -12,7 +12,7 @@ const Stars = (props) => {
       ref.current.rotation.y -= delta / 20;
     }
   });
-  const sphere = random.inSphere(new Float32Array(6000), { radius: 1.2 });
+  const sphere = random.inSphere(new Float32Array(6000), { radius: 1.5 });
   return (
     <group rotation={[0, 0, Math.PI / 4]}>
       <Points ref={ref} positions={sphere} stride={3} {...props}>
