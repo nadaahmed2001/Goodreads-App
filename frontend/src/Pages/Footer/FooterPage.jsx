@@ -8,8 +8,8 @@ const FooterContainer = styled.footer`
   background-color: var(--bg-brown) !important;
   color: var(--text-brown) !important;
   box-shadow:
-    0 2px 6px rgb(255 255 255 / 45%),
-    0 8px 24px rgb(255 255 255 / 24%);
+    0px 0px 13px 0px rgb(255 255 255 / 45%),
+    0px 2px 13px 3px rgb(255 255 255 / 24%);
   transition: all 0.3s ease;
 `;
 

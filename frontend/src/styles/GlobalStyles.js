@@ -9,11 +9,14 @@ const GlobalStyles = createGlobalStyle`
     --bg-btn:#59461b;
     --bg-brown: #59461b;
     --text-brown: #59461b;
+    --text-brown-hover:rgb(175, 157, 118);
+
     --text-beige: #f5eed8;
     --border-no:transparent;
      --bg-white:#fff;
- 
-  --text-brown-hover:rgb(175, 157, 118);
+     --chat-btn: #59461b;
+   --chat-btn-hover:rgb(151, 136, 102);
+   
 
   --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04);
   --shadow-md: 0px 0.6rem 2.4rem rgba(0, 0, 0, 0.06);
@@ -36,13 +39,15 @@ const GlobalStyles = createGlobalStyle`
   &.dark-mode {
     --bg-beige: #18212f;
     --text-brown: #f5eed8;
-     --bg-brown: #18212f;
+    --bg-brown: #18212f;
     --text-brown-hover:rgb(199, 179, 133);
     --bg-box: #18212f;
     --bg-btn:transparent;
     --text-beige: #f5eed8;
-     --border-no:#59461b;
-     --bg-white:#18212f;
+    --border-no:#59461b;
+    --bg-white:#18212f;
+    --chat-btn:#18212f;
+    --chat-btn-hover:#;
 
 --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
 --shadow-md: 0px 0.6rem 2.4rem rgba(0, 0, 0, 0.3);

@@ -11,7 +11,10 @@ const StyledButton = styled.button`
   cursor: pointer;
   transition: all 0.3s ease;
   border: 1px solid;
-
+  width: 250px;
+  .span {
+    margin: auto;
+  }
   ${({ color }) =>
     color === "blue" &&
     css`
@@ -27,7 +30,6 @@ const StyledButton = styled.button`
         color: var(--text-brown-hover);
       }
     `}
-
   ${({ color }) =>
     color === "gray" &&
     css`
@@ -41,14 +43,14 @@ const StyledButton = styled.button`
         background-color: var(--text-brown-hover);
         border-color: var(--text-brown-hover);
       }
-    `}
+    `};
 `;
 
 const CustomButton = ({ color = "blue", icon, children, onClick }) => {
   return (
     <StyledButton color={color} onClick={onClick}>
       {icon && <span style={{ fontSize: "1.1rem" }}>{icon}</span>}
-      <span>{children}</span>
+      <span className='span'>{children}</span>
     </StyledButton>
   );
 };
