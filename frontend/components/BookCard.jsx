@@ -3,9 +3,11 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import StarRating from "./StarRating";
 import CustomButton from "./CustomButton";
+import { Tilt } from "react-tilt";
 
 const CardContainer = styled.div`
-  height: 100%;
+  position: relative;
+  height: 480px;
   background-color: var(--bg-white);
   // border: 1px solid var(--border-no) !important;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -58,33 +60,40 @@ const RatingText = styled.span`
 `;
 
 const ButtonContainer = styled.div`
+  position: absolute;
+  bottom: 15px;
+  left: 0;
+  right: 0;
   text-align: center;
-  margin-top: 0.5rem;
+  width: 100%;
 `;
 
 const BookCard = ({ book }) => {
   return (
-    <CardContainer>
-      <CardImage src={book.coverImage} alt={book.title} />
-      <CardBody>
-        <CardTitle>{book.title}</CardTitle>
-        <CardText>Author: {book.author?.name}</CardText>
-        <RatingContainer>
-          <StarRating
-            maxRating={5}
-            size={24}
-            defaultRating={book.averageRating}
-            isReadOnly={true}
-          />
-          <RatingText>{Number(book.averageRating).toFixed(1)}/5</RatingText>
-        </RatingContainer>
+    <Tilt options={{ scale: 1.05, glare: false }}>
+      <CardContainer>
+        <CardImage src={book.coverImage} alt={book.title} />
+        <CardBody>
+          <CardTitle>{book.title}</CardTitle>
+          <CardText>Author: {book.author?.name}</CardText>
+          <RatingContainer>
+            <StarRating
+              maxRating={5}
+              size={24}
+              defaultRating={book.averageRating}
+              isReadOnly={true}
+            />
+            <RatingText>{Number(book.averageRating).toFixed(1)}/5</RatingText>
+          </RatingContainer>
+        </CardBody>
+
         <ButtonContainer>
           <Link to={`/books/${book._id}`}>
             <CustomButton variant='outline-primary'>Perview</CustomButton>
           </Link>
         </ButtonContainer>
-      </CardBody>
-    </CardContainer>
+      </CardContainer>
+    </Tilt>
   );
 };
 
