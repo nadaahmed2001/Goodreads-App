@@ -602,13 +602,18 @@ const Navbar = () => {
           </Form>
 
           {/* Centered Navigation Links */}
-          <BSNavbar.Toggle aria-controls='basic-navbar-nav' />
-          <BSNavbar.Collapse
-            id='basic-navbar-nav'
-            className='nav-links-container'
-          >
-            <Nav className='mx-auto navbar-main-links'>
-              <Nav.Link as={Link} to='/' className='hoverlink'>
+          <BSNavbar.Toggle aria-controls="basic-navbar-nav" />
+          <BSNavbar.Collapse id="basic-navbar-nav" className="nav-links-container">
+            <Nav className="mx-auto navbar-main-links">
+              <Nav.Link as={Link} to="/" className="hoverlink">
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                
+                
                 {language === "en" ? "Home" : "الصفحة الرئيسية"}
               </Nav.Link>
               <Nav.Link as={Link} to='/categories-home' className='hoverlink'>
@@ -625,19 +630,17 @@ const Navbar = () => {
               </Nav.Link>
             </Nav>
 
-            <Nav className='ms-auto navbar-right-items'>
-              <div className=' '>
-                <DarkModeToggle />
-              </div>
-
-              <div className='language-selector'>
+            <Nav className="ms-auto navbar-right-items">
+              <div className="language-selector">
+                
                 <select
                   value={language}
                   onChange={(e) => setLanguage(e.target.value)}
                   className='form-select'
                 >
-                  <option value='en'>EN</option>
-                  <option value='ar'>AR</option>
+
+                  <option value="en">EN</option>
+                  <option value="ar">AR</option>
                 </select>
               </div>
 
