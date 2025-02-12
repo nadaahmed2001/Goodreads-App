@@ -50,16 +50,16 @@ export default function SignUp() {
     const nameRegex = /^[A-Za-z0-9]+$/;
     
     if (formData.firstName.length < 4 || !nameRegex.test(formData.firstName)) {
-      newErrors.firstName = "First name must be at least 4 characters (No special characters).";
+      newErrors.firstName = " must be at least 4 characters (No special characters).";
     }
     if (formData.lastName.length < 4 || !nameRegex.test(formData.lastName)) {
-      newErrors.lastName = "Last name must be at least 4 characters (No special characters).";
+      newErrors.lastName = " must be at least 4 characters (No special characters).";
     }
     if (formData.email.length < 4 || !formData.email.includes("@")) {
       newErrors.email = "Not Valid Email.";
     }
     if (formData.password.length < 6 || !/[a-zA-Z]/.test(formData.password)) {
-      newErrors.password = "Password must be at least 6 characters and contain at least one letter.";
+      newErrors.password = "must be at least 6 characters and least one letter.";
     }
     if (formData.password !== formData.confirmPassword) {
       newErrors.confirmPassword = "Passwords do not match.";
@@ -123,6 +123,7 @@ export default function SignUp() {
       if (response.data.message === "OTP Verified") {
         setOpenModal(false);
         navigate("/sign-in");
+        alert("Account Created Successfully");
       } else {
         setOtpError("Incorrect OTP, please try again.");
       }
@@ -148,8 +149,6 @@ export default function SignUp() {
         backgroundSize: 'cover', backgroundPosition: 'center',
       }}>
         <Typography variant="h2" sx={{ color: "#000", fontWeight: "bold", lineHeight: 1.2 }}>
-          
-        
 
           <ShinyText text=" Join With us " disabled={false} speed={2} className='custom-class' /> 
           <br></br>
@@ -164,7 +163,7 @@ export default function SignUp() {
       </Box>
 
       <Box sx={{
-        flex: 1, display: "flex", flexDirection: "column", alignItems: "center", padding: "40px",
+        flex: 1, display: "flex", flexDirection: "column", alignItems: "center", padding: "32px",
       }}>
         <img src="/newLogo.png" alt="SHELF-SPHERE"
           style={{ width: 350, marginBottom: 10 }} />
@@ -178,15 +177,19 @@ export default function SignUp() {
             sx={{ 
               mb: 3, 
               input: { color: 'white' }, 
-              "& .MuiInput-underline:after": { borderBottomColor: "#bcb499" } // Custom focus underline color
+              "& .MuiInput-underline:after": { borderBottomColor: "#bcb499" }, // Custom focus underline color
+           
             }}   />
+
+            
 
           <TextField fullWidth name="lastName" placeholder="Last Name" variant="standard"
             value={formData.lastName} onChange={handleChange} error={!!errors.lastName} helperText={errors.lastName}
             sx={{ 
               mb: 3, 
               input: { color: 'white' }, 
-              "& .MuiInput-underline:after": { borderBottomColor: "#bcb499" } // Custom focus underline color
+              "& .MuiInput-underline:after": { borderBottomColor: "#bcb499" }, // Custom focus underline color
+        
             }}  />
 
           <TextField fullWidth name="email" placeholder="Email Address" variant="standard"
@@ -194,7 +197,8 @@ export default function SignUp() {
             sx={{ 
               mb: 3, 
               input: { color: 'white' }, 
-              "& .MuiInput-underline:after": { borderBottomColor: "#bcb499" } // Custom focus underline color
+              "& .MuiInput-underline:after": { borderBottomColor: "#bcb499" }, // Custom focus underline color
+        
             }}  />
 
           <TextField fullWidth type="password" name="password" placeholder="Password" variant="standard"
@@ -202,7 +206,8 @@ export default function SignUp() {
             sx={{ 
               mb: 3, 
               input: { color: 'white' }, 
-              "& .MuiInput-underline:after": { borderBottomColor: "#bcb499" } // Custom focus underline color
+              "& .MuiInput-underline:after": { borderBottomColor: "#bcb499" }, // Custom focus underline color
+         
             }}  />
 
           <TextField fullWidth type="password" name="confirmPassword" placeholder="Confirm Password" variant="standard"
@@ -210,7 +215,8 @@ export default function SignUp() {
             sx={{ 
               mb: 3, 
               input: { color: 'white' }, 
-              "& .MuiInput-underline:after": { borderBottomColor: "#bcb499" } // Custom focus underline color
+              "& .MuiInput-underline:after": { borderBottomColor: "#bcb499" },// Custom focus underline color
+       
             }}  />
 
 <CreateBtn onClick={handleSubmit} />
@@ -252,14 +258,87 @@ export default function SignUp() {
           </Typography>
       </Box>
 
-      <Modal open={openModal} onClose={() => setOpenModal(false)} sx={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
-        <Box sx={{ backgroundColor: "white", padding: 4, borderRadius: 2 }}>
-          <Typography variant="h6">Enter OTP</Typography>
-          <TextField fullWidth value={otp} onChange={(e) => setOtp(e.target.value)} placeholder="Enter OTP" sx={{ mt: 2 }} />
-          {otpError && <Typography color="error">{otpError}</Typography>}
-          <Button fullWidth onClick={verifyOtp} variant="contained" sx={{ mt: 2 }}>Verify</Button>
-        </Box>
-      </Modal>
+      <Modal
+  open={openModal}
+  onClose={() => setOpenModal(false)}
+  sx={{
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  }}
+>
+  <Box
+    sx={{
+      background: "linear-gradient(145deg, #e8e0c6, #d4c9a8)",
+      padding: 4,
+      borderRadius: 2,
+      boxShadow: "0px 4px 20px rgba(0, 0, 0, 0.2)",
+      width: "100%",
+      maxWidth: "400px",
+      textAlign: "center",
+    }}
+  >
+    <Typography
+      variant="h6"
+      sx={{
+        color: "#4a3f35",
+        fontWeight: "bold",
+        mb: 2,
+      }}
+    >
+      Enter OTP
+    </Typography>
+    <TextField
+      fullWidth
+      value={otp}
+      onChange={(e) => setOtp(e.target.value)}
+      placeholder="Enter OTP"
+      sx={{
+        mt: 2,
+        backgroundColor: "rgba(255, 255, 255, 0.8)",
+        borderRadius: 1,
+        "& .MuiOutlinedInput-root": {
+          "& fieldset": {
+            borderColor: "#e8e0c6",
+          },
+          "&:hover fieldset": {
+            borderColor: "#d4c9a8",
+          },
+          "&.Mui-focused fieldset": {
+            borderColor: "#4a3f35",
+          },
+        },
+      }}
+    />
+    {otpError && (
+      <Typography
+        color="error"
+        sx={{
+          mt: 1,
+          fontSize: "0.875rem",
+        }}
+      >
+        {otpError}
+      </Typography>
+    )}
+    <Button
+      fullWidth
+      onClick={verifyOtp}
+      variant="contained"
+      sx={{
+        mt: 2,
+        background: "linear-gradient(145deg, #4a3f35, #6b5c4f)",
+        color: "#e8e0c6",
+        fontWeight: "bold",
+        "&:hover": {
+          background: "linear-gradient(145deg, #6b5c4f, #4a3f35)",
+        },
+      }}
+    >
+      Verify
+    </Button>
+  </Box>
+</Modal>
       
     </Box>
   );

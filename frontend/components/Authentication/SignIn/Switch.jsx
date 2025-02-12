@@ -68,7 +68,7 @@ const StyledWrapper = styled.div`
   }
 
   .checkbox-wrapper-35 .switch:checked + label::before {
-    background-color: #4caf50;
+    background-color:rgb(202, 178, 121);
   }
 
   .checkbox-wrapper-35 .switch:checked + label::after {
@@ -103,7 +103,7 @@ const StyledWrapper = styled.div`
   }
 
   .checkbox-wrapper-35 .switch-x-checked {
-    color: #4caf50;
+    color: #e8e0c6;
   }
 
   .checkbox-wrapper-35 .switch-x-unchecked {

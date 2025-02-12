@@ -172,16 +172,40 @@ export default function SignIn() {
               maxWidth: "400px",
             }}
           >
-            <TextField
-              label="Enter your email"
-              variant="outlined"
-              fullWidth
-              margin="normal"
-              required
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              sx={{ backgroundColor: "rgba(255, 255, 255, 0.8)" }}
-            />
+<TextField
+  label="Enter your email"
+  variant="outlined"
+  fullWidth
+  margin="normal"
+  required
+  value={email}
+  onChange={(e) => setEmail(e.target.value)}
+  sx={{
+    backgroundColor: "rgba(255, 255, 255, 0.8)",
+    "& .MuiOutlinedInput-notchedOutline": { border: "none" }, // Remove border
+    "& .MuiInputLabel-root": {
+      color: "gray", // Default label color
+      transition: "all 0.3s ease", // Smooth transition for label color and movement
+    },
+    "& .MuiInputLabel-root.Mui-focused": {
+      color: "#e8e0c6", // Focused label color
+      transform: "translate(0, -20px)", // Move the label upwards when focused
+      fontSize: "0.75rem", // Smaller font size for the label when focused
+    },
+    "& .MuiInputLabel-root.Mui-shrink, .MuiInputLabel-root": {
+      color: email ? "#e8e0c6" : "gray", // Change color based on value (email)
+      transform: email ? "translate(0, -20px)" : "translate(10px, 15px)", // Adjust label position when empty
+      fontSize: email ? "0.75rem" : "1rem", // Maintain smaller font size
+    },  "& .MuiInputLabel-asterisk": {
+      display: "none", // Hide the asterisk that shows up with required
+    }
+  }}
+/>
+
+
+
+
+
 
             <TextField
               label="Enter your password"
@@ -192,7 +216,26 @@ export default function SignIn() {
               required
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              sx={{ backgroundColor: "rgba(255, 255, 255, 0.8)" }}
+              sx={{
+                backgroundColor: "rgba(255, 255, 255, 0.8)",
+                "& .MuiOutlinedInput-notchedOutline": { border: "none" }, // Remove border
+                "& .MuiInputLabel-root": {
+                  color: "gray", // Default label color
+                  transition: "all 0.3s ease", // Smooth transition for label color and movement
+                },
+                "& .MuiInputLabel-root.Mui-focused": {
+                  color: "#e8e0c6", // Focused label color
+                  transform: "translate(0, -20px)", // Move the label upwards when focused
+                  fontSize: "0.75rem", // Smaller font size for the label when focused
+                },
+                "& .MuiInputLabel-root.Mui-shrink, .MuiInputLabel-root": {
+                  color: email ? "#e8e0c6" : "gray", // Change color based on value (email)
+                  transform: email ? "translate(0, -20px)" : "translate(10px, 15px)", // Adjust label position when empty
+                  fontSize: email ? "0.75rem" : "1rem", // Maintain smaller font size
+                },  "& .MuiInputLabel-asterisk": {
+                  display: "none", // Hide the asterisk that shows up with required
+                }
+              }}
               InputProps={{
                 endAdornment: (
                   <InputAdornment position="end">
@@ -212,7 +255,7 @@ export default function SignIn() {
                     onChange={(e) => setRememberMe(e.target.checked)}
                     sx={{
                       color: "#fff",
-                      "&.Mui-checked": { color: "#000000a4" },
+                      "&.Mui-checked": { color: "#e8e0c6" },
                       "& .MuiSvgIcon-root": { fontSize: 28 },
                     }}
                   />
