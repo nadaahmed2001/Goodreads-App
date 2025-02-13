@@ -16,7 +16,8 @@ const GlobalStyles = createGlobalStyle`
      --bg-white:#fff;
      --chat-btn: #59461b;
    --chat-btn-hover:rgb(151, 136, 102);
-   
+    --bg-white: #fff;
+     --border-botom: #59461b;
 
   --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04);
   --shadow-md: 0px 0.6rem 2.4rem rgba(0, 0, 0, 0.06);
@@ -48,6 +49,8 @@ const GlobalStyles = createGlobalStyle`
     --bg-white:#18212f;
     --chat-btn:#18212f;
     --chat-btn-hover:#;
+     --border-botom: #fff;
+ 
 
 --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
 --shadow-md: 0px 0.6rem 2.4rem rgba(0, 0, 0, 0.3);

@@ -500,7 +500,8 @@ const StyledNavbar = styled(BSNavbar)`
     0 2px 6px rgb(255 255 255 / 45%),
     0 8px 24px rgb(255 255 255 / 24%);
   transition: all 0.3s ease;
-
+  position: relative;
+  z-index: 1001;
   .navbar-brand img {
     max-height: 80px;
   }

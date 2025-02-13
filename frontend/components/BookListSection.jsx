@@ -7,7 +7,7 @@ import { fadeIn } from "../src/utils/motion";
 
 const SectionContainer = styled.div`
   max-width: 1200px;
-  margin: 50px auto;
+  margin: 50px auto 0px auto;
   padding: 20px;
 `;
 

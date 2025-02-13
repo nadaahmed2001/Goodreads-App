@@ -15,6 +15,80 @@ import ReviewList from "../../../components/ReviewList";
 import FooterPage from "../Footer/FooterPage";
 import DemoSection from "../../../components/DemoSection";
 import { AuthContext } from "../../AuthContext";
+import StartCanvas from "../../../components/canvas/Stars";
+import styled from "styled-components";
+
+const PageContainer = styled.div`
+  position: relative;
+  z-index: 1000;
+  background-color: var(--bg-beige) !important;
+  color: var(--text-brown) !important;
+`;
+const MainContent = styled.div`
+  max-width: 1200px;
+  margin: 0px auto;
+  padding: 50px;
+  color: var(--text-brown) !important;
+`;
+
+const FlexRow = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding: 1rem;
+`;
+
+const FlexCol = styled.div`
+  flex: ${({ flexBasis }) => flexBasis || "1"};
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: ${({ align }) => align || "flex-start"};
+`;
+
+const ImageStyled = styled.img`
+  width: 250px;
+  max-width: 100%;
+  height: auto;
+  aspect-ratio: 2/3;
+  object-fit: cover;
+  border-radius: 10px;
+`;
+
+const DetailsContainer = styled.div`
+  padding-left: 1rem;
+  flex: 1;
+`;
+
+const Title = styled.h1`
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  color: var(--text-brown) !important;
+`;
+
+const SubText = styled.h4`
+  font-size: 1rem;
+  color: var(--text-brown) !important;
+  margin-bottom: 0.5rem;
+`;
+
+const Description = styled.p`
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+`;
+
+const Divider = styled.hr`
+  margin: 2rem 0;
+  border: none;
+  border-top: 1px solid var(--text-brown);
+`;
+
+const ActionsContainer = styled.div`
+  background-color: var(--bg-beige) !important;
+  color: var(--text-brown) !important;
+`;
 
 const BookDetails = () => {
   const { user } = useContext(AuthContext);
@@ -107,49 +181,38 @@ const BookDetails = () => {
   return (
     <>
       <Navbar />
-      <Container fluid='lg' className='my-5'>
-        <Row className='g-4 p-3'>
-          <Col xs={12} md={6} lg={4} className='d-flex justify-content-center'>
-            <img
-              src={book.coverImage}
-              alt={book.title}
-              className='img-fluid rounded-4 shadow'
-              style={{
-                width: "250px",
-                maxWidth: "100%",
-                height: "auto",
-                aspectRatio: "2/3",
-                objectFit: "cover",
-              }}
-            />
-          </Col>
-          <Col xs={12} md={6} lg={8}>
-            <div className='ps-lg-4'>
-              <h1 className='display-5 display-md-4 fw-bold mb-3'>
-                {book.title}
-              </h1>
-              <div className='d-flex flex-wrap align-items-center gap-3 mb-4'>
+      <PageContainer>
+        <StartCanvas />
+        <MainContent fluid='lg'>
+          <FlexRow className='g-4 p-3'>
+            <FlexCol flexBasis='auto' align='center'>
+              <ImageStyled src={book.coverImage} alt={book.title} />
+            </FlexCol>
+            <FlexCol flexBasis='2'>
+              <Title>{book.title}</Title>
+              <FlexRow
+                style={{
+                  alignItems: "center",
+                  gap: "0.5rem",
+                  paddingLeft: "0px",
+                }}
+              >
                 <StarRating
-                  className='mb-2 mb-md-0'
                   maxRating={5}
                   size={24}
                   defaultRating={computedAverageRating}
                   isReadOnly={true}
                 />
-                <span className='fs-6 text-muted mt-1'>
+                <span
+                  style={{ fontSize: "0.9rem", color: "var(--text-muted)" }}
+                >
                   {Number(computedAverageRating).toFixed(1)}/5
                 </span>
-              </div>
-              <div className='mb-4'>
-                <h4 className='h5 text-muted mb-2'>
-                  Category: {book.category.name}
-                </h4>
-                <h4 className='h5 text-muted'>By: {book.author?.name}</h4>
-              </div>
-              <hr className='my-4' />
-              <p className='lead text-secondary mb-4'>
-                {book.description || `Lorem ipsum...`}
-              </p>
+              </FlexRow>
+              <SubText>Category: {book.category.name}</SubText>
+              <SubText>By: {book.author?.name}</SubText>
+              <Divider />
+              <Description>{book.description || "Lorem ipsum..."}</Description>
               <Stack direction='horizontal' className='flex-wrap gap-3 mt-4'>
                 {user && (
                   <>
@@ -180,50 +243,43 @@ const BookDetails = () => {
                   </>
                 )}
               </Stack>
-            </div>
-          </Col>
-        </Row>
+            </FlexCol>
+          </FlexRow>
 
-        <Row className='g-2 p-1'>
-          <Col
-            xs={12}
-            md={12}
-            lg={12}
-            className='d-flex justify-content-center flex-column'
-          >
-            {user && (
-              <>
-                <hr className='my-5' />
-                <h3 className='h2 mb-2 c-main m-auto'>Demo </h3>
-                <DemoSection
-                  demoText={book.demo}
-                  bookId={book._id}
-                  token={token}
-                />
-              </>
-            )}
-          </Col>
-        </Row>
-        <hr className='my-5' />
+          {user && (
+            <>
+              <Divider />
+              <Title style={{ textAlign: "center" }}>Demo</Title>
+              <DemoSection
+                demoText={book.demo}
+                bookId={book._id}
+                token={token}
+              />
+            </>
+          )}
 
-        <Row>
-          <Col xs={12}>
-            <ReviewList
-              reviews={reviews}
-              visibleReviews={visibleReviews}
-              setVisibleReviews={setVisibleReviews}
-              setShowModal={setShowModal}
-            />
-          </Col>
-        </Row>
-        <ReviewForm
-          showModal={showModal}
-          setShowModal={setShowModal}
-          newReview={newReview}
-          setNewReview={setNewReview}
-          handleAddReview={handleAddReview}
-        />
-      </Container>
+          <Divider />
+
+          <FlexRow>
+            <Col xs={12}>
+              <ReviewList
+                reviews={reviews}
+                visibleReviews={visibleReviews}
+                setVisibleReviews={setVisibleReviews}
+                setShowModal={setShowModal}
+              />
+            </Col>
+          </FlexRow>
+
+          <ReviewForm
+            showModal={showModal}
+            setShowModal={setShowModal}
+            newReview={newReview}
+            setNewReview={setNewReview}
+            handleAddReview={handleAddReview}
+          />
+        </MainContent>
+      </PageContainer>
       <FooterPage />
     </>
   );

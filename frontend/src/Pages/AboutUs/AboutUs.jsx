@@ -4,6 +4,7 @@ import Navbar from "../../../components/navbar";
 import FooterPage from "../Footer/FooterPage";
 import "animate.css";
 import StartCanvas from "../../../components/canvas/Stars";
+import { Tilt } from "react-tilt";
 
 const ParentContainer = styled.div`
   background-color: var(--bg-beige) !important;
@@ -197,7 +198,9 @@ const AboutUs = () => {
           <TeamSection>
             <TeamMember className='animate__animated animate__backInLeft animate__delay-2s'>
               <MemberImageWrapper>
-                <img src='../../../mano.png' alt='Mano' />
+                <Tilt options={{ scale: 1.05, glare: false }}>
+                  <img src='../../../mano.png' alt='mano' />
+                </Tilt>
               </MemberImageWrapper>
               <MemberInfoPrimary>
                 <p>
@@ -218,13 +221,17 @@ const AboutUs = () => {
                 </p>
               </MemberInfoPrimary>
               <MemberImageWrapper>
-                <img src='../../../hosam.png' alt='Hosam' />
+                <Tilt options={{ scale: 1.05, glare: false }}>
+                  <img src='../../../hosam.png' alt='hosam' />
+                </Tilt>
               </MemberImageWrapper>
             </TeamMember>
 
             <TeamMember className='animate__animated animate__backInLeft animate__delay-4s'>
               <MemberImageWrapper>
-                <img src='../../../fatma.png' alt='Fatma' />
+                <Tilt options={{ scale: 1.05, glare: false }}>
+                  <img src='../../../fatma.png' alt='fatma' />
+                </Tilt>
               </MemberImageWrapper>
               <MemberInfoPrimary>
                 <p>
@@ -238,7 +245,9 @@ const AboutUs = () => {
 
             <TeamMember className='animate__animated animate__backInRight animate__delay-5s reverse'>
               <MemberImageWrapper>
-                <img src='../../../rahma.png' alt='Rahma' />
+                <Tilt options={{ scale: 1.05, glare: false }}>
+                  <img src='../../../rahma.png' alt='rahma' />
+                </Tilt>
               </MemberImageWrapper>
               <MemberInfoSecondary>
                 <p>
@@ -252,7 +261,9 @@ const AboutUs = () => {
 
             <TeamMember className='animate__animated animate__backInLeft animate__delay-6s'>
               <MemberImageWrapper>
-                <img src='../../../nada.jpeg' alt='Nada' />
+                <Tilt options={{ scale: 1.05, glare: false }}>
+                  <img src='../../../nada.jpeg' alt='fatma' />
+                </Tilt>
               </MemberImageWrapper>
               <MemberInfoSecondary>
                 <p>
