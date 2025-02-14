@@ -578,7 +578,7 @@ const Navbar = () => {
         <Container fluid className='navbar-container'>
           {/* Logo - Left Side */}
           <BSNavbar.Brand as={Link} to='/' className='logo-container'>
-            <img src='/newLogo.png' alt='logo' className='logo-img' />
+            <img src='../src/assets/logo latest.png' alt='logo' className='logo-img' />
           </BSNavbar.Brand>
 
           <Form
