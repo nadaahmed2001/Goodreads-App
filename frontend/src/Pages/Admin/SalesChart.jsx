@@ -13,10 +13,6 @@ import {
 } from "recharts";
 import Sidebar from "./Sidebar";
 import "./Books.css";
-import { AuthContext } from "../../AuthContext";
-import { useContext } from "react";
-import Denied from "../Profile/Denied";
-import DeniedA from "../Profile/DeniedA";
 
 const data2 = [
     { name: "Books", value: 400 },
@@ -36,15 +32,6 @@ const data = [
 ];
 
 const SalesChart = () => {
-        const { user, role } = useContext(AuthContext); // Get user and role from context
-            if (!user) {
-                return <Denied />; // Show access denied if no user is logged in
-            }
-        
-            if (role !== "admin") {
-                return <DeniedA />; // Show a different access denied message for non-admin users
-            }
-    
     return (
         <>
             <div className="d-flex">
