@@ -25,7 +25,7 @@ const login = (req, res) => {
             );
             res.json({ message: "success", token });
           } else {
-            res.status(403).json({ message: `You Are Not : ${role}`  });
+            res.status(403).json({ message: `You Are Not : ${role}` });
           }
         } else {
           res.status(401).json({ message: "Incorrect password" });
@@ -34,7 +34,7 @@ const login = (req, res) => {
         res.status(404).json({ message: "User not found" });
       }
     })
-    .catch((err) => res.status(500).json({ error: err.message }));
+    .catch((err) => res.status(500));
 };
 
 const generateOTP = () => {
@@ -102,7 +102,7 @@ const verifyOTP = async (req, res) => {
     // Find OTP record
     const otpRecord = await OTPModel.findOne({ email, otp });
 
-    if (!otpRecord ) {
+    if (!otpRecord) {
       return res.status(400).json({ message: "Invalid OTP" });
     }
 
@@ -120,7 +120,7 @@ const verifyOTP = async (req, res) => {
       last_name: req.body.last_name,
       email,
       password: req.body.password, // In production, hash this password
-      role: "user", 
+      role: "user",
       created_at: new Date(),
     });
 
@@ -148,7 +148,6 @@ const cleanExpiredOTPs = async () => {
 setInterval(cleanExpiredOTPs, 10 * 60 * 1000);
 ///////////////////////////////////////////////////////////////// ForgotPassword ////////////////////////
 
-
 const forgotPassword = async (req, res) => {
   const { email } = req.body;
 
@@ -172,12 +171,13 @@ const forgotPassword = async (req, res) => {
     const resetLink = `https://goodreads-app.vercel.app/reset-password?token=${resetToken}&email=${email}`;
     sendResetEmail(email, resetLink);
 
-    res.status(200).json({ message: "Password reset email sent", token: resetToken }); // Include token for testing
+    res
+      .status(200)
+      .json({ message: "Password reset email sent", token: resetToken }); // Include token for testing
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 };
-
 
 const sendResetEmail = (userEmail, resetLink) => {
   const transporter = nodemailer.createTransport({
@@ -219,7 +219,6 @@ const resetPassword = async (req, res) => {
       return res.status(400).json({ message: "Token expired" });
     }
 
-
     if (token !== user.resetPasswordToken) {
       return res.status(400).json({ message: "Invalid token" });
     }
@@ -229,7 +228,7 @@ const resetPassword = async (req, res) => {
     // Clear the reset token fields
     user.resetPasswordToken = undefined;
     user.resetPasswordExpires = undefined;
-    
+
     await user.save();
 
     res.status(200).json({ message: "Password reset successfully" });
@@ -237,7 +236,6 @@ const resetPassword = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
-
 
 module.exports = {
   login,
